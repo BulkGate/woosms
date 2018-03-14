@@ -115,7 +115,6 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
 
                     if($result->getNumRows())
                     {
-
                         $qty = $result->getRow()->qty;
                         $product_id = $result->getRow()->product_id;
                         $meta = get_post_meta($product_id, '_sale_price');
@@ -245,10 +244,7 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
 
     public function shop(Variables $variables)
     {
-        /** @var \wpdb $wpdb */
-        global $wpdb;
-
-        $result = $this->db->execute("SELECT * FROM `$wpdb->options` WHERE `option_name` IN ('blogname','admin_email','siteurl','woocommerce_currency')");
+        $result = $this->db->execute("SELECT * FROM `".$this->db->prefix()."options` WHERE `option_name` IN ('blogname','admin_email','siteurl','woocommerce_currency')");
 
         if ($result->getNumRows() > 0)
         {

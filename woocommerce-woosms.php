@@ -3,7 +3,7 @@
   Plugin Name: WooCommerce WooSMS - BulkGate.com module
   Plugin URI: http://www.woo-sms.net/
   Description: Woo SMS is a comprehensive and powerful module that enables you to send SMSs to your customers or administrators during various events in your WooCommerce store. <a href="http://www.woothemes.com/woocommerce/"><strong>| This module needs WooCommerce module |</strong></a>
-  Version: 2.00 alfa
+  Version: 2.00 beta
   Author: TOPefekt s.r.o. - BulkGate team
   Author URI: http://www.bulkgate.com/
  */
@@ -13,20 +13,18 @@
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Extensions, BulkGate\WooSms;
+use BulkGate\Extensions;
 
 if (!defined('ABSPATH'))
 {
     exit;
 }
 
-if(file_exists(__DIR__.'/../../../Tracy/tracy.php'))
+define("WOOSMS_DIR", basename(__DIR__));
+
+if(file_exists(__DIR__.'/extensions/src/debug.php'))
 {
-    error_reporting(1);
-    require_once __DIR__.'/../../../Tracy/tracy.php';
-    Tracy\Debugger::$strictMode = true;
-    Tracy\Debugger::$maxDepth = 10;
-    Tracy\Debugger::enable();
+    require_once __DIR__.'/extensions/src/debug.php';
 }
 
 /**
@@ -44,8 +42,13 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     /**
      * Init woosms
      */
-    require_once(__DIR__.'/woosms/init.php');
+    require_once(__DIR__.'/woosms/src/init.php');
 
+    function woosms_version()
+    {
+        $plugin_data = get_plugin_data(__FILE__);
+        return isset($plugin_data['Version']) ? $plugin_data['Version'] : 'unknown';
+    }
 
     /**
      * Connect woosms actions for customers and admin SMS
@@ -116,34 +119,6 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
-    /**
-     * Woosms install script
-     */
-    function woosms_activate()
-    {
-        /** @var Extensions\Settings $woo_sms_settings */
-        global $woo_sms_settings;
-
-        $woo_sms_settings->install();
-    }
-
-    /**
-     * Woosms uninstall script
-     */
-    function woosms_deactivate()
-    {
-        /**
-         * @var WooSms\Database $woo_sms_database
-         * @var \BulkGate\Extensions\Settings $woo_sms_settings
-         */
-        global $woo_sms_database, $woo_sms_settings;
-
-        if ($woo_sms_settings->load('main:delete_db'))
-        {
-            $woo_sms_database->execute("DROP TABLE IF EXISTS `" . $woo_sms_database->prefix() . "bulkgate_module`");
-        }
-    }
-
     function woosms_synchronize($now = false)
     {
         /**
@@ -167,10 +142,26 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     }
 
     /**
-     * Register install & uninstall scripts
+     * Register install scripts
      */
-    register_activation_hook(__FILE__, 'woosms_activate');
-    register_deactivation_hook(__FILE__, 'woosms_deactivate');
+    register_activation_hook(__FILE__, function ()
+    {
+        /** @var Extensions\Settings $woo_sms_settings */
+        global $woo_sms_settings;
+
+        $woo_sms_settings->install();
+    });
+
+    /**
+     * Register uninstall scripts
+     */
+    register_deactivation_hook(__FILE__, function ()
+    {
+        /** @var Extensions\Settings $woo_sms_settings */
+        global $woo_sms_settings;
+
+        $woo_sms_settings->uninstall();
+    });
 
 }
 else

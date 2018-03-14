@@ -69,7 +69,7 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
             ". ($limit !== null ? "LIMIT $limit" : ""). "")->getRows();
     }
 
-    public function filter(array $filters)
+    private function filter(array $filters)
     {
         $customers = array(); $filtered = false;
 

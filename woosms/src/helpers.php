@@ -137,3 +137,24 @@ function woosms_ajax_url()
     return network_home_url().'/wp-admin/admin-ajax.php';
 }
 
+function woosms_add_settings_link($links, $file)
+{
+    /** @var Extensions\ISettings $woo_sms_settings */
+    global $woo_sms_settings;
+
+    if(basename(dirname($file)) === WOOSMS_DIR)
+    {
+        if($woo_sms_settings->load('static:application_token', false))
+        {
+            $settings_link = '<a href="'.Extensions\Escape::url(admin_url("admin.php?page=woosms_modulesettings_default")).'">'.Extensions\Escape::html(esc_html__('Settings')).'</a>';
+        }
+        else
+        {
+            $settings_link = '<a href="'.Extensions\Escape::url(admin_url("admin.php?page=woosms_sign_in")).'">'.Extensions\Escape::html(esc_html__('Log In')).'</a>';
+        }
+        array_unshift($links, $settings_link);
+    }
+
+    return $links;
+}
+

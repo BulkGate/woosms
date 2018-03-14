@@ -26,7 +26,7 @@ if(is_plugin_active('woocommerce-woosms/woocommerce-woosms.php'))
      * @var Extensions\Translator $woo_sms_translator
      * @var Extensions\Synchronize $woo_sms_synchronize
      */
-    require_once(__DIR__.'/woosms/init.php');
+    require_once(__DIR__.'/woosms/src/init.php');
 
     try
     {
