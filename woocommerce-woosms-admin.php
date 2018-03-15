@@ -1,5 +1,5 @@
 <?php
-use BulkGate\Extensions, BulkGate\Extensions\Escape, BulkGate\Extensions\JsonResponse;
+use BulkGate\Extensions, BulkGate\Extensions\Escape, BulkGate\Extensions\JsonResponse, BulkGate\WooSms;
 
 /**
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
@@ -13,8 +13,10 @@ if (!defined('ABSPATH'))
 
 add_action('admin_menu', function ()
 {
-    /** @var Extensions\IModule $woo_sms_module */
-    global $woo_sms_module;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $woo_sms_module = $woo_sms_di->getModule();
 
     define_menu(defined('SMS_DEMO') ? 'read' : 'manage_options');
     add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
@@ -26,18 +28,18 @@ add_action('admin_menu', function ()
 
 add_action('wp_ajax_authenticate', function ()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_proxy_actions->authenticate());
+    JsonResponse::send($woo_sms_di->getProxy()->authenticate());
 });
 
 add_action('wp_ajax_register', function ()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    $response = $woo_sms_proxy_actions->register(array_merge(array("name" => get_bloginfo('name')), $_POST['__bulkgate']));
+    $response = $woo_sms_di->getProxy()->register(array_merge(array("name" => get_bloginfo('name')), $_POST['__bulkgate']));
 
     if($response instanceof Extensions\IO\Response)
     {
@@ -62,28 +64,28 @@ add_action('wp_ajax_login', function ()
 
 add_action('wp_ajax_save_customer_notifications', function ()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_proxy_actions->saveCustomerNotifications($_POST['__bulkgate']));
+    JsonResponse::send($woo_sms_di->getProxy()->saveCustomerNotifications($_POST['__bulkgate']));
 });
 
 add_action('wp_ajax_save_admin_notifications', function ()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_proxy_actions->saveAdminNotifications($_POST['__bulkgate']));
+    JsonResponse::send($woo_sms_di->getProxy()->saveAdminNotifications($_POST['__bulkgate']));
 });
 
 add_action('wp_ajax_save_module_settings', function()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
     if(isset($_POST['__bulkgate']))
     {
-        $woo_sms_proxy_actions->saveSettings($_POST['__bulkgate']);
+        $woo_sms_di->getProxy()->saveSettings($_POST['__bulkgate']);
     }
 
     JsonResponse::send(array('redirect' => admin_url("admin.php?page=woosms_modulesettings_default")));
@@ -91,18 +93,20 @@ add_action('wp_ajax_save_module_settings', function()
 
 add_action('wp_ajax_logout_module', function()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    $woo_sms_proxy_actions->logout();
+    $woo_sms_di->getProxy()->logout();
 
     JsonResponse::send(array('token' => 'guest', 'redirect' => admin_url("admin.php?page=woosms_sign_in")));
 });
 
 function define_menu($capabilities = 'manage_options')
 {
-    /** @var BulkGate\Extensions\ISettings $woo_sms_settings */
-    global $wp_version, $woo_sms_settings;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $wp_version, $woo_sms_di;
+
+    $woo_sms_settings = $woo_sms_di->getSettings();
 
     $menu = $woo_sms_settings->load("menu:");
 
@@ -135,11 +139,11 @@ function define_menu($capabilities = 'manage_options')
 
 function woosms_page($presenter, $action, $title, $box, $params = array())
 {
-    /**
-     * @var Extensions\IModule $woo_sms_module
-     * @var Extensions\ISettings $woo_sms_settings
-     */
-    global $woo_sms_module, $woo_sms_settings;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $woo_sms_module = $woo_sms_di->getModule();
+    $woo_sms_settings = $woo_sms_di->getSettings();
 
     echo '
         <div id="woo-sms">

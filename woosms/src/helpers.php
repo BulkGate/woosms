@@ -9,10 +9,10 @@ use BulkGate\Extensions, BulkGate\WooSms;
 
 function woosms_translate($key, $default = null)
 {
-    /** @var BulkGate\Extensions\Translator $woo_sms_translator */
-    global $woo_sms_translator;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    return $woo_sms_translator->translate($key, $default);
+    return $woo_sms_di->getTranslator()->translate($key, $default);
 }
 
 function woosms_get_order_meta_array($id)
@@ -81,21 +81,16 @@ function woosms_get_lang_iso()
 
 function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
 {
-    /**
-     * @var WooSms\Database $woo_sms_database
-     * @var Extensions\IO\IConnection $woo_sms_connection
-     * @var Extensions\Settings $woo_sms_settings
-     * @var Extensions\IModule $woo_sms_module
-     */
-    global $woo_sms_database, $woo_sms_connection, $woo_sms_settings, $woo_sms_module;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
     $hook = new Extensions\Hook\Hook(
-        $woo_sms_module->getUrl('/module/hook'),
+        $woo_sms_di->getModule()->getUrl('/module/hook'),
         woosms_get_lang_iso(),
         0 /* single store */,
-        $woo_sms_connection,
-        $woo_sms_settings,
-        new WooSms\HookLoad($woo_sms_database)
+        $woo_sms_di->getConnection(),
+        $woo_sms_di->getSettings(),
+        new WooSms\HookLoad($woo_sms_di->getDatabase())
     );
 
     try
@@ -139,12 +134,12 @@ function woosms_ajax_url()
 
 function woosms_add_settings_link($links, $file)
 {
-    /** @var Extensions\ISettings $woo_sms_settings */
-    global $woo_sms_settings;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
     if(basename(dirname($file)) === WOOSMS_DIR)
     {
-        if($woo_sms_settings->load('static:application_token', false))
+        if($woo_sms_di->getSettings()->load('static:application_token', false))
         {
             $settings_link = '<a href="'.Extensions\Escape::url(admin_url("admin.php?page=woosms_modulesettings_default")).'">'.Extensions\Escape::html(esc_html__('Settings')).'</a>';
         }

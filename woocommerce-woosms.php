@@ -13,7 +13,7 @@
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Extensions;
+use BulkGate\Extensions, BulkGate\WooSms;
 
 if (!defined('ABSPATH'))
 {
@@ -121,17 +121,16 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
 
     function woosms_synchronize($now = false)
     {
-        /**
-         * @var Extensions\IModule $woo_sms_module
-         * @var Extensions\Synchronize $woo_sms_synchronize
-         */
-        global $woo_sms_module, $woo_sms_synchronize;
+        /** @var WooSms\DIContainer $woo_sms_di */
+        global $woo_sms_di;
 
-        $now = $now || $woo_sms_module->statusLoad() || $woo_sms_module->languageLoad() || $woo_sms_module->storeLoad();
+        $module = $woo_sms_di->getModule();
+
+        $now = $now || $module->statusLoad() || $module->languageLoad() || $module->storeLoad();
 
         try
         {
-            $woo_sms_synchronize->run($woo_sms_module->getUrl('/module/settings/synchronize'), $now);
+            $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now);
 
             return true;
         }
@@ -146,10 +145,10 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
      */
     register_activation_hook(__FILE__, function ()
     {
-        /** @var Extensions\Settings $woo_sms_settings */
-        global $woo_sms_settings;
+        /** @var WooSms\DIContainer $woo_sms_di */
+        global $woo_sms_di;
 
-        $woo_sms_settings->install();
+        $woo_sms_di->getSettings()->install();
     });
 
     /**
@@ -157,10 +156,10 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
      */
     register_deactivation_hook(__FILE__, function ()
     {
-        /** @var Extensions\Settings $woo_sms_settings */
-        global $woo_sms_settings;
+        /** @var WooSms\DIContainer $woo_sms_di */
+        global $woo_sms_di;
 
-        $woo_sms_settings->uninstall();
+        $woo_sms_di->getSettings()->uninstall();
     });
 
 }
