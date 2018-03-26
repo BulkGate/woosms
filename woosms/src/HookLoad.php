@@ -28,7 +28,7 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
 
             $variables->set('customer_id', $row->post_author);
             $variables->set('customer_message', $row->post_excerpt);
-            $variables->set('product_ref', $row->_order_key);
+            $variables->set('order_ref', $row->_order_key);
 
             if(isset($row->_order_currency))
             {
