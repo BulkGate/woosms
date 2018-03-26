@@ -99,11 +99,12 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
 
             $result = $this->db->execute('SELECT `order_item_id` FROM `'.$this->db->prefix().'woocommerce_order_items` WHERE `order_item_type` = \'line_item\' AND `order_id` = \''.$this->db->escape($variables->get('order_id')).'\'');
 
+            $newOrder1_pre = $newOrder2_pre = $newOrder3_pre = $newOrder4_pre = $sms_printer1 = $sms_printer2 = array();
+
             if($result->getNumRows() > 0)
             {
-                $newOrder1_pre = $newOrder2_pre = $newOrder3_pre = $newOrder4_pre = $sms_printer1 = $sms_printer2 = array();
 
-                foreach($result->rows as $row)
+                foreach($result as $row)
                 {
                     $order_item_id = $row->order_item_id;
 
@@ -150,21 +151,20 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
                         }
                     }
                 }
-
-                $variables->set('order_products1', implode('; ', $newOrder1_pre));
-                $variables->set('order_products2', implode('; ', $newOrder2_pre));
-                $variables->set('order_products3', implode('; ', $newOrder3_pre));
-                $variables->set('order_products4', implode('; ', $newOrder4_pre));
-
-                $variables->set('order_products5', implode('\n', $newOrder1_pre));
-                $variables->set('order_products6', implode('\n', $newOrder2_pre));
-                $variables->set('order_products7', implode('\n', $newOrder3_pre));
-                $variables->set('order_products8', implode('\n', $newOrder4_pre));
-
-                $variables->set('order_smsprinter1', implode(';', $sms_printer1));
-                $variables->set('order_smsprinter2', implode(';', $sms_printer2));
-
             }
+
+            $variables->set('order_products1', implode('; ', $newOrder1_pre));
+            $variables->set('order_products2', implode('; ', $newOrder2_pre));
+            $variables->set('order_products3', implode('; ', $newOrder3_pre));
+            $variables->set('order_products4', implode('; ', $newOrder4_pre));
+
+            $variables->set('order_products5', implode('\n', $newOrder1_pre));
+            $variables->set('order_products6', implode('\n', $newOrder2_pre));
+            $variables->set('order_products7', implode('\n', $newOrder3_pre));
+            $variables->set('order_products8', implode('\n', $newOrder4_pre));
+
+            $variables->set('order_smsprinter1', implode(';', $sms_printer1));
+            $variables->set('order_smsprinter2', implode(';', $sms_printer2));
         }
     }
 
@@ -280,6 +280,11 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
             $hook = new HookExtension();
             $hook->extend($this->db, $variables);
         }
+    }
+
+    public function product(Variables $variables)
+    {
+        // TODO
     }
 
     public function load(BulkGate\Extensions\Hook\Variables $variables)

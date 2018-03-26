@@ -90,8 +90,8 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     {
         $order = new WC_Order($order_id);
 
-        woosms_run_hook('order_status_change_'.$order->post_status, new Extensions\Hook\Variables(array(
-            'order_status_id' => woosms_isset($order, 'post_status'),
+        woosms_run_hook('order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(array(
+            'order_status_id' => $order->get_status(),
             'order_id' => $order_id
         )));
     }

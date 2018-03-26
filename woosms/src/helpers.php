@@ -124,7 +124,7 @@ function woosms_load_languages()
             $output[$lang] = $lang;
         }
     }
-    return $output;
+    return count($output) === 0 ? array(woosms_get_lang_iso() => 'Default') : $output;
 }
 
 function woosms_ajax_url()

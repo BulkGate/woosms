@@ -2,16 +2,14 @@
 namespace BulkGate\WooSms;
 
 use BulkGate\Extensions;
-use BulkGate\Extensions\Hook;
-use BulkGate\Extensions\Database;
 
 /**
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class HookExtension extends Extensions\SmartObject implements Hook\IExtension
+class HookExtension extends Extensions\SmartObject implements Extensions\Hook\IExtension
 {
-    public function extend(Database\IDatabase $database, Hook\Variables $variables)
+    public function extend(Extensions\Database\IDatabase $database, Extensions\Hook\Variables $variables)
     {
         /** @example PSEUDO CODE
 

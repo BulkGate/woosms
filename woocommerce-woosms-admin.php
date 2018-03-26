@@ -50,10 +50,10 @@ add_action('wp_ajax_register', function ()
 
 add_action('wp_ajax_login', function ()
 {
-    /** @var Extensions\ProxyActions $woo_sms_proxy_actions */
-    global $woo_sms_proxy_actions;
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
 
-    $response = $woo_sms_proxy_actions->login(array_merge(array("name" => get_bloginfo('name')), $_POST['__bulkgate']));
+    $response =  $woo_sms_di->getProxy()->login(array_merge(array("name" => get_bloginfo('name')), $_POST['__bulkgate']));
 
     if($response instanceof Extensions\IO\Response)
     {
@@ -175,7 +175,6 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                         <p>'.woosms_translate('loading_content', 'Loading content').'</p>
                     </div>
                 </div>      
-                <div id="sms-campaign" class="active"></div>
                 <div id="react-language-footer"></div>
                 <script type="application/javascript">
                       var _bg_client_config = {
