@@ -12,6 +12,9 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
     /** @var Extensions\Database\IDatabase */
     private $db;
 
+    /** @var bool */
+    private $empty = false;
+
     public function __construct(Extensions\Database\IDatabase $db)
     {
         $this->db = $db;
@@ -22,7 +25,6 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
         $customers = array();
 
         $filtered_count = $total = (int) $this->db->execute("SELECT COUNT(`user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
-
         if(count($filter) > 0)
         {
             list($customers, $filtered) = $this->filter($filter);
@@ -66,7 +68,7 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
             ". (count($customers) > 0 ? "WHERE `user_id` IN ('".implode("','", $customers)."') " : "") . "
             GROUP BY `user_id`
             HAVING `phone_mobile` NOT LIKE '' 	
-            ". ($limit !== null ? "LIMIT $limit" : ""). "")->getRows();
+            ". ($limit !== null ? "LIMIT $limit" : ""))->getRows();
     }
 
     private function filter(array $filters)
@@ -75,7 +77,7 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
 
         foreach($filters as $key => $filter)
         {
-            if(isset($filter['values']) && count($filter['values']) > 0)
+            if(isset($filter['values']) && count($filter['values']) > 0 && !$this->empty)
             {
                 switch ($key)
                 {
@@ -85,6 +87,27 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
                     case 'last_name':
                         $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE `meta_key` IN ('last_name', 'billing_last_name', 'shipping_last_name') AND {$this->getSql($filter)}"), $customers);
                     break;
+                    case 'country':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE  `meta_key` IN ('shipping_country', 'billing_country') AND {$this->getSql($filter)}"), $customers);
+                    break;
+                    case 'city':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE `meta_key` IN ('billing_city', 'shipping_city') AND {$this->getSql($filter)}"), $customers);
+                    break;
+                    case 'order_amount':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, MAX(`meta_value`) AS `order` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
+                    break;
+                    case 'all_orders_amount':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, SUM(`meta_value`) AS `order` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
+                    break;
+                    case 'product':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->prefix()}woocommerce_order_items` INNER JOIN `{$this->db->prefix()}posts` ON `ID` = `order_id` WHERE {$this->getSql($filter, 'order_item_name')}"), $customers);
+                    break;
+                    case 'registration_date':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `ID` AS `user_id` FROM `{$this->db->prefix()}users` WHERE {$this->getSql($filter, 'user_registered')}"), $customers);
+                    break;
+                    case 'order_date':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->prefix()}posts` WHERE `post_type`='shop_order' AND {$this->getSql($filter, 'post_date')}"), $customers);
+                    break;
                 }
                 $filtered = true;
             }
@@ -93,7 +116,7 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
         return array(array_unique($customers), $filtered);
     }
 
-    private function getSql(array $filter)
+    private function getSql(array $filter, $key_value = 'meta_value')
     {
         $sql = array();
 
@@ -101,23 +124,42 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
         {
             foreach ($filter['values'] as $value)
             {
-                if(in_array($filter['type'], array('enum', 'string'), true))
+                if(in_array($filter['type'], array('enum', 'string', 'float'), true))
                 {
-                    $sql[] = "`meta_value` {$this->getRelation($value[0])} '{$this->db->escape($value[1])}'";
+                    if($value[0] === 'prefix')
+                    {
+                        $sql[] = "`{$key_value}` LIKE '{$this->db->escape($value[1])}%'";
+                    }
+                    elseif($value[0] === 'sufix')
+                    {
+                        $sql[] = "`{$key_value}` LIKE '%{$this->db->escape($value[1])}'";
+                    }
+                    elseif($value[0] === 'substring')
+                    {
+                        $sql[] = "`{$key_value}` LIKE '%{$this->db->escape($value[1])}%'";
+                    }
+                    else
+                    {
+                        $sql[] = "`{$key_value}` {$this->getRelation($value[0])} '{$this->db->escape($value[1])}'";
+                    }
+                }
+                elseif($filter['type'] === "date-range")
+                {
+                    $sql[] = "`{$key_value}` BETWEEN '{$this->db->escape($value[1])}' AND '{$this->db->escape($value[2])}'";
                 }
             }
         }
 
-        return implode(' OR ', $sql);
+        return count($sql) > 0 ? implode(' OR ', $sql) : ' FALSE';
     }
 
     private function getRelation($relation)
     {
         $relation_list = array(
-            'is'  => '=',
-            'not' => '!=',
-            'gt'  => '>',
-            'lt'  => '<',
+            'is'    => '=',
+            'not'   => '!=',
+            'gt'    => '>',
+            'lt'    => '<'
         );
 
         return isset($relation_list[$relation]) ? $relation_list[$relation] : '=';
@@ -127,11 +169,18 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
     {
         $output = array();
 
-        foreach($result as $row)
+        if($result->getNumRows() > 0)
         {
-            $output[] = (int) $row->user_id;
+            foreach($result as $row)
+            {
+                $output[] = (int) $row->user_id;
+            }
+        }
+        else
+        {
+            $this->empty = true;
         }
 
-        return count($customers) > 0 ? array_intersect($customers, $output) : $output;
+        return $this->empty ? array() : count($customers) > 0 ? array_intersect($customers, $output) : $output;
     }
 }

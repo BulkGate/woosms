@@ -2,7 +2,7 @@
 /*
   Plugin Name: WooCommerce WooSMS - BulkGate.com module
   Plugin URI: http://www.woo-sms.net/
-  Description: Woo SMS is a comprehensive and powerful module that enables you to send SMSs to your customers or administrators during various events in your WooCommerce store. <a href="http://www.woothemes.com/woocommerce/"><strong>| This module needs WooCommerce module |</strong></a>
+  Description: Woo SMS is a comprehensive and powerful module that enables you to send SMSs to your customers or administrators during various events in your WooCommerce store. <a href="https://woocommerce.com/"><strong>| This module needs WooCommerce module |</strong></a>
   Version: 2.00 beta
   Author: TOPefekt s.r.o. - BulkGate team
   Author URI: http://www.bulkgate.com/
