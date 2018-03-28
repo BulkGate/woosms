@@ -145,8 +145,10 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
      */
     register_activation_hook(__FILE__, function ()
     {
-        /** @var WooSms\DIContainer $woo_sms_di */
-        global $woo_sms_di;
+        /** @var \wpdb $wpdb */
+        global $wpdb;
+
+        $woo_sms_di = new WooSms\DIContainer($wpdb);
 
         $woo_sms_di->getSettings()->install();
     });
