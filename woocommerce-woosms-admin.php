@@ -67,14 +67,7 @@ add_action('wp_ajax_load_module_data', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id']);
-
-    $campaign = $response->get('campaign::campaign');
-
-    $customers = $woo_sms_di->getCustomers();
-    $response->set('campaign::module_recipients', $customers->loadCount($campaign['filter_module'][$_POST['__bulkgate']['application_id']]));
-
-    JsonResponse::send($response);
+    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id']));
 });
 
 add_action('wp_ajax_save_module_customers', function ()
@@ -82,13 +75,7 @@ add_action('wp_ajax_save_module_customers', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id']);
-
-    $campaign = $response->get('campaign::campaign');
-
-    $customers = $woo_sms_di->getCustomers();
-
-    JsonResponse::send($woo_sms_di->getProxy()->saveModuleCustomers($_POST['__bulkgate']['campaign_id'], $customers->load($campaign['filter_module'][$_POST['__bulkgate']['application_id']])));
+    JsonResponse::send($woo_sms_di->getProxy()->saveModuleCustomers($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id']));
 });
 
 add_action('wp_ajax_add_module_filter', function ()
@@ -96,14 +83,7 @@ add_action('wp_ajax_add_module_filter', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id'], 'addFilter', $_POST['__bulkgate']);
-
-    $campaign = $response->get('campaign::campaign');
-
-    $customers = $woo_sms_di->getCustomers();
-    $response->set('campaign::module_recipients', $customers->loadCount($campaign['filter_module'][$_POST['__bulkgate']['application_id']]));
-
-    JsonResponse::send($response);
+    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id'], 'addFilter', $_POST['__bulkgate']));
 });
 
 add_action('wp_ajax_remove_module_filter', function ()
@@ -111,14 +91,7 @@ add_action('wp_ajax_remove_module_filter', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id'], 'removeFilter', $_POST['__bulkgate']);
-
-    $campaign = $response->get('campaign::campaign');
-
-    $customers = $woo_sms_di->getCustomers();
-    $response->set('campaign::module_recipients', $customers->loadCount($campaign['filter_module'][$_POST['__bulkgate']['application_id']]));
-
-    JsonResponse::send($response);
+    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id'], 'removeFilter', $_POST['__bulkgate']));
 });
 
 add_action('wp_ajax_save_customer_notifications', function ()
