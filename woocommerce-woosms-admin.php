@@ -62,6 +62,65 @@ add_action('wp_ajax_login', function ()
     JsonResponse::send(array('token' => $response, 'redirect' => admin_url("admin.php?page=woosms_dashboard_default")));
 });
 
+add_action('wp_ajax_load_module_data', function ()
+{
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id']);
+
+    $campaign = $response->get('campaign::campaign');
+
+    $customers = $woo_sms_di->getCustomers();
+    $response->set('campaign::module_recipients', $customers->loadCount($campaign['filter_module'][$_POST['__bulkgate']['application_id']]));
+
+    JsonResponse::send($response);
+});
+
+add_action('wp_ajax_save_module_customers', function ()
+{
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id']);
+
+    $campaign = $response->get('campaign::campaign');
+
+    $customers = $woo_sms_di->getCustomers();
+
+    JsonResponse::send($woo_sms_di->getProxy()->saveModuleCustomers($_POST['__bulkgate']['campaign_id'], $customers->load($campaign['filter_module'][$_POST['__bulkgate']['application_id']])));
+});
+
+add_action('wp_ajax_add_module_filter', function ()
+{
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id'], 'addFilter', $_POST['__bulkgate']);
+
+    $campaign = $response->get('campaign::campaign');
+
+    $customers = $woo_sms_di->getCustomers();
+    $response->set('campaign::module_recipients', $customers->loadCount($campaign['filter_module'][$_POST['__bulkgate']['application_id']]));
+
+    JsonResponse::send($response);
+});
+
+add_action('wp_ajax_remove_module_filter', function ()
+{
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $response = $woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['campaign_id'], 'removeFilter', $_POST['__bulkgate']);
+
+    $campaign = $response->get('campaign::campaign');
+
+    $customers = $woo_sms_di->getCustomers();
+    $response->set('campaign::module_recipients', $customers->loadCount($campaign['filter_module'][$_POST['__bulkgate']['application_id']]));
+
+    JsonResponse::send($response);
+});
+
 add_action('wp_ajax_save_customer_notifications', function ()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
@@ -265,6 +324,27 @@ function woosms_get_proxy_links($presenter, $action)
                     'url' => woosms_ajax_url(),
                     'params' => array('action' => 'logout_module')
             )));
+	    break;
+        case 'SmsCampaign:campaign':
+	    	return array('campaign' => array(
+                'loadModuleData' => array(
+                    'url' => woosms_ajax_url(),
+                    'params' => array('action' => 'load_module_data')
+                ),
+                'saveModuleCustomers' => array(
+                    'url' => woosms_ajax_url(),
+                    'params' => array('action' => 'save_module_customers')
+                ),
+                'addModuleFilter' => array(
+                    'url' => woosms_ajax_url(),
+                    'params' => array('action' => 'add_module_filter')
+                ),
+                'removeModuleFilter' => array(
+                    'url' => woosms_ajax_url(),
+                    'params' => array('action' => 'remove_module_filter')
+                )
+            ));
+        break;
         default:
             return array();
     }

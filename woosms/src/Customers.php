@@ -24,14 +24,14 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
     {
         $customers = array();
 
-        $filtered_count = $total = (int) $this->db->execute("SELECT COUNT(`user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
+        $filtered_count = $total = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
         if(count($filter) > 0)
         {
             list($customers, $filtered) = $this->filter($filter);
 
             if($filtered)
             {
-                $filtered_count = (int) $this->db->execute("SELECT COUNT(`user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE `user_id` IN ('".implode("','", $customers)."') AND `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
+                $filtered_count = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE `user_id` IN ('".implode("','", $customers)."') AND `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
             }
         }
 

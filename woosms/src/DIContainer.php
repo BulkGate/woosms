@@ -8,6 +8,7 @@ use BulkGate, BulkGate\Extensions;
  * @link https://www.bulkgate.com/
  * @method Database getDatabase()
  * @method WooSMS getModule()
+ * @method Customers getCustomers()
  */
 class DIContainer extends Extensions\DIContainer
 {
@@ -35,5 +36,14 @@ class DIContainer extends Extensions\DIContainer
     protected function createModule()
     {
         return new WooSMS($this->getService('settings'));
+    }
+
+
+    /**
+     * @return Customers
+     */
+    protected function createCustomers()
+    {
+        return new Customers($this->getService('database'));
     }
 }
