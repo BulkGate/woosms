@@ -94,10 +94,10 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
                         $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE `meta_key` IN ('billing_city', 'shipping_city') AND {$this->getSql($filter)}"), $customers);
                     break;
                     case 'order_amount':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, MAX(`meta_value`) AS `order` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, MAX(`meta_value`) AS `meta_value` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
                     break;
                     case 'all_orders_amount':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, SUM(`meta_value`) AS `order` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, SUM(`meta_value`) AS `meta_value` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
                     break;
                     case 'product':
                         $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->prefix()}woocommerce_order_items` INNER JOIN `{$this->db->prefix()}posts` ON `ID` = `order_id` WHERE {$this->getSql($filter, 'order_item_name')}"), $customers);

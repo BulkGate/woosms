@@ -22,7 +22,7 @@ class WooSMS extends SmartObject implements IModule
         'url' => 'http://www.woo-sms.net',
         'developer' => 'TOPefekt s.r.o.',
         'developer_url' => 'http://www.topefekt.com/',
-        'description' => 'WooSMS is a comprehensive and powerful module that enables you to send SMSs to your customers or administrators during various events in your WooCommerce store. Improve customer service & notify customers via SMS to establish greater levels of trust. Deepen the relationship with your customers and build a stronger customer loyalty with the help of SMS marketing. Loyal customers tend to buy more & more regularly. And they will frequently recommend your e-shop to others. More customers = higher sales...! Give administrators the advantage of immediate access to information via SMS messages, whether they are at a computer or not. With Woo SMS module you can send SMSs worldwide. The price of the SMS depends on the recipient country, selected sender type and the payment amount. Our prices are among the lowest in the market.',
+        'description' => 'WooSMS module extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',
     );
 
     /** @var ISettings */
