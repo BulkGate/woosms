@@ -8,7 +8,7 @@ use BulkGate\Extensions\Hook\Variables;
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Extensions\Hook\ILoad
+class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions\Hook\ILoad
 {
     /** @var Database */
     private $db;
@@ -97,7 +97,12 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
             $variables->set('order_total_paid', number_format($row->_order_total ? $row->_order_total : 0, 2));
 
 
-            $result = $this->db->execute('SELECT `order_item_id` FROM `'.$this->db->prefix().'woocommerce_order_items` WHERE `order_item_type` = \'line_item\' AND `order_id` = \''.$this->db->escape($variables->get('order_id')).'\'');
+            $result = $this->db->execute(
+                $this->db->prepare(
+                    'SELECT `order_item_id` FROM `'.$this->db->prefix().'woocommerce_order_items` WHERE `order_item_type` = \'line_item\' AND `order_id` = %s',
+                    array((int) $variables->get('order_id'))
+                )
+            );
 
             $newOrder1_pre = $newOrder2_pre = $newOrder3_pre = $newOrder4_pre = $sms_printer1 = $sms_printer2 = array();
 
@@ -108,11 +113,14 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
                 {
                     $order_item_id = $row->order_item_id;
 
-                    $result = $this->db->execute('SELECT 
-                                                MAX(CASE WHEN `meta_key` = \'_qty\' THEN `meta_value` END) qty,
-                                                MAX(CASE WHEN `meta_key` = \'_product_id\' THEN `meta_value` END) product_id,
-                                                MAX(CASE WHEN `meta_key` = \'_tmcartepo_data\' THEN `meta_value` END) tmcartepo_data
-                                            FROM  `'.$this->db->prefix().'woocommerce_order_itemmeta` WHERE `order_item_id` = \''.$this->db->escape($order_item_id).'\'');
+                    $result = $this->db->execute($this->db->prepare(
+                        'SELECT 
+                                MAX(CASE WHEN `meta_key` = \'_qty\' THEN `meta_value` END) qty,
+                                MAX(CASE WHEN `meta_key` = \'_product_id\' THEN `meta_value` END) product_id,
+                                MAX(CASE WHEN `meta_key` = \'_tmcartepo_data\' THEN `meta_value` END) tmcartepo_data
+                            FROM  `'.$this->db->prefix().'woocommerce_order_itemmeta` WHERE `order_item_id` = %s
+                    ' , array((int) $order_item_id))
+                    );
 
                     if($result->getNumRows())
                     {
@@ -175,7 +183,9 @@ class HookLoad extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
 
         if($variables->get('customer_id'))
         {
-            $result = $this->db->execute('SELECT * FROM '.$wpdb->users.' WHERE `ID` = \'' . $this->db->escape($variables->get('customer_id')).'\'');
+            $result = $this->db->execute(
+                $this->db->prepare('SELECT * FROM '.$wpdb->users.' WHERE `ID` = %s', array((int) $variables->get('customer_id')))
+            );
 
             if($result->getNumRows())
             {

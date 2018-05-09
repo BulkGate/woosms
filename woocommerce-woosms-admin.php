@@ -1,5 +1,5 @@
 <?php
-use BulkGate\Extensions, BulkGate\Extensions\Escape, BulkGate\Extensions\JsonResponse, BulkGate\WooSms;
+use BulkGate\Extensions, BulkGate\WooSMS\Escape, BulkGate\WooSms\Post, BulkGate\Extensions\JsonResponse, BulkGate\WooSms;
 
 /**
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
@@ -39,7 +39,7 @@ add_action('wp_ajax_register', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->register(array_merge(array("name" => get_bloginfo('name')), $_POST['__bulkgate']));
+    $response = $woo_sms_di->getProxy()->register(array_merge(array("name" => get_bloginfo('name')), Post::get('__bulkgate')));
 
     if($response instanceof Extensions\IO\Response)
     {
@@ -53,7 +53,7 @@ add_action('wp_ajax_login', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response =  $woo_sms_di->getProxy()->login(array_merge(array("name" => get_bloginfo('name')), $_POST['__bulkgate']));
+    $response =  $woo_sms_di->getProxy()->login(array_merge(array("name" => get_bloginfo('name')), Post::get('__bulkgate')));
 
     if($response instanceof Extensions\IO\Response)
     {
@@ -67,7 +67,10 @@ add_action('wp_ajax_load_module_data', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id']));
+    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount(
+        Post::getFromArray('__bulkgate', 'application_id'),
+        Post::getFromArray('__bulkgate', 'campaign_id')
+    ));
 });
 
 add_action('wp_ajax_save_module_customers', function ()
@@ -75,7 +78,10 @@ add_action('wp_ajax_save_module_customers', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->saveModuleCustomers($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id']));
+    JsonResponse::send($woo_sms_di->getProxy()->saveModuleCustomers(
+        Post::getFromArray('__bulkgate', 'application_id'),
+        Post::getFromArray('__bulkgate', 'campaign_id')
+    ));
 });
 
 add_action('wp_ajax_add_module_filter', function ()
@@ -83,7 +89,12 @@ add_action('wp_ajax_add_module_filter', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id'], 'addFilter', $_POST['__bulkgate']));
+    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount(
+        Post::getFromArray('__bulkgate', 'application_id'),
+        Post::getFromArray('__bulkgate', 'campaign_id'),
+        'addFilter',
+        Post::get('__bulkgate')
+    ));
 });
 
 add_action('wp_ajax_remove_module_filter', function ()
@@ -91,7 +102,12 @@ add_action('wp_ajax_remove_module_filter', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount($_POST['__bulkgate']['application_id'], $_POST['__bulkgate']['campaign_id'], 'removeFilter', $_POST['__bulkgate']));
+    JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount(
+            Post::getFromArray('__bulkgate', 'application_id'),
+            Post::getFromArray('__bulkgate', 'campaign_id'),
+            'removeFilter',
+            Post::get('__bulkgate')
+    ));
 });
 
 add_action('wp_ajax_save_customer_notifications', function ()
@@ -99,7 +115,9 @@ add_action('wp_ajax_save_customer_notifications', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->saveCustomerNotifications($_POST['__bulkgate']));
+    JsonResponse::send($woo_sms_di->getProxy()->saveCustomerNotifications(
+        Post::get('__bulkgate', array(), array("template"))
+    ));
 });
 
 add_action('wp_ajax_save_admin_notifications', function ()
@@ -107,7 +125,9 @@ add_action('wp_ajax_save_admin_notifications', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->saveAdminNotifications($_POST['__bulkgate']));
+    JsonResponse::send($woo_sms_di->getProxy()->saveAdminNotifications(
+        Post::get('__bulkgate', array(), array("template"))
+    ));
 });
 
 add_action('wp_ajax_save_module_settings', function()
@@ -115,9 +135,9 @@ add_action('wp_ajax_save_module_settings', function()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    if(isset($_POST['__bulkgate']))
+    if(Post::get('__bulkgate', false))
     {
-        $woo_sms_di->getProxy()->saveSettings($_POST['__bulkgate']);
+        $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
     }
 
     JsonResponse::send(array('redirect' => admin_url("admin.php?page=woosms_modulesettings_default")));
@@ -177,14 +197,14 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
     $woo_sms_module = $woo_sms_di->getModule();
     $woo_sms_settings = $woo_sms_di->getSettings();
 
-    echo '
+    ?>
         <div id="woo-sms">
             <nav>
                 <div class="container-fluid">
                     <div class="nav-wrapper">
                         <div id="brand-logo">
-                            <a class="brand-logo hide-on-med-and-down" href="' . Escape::url(admin_url("admin.php?page=woosms_dashboard_default")) . '">
-                                <img alt="woosms" width="120" src="' . Escape::url($woo_sms_module->getUrl('/images/products/ws.png')) . '" />
+                            <a class="brand-logo hide-on-med-and-down" href="<?= Escape::url(admin_url("admin.php?page=woosms_dashboard_default")); ?>">
+                                <img alt="woosms" width="120" src="<?= Escape::url($woo_sms_module->getUrl('/images/products/ws.png')); ?>" />
                             </a>
                         </div>
                         <ul class="controls">
@@ -193,25 +213,25 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                         </ul>
                         <div class="nav-h1">
                             <span class="h1-divider"></span>
-                            <h1 class="truncate">' . Escape::html($title) . '<span id="react-app-h1-sub"></span></h1>
+                            <h1 class="truncate"><?= Escape::html($title) ?><span id="react-app-h1-sub"></span></h1>
                         </div>
                     </div>
                 </div>
             </nav>
             <div id="profile-tab"></div>
-            <div ' . ($box ? 'class="module-box"' : '') . '>
+            <div<?php if($box): ?> class="module-box"<?php endif; ?>>
                 <div id="react-snack-root"></div>
                 <div id="react-app-root">
                     <div class="loader loading">
                         <div class="spinner"></div>
-                        <p>'.woosms_translate('loading_content', 'Loading content').'</p>
+                        <p><?= Escape::html(woosms_translate('loading_content', 'Loading content')); ?></p>
                     </div>
                 </div>      
                 <div id="react-language-footer"></div>
                 <script type="application/javascript">
                       var _bg_client_config = {
                             url: {
-                              authenticationService : ajaxurl,
+                              authenticationService : ajaxurl
                             },
                             actions: {
                                 authenticate: function () {
@@ -225,38 +245,38 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                             }
                           };
                 </script>
-                <script src="'.Escape::url($woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/widget-api/widget-api.js')).'"></script>
+                <script src="<?= Escape::url($woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/widget-api/widget-api.js')); ?>"></script>
                 <script type="application/javascript">
                     _bg_client.registerMiddleware(function (data)
                     {
                         if(data.init._generic)
                         {
-                            data.init.env.homepage.logo_link = '.Escape::js($woo_sms_module->getUrl('/images/products/ws.png')).';
-                            data.init._generic.scope.module_info = '.Escape::js($woo_sms_module->info()).'
+                            data.init.env.homepage.logo_link = <?= Escape::js($woo_sms_module->getUrl('/images/products/ws.png')); ?>;
+                            data.init._generic.scope.module_info = <?= Escape::js($woo_sms_module->info()); ?>;
                         }
                     });
                                       
                     var input = _bg_client.parseQuery(location.search);
                     
-                    _bg_client.require('.Escape::js($woo_sms_settings->load('static:application_id', '')).', {
-                        product: "ws",
-                        language: '.Escape::js($woo_sms_settings->load('main:language', 'en')).',
+                    _bg_client.require(<?= Escape::js($woo_sms_settings->load('static:application_id', '')) ?>, {
+                        product: 'ws',
+                        language: <?= Escape::js($woo_sms_settings->load('main:language', 'en')) ?>,
                         view : {
-                            presenter : ' . Escape::js($presenter) . ',
-                            action : ' . Escape::js($action) . ',
+                            presenter: <?= Escape::js($presenter) ?>,
+                            action: <?= Escape::js($action) ?>
                         },
-                        params : {
-                            id : ' . ((isset($params['id'])) ? (Escape::js($params['id'])) : ('input["id"]')) . ',
-                            key : ' . ((isset($params['key'])) ? (Escape::js($params['key'])) : ('input["key"]')) . ',
-                            type : ' . ((isset($params['type'])) ? (Escape::js($params['type'])) : ('input["type"]')) . ',
-                            profile_id : ' . ((isset($params['profile_id'])) ? (Escape::js($params['profile_id'])) : ('input["profile_id"]')) . ',
+                        params: {
+                            id: <?php if(isset($params['id'])): echo Escape::js($params['id']); else: ?>input["id"]<?php  endif; ?>,
+                            key: <?php if(isset($params['key'])): echo Escape::js($params['key']); else: ?>input["key"]<?php  endif; ?>,
+                            type: <?php if(isset($params['type'])): echo Escape::js($params['type']); else: ?>input["type"]<?php  endif; ?>,
+                            profile_id: <?php if(isset($params['profile_id'])): echo Escape::js($params['profile_id']); else: ?>input["profile_id"]<?php  endif; ?>
                         },
-                        proxy: '.Extensions\Json::encode(woosms_get_proxy_links($presenter, $action)).',                    
+                        proxy: <?= Escape::js(woosms_get_proxy_links($presenter, $action)); ?>
                     });
                 </script>
             </div>
         </div>
-    ';
+    <?php
 }
 
 function woosms_get_proxy_links($presenter, $action)
@@ -322,4 +342,3 @@ function woosms_get_proxy_links($presenter, $action)
             return array();
     }
 }
-

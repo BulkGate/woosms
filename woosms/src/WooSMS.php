@@ -5,13 +5,13 @@ use BulkGate\Extensions\Json;
 use BulkGate\Extensions\Escape;
 use BulkGate\Extensions\IModule;
 use BulkGate\Extensions\ISettings;
-use BulkGate\Extensions\SmartObject;
+use BulkGate\Extensions\Strict;
 
 /**
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class WooSMS extends SmartObject implements IModule
+class WooSMS extends Strict implements IModule
 {
     const PRODUCT = 'ws';
 

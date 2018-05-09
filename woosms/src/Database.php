@@ -7,7 +7,7 @@ use BulkGate;
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class Database extends BulkGate\Extensions\SmartObject implements BulkGate\Extensions\Database\IDatabase
+class Database extends BulkGate\Extensions\Strict implements BulkGate\Extensions\Database\IDatabase
 {
     /** @var \wpdb */
     private $db;
@@ -19,13 +19,13 @@ class Database extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
         $this->db = $db;
     }
 
-    public function execute($sql)
+    public function execute($sql, array $params = array())
     {
         $output = array();
 
         $this->sql[] = $sql;
 
-        $result = $this->db->get_results($sql);
+        $result = $this->db->get_results($this->db->prepare($sql, $params));
 
         if(is_array($result) && count($result))
         {
@@ -35,6 +35,11 @@ class Database extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
             }
         }
         return new BulkGate\Extensions\Database\Result($output);
+    }
+
+    public function prepare($sql, array $array = array())
+    {
+        return $this->db->prepare($sql, $array);
     }
 
     public function lastId()
@@ -49,7 +54,7 @@ class Database extends BulkGate\Extensions\SmartObject implements BulkGate\Exten
 
     public function prefix()
     {
-        return $this->escape($this->db->prefix);
+        return $this->db->prefix;
     }
 
     public function getSqlList()

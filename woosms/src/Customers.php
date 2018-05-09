@@ -7,7 +7,7 @@ use BulkGate\Extensions;
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class Customers extends Extensions\SmartObject implements Extensions\ICustomers
+class Customers extends Extensions\Strict implements Extensions\ICustomers
 {
     /** @var Extensions\Database\IDatabase */
     private $db;
@@ -128,24 +128,24 @@ class Customers extends Extensions\SmartObject implements Extensions\ICustomers
                 {
                     if($value[0] === 'prefix')
                     {
-                        $sql[] = "`{$key_value}` LIKE '{$this->db->escape($value[1])}%'";
+                        $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array($value[1].'%'));
                     }
                     elseif($value[0] === 'sufix')
                     {
-                        $sql[] = "`{$key_value}` LIKE '%{$this->db->escape($value[1])}'";
+                        $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array('%'.$value[1]));
                     }
                     elseif($value[0] === 'substring')
                     {
-                        $sql[] = "`{$key_value}` LIKE '%{$this->db->escape($value[1])}%'";
+                        $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array('%'.$value[1].'%'));
                     }
                     else
                     {
-                        $sql[] = "`{$key_value}` {$this->getRelation($value[0])} '{$this->db->escape($value[1])}'";
+                        $sql[] = $this->db->prepare("`".$key_value."` ".$this->getRelation($value[0])." %s", array($value[1]));
                     }
                 }
                 elseif($filter['type'] === "date-range")
                 {
-                    $sql[] = "`{$key_value}` BETWEEN '{$this->db->escape($value[1])}' AND '{$this->db->escape($value[2])}'";
+                    $sql[] = $this->db->prepare("`".$key_value."` BETWEEN %s AND %s", array($value[1], $value[2]));
                 }
             }
         }
