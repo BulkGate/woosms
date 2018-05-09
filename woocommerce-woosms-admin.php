@@ -174,6 +174,10 @@ function define_menu($capabilities = 'manage_options')
                 woosms_page($m->presenter, $m->action, woosms_translate($m->title), $m->box);
             });
         }
+
+        add_submenu_page(null, woosms_translate('sign_in'), woosms_translate('sign_in'), $capabilities, 'woosms_sign_in', function () {
+            woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false);
+        });
     }
     else
     {
