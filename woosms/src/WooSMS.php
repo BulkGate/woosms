@@ -2,7 +2,6 @@
 namespace BulkGate\WooSms;
 
 use BulkGate\Extensions\Json;
-use BulkGate\Extensions\Escape;
 use BulkGate\Extensions\IModule;
 use BulkGate\Extensions\ISettings;
 use BulkGate\Extensions\Strict;
