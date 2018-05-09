@@ -19,13 +19,13 @@ class Database extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         $this->db = $db;
     }
 
-    public function execute($sql, array $params = array())
+    public function execute($sql)
     {
         $output = array();
 
         $this->sql[] = $sql;
 
-        $result = $this->db->get_results($this->db->prepare($sql, $params));
+        $result = $this->db->get_results($sql);
 
         if(is_array($result) && count($result))
         {
