@@ -20,7 +20,7 @@ add_action('admin_menu', function ()
 
     define_menu(defined('SMS_DEMO') ? 'read' : 'manage_options');
     add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
-
+    add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
     wp_enqueue_style('device', $woo_sms_module->getUrl('/dist/css/devices.min.css'));
     wp_enqueue_style('woosms', $woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/css/bulkgate-woosms.css'));
     wp_enqueue_style('woosms-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');

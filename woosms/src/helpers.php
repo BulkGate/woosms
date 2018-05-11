@@ -141,15 +141,33 @@ function woosms_add_settings_link($links, $file)
     {
         if($woo_sms_di->getSettings()->load('static:application_token', false))
         {
-            $settings_link = '<a href="'.Extensions\Escape::url(admin_url("admin.php?page=woosms_modulesettings_default")).'">'.Extensions\Escape::html(esc_html__('Settings')).'</a>';
+            $settings_link = '<a href="'.esc_url(admin_url("admin.php?page=woosms_modulesettings_default")).'">'.esc_html__('Settings').'</a>';
         }
         else
         {
-            $settings_link = '<a href="'.Extensions\Escape::url(admin_url("admin.php?page=woosms_sign_in")).'">'.Extensions\Escape::html(esc_html__('Log In')).'</a>';
+            $settings_link = '<a href="'.esc_url(admin_url("admin.php?page=woosms_sign_in")).'">'.esc_html__('Log In').'</a>';
         }
         array_unshift($links, $settings_link);
     }
 
     return $links;
+}
+
+function woosms_add_links_meta( $links, $file )
+{
+    if(basename(dirname($file)) === WOOSMS_DIR)
+    {
+        $row_meta = array(
+            'help_desk'    => '<a href="' . esc_url('https://help.bulkgate.com/en/') . '" aria-label="' . esc_attr( 'Help Desk' ) . '">' . esc_html( 'Help Desk' ) . '</a>',
+            'price_list'    => '<a href="' . esc_url('https://www.bulkgate.com/en/sms-price/') . '" aria-label="' . esc_attr( 'Price List' ) . '">' . esc_html( 'Price List' ) . '</a>',
+            'youtube_channel'    => '<a href="' . esc_url('https://www.youtube.com/channel/UCGD7ndC4z2NfuWUrS-DGELg') . '" aria-label="' . esc_attr( 'YouTube Channel' ) . '">' . esc_html( 'YouTube Channel' ) . '</a>',
+            'contact_us'    => '<a href="' . esc_url('https://www.bulkgate.com/en/contact-us/') . '" aria-label="' . esc_attr( 'Contact us' ) . '">' . esc_html( 'Contact us' ) . '</a>',
+            'api'    => '<a href="' . esc_url('https://www.bulkgate.com/en/developers/sms-api/') . '" aria-label="' . esc_attr( 'API' ) . '">' . esc_html( 'API' ) . '</a>',
+        );
+
+        return array_merge( $links, $row_meta );
+    }
+
+    return (array) $links;
 }
 
