@@ -10,8 +10,6 @@
 
 **Stable tag**: Woo SMS version 2.0.0
 
-[License URL](http://www.woo-sms.net/licence/licence_en.pdf)
-
 ## Description 
 Woo SMS is a comprehensive and powerful module that enables you to send SMSs to your customers or administrators during various events in your WooCommerce store.
 Improve customer service and notify customers via SMS to establish greater levels of trust. Deepen the relationship with your customers and build a stronger customer loyalty with the help of SMS marketing.
