@@ -4,7 +4,6 @@ Tags: sms, notification, woocommerce, woo commerce, woocommerce sms, module, sms
 Requires at least: WooCommerce version 2.2.x
 Tested up to: WooCommerce version 2.3.7
 Stable tag: Woo SMS version 2.0.0
-License URL: http://www.woo-sms.net/licence/licence_en.pdf
 
 == Description ==
 Woo SMS is a comprehensive and powerful module that enables you to send SMSs to your customers or administrators during various events in your WooCommerce store.
