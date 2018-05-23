@@ -65,7 +65,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
      */
     if (is_admin())
     {
-        require("woocommerce-woosms-admin.php");
+        require(__DIR__."/woosms-sms-module-for-woocommerce-admin.php");
     }
 
     /*

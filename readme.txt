@@ -2,7 +2,7 @@
 Tags: SMS, SMS notification, bulk SMS, SMS order, customer notification, admin notification, SMS campaign, personalized campaign, personalized message, automated notification, woocommerce, SMS module, woo commerce, woocommerce SMS, addon, e-shop, eshop, ecommerce, e-commerce, woocommerce module, woocommerce addon, send SMS, SMS marketing, target marketing, woocommerce plugin, woocommerce sms plugin, woocommerce sms module, personalized campaign, personalized message, woosms, woosms module, woo sms
 Requires at least: 3.0
 Tested up to: 4.9.5
-Stable tag: trunk
+Stable tag: 2.0.3
 Requires PHP: 5.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -56,7 +56,7 @@ Get comfortable with our [helpdesk.](https://help.bulkgate.com/) It is here for 
 == Installation ==
 1. Plugin upload
 You can:
- * Upload the ` woocommerce-woosms` folder to `/wp-content/plugins/` directory via FTP
+ * Upload the ` woosms-sms-module-for-woocommerce` folder to `/wp-content/plugins/` directory via FTP
  * Upload the full ZIP file via *Plugins -> Add New -> Upload* on your WordPress Administration Panel
  * Search **WooSMS – SMS Module for WooCommerce** in the search engine available on *Plugins -> Add New* and press *Install Now* button
 2. Plugin activation

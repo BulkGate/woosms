@@ -100,7 +100,7 @@ class WooSMS extends Strict implements IModule
     {
         if(empty($this->plugin_data))
         {
-            $plugin_data = array_change_key_case(get_plugin_data(__DIR__.'/../../woocommerce-woosms.php'));
+            $plugin_data = array_change_key_case(get_plugin_data(__DIR__.'/../../woosms-sms-module-for-woocommerce.php'));
 
             $this->plugin_data = array_merge(
                 array(
