@@ -14,6 +14,8 @@ Extend your WooCommerce store capabilities. Send personalized bulk SMS messages.
 
 Extend your WooCommerce store capabilities and create new opportunities for your business with WooSMS. Promote your products and sales via [personalized bulk SMS.](https://www.bulkgate.com/en/solutions/sms#bulk-sms) Make your customers happy by notifying them about order status change via [SMS notifications.](https://www.bulkgate.com/en/sms-module#customer-sms-notification) Receive an [SMS notification](https://www.bulkgate.com/en/sms-module#admin-sms-notification) whenever a new order is placed, a product is out of stock, and much more.
 
+Watch a short video of WooSMS walkthrough and its important features
+https://youtu.be/Dlrsr92ozeQ
 
 ## Features
 
@@ -99,7 +101,7 @@ You can import contact via [CSV/Excel,](https://help.bulkgate.com/docs/en/import
 Yes, in many countries you can use [text sender ID](https://help.bulkgate.com/docs/en/sender-type.html) and send a message under your company's name.
 ### Do I have to create BulkGate account during the installation in order to use WooSMS?
 
-Yes. WooSMS plugin communicates with our [BulkGate SMS gateway.](https://www.bulkgate.com/en/) So in order to send messages via WooSMS, there is a need to have a BulkGate account.
+Yes. WooSMS plugin communicates with our BulkGate [SMS gateway.](https://www.bulkgate.com/en/) So in order to send messages via WooSMS, there is a need to have a BulkGate account.
 
 
 ## Screenshots
