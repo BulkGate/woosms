@@ -23,6 +23,7 @@ https://youtu.be/Dlrsr92ozeQ
 ## Features
 
 **Customer & Admin SMS notifications**
+
 Your customers are what matters most. 
 * Nothing makes them happier than delivering products they want and knowing everything about the order status. 
 * Notifying your customers is simple. [Activate message templates](https://help.bulkgate.com/docs/en/customer-sms.html) for any situation that occurs during the order process, and adjust the text. 
@@ -38,6 +39,7 @@ Be always aware of any change.
 https://youtu.be/mj6Ea3eVOac
 
 **Bulk SMS campaigns & target marketing**
+
 Attract customer’s attention. 
 * Promote your products and services, and increase your sales!
 * Bulk messaging is highly effective as nearly all recipients read the delivered SMS within 3 minutes. 
@@ -49,12 +51,14 @@ Choose from different [sender types.](https://help.bulkgate.com/docs/en/sender-t
 
 
 **Affiliate program for developers**
+
 Earn a commission on happy customers with our [affiliate program.](https://www.bulkgate.com/en/developers/affiliate-program/) 
 * Earn 5-10% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started.
 
 = Few of other great features =
 
 **Inbox**
+
 Interact with your customers directly and receive their reactions through [two-way SMS.](https://www.bulkgate.com/en/solutions/two-way-sms/) 
 * Get new knowledge from first hand. 
 * Simply check the [price list](https://www.bulkgate.com/en/sms-price) to see whether your desired country and/or sender ID type supports two-way communication.
@@ -66,9 +70,11 @@ Interact with your customers directly and receive their reactions through [two-w
 * Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
+
 WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and I depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
 
 **Helpdesk**
+
 Get comfortable with our [helpdesk.](https://help.bulkgate.com/) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
 
 
