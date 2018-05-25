@@ -13,9 +13,9 @@ Extend your WooCommerce store capabilities. Send personalized bulk SMS messages.
 ## Description
 
 Extend your WooCommerce store capabilities and create new opportunities for your business with WooSMS. 
-* Promote your products and sales via [personalized bulk SMS.](https://www.bulkgate.com/en/solutions/sms#bulk-sms) 
-* Make your customers happy by notifying them about order status change via [SMS notifications.](https://www.bulkgate.com/en/sms-module#customer-sms-notification) 
-* Receive an [SMS notification](https://www.bulkgate.com/en/sms-module#admin-sms-notification) whenever a new order is placed, a product is out of stock, and much more.
+- Promote your products and sales via [personalized bulk SMS.](https://www.bulkgate.com/en/solutions/sms#bulk-sms) 
+- Make your customers happy by notifying them about order status change via [SMS notifications.](https://www.bulkgate.com/en/sms-module#customer-sms-notification) 
+- Receive an [SMS notification](https://www.bulkgate.com/en/sms-module#admin-sms-notification) whenever a new order is placed, a product is out of stock, and much more.
 
 Watch a short video of WooSMS walkthrough and its important features
 
@@ -26,25 +26,25 @@ https://youtu.be/Dlrsr92ozeQ
 **Customer & Admin SMS notifications**
 
 Your customers are what matters most. 
-* Nothing makes them happier than delivering products they want and knowing everything about the order status. 
-* Notifying your customers is simple. [Activate message templates](https://help.bulkgate.com/docs/en/customer-sms.html) for any situation that occurs during the order process, and adjust the text. 
-* WooSMS automatically sends your customers an SMS notification when an order status is updated. SMS notifications can be personalized as well. That means even more improved customer relationship.
+- Nothing makes them happier than delivering products they want and knowing everything about the order status. 
+- Notifying your customers is simple. [Activate message templates](https://help.bulkgate.com/docs/en/customer-sms.html) for any situation that occurs during the order process, and adjust the text. 
+- WooSMS automatically sends your customers an SMS notification when an order status is updated. SMS notifications can be personalized as well. That means even more improved customer relationship.
 
 
 https://youtu.be/B3vdkNm64rE
 
 Be always aware of any change. 
-* Receive an SMS notification whenever a new order is placed, cancelled, product is out of stock, or other action occurs. 
-* Activate multiple admin accounts, so nothing will slip through the cracks.
+- Receive an SMS notification whenever a new order is placed, cancelled, product is out of stock, or other action occurs. 
+- Activate multiple admin accounts, so nothing will slip through the cracks.
 
 https://youtu.be/mj6Ea3eVOac
 
 **Bulk SMS campaigns & target marketing**
 
 Attract customer’s attention. 
-* Promote your products and services, and increase your sales!
-* Bulk messaging is highly effective as nearly all recipients read the delivered SMS within 3 minutes. 
-* Filter customers from your store by various criteria and send them personalized text messages. Message personalization advances customer relationships a lot. See it for yourself!
+- Promote your products and services, and increase your sales!
+- Bulk messaging is highly effective as nearly all recipients read the delivered SMS within 3 minutes. 
+- Filter customers from your store by various criteria and send them personalized text messages. Message personalization advances customer relationships a lot. See it for yourself!
 
 Shorten your links in your SMS campaigns with our [URL shortener](https://www.bulkgate.com/en/sms-portal/#url-shortener) and save the precious characters to create better messages.  
 
@@ -54,21 +54,21 @@ Choose from different [sender types.](https://help.bulkgate.com/docs/en/sender-t
 **Affiliate program for developers**
 
 Earn a commission on happy customers with our [affiliate program.](https://www.bulkgate.com/en/developers/affiliate-program/) 
-* Earn 5-10% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started.
+- Earn 5-10% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started.
 
 = Few of other great features =
 
 **Inbox**
 
 Interact with your customers directly and receive their reactions through [two-way SMS.](https://www.bulkgate.com/en/solutions/two-way-sms/) 
-* Get new knowledge from first hand. 
-* Simply check the [price list](https://www.bulkgate.com/en/sms-price) to see whether your desired country and/or sender ID type supports two-way communication.
+- Get new knowledge from first hand. 
+- Simply check the [price list](https://www.bulkgate.com/en/sms-price) to see whether your desired country and/or sender ID type supports two-way communication.
 
 **Records and Statistics**
-* Have a complete overview of your [messaging activity.](https://help.bulkgate.com/docs/en/campaigns.html) 
-* Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your campaigns have. 
-* Browse through the [history list.](https://help.bulkgate.com/docs/en/history.html) 
-* Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
+- Have a complete overview of your [messaging activity.](https://help.bulkgate.com/docs/en/campaigns.html) 
+- Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your campaigns have. 
+- Browse through the [history list.](https://help.bulkgate.com/docs/en/history.html) 
+- Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
 
