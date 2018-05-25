@@ -43,7 +43,7 @@ Earn a commission on happy customers with our [affiliate program.](https://www.b
 = Few of other great features =
 
 **Inbox**
-Interact with your customers directly and receive their reactions through [two-way SMS.](https://www.bulkgate.com/en/solutions/two-way-sms/) Simply check the [price list](https://www.bulkgate.com/en/sms-price) to see whether your desired country and/or sender ID type supports two-way communication. Get new knowledge from first hand.
+Interact with your customers directly and receive their reactions through [two-way SMS.](https://www.bulkgate.com/en/solutions/two-way-sms/) Get new knowledge from first hand. Simply check the [price list](https://www.bulkgate.com/en/sms-price) to see whether your desired country and/or sender ID type supports two-way communication.
 
 **Records and Statistics**
 Have a complete overview of your [messaging activity.](https://help.bulkgate.com/docs/en/campaigns.html) Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your campaigns have. Browse through the [history list.](https://help.bulkgate.com/docs/en/history.html) Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
