@@ -45,7 +45,7 @@ Earn a commission on happy customers with our [affiliate program.](https://www.b
 Interact with your customers directly and receive their reactions through [two-way SMS.](https://www.bulkgate.com/en/solutions/two-way-sms/) Simply check the [price list](https://www.bulkgate.com/en/sms-price) to see whether your desired country and/or sender ID type supports two-way communication. Get new knowledge from first hand.
 
 **Records and Statistics**
-Have a complete overview over your [messaging activity.](https://help.bulkgate.com/docs/en/campaigns.html) Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your messaging campaigns have. Browse through the [history list.](https://help.bulkgate.com/docs/en/history.html) Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
+Have a complete overview of your [messaging activity.](https://help.bulkgate.com/docs/en/campaigns.html) Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your messaging campaigns have. Browse through the [history list.](https://help.bulkgate.com/docs/en/history.html) Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
 WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and I depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
