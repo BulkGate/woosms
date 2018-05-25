@@ -20,7 +20,7 @@ https://youtu.be/Dlrsr92ozeQ
 = Features =
 
 **Customer & Admin SMS notifications**
-Your customers are what matters most. Nothing makes them happier than delivering products they want and knowing everything about the order status. Notifying your customers is simple. [Activate message templates](https://help.bulkgate.com/docs/en/customer-sms.html) for any situation that occurs during the order process that you want to know about, and adjust the text. WooSMS then automatically sends your customers an SMS notification when an order status is updated. SMS notifications can be personalized as well. That means even more improved customer relationship.
+Your customers are what matters most. Nothing makes them happier than delivering products they want and knowing everything about the order status. Notifying your customers is simple. [Activate message templates](https://help.bulkgate.com/docs/en/customer-sms.html) for any situation that occurs during the order process, and adjust the text. WooSMS then automatically sends your customers an SMS notification when an order status is updated. SMS notifications can be personalized as well. That means even more improved customer relationship.
 
 https://youtu.be/B3vdkNm64rE
 
