@@ -18,6 +18,7 @@ Extend your WooCommerce store capabilities and create new opportunities for your
 * Receive an [SMS notification](https://www.bulkgate.com/en/sms-module#admin-sms-notification) whenever a new order is placed, a product is out of stock, and much more.
 
 Watch a short walkthrough video of WooSMS module and its important features
+
 https://youtu.be/Dlrsr92ozeQ
 
 = Features =
