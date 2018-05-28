@@ -73,7 +73,7 @@ Interact with your customers directly and receive their reactions through [two-w
 * Download [reports.](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
-WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and I depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
+WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and is depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
 
 **Helpdesk**
 Get comfortable with our [helpdesk.](https://help.bulkgate.com/) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
