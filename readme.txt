@@ -55,7 +55,7 @@ Choose from different [sender types.](https://help.bulkgate.com/docs/en/sender-t
 **Affiliate program for developers**
 Earn a commission on happy customers with our [affiliate program.](https://www.bulkgate.com/en/developers/affiliate-program/) 
 
-* Earn 5-10% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started
+* Earn 5-7% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started
 
 = Few of other great features =
 
