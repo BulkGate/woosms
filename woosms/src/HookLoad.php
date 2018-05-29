@@ -108,7 +108,6 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
             if($result->getNumRows() > 0)
             {
-
                 foreach($result as $row)
                 {
                     $order_item_id = $row->order_item_id;
@@ -199,7 +198,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
         $row = woosms_get_address_meta_array($variables->get('customer_id'));
 
-        if(is_array($row) && count($row))
+        if($row instanceof BulkGate\Extensions\Buffer)
         {
             $variables->set('customer_firstname', $row->first_name);
             $variables->set('customer_lastname', $row->last_name);
