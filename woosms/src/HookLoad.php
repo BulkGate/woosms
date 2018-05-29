@@ -190,6 +190,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
             {
                 foreach($result as $row)
                 {
+                    $variables->set('username', $row->user_login);
                     $variables->set('customer_email', $row->user_email);
                     $variables->set('customer_name', $row->display_name);
                 }
@@ -291,18 +292,49 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         }
     }
 
+    private $mapping = array(
+        'first_name' => 'customer_firstname',
+        'last_name' => 'customer_lastname',
+        'phone' => 'customer_phone',
+        'mobile' => 'customer_mobile',
+        'phone_number' => 'customer_phone',
+        'phone_mobile' => 'customer_mobile',
+        'email' => 'customer_email',
+
+        'shipping_first_name' => 'customer_firstname',
+        'shipping_last_name' => 'customer_lastname',
+        'shipping_phone' => 'customer_phone',
+        'shipping_company' => 'customer_company',
+        'shipping_country' => 'customer_country',
+
+        'billing_first_name' => 'customer_firstname',
+        'billing_last_name' => 'customer_lastname',
+        'billing_phone' => 'customer_mobile',
+        'billing_company' => 'customer_company',
+        'billing_country' => 'customer_country',
+    );
+
+    public function post(Variables $variables)
+    {
+        foreach($this->mapping as $key => $variable)
+        {
+            $variables->set($variable, Post::get($key));
+        }
+    }
+
     public function product(Variables $variables)
     {
         // TODO
     }
 
-    public function load(BulkGate\Extensions\Hook\Variables $variables)
+    public function load(Variables $variables)
     {
         $this->order($variables);
         $this->orderStatus($variables);
         $this->customer($variables);
         $this->returnOrder($variables);
         $this->shop($variables);
+        $this->post($variables);
         $this->extension($variables);
     }
 }
