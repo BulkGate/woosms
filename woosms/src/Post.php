@@ -62,7 +62,7 @@ class Post extends BulkGate\Extensions\Strict
                 $output[sanitize_text_field($key)] = is_array($item) ?
                     self::sanitize($item) : (
                         in_array($key, $skip) ?
-                            wp_check_invalid_utf8($item) :
+                            wp_check_invalid_utf8(stripslashes($item)) :
                             sanitize_text_field($item)
                     );
             }
