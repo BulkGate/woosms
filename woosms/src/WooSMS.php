@@ -76,7 +76,7 @@ class WooSMS extends Strict implements IModule
     public function storeLoad()
     {
         $stores = (array) $this->settings->load(':stores', null);
-        $actual = array(0 => get_option('blogname', 'WooSMS Store'));
+        $actual = array(0 => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES));
 
         if($stores !== $actual)
         {
