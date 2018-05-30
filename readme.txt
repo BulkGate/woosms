@@ -1,4 +1,4 @@
-=== WooSMS – SMS Module for WooCommerce ===
+﻿=== WooSMS – SMS Module for WooCommerce ===
 Tags: sms, woocommerce, sms notification, bulk sms, sms order, customer notification, admin notification, sms campaign, personalized campaign, personalized message, automated notification, sms module, woo commerce, woocommerce sms, addon, e-shop, eshop, ecommerce, e-commerce, woocommerce module, woocommerce addon, send sms, sms marketing, target marketing, woocommerce plugin, woocommerce sms plugin, woocommerce sms module, personalized campaign, personalized message, woosms, woosms module, woo sms
 Requires at least: 3.0
 Tested up to: 4.9.5
@@ -142,6 +142,10 @@ Yes. WooSMS plugin communicates with our BulkGate [SMS gateway.](https://www.bul
 
 = 2.0 =
 * Next generation module
+
+= 2.0.5 =
+* Username and password variables on new customer action
+* bug fix
 
 == Upgrade Notice ==
 
