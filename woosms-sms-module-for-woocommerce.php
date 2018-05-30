@@ -3,7 +3,7 @@
   Plugin Name: WooSMS - SMS module for WooCommerce
   Plugin URI: http://www.woo-sms.net/
   Description: Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status via customer SMS notifications. Receive order updates via Admin SMS notifications.
-  Version: 2.0.3
+  Version: 2.0.5
   Author: TOPefekt s.r.o. - BulkGate team
   Author URI: http://www.bulkgate.com/
  */
@@ -55,7 +55,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
      */
     add_action("woocommerce_order_status_changed", "woosms_hook_changeOrderStatusHook");
     add_action("woocommerce_checkout_order_processed", "woosms_hook_actionValidateOrder");
-    add_action("woocommerce_created_customer", "woosms_hook_customerAddHook");
+    add_action("woocommerce_created_customer", "woosms_hook_customerAddHook", 100, 3);
     add_action("woocommerce_low_stock", "woosms_hook_productOutOfStockHook");
     add_action("woocommerce_no_stock", "woosms_hook_productOutOfStockHook");
     add_action("woocommerce_product_on_backorder", "woosms_hook_productOnBackOrder");
@@ -78,10 +78,11 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
-    function woosms_hook_customerAddHook($customer_id)
+    function woosms_hook_customerAddHook($customer_id, $data)
     {
         woosms_run_hook('customer_new', new Extensions\Hook\Variables(array(
             'customer_id' => $customer_id,
+            'password' => woosms_isset($data, 'user_pass', '-'),
             'shop_id' => 0
         )));
     }
