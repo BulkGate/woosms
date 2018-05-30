@@ -143,7 +143,7 @@ Yes. WooSMS plugin communicates with our BulkGate [SMS gateway.](https://www.bul
 **2.0**
 * Next generation module
 
-** 2.0.5 **
+**2.0.5**
 * Username and password variables on new customer action
 * bug fix
 
