@@ -54,7 +54,7 @@ Choose from different [sender types.](https://help.bulkgate.com/docs/en/sender-t
 **Affiliate program for developers**
 
 Earn a commission on happy customers with our [affiliate program.](https://www.bulkgate.com/en/developers/affiliate-program/) 
-- Earn 5-10% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started
+- Earn 5-7% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started
 
 = Few of other great features =
 
@@ -76,7 +76,7 @@ WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/
 
 **Helpdesk**
 
-Get comfortable with our [helpdesk.]https://help.bulkgate.com/docs/cs/woosms-module-installation.html) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
+Get comfortable with our [helpdesk.]https://help.bulkgate.com/docs/en/woosms-module-installation.html) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
 
 
 ## Installation
