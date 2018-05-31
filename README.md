@@ -68,7 +68,6 @@ Interact with your customers directly and receive their reactions through [two-w
 - Have a complete overview of your [messaging activity](https://help.bulkgate.com/docs/en/campaigns.html) 
 - Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your campaigns have. 
 - Browse through the [history list](https://help.bulkgate.com/docs/en/history.html) 
-- Download [reports](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
 
