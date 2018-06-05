@@ -177,22 +177,19 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
     public function customer(Variables $variables)
     {
-        /** @var \wpdb $wpdb */
-        global $wpdb;
-
         if($variables->get('customer_id'))
         {
             $result = $this->db->execute(
-                $this->db->prepare('SELECT * FROM '.$wpdb->users.' WHERE `ID` = %s', array((int) $variables->get('customer_id')))
+                $this->db->prepare('SELECT * FROM `'.$this->db->prefix().'users` WHERE `ID` = %s', array((int) $variables->get('customer_id')))
             );
 
             if($result->getNumRows())
             {
                 foreach($result as $row)
                 {
-                    $variables->set('username', $row->user_login);
-                    $variables->set('customer_email', $row->user_email);
-                    $variables->set('customer_name', $row->display_name);
+                    $variables->set('username', $row->user_login, '', false);
+                    $variables->set('customer_email', $row->user_email, '', false);
+                    $variables->set('customer_name', $row->display_name, '', false);
                 }
             }
         }
@@ -201,38 +198,33 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
         if($row instanceof BulkGate\Extensions\Buffer)
         {
-            $variables->set('customer_firstname', $row->first_name);
-            $variables->set('customer_lastname', $row->last_name);
+            $variables->set('customer_firstname', $row->first_name, '', false);
+            $variables->set('customer_lastname', $row->last_name, '', false);
 
-            $variables->set('customer_phone', $row->billing_phone);
-            $variables->set('customer_mobile', $row->billing_phone);
+            $variables->set('customer_phone', $row->billing_phone, '', false);
+            $variables->set('customer_mobile', $row->billing_phone, '', false);
 
-            $variables->set('customer_company', $row->shipping_company, $row->billing_company);
+            $variables->set('customer_company', $row->shipping_company, $row->billing_company, false);
 
-            $variables->set('customer_country_id', $row->shipping_country, $row->billing_country);
+            $variables->set('customer_country_id', $row->shipping_country, $row->billing_country, false);
 
             if(strlen($row->_shipping_address_2) > 0)
             {
-                $variables->set('customer_address', $row->shipping_address_1 . ', ' . $row->shipping_address_2, $row->billing_address_1 . ', ' . $row->billing_address_2);
+                $variables->set('customer_address', $row->shipping_address_1 . ', ' . $row->shipping_address_2, $row->billing_address_1 . ', ' . $row->billing_address_2, false);
             }
             else
             {
-                $variables->set('customer_address', $row->shipping_address_1, $row->billing_address_1);
+                $variables->set('customer_address', $row->shipping_address_1, $row->billing_address_1, false);
             }
 
-            $variables->set('customer_postcode', $row->shipping_postcode, $row->billing_postcode);
-            $variables->set('customer_city', $row->shipping_city, $row->billing_city);
-            $variables->set('customer_country_id', $row->shipping_country, $row->billing_country);
-            $variables->set('customer_state', $row->shipping_state, $row->billing_state);
+            $variables->set('customer_postcode', $row->shipping_postcode, $row->billing_postcode, false);
+            $variables->set('customer_city', $row->shipping_city, $row->billing_city, false);
+            $variables->set('customer_country_id', $row->shipping_country, $row->billing_country, false);
+            $variables->set('customer_state', $row->shipping_state, $row->billing_state, false);
 
-            $variables->set('customer_country', $row->shipping_country);
-
+            $variables->set('customer_country', $row->shipping_country, false);
         }
-
-        if(!$variables->get('shop_id'))
-        {
-            $variables->set('shop_id', 0);
-        }
+        $variables->set('shop_id', 0, '', false);
     }
 
     public function orderStatus(Variables $variables)
@@ -324,17 +316,17 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
     public function product(Variables $variables)
     {
-        // TODO
     }
 
     public function load(Variables $variables)
     {
+        $this->post($variables);
         $this->order($variables);
         $this->orderStatus($variables);
         $this->customer($variables);
         $this->returnOrder($variables);
         $this->shop($variables);
-        $this->post($variables);
+        $this->product($variables);
         $this->extension($variables);
     }
 }
