@@ -54,7 +54,7 @@ Choose from different [sender types.](https://help.bulkgate.com/docs/en/sender-t
 **Affiliate program for developers**
 
 Earn a commission on happy customers with our [affiliate program.](https://www.bulkgate.com/en/developers/affiliate-program/) 
-- Earn 5-10% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started
+- Earn 5-7% commission on every message your customer sends. The commission rate depends on the country where messages are sent. Register on BulkGate and get started
 
 = Few of other great features =
 
@@ -68,7 +68,6 @@ Interact with your customers directly and receive their reactions through [two-w
 - Have a complete overview of your [messaging activity](https://help.bulkgate.com/docs/en/campaigns.html) 
 - Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your campaigns have. 
 - Browse through the [history list](https://help.bulkgate.com/docs/en/history.html) 
-- Download [reports](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
 
@@ -76,7 +75,7 @@ WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/
 
 **Helpdesk**
 
-Get comfortable with our [helpdesk.]https://help.bulkgate.com/docs/cs/woosms-module-installation.html) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
+Get comfortable with our [helpdesk.]https://help.bulkgate.com/docs/en/woosms-module-installation.html) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
 
 
 ## Installation
@@ -84,7 +83,7 @@ Get comfortable with our [helpdesk.]https://help.bulkgate.com/docs/cs/woosms-mod
 You can:
  * Search **WooSMS – SMS Module for WooCommerce** in the search engine available on *Plugins -> Add New* and press *Install Now* button
  * Upload the ` woosms-sms-module-for-woocommerce` folder to `/wp-content/plugins/` directory via FTP
- * Upload the full ZIP file via *Plugins -> Add New -> Upload* on your WordPress Administration Panel
+ * Upload the full ZIP file via **WordPress Admin > Plugins > Add New** and **Upload Plugin** with the file you downloaded with **Choose File**
  2. Plugin activation
  * Activate plugin through *Plugins* menu on WordPress Administration Panel
 3. Service registration
@@ -143,7 +142,7 @@ Yes. WooSMS plugin communicates with our BulkGate [SMS gateway.](https://www.bul
 **2.0**
 * Next generation module
 
-** 2.0.5 **
+**2.0.5**
 * Username and password variables on new customer action
 * bug fix
 

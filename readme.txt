@@ -70,13 +70,12 @@ Interact with your customers directly and receive their reactions through [two-w
 * Have a complete overview of your [messaging activity](https://help.bulkgate.com/docs/en/campaigns.html) 
 * Check [statistics](https://help.bulkgate.com/docs/en/statistics.html) to see what impact your campaigns have
 * Browse through the [history list](https://help.bulkgate.com/docs/en/history.html) 
-* Download [reports](https://help.bulkgate.com/docs/en/reports.html)
 
 **Powered by BulkGate**
 WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and is depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
 
 **Helpdesk**
-Get comfortable with our [helpdesk.](https://help.bulkgate.com/docs/cs/woosms-module-installation.html) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
+Get comfortable with our [helpdesk.](https://help.bulkgate.com/docs/en/woosms-module-installation.html) It is here for your convenience. Helpdesk gives you answers to all the questions you might want to ask.
 
 
 == Installation ==
@@ -84,7 +83,7 @@ Get comfortable with our [helpdesk.](https://help.bulkgate.com/docs/cs/woosms-mo
 You can:
  * Search **WooSMS – SMS Module for WooCommerce** in the search engine available on *Plugins -> Add New* and press *Install Now* button
  * Upload the ` woosms-sms-module-for-woocommerce` folder to `/wp-content/plugins/` directory via FTP
- * Upload the full ZIP file via *Plugins -> Add New -> Upload* on your WordPress Administration Panel
+ * Upload the full ZIP file via **WordPress Admin > Plugins > Add New** and **Upload Plugin** with the file you downloaded with **Choose File**
  2. Plugin activation
  * Activate plugin through *Plugins* menu on WordPress Administration Panel
 3. Service registration
