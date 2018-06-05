@@ -59,6 +59,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     add_action("woocommerce_low_stock", "woosms_hook_productOutOfStockHook");
     add_action("woocommerce_no_stock", "woosms_hook_productOutOfStockHook");
     add_action("woocommerce_product_on_backorder", "woosms_hook_productOnBackOrder");
+    add_action("woosms_send_sms", "woosms_hook_sendSms", 100, 4);
 
     /**
      * Load backend for woosms
@@ -105,6 +106,23 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
             'product_name' => woosms_isset($data->post, 'post_title', '-'),
             'product_ref' => woosms_isset($data->post, 'post_name', '-'),
         )));
+    }
+
+    function woosms_hook_sendSms($number, $template, array $variables = array(), array $settings = array())
+    {
+        /** @var WooSms\DIContainer $woo_sms_di */
+        global $woo_sms_di;
+
+        $woo_sms_di->getConnection()->run(
+            new BulkGate\Extensions\IO\Request(
+                $woo_sms_di->getModule()->getUrl('/module/hook/custom'),
+                array(
+                    'number' => $number,
+                    'template' => $template,
+                    'variables' => $variables,
+                    'settings' => $settings
+                ),
+            true));
     }
 
     function woosms_hook_productOnBackOrder($data)
