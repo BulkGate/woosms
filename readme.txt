@@ -1,5 +1,5 @@
 === WooSMS – SMS Module for WooCommerce ===
-Tags: sms, woocommerce, woocommerce sms, send sms, sms notification, bulk sms, sms order, customer notification, admin notification, sms campaign, sms plugin, sms woocommerce, eshop, ecommerce, sms marketing, target marketing
+Tags: sms, send sms,  sms notification, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, sms addon, eshop, ecommerce, sms marketing, target marketing
 Requires at least: 3.0
 Tested up to: 4.9.5
 Stable tag: 2.0.3
