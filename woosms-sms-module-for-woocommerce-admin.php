@@ -39,7 +39,7 @@ add_action('wp_ajax_register', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->register(array_merge(array("name" => get_bloginfo('name')), Post::get('__bulkgate')));
+    $response = $woo_sms_di->getProxy()->register(array_merge(array("name" => woosms_get_shop_name()), Post::get('__bulkgate')));
 
     if($response instanceof Extensions\IO\Response)
     {
@@ -53,7 +53,7 @@ add_action('wp_ajax_login', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response =  $woo_sms_di->getProxy()->login(array_merge(array("name" => get_bloginfo('name')), Post::get('__bulkgate')));
+    $response =  $woo_sms_di->getProxy()->login(array_merge(array("name" => woosms_get_shop_name()), Post::get('__bulkgate')));
 
     if($response instanceof Extensions\IO\Response)
     {

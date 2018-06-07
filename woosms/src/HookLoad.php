@@ -254,7 +254,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
             {
                 if($row->option_name === 'blogname')
                 {
-                    $variables->set('shop_name', $row->option_value);
+                    $variables->set('shop_name', html_entity_decode($row->option_value, ENT_QUOTES));
                 }
 
                 if($row->option_name === 'admin_email')

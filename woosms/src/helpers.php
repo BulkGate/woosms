@@ -104,6 +104,11 @@ function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
     }
 }
 
+function woosms_get_shop_name()
+{
+    return html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES);
+}
+
 function woosms_load_languages()
 {
     $output = array();
