@@ -152,6 +152,10 @@ Yes. WooSMS plugin communicates with our BulkGate [SMS gateway.](https://www.bul
 * Added send SMS customized action - `do_action('woosms_send_sms', '777777777', 'Hello <var>', array('var' => 'John'), array('unicode' => true, 'flash' => false));`
 * bug fix
 
+**2.0.7**
+* Default languages mutation (Simple usage)
+* Bug fix
+
 ## Upgrade Notice
 
 Noting here
