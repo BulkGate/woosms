@@ -62,21 +62,29 @@ class WooSMS extends Strict implements IModule
 
     public function languageLoad()
     {
-        $languages = (array) $this->settings->load(':languages', null);
-        $actual = (array) woosms_load_languages();
-
-        if($languages !== $actual)
+        if((bool) $this->settings->load('main:language_mutation'))
         {
-            $this->settings->set(':languages', Json::encode($actual), array('type' => 'json'));
+            $languages = (array) $this->settings->load(':languages', null);
+            $actual = (array) woosms_load_languages();
+
+            if($languages !== $actual)
+            {
+                $this->settings->set(':languages', Json::encode($actual), array('type' => 'json'));
+                return true;
+            }
+            return false;
+        }
+        else
+        {
+            $this->settings->set(':languages', Json::encode(array('default' => 'Default')), array('type' => 'json'));
             return true;
         }
-        return false;
     }
 
     public function storeLoad()
     {
         $stores = (array) $this->settings->load(':stores', null);
-        $actual = array(0 => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES));
+        $actual = array(0 => woosms_get_shop_name());
 
         if($stores !== $actual)
         {
@@ -107,7 +115,8 @@ class WooSMS extends Strict implements IModule
                     'version' => isset($plugin_data['version']) ? $plugin_data['version'] : 'unknown',
                     'application_id' => $this->settings->load('static:application_id', -1),
                     'application_product' => $this->product(),
-                    'delete_db' => $this->settings->load('main:delete_db', 0)
+                    'delete_db' => $this->settings->load('main:delete_db', 0),
+                    'language_mutation' => $this->settings->load('main:language_mutation', 0)
                 ),
                 $this->info
             );
