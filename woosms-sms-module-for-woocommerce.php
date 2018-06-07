@@ -6,7 +6,8 @@
   Version: 2.0.6
   Author: TOPefekt s.r.o. - BulkGate team
   Author URI: http://www.bulkgate.com/
- */
+  Text Domain: woosms-sms-module-for-woocommerce
+*/
 
 /**
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
