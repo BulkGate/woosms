@@ -21,6 +21,10 @@ add_action('init', function()
     global $wpdb, $woo_sms_di;
 
     $woo_sms_di = new WooSms\DIContainer($wpdb);
+});
 
+
+add_action('admin_menu', function ()
+{
     woosms_synchronize();
 });
