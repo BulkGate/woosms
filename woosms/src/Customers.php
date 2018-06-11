@@ -24,14 +24,14 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
     {
         $customers = array();
 
-        $filtered_count = $total = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
+        $filtered_count = $total = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->table('usermeta')}` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
         if(count($filter) > 0)
         {
             list($customers, $filtered) = $this->filter($filter);
 
             if($filtered)
             {
-                $filtered_count = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->prefix()}usermeta` WHERE `user_id` IN ('".implode("','", $customers)."') AND `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
+                $filtered_count = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->table('usermeta')}` WHERE `user_id` IN ('".implode("','", $customers)."') AND `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
             }
         }
 
@@ -64,7 +64,7 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
                         MAX(CASE WHEN meta_key = 'billing_postcode' THEN meta_value ELSE (CASE WHEN meta_key = 'shipping_postcode' THEN  meta_value END) END) zip,
                         MAX(CASE WHEN meta_key = 'billing_city' THEN meta_value ELSE (CASE WHEN meta_key = 'shipping_city' THEN  meta_value END) END) city,
                         MAX(CASE WHEN meta_key = 'billing_email' THEN meta_value END) email
-            FROM `{$this->db->prefix()}usermeta`
+            FROM `{$this->db->table('usermeta')}`
             ". (count($customers) > 0 ? "WHERE `user_id` IN ('".implode("','", $customers)."') " : "") . "
             GROUP BY `user_id`
             HAVING `phone_mobile` NOT LIKE '' 	
@@ -82,31 +82,31 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
                 switch ($key)
                 {
                     case 'first_name':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE `meta_key` IN ('first_name', 'billing_first_name', 'shipping_first_name') AND {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE `meta_key` IN ('first_name', 'billing_first_name', 'shipping_first_name') AND {$this->getSql($filter)}"), $customers);
                     break;
                     case 'last_name':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE `meta_key` IN ('last_name', 'billing_last_name', 'shipping_last_name') AND {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE `meta_key` IN ('last_name', 'billing_last_name', 'shipping_last_name') AND {$this->getSql($filter)}"), $customers);
                     break;
                     case 'country':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE  `meta_key` IN ('shipping_country', 'billing_country') AND {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE  `meta_key` IN ('shipping_country', 'billing_country') AND {$this->getSql($filter)}"), $customers);
                     break;
                     case 'city':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->prefix()}usermeta` WHERE `meta_key` IN ('billing_city', 'shipping_city') AND {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE `meta_key` IN ('billing_city', 'shipping_city') AND {$this->getSql($filter)}"), $customers);
                     break;
                     case 'order_amount':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, MAX(`meta_value`) AS `meta_value` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, MAX(`meta_value`) AS `meta_value` FROM `{$this->db->table('posts')}` INNER JOIN `{$this->db->table('postmeta')}` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
                     break;
                     case 'all_orders_amount':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, SUM(`meta_value`) AS `meta_value` FROM `{$this->db->prefix()}posts` INNER JOIN `{$this->db->prefix()}postmeta` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, SUM(`meta_value`) AS `meta_value` FROM `{$this->db->table('posts')}` INNER JOIN `{$this->db->table('postmeta')}` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
                     break;
                     case 'product':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->prefix()}woocommerce_order_items` INNER JOIN `{$this->db->prefix()}posts` ON `ID` = `order_id` WHERE {$this->getSql($filter, 'order_item_name')}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->table('woocommerce_order_items')}` INNER JOIN `{$this->db->table('posts')}` ON `ID` = `order_id` WHERE {$this->getSql($filter, 'order_item_name')}"), $customers);
                     break;
                     case 'registration_date':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `ID` AS `user_id` FROM `{$this->db->prefix()}users` WHERE {$this->getSql($filter, 'user_registered')}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `ID` AS `user_id` FROM `{$this->db->table('users')}` WHERE {$this->getSql($filter, 'user_registered')}"), $customers);
                     break;
                     case 'order_date':
-                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->prefix()}posts` WHERE `post_type`='shop_order' AND {$this->getSql($filter, 'post_date')}"), $customers);
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->table('posts')}` WHERE `post_type`='shop_order' AND {$this->getSql($filter, 'post_date')}"), $customers);
                     break;
                 }
                 $filtered = true;

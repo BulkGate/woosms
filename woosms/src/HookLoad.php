@@ -99,7 +99,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
             $result = $this->db->execute(
                 $this->db->prepare(
-                    'SELECT `order_item_id` FROM `'.$this->db->prefix().'woocommerce_order_items` WHERE `order_item_type` = \'line_item\' AND `order_id` = %s',
+                    'SELECT `order_item_id` FROM `'.$this->db->table('woocommerce_order_items').'` WHERE `order_item_type` = \'line_item\' AND `order_id` = %s',
                     array((int) $variables->get('order_id'))
                 )
             );
@@ -117,7 +117,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
                                 MAX(CASE WHEN `meta_key` = \'_qty\' THEN `meta_value` END) qty,
                                 MAX(CASE WHEN `meta_key` = \'_product_id\' THEN `meta_value` END) product_id,
                                 MAX(CASE WHEN `meta_key` = \'_tmcartepo_data\' THEN `meta_value` END) tmcartepo_data
-                            FROM  `'.$this->db->prefix().'woocommerce_order_itemmeta` WHERE `order_item_id` = %s
+                            FROM  `'.$this->db->table('woocommerce_order_itemmeta').'` WHERE `order_item_id` = %s
                     ' , array((int) $order_item_id))
                     );
 
@@ -180,7 +180,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         if($variables->get('customer_id'))
         {
             $result = $this->db->execute(
-                $this->db->prepare('SELECT * FROM `'.$this->db->prefix().'users` WHERE `ID` = %s', array((int) $variables->get('customer_id')))
+                $this->db->prepare('SELECT * FROM `'.$this->db->table('users').'` WHERE `ID` = %s', array((int) $variables->get('customer_id')))
             );
 
             if($result->getNumRows())
@@ -246,7 +246,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
     public function shop(Variables $variables)
     {
-        $result = $this->db->execute("SELECT * FROM `".$this->db->prefix()."options` WHERE `option_name` IN ('blogname','admin_email','siteurl','woocommerce_currency')");
+        $result = $this->db->execute("SELECT * FROM `".$this->db->table('options')."` WHERE `option_name` IN ('blogname','admin_email','siteurl','woocommerce_currency')");
 
         if ($result->getNumRows() > 0)
         {

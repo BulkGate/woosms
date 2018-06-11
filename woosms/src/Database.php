@@ -57,6 +57,11 @@ class Database extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         return $this->db->prefix;
     }
 
+    public function table($table)
+    {
+        return $this->prefix().$table;
+    }
+
     public function getSqlList()
     {
         return $this->sql;
