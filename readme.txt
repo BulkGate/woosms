@@ -159,6 +159,14 @@ Yes. WooSMS plugin communicates with our BulkGate [SMS gateway.](https://www.bul
 = 2.0.8 =
 * Sender type admin/customer SMS fix
 
+= 2.0.9 =
+* Support custom order status
+* Bug fix
+
+= 2.0.10 =
+* Sms Campaign filter fix
+* Extensions support
+
 == Upgrade Notice ==
 
 Nothing here
