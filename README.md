@@ -71,7 +71,7 @@ Interact with your customers directly and receive their reactions through [two-w
 
 **Powered by BulkGate**
 
-WooSMS plugin has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and I depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
+<a href="http://www.woo-sms.net/" target="_blank" title="WooSMS plugin for WooCommerce">WooSMS plugin</a> has our BulkGate [messaging platform](https://www.bulkgate.com/en/sms-portal) in its heart. This means that WooSMS communicates with and I depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. WooSMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the [SMS modules](https://www.bulkgate.com/en/sms-module/) we have developed so far.
 
 **Helpdesk**
 
