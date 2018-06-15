@@ -12,7 +12,7 @@ Extend your WooCommerce store capabilities. Send personalized bulk SMS messages.
 
 == Description ==
 
-Extend your WooCommerce store capabilities and create new opportunities for your business with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS module for WooCommerce.
+<strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS module for WooCommerce.
 
 * Promote your products and sales via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>personalized bulk SMS</strong></a> 
 * Make your customers happy by notifying them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notification"><strong>SMS notification</strong></a> 
