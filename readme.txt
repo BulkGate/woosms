@@ -35,7 +35,7 @@ Your customers are what matters most.
 
 https://youtu.be/B3vdkNm64rE
 
-Be always aware of any change in your store.
+<strong>Be always aware of any change in your store.</strong>
 
 * <strong>Receive an SMS notification</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
 * <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks
