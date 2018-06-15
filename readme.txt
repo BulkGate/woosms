@@ -12,7 +12,7 @@ Extend your WooCommerce store capabilities. Send personalized bulk SMS messages.
 
 == Description ==
 
-Extend your WooCommerce store capabilities and create new opportunities for your business with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the generation SMS module for WooCommerce.
+Extend your WooCommerce store capabilities and create new opportunities for your business with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS module for WooCommerce.
 
 * Promote your products and sales via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS">personalized bulk SMS</a> 
 * Make your customers happy by notifying them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notification">SMS notification</a> 
@@ -35,7 +35,7 @@ Your customers are what matters most.
 
 https://youtu.be/B3vdkNm64rE
 
-Be always aware of any change. 
+Be always aware of any change.
 
 * Receive an SMS notification whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
 * Activate one or more admins for each SMS message template (event), so nothing slips through the cracks
@@ -59,6 +59,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 = Few of other great features =
 
 **Inbox**
+
 * Interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS</a> 
 
 **Records and Statistics**
@@ -68,9 +69,10 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * Browse through the <a href="https://help.bulkgate.com/docs/en/history.html" target="_blank" title="SMS history list">SMS history list</a>
 
 **API**
+
 * Use Simple API to add functionalities you need for your WooCommerce store
 
-**Powered by BulkGate**
+= Powered by BulkGate =
 <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS plugin for WooCommerce">WooSMS plugin for WooCommerce</a> has our BulkGate <a href="https://www.bulkgate.com/en/sms-portal" target="_blank" title="SMS Portal">messaging platform</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. This WooCommerce SMS module has all the important functions and intuitive design that you can find in BulkGate Portal. See all the <a href="https://www.bulkgate.com/en/sms-module" target="_blank" title="SMS Portal">SMS modules</a> we have developed so far.
 
 **Helpdesk**
