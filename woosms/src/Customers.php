@@ -35,7 +35,7 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
             }
         }
 
-        return array('total' => $total, 'count' => $filtered_count, 'limit' => $filtered_count !== 0 ? $this->loadCustomers($customers) : array());
+        return array('total' => $total, 'count' => $filtered_count, 'limit' => $filtered_count !== 0 ? $this->loadCustomers($customers, 10) : array());
     }
 
     public function load(array $filter = array())
