@@ -138,6 +138,14 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
                     {
                         $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array('%'.$value[1].'%'));
                     }
+                    elseif($value[0] === 'empty')
+                    {
+                        $sql[] = "`".$key_value."` IS NULL OR TRIM(`".$key_value."`) = ''";
+                    }
+                    elseif($value[0] === 'filled')
+                    {
+                        $sql[] = "`".$key_value."` IS NOT NULL AND (`".$key_value."`) != ''";
+                    }
                     else
                     {
                         $sql[] = $this->db->prepare("`".$key_value."` ".$this->getRelation($value[0])." %s", array($value[1]));
