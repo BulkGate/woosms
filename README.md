@@ -37,7 +37,8 @@ Your customers are what matters most.
 https://youtu.be/B3vdkNm64rE
 
 Be always aware of any change. 
--Receive an SMS notification whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
+
+- Receive an SMS notification whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
 - Activate one or more admins for each SMS message template (event), so nothing slips through the cracks
 
 https://youtu.be/mj6Ea3eVOac
@@ -60,7 +61,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 = Few of other great features =
 
 **Inbox**
-* Interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS</a> 
+- Interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS</a> 
 
 **Records and Statistics**
 - Have a complete overview of your <a href="https://help.bulkgate.com/docs/en/campaigns.html" target="_blank" title="SMS campaign activity">SMS messaging activity</a> 
