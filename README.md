@@ -55,8 +55,6 @@ Attract your customer’s attention.
 
 Earn a commission on happy customers with our <a href="https://www.bulkgate.com/en/developers/affiliate-program/" target="_blank" title="Affiliate program">affiliate program.</a> 
 * <strong>Earn 5-7% commission on every SMS message</strong> your customer sends via this SMS plugin for WooCommerce or other <a href="https://www.bulkgate.com/en/sms-module/" target="_blank" title="SMS modules">SMS modules,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS API</a> and BulkGate <a href="https://www.bulkgate.com/en/sms-portal/" target="_blank" title="SMS Gateway">SMS Portal</a>   
-* The commission rate depends on the country where your customers send SMS messages. <strong>Register on BulkGate and get started!</strong>
-
 
 = Few of other great features =
 
