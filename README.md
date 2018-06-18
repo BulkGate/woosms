@@ -7,16 +7,15 @@
 - License: GPLv3
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status. Receive order updates.
+Extend your WooCommerce store capabilities. Notify your customers about order status. Receive order updates. Send personalized bulk SMS messages.
 
 
 ## Description
 
 <strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
-* Promote your products and sales via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
-* Make your customers happy by notifying them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notification"><strong>SMS notification</strong></a> 
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notification"><strong>SMS notification</strong></a> 
 * Receive with other store admins an <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notification"><strong>SMS notification</strong></a> whenever a new order is placed, a product is out of stock, and much more
-
+* Promote your products and sales via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
 
 
 Watch a short video of WooSMS walkthrough and its important features.
