@@ -1,5 +1,5 @@
 ## WooSMS – SMS Module for WooCommerce
-- Tags: sms, send sms,  sms notification, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal
+- Tags: sms, send sms,  sms notification, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal, sms alerts, alerts, notifications, order status
 - Requires at least: 3.0
 - Tested up to: 4.9.5
 - Stable tag: trunk
