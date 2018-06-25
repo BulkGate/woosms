@@ -7,50 +7,28 @@ use BulkGate\Extensions;
  * @author Lukáš Piják 2018 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class Customers extends Extensions\Strict implements Extensions\ICustomers
+class Customers extends Extensions\Customers
 {
-    /** @var Extensions\Database\IDatabase */
-    private $db;
-
-    /** @var bool */
-    private $empty = false;
-
     public function __construct(Extensions\Database\IDatabase $db)
     {
-        $this->db = $db;
+        parent::__construct($db);
+        $this->table_user_key = 'user_id';
     }
 
-    public function loadCount(array $filter = array())
+
+    public function getTotal()
     {
-        $customers = array();
-
-        $filtered_count = $total = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->table('usermeta')}` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
-        if(count($filter) > 0)
-        {
-            list($customers, $filtered) = $this->filter($filter);
-
-            if($filtered)
-            {
-                $filtered_count = (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->table('usermeta')}` WHERE `user_id` IN ('".implode("','", $customers)."') AND `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
-            }
-        }
-
-        return array('total' => $total, 'count' => $filtered_count, 'limit' => $filtered_count !== 0 ? $this->loadCustomers($customers, 10) : array());
+        return (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->table('usermeta')}` WHERE  `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
     }
 
-    public function load(array $filter = array())
+
+    public function getFilteredTotal(array $customers)
     {
-        $customers = array();
-
-        if(count($filter) > 0)
-        {
-            list($customers, $filtered) = $this->filter($filter);
-        }
-
-        return $this->loadCustomers($customers);
+        return (int) $this->db->execute("SELECT COUNT(DISTINCT `user_id`) AS `total` FROM `{$this->db->table('usermeta')}` WHERE `user_id` IN ('".implode("','", $customers)."') AND `meta_key` = 'billing_phone' AND `meta_value` != '' LIMIT 1")->getRow()->total;
     }
 
-    private function loadCustomers($customers, $limit = null)
+
+    protected function loadCustomers(array $customers, $limit = null)
     {
         return $this->db->execute("
             SELECT      `user_id` AS `order`,
@@ -71,7 +49,8 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
             ". ($limit !== null ? "LIMIT $limit" : ""))->getRows();
     }
 
-    private function filter(array $filters)
+
+    protected function filter(array $filters)
     {
         $customers = array(); $filtered = false;
 
@@ -83,112 +62,36 @@ class Customers extends Extensions\Strict implements Extensions\ICustomers
                 {
                     case 'first_name':
                         $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE `meta_key` IN ('first_name', 'billing_first_name', 'shipping_first_name') AND {$this->getSql($filter)}"), $customers);
-                    break;
+                        break;
                     case 'last_name':
                         $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE `meta_key` IN ('last_name', 'billing_last_name', 'shipping_last_name') AND {$this->getSql($filter)}"), $customers);
-                    break;
+                        break;
                     case 'country':
                         $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE  `meta_key` IN ('shipping_country', 'billing_country') AND {$this->getSql($filter)}"), $customers);
-                    break;
+                        break;
                     case 'city':
                         $customers = $this->getCustomers($this->db->execute("SELECT `user_id` FROM `{$this->db->table('usermeta')}` WHERE `meta_key` IN ('billing_city', 'shipping_city') AND {$this->getSql($filter)}"), $customers);
-                    break;
+                        break;
                     case 'order_amount':
                         $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, MAX(`meta_value`) AS `meta_value` FROM `{$this->db->table('posts')}` INNER JOIN `{$this->db->table('postmeta')}` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
-                    break;
+                        break;
                     case 'all_orders_amount':
                         $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id`, SUM(`meta_value`) AS `meta_value` FROM `{$this->db->table('posts')}` INNER JOIN `{$this->db->table('postmeta')}` ON `ID` = `post_id` WHERE `meta_key` = '_order_total' GROUP BY `post_author` HAVING {$this->getSql($filter)}"), $customers);
-                    break;
+                        break;
                     case 'product':
                         $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->table('woocommerce_order_items')}` INNER JOIN `{$this->db->table('posts')}` ON `ID` = `order_id` WHERE {$this->getSql($filter, 'order_item_name')}"), $customers);
-                    break;
+                        break;
                     case 'registration_date':
                         $customers = $this->getCustomers($this->db->execute("SELECT `ID` AS `user_id` FROM `{$this->db->table('users')}` WHERE {$this->getSql($filter, 'user_registered')}"), $customers);
-                    break;
+                        break;
                     case 'order_date':
                         $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->table('posts')}` WHERE `post_type`='shop_order' AND {$this->getSql($filter, 'post_date')}"), $customers);
-                    break;
+                        break;
                 }
                 $filtered = true;
             }
         }
 
         return array(array_unique($customers), $filtered);
-    }
-
-    private function getSql(array $filter, $key_value = 'meta_value')
-    {
-        $sql = array();
-
-        if(isset($filter['type']) && isset($filter['values']))
-        {
-            foreach ($filter['values'] as $value)
-            {
-                if(in_array($filter['type'], array('enum', 'string', 'float'), true))
-                {
-                    if($value[0] === 'prefix')
-                    {
-                        $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array($value[1].'%'));
-                    }
-                    elseif($value[0] === 'sufix')
-                    {
-                        $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array('%'.$value[1]));
-                    }
-                    elseif($value[0] === 'substring')
-                    {
-                        $sql[] = $this->db->prepare("`".$key_value."` LIKE %s", array('%'.$value[1].'%'));
-                    }
-                    elseif($value[0] === 'empty')
-                    {
-                        $sql[] = "`".$key_value."` IS NULL OR TRIM(`".$key_value."`) = ''";
-                    }
-                    elseif($value[0] === 'filled')
-                    {
-                        $sql[] = "`".$key_value."` IS NOT NULL AND (`".$key_value."`) != ''";
-                    }
-                    else
-                    {
-                        $sql[] = $this->db->prepare("`".$key_value."` ".$this->getRelation($value[0])." %s", array($value[1]));
-                    }
-                }
-                elseif($filter['type'] === "date-range")
-                {
-                    $sql[] = $this->db->prepare("`".$key_value."` BETWEEN %s AND %s", array($value[1], $value[2]));
-                }
-            }
-        }
-
-        return count($sql) > 0 ? implode(' OR ', $sql) : ' FALSE';
-    }
-
-    private function getRelation($relation)
-    {
-        $relation_list = array(
-            'is'    => '=',
-            'not'   => '!=',
-            'gt'    => '>',
-            'lt'    => '<'
-        );
-
-        return isset($relation_list[$relation]) ? $relation_list[$relation] : '=';
-    }
-
-    private function getCustomers(Extensions\Database\Result $result, array $customers)
-    {
-        $output = array();
-
-        if($result->getNumRows() > 0)
-        {
-            foreach($result as $row)
-            {
-                $output[] = (int) $row->user_id;
-            }
-        }
-        else
-        {
-            $this->empty = true;
-        }
-
-        return $this->empty ? array() : count($customers) > 0 ? array_intersect($customers, $output) : $output;
     }
 }
