@@ -70,7 +70,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 
 **API & Custom Hooks**
 
-* Use Simple API to <strong>add functionalities you need</strong> to your WooCommerce store
+* Use Simple API to <strong>add functions you need</strong> to your WooCommerce store
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
 = Powered by BulkGate =
