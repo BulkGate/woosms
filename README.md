@@ -1,5 +1,5 @@
 ## WooSMS – SMS Module for WooCommerce
-- Tags: sms, send sms,  sms notification, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal, sms alerts, alerts, notifications, order status
+- Tags: sms, send sms,  sms notification, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, hromadná sms, sms upozornění, poslat sms
 - Requires at least: 3.0
 - Tested up to: 4.9.5
 - Stable tag: trunk
@@ -117,7 +117,7 @@ It is simple, take a look at a <a href="https://help.bulkgate.com/docs/en/creati
 
 ### How can I import contacts to my campaign? 
 
-You can import contact to your SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually,</a> or via your WooCommerce store
+You can import contacts to your SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually,</a> or via your WooCommerce store
 
 ### Can I send a message under my company's name?
 
