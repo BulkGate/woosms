@@ -208,7 +208,7 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                     <div class="nav-wrapper">
                         <div id="brand-logo">
                             <a class="brand-logo hide-on-med-and-down" href="<?= Escape::url(admin_url("admin.php?page=woosms_dashboard_default")); ?>">
-                                <img alt="woosms" width="120" src="<?= Escape::url($woo_sms_module->getUrl('/images/products/ws.png')); ?>" />
+                                <img alt="woosms" width="120" src="<?= Escape::url($woo_sms_module->getUrl('/images/products/ws.svg')); ?>" />
                             </a>
                         </div>
                         <ul class="controls">
@@ -255,7 +255,7 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                     {
                         if(data.init._generic)
                         {
-                            data.init.env.homepage.logo_link = <?= Escape::js($woo_sms_module->getUrl('/images/products/ws.png')); ?>;
+                            data.init.env.homepage.logo_link = <?= Escape::js($woo_sms_module->getUrl('/images/products/ws.svg')); ?>;
                             data.init._generic.scope.module_info = <?= Escape::js($woo_sms_module->info()); ?>;
                         }
                     });
