@@ -28,19 +28,19 @@ https://youtu.be/j1rrqWUcQlg
 
 **Customer & Admin SMS notifications**
 
-Your customers are what matters most. 
+Your customers are what matters most. Notify them. 
 * Notify your customers via personalized and automated SMS notification about their <strong>order status</strong> and improve customer relationship
 * <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" target="_blank" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
 * Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" target="_blank" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
-* <strong>Automatic conversion</strong>  of customer´s mobile number <strong> to international format</strong>  and many <a href="http://www.woo-sms.net/features.html" target="_blank" title="WooSMS features">other great features!</a>
+* <strong>Automatic conversion</strong>  of customer´s mobile number <strong> to international format</strong> and many <a href="http://www.woo-sms.net/features.html" target="_blank" title="WooSMS features">other great features!</a>
 
 https://youtu.be/B3vdkNm64rE
 
 <strong>Receive SMS notification whenever there is any change in your WooCommerce store.</strong>
 
 * <strong>Receive an SMS notification</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
-* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks
+* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks. One of the admins will receive SMS alert whenever the event happens
 
 https://youtu.be/mj6Ea3eVOac
 
