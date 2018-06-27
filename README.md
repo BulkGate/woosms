@@ -20,7 +20,7 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 
 Watch a short video of WooSMS walkthrough and its important features.
 
-https://youtu.be/Dlrsr92ozeQ
+https://youtu.be/j1rrqWUcQlg
 
 ## Features
 
