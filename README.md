@@ -67,7 +67,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * Browse through the <a href="https://help.bulkgate.com/docs/en/history.html" target="_blank" title="SMS history list"><strong>SMS history list</strong></a>
 
 **API & Custom Hooks**
-* Use Simple API to <strong>add functionalities you need</strong> to your WooCommerce store
+* Use Simple API to <strong>add functions you need</strong> to your WooCommerce store
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
 = Powered by BulkGate =
