@@ -14,9 +14,9 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 
 <strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
 
-* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notification"><strong>SMS notification</strong></a> 
-* Receive with other store admins an <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notification"><strong>SMS notification</strong></a> whenever a new order is placed, a product is out of stock, and much more
-* Promote your products and sales via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
+* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
+* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
 
 Watch a short walkthrough video of WooSMS module and its important features.
 
@@ -35,10 +35,10 @@ Your customers are what matters most. Notify them.
 
 https://youtu.be/B3vdkNm64rE
 
-<strong>Receive SMS notification whenever there is any change in your WooCommerce store.</strong>
+<strong>Receive SMS notifications whenever there is any change in your WooCommerce store.</strong>
 
-* <strong>Receive an SMS notification</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
-* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks. One of the admins will receive SMS alert whenever the event happens
+* <strong>Receive SMS notifications</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
+* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks. One of the admins will receive SMS alerts whenever the event happens
 
 https://youtu.be/mj6Ea3eVOac
 
