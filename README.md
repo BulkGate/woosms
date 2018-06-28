@@ -14,10 +14,10 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 
 ## Description
 
-<strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
-* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
-* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
-* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
+<strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" onclick="window.open(this.href);return false;" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" onclick="window.open(this.href);return false;" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
+* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" onclick="window.open(this.href);return false;" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
+* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" onclick="window.open(this.href);return false;" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
 
 
 Watch a short video of WooSMS walkthrough and its important features.
@@ -30,10 +30,10 @@ https://youtu.be/j1rrqWUcQlg
 
 Your customers are what matters most. Notify them. 
 * Notify your customers via personalized and automated SMS notification about their <strong>order status</strong> and improve customer relationship
-* <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" target="_blank" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
+* <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" onclick="window.open(this.href);return false;" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
-* Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" target="_blank" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
-* <strong>Automatic conversion</strong>  of customer´s mobile number <strong> to international format</strong> and many <a href="http://www.woo-sms.net/features.html" target="_blank" title="WooSMS features">other great features!</a>
+* Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" onclick="window.open(this.href);return false;" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
+* <strong>Automatic conversion</strong>  of customer´s mobile number <strong> to international format</strong> and many <a href="http://www.woo-sms.net/features.html" onclick="window.open(this.href);return false;" title="WooSMS features">other great features!</a>
 
 https://youtu.be/B3vdkNm64rE
 
