@@ -1,5 +1,5 @@
 === WooSMS – SMS Module for WooCommerce ===
-Tags: sms, send sms,  sms notification, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal, sms alerts, alerts, notifications, order status
+Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace
 Requires at least: 3.0
 Tested up to: 4.9.5
 Stable tag: 2.0.3
@@ -12,11 +12,11 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 
 == Description ==
 
-<strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
+<strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" onclick="window.open(this.href);return false;" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
 
-* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notification"><strong>SMS notification</strong></a> 
-* Receive with other store admins an <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notification"><strong>SMS notification</strong></a> whenever a new order is placed, a product is out of stock, and much more
-* Promote your products and sales via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" onclick="window.open(this.href);return false;" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
+* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" onclick="window.open(this.href);return false;" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
+* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" onclick="window.open(this.href);return false;" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
 
 Watch a short walkthrough video of WooSMS module and its important features.
 
@@ -25,20 +25,20 @@ https://youtu.be/j1rrqWUcQlg
 = Features =
 
 **Customer & Admin SMS notifications**
-Your customers are what matters most. 
+Your customers are what matters most. Notify them. 
 
 * Notify your customers via personalized and automated SMS notification about their <strong>order status</strong> and improve customer relationship
-* <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" target="_blank" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
+* <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" onclick="window.open(this.href);return false;" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
-* Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" target="_blank" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
-* <strong>Automatic conversion</strong>  of customer´s mobile number <strong> to international format</strong>  and many <a href="http://www.woo-sms.net/features.html" target="_blank" title="WooSMS features">other great features!</a>
+* Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" onclick="window.open(this.href);return false;" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
+* <strong>Automatic conversion</strong>  of customer´s mobile number <strong> to international format</strong> and many <a href="http://www.woo-sms.net/features.html" onclick="window.open(this.href);return false;" title="WooSMS features">other great features!</a>
 
 https://youtu.be/B3vdkNm64rE
 
-<strong>Be always aware of any change in your store.</strong>
+<strong>Receive SMS notifications whenever there is any change in your WooCommerce store.</strong>
 
-* <strong>Receive an SMS notification</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
-* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks
+* <strong>Receive SMS notifications</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
+* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks. One of the admins will receive SMS alerts whenever the event happens
 
 https://youtu.be/mj6Ea3eVOac
 
@@ -46,7 +46,7 @@ https://youtu.be/mj6Ea3eVOac
 Attract your customer’s attention
 
 * Promote your products and services, and increase your sales via <strong>targeted & personalized bulk SMS campaigns</strong>
-* <strong>Import contacts</strong> to your bulk SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually,</a> or your WooCommerce store
+* <strong>Import contacts</strong> to your bulk SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually</a> or your WooCommerce store
 * Use different <a href="https://help.bulkgate.com/docs/en/sender-type.html#what-is-a-sender-type-and-how-can-i-use-it" target="_blank" title="Sender types"><strong>sender ID types</strong></a> to send your SMS campaigns. Look at our <a href="https://www.bulkgate.com/en/sms-price" target="_blank" title="SMS price list">SMS price list</a> to see which are available in your country!
 * <strong>Shorten your links in your SMS campaigns</strong> with our <a href="https://www.bulkgate.com/en/sms-portal/#url-shortener" target="_blank" title="URL shortener"><strong>URL shortener</strong></a> and save the precious characters to create better messages
 * <strong>DND (Do not Disturb)</strong> solution for India and other countries (NDNC registry)
@@ -70,7 +70,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 
 **API & Custom Hooks**
 
-* Use Simple API to <strong>add functionalities you need</strong> to your WooCommerce store
+* Use Simple API to <strong>add functions you need</strong> to your WooCommerce store
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
 = Powered by BulkGate =
@@ -119,7 +119,7 @@ It is simple, take a look at a <a href="https://help.bulkgate.com/docs/en/creati
 
 = How can I import contacts to my SMS campaign?  =
 
-You can import contact to your SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually,</a> or via your WooCommerce store
+You can import contacts to your SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually</a> or via your WooCommerce store
 
 = Can I send a text message under my company's name? =
 
