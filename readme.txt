@@ -27,7 +27,7 @@ https://youtu.be/j1rrqWUcQlg
 **Customer & Admin SMS notifications**
 Your customers are what matters most. Notify them. 
 
-* Notify your customers via personalized and automated SMS notification about their <strong>order status</strong> and improve customer relationship
+* Notify your customers via personalized and automated SMS notifications about their <strong>order status</strong> and improve customer relationship
 * <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" onclick="window.open(this.href);return false;" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
 * Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" onclick="window.open(this.href);return false;" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
@@ -74,7 +74,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
 = Powered by BulkGate =
-<a href="http://www.woo-sms.net/" target="_blank" title="WooSMS plugin for WooCommerce">WooSMS plugin for WooCommerce</a> has our <a href="https://www.bulkgate.com/en/" target="_blank" title="Bulk SMS Gateway">bulk SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/sms-module" target="_blank" title="SMS Modules">SMS modules</a> we have developed so far.</strong>
+<a href="http://www.woo-sms.net/" target="_blank" title="WooSMS plugin for WooCommerce">WooSMS plugin for WooCommerce</a> has our <a href="https://www.bulkgate.com/en/" target="_blank" title="SMS Gateway">SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/sms-module" target="_blank" title="SMS Modules">SMS modules</a> we have developed so far.</strong>
 
 **Helpdesk**
 Get comfortable with our <a href="https://help.bulkgate.com/docs/en/woosms-module-installation.html" target="_blank" title="SMS Gateway helpdesk">helpdesk.</a> It is here for your convenience. Helpdesk gives you <strong>answers to all the questions you might want to ask.</strong>
