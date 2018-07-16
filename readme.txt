@@ -7,16 +7,21 @@ Requires PHP: 5.3
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Extend your WooCommerce store capabilities. Notify your customers about order status. Receive order updates. Send personalized bulk SMS messages.
+Extend your WooCommerce store capabilities. Notify your customers about order status. Send personalized bulk SMS messages. Receive order updates. 
 
 
 == Description ==
 
 <strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
 
+<strong>Improve customer relationship</strong>
 * Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
-* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
+
+<strong>Increase sales</strong>
 * Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
+
+<strong>Stay informed</strong>
+* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
 
 Watch a short walkthrough video of WooSMS module and its important features.
 
@@ -27,7 +32,7 @@ https://youtu.be/j1rrqWUcQlg
 **Customer & Admin SMS notifications**
 Your customers are what matters most. Notify them. 
 
-* Notify your customers via personalized and automated SMS notifications about their <strong>order status</strong> and improve customer relationship
+* Send personalized and automated SMS notifications to your customers about their <strong>order status</strong> and improve customer relationship
 * <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" target="_blank" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
 * Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" target="_blank" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
