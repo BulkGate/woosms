@@ -32,7 +32,7 @@ https://youtu.be/j1rrqWUcQlg
 
 = Features =
 
-**Customer & Admin SMS notifications**
+**Customer & Admin SMS notification**
 Your customers are what matters most. Notify them. 
 
 * Send personalized and automated SMS notifications to your customers about their <strong>order status</strong> and improve customer relationship
@@ -62,7 +62,7 @@ Attract your customer’s attention
 **Affiliate program for developers**
 Earn a commission on happy customers with our <a href="https://www.bulkgate.com/en/developers/affiliate-program/" target="_blank" title="Affiliate program">affiliate program.</a> 
 
-* <strong>Earn 5-7% commission on every SMS message</strong> your customer sends via this SMS plugin for WooCommerce or other <a href="https://www.bulkgate.com/en/sms-module/" target="_blank" title="SMS modules">SMS modules,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS API</a> and BulkGate <a href="https://www.bulkgate.com/en/sms-portal/" target="_blank" title="SMS Gateway">SMS Portal</a>   
+* <strong>Earn 5-7% commission on every SMS message</strong> your customer sends via this SMS plugin for WooCommerce or other <a href="https://www.bulkgate.com/en/sms-plugin/" target="_blank" title="SMS plugins">SMS plugins,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS API</a> and BulkGate <a href="https://www.bulkgate.com/en/sms-portal/" target="_blank" title="SMS Gateway">SMS Portal</a>   
 
 = Few of other great features =
 
