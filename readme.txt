@@ -20,7 +20,7 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 
 <strong>Increase sales</strong>
 
-* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/sms#bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
+* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
 
 <strong>Stay informed</strong>
 
@@ -35,7 +35,7 @@ https://youtu.be/j1rrqWUcQlg
 **Customer & Admin SMS notification**
 Your customers are what matters most. Notify them. 
 
-* Send personalized and automated SMS notifications to your customers about their <strong>order status</strong> and improve customer relationship
+* Send personalized and automated <a href="https://www.bulkgate.com/en/solutions/sms-notification/" target="_blank" title="SMS notifications">SMS notifications</a> to your customers about their <strong>order status</strong> and improve customer relationship
 * <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" target="_blank" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
 * Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" target="_blank" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
