@@ -31,7 +31,14 @@ add_action('wp_ajax_authenticate', function ()
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    JsonResponse::send($woo_sms_di->getProxy()->authenticate());
+    try
+    {
+        JsonResponse::send($woo_sms_di->getProxy()->authenticate());
+    }
+    catch(Extensions\IO\AuthenticateException $e)
+    {
+        JsonResponse::send(array('redirect' => admin_url("admin.php?page=woosms_sign_in")));
+    }
 });
 
 add_action('wp_ajax_register', function ()
