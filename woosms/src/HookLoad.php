@@ -233,9 +233,13 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         {
             $statuses = \wc_get_order_statuses();
 
-            if(isset($statuses[$variables->get('order_status_id')]))
+            if(isset($statuses['wc-'.$variables->get('order_status_id')]))
             {
-                $variables->set('order_status', $statuses[$variables->get('order_status_id')], $variables->get('order_status_id'));
+                $variables->set('order_status', $statuses['wc-'.$variables->get('order_status_id')], $variables->get('order_status_id'));
+            }
+            else
+            {
+                $variables->set('order_status', $variables->get('order_status_id'));
             }
         }
     }
