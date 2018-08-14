@@ -176,10 +176,15 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 
 **2.0.11**
 * Module logout bug fix
-* <order_status> variable fix
+* order_status variable fix
 * Customer/Admin SMS save visual bug fix
 * Customer/Admin SMS remember last selected mutation bug fix
 * Campaign recipients from store & variables load bug fix
+
+**2.0.12**
+* New invoice data page
+* Low credit alert
+* Synchronize bug fix
 
 ## Upgrade Notice
 
