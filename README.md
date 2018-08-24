@@ -25,7 +25,7 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 <strong>Stay informed</strong>
 * Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
 
-Watch a short video of WooSMS walkthrough and its important features.
+Watch a short walkthrough video of this Woocommerce SMS plugin and its important features.
 
 https://youtu.be/j1rrqWUcQlg
 
