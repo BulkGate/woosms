@@ -29,6 +29,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
             $variables->set('customer_id', $row->post_author);
             $variables->set('customer_message', $row->post_excerpt);
             $variables->set('order_ref', $row->_order_key);
+            $variables->set('customer_email', $row->_billing_email);
 
             if(isset($row->_order_currency))
             {
