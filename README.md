@@ -186,6 +186,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 * Low credit alert
 * Synchronize bug fix
 
+**2.0.13**
+* Customer email variable from order bug  
+
 ## Upgrade Notice
 
 Noting here
