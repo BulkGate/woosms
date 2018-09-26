@@ -160,6 +160,23 @@ add_action('wp_ajax_logout_module', function()
     JsonResponse::send(array('token' => 'guest', 'redirect' => admin_url("admin.php?page=woosms_sign_in")));
 });
 
+add_action('add_meta_boxes', function ($post_type)
+{
+    if($post_type === 'shop_order')
+    {
+        add_meta_box('send_sms', 'WooSMS', function($post) {
+            ?><div id="woo-sms" style="margin:0; zoom: 0.85">
+            <div id="react-snack-root" style="zoom: 0.8"></div>
+            <div id="react-app-root">
+                <?= Escape::html(woosms_translate('loading_content', 'Loading content')); ?>
+            </div>
+            <?php
+            woosms_print_widget('ModuleComponents', 'sendSms', array('id' => get_post_meta($post->ID, '_billing_phone', 'true'), 'key' => strtolower(get_post_meta($post->ID, '_billing_country', 'true'))));
+            ?></div><?php
+        }, 'shop_order', 'side', 'high');
+    }
+});
+
 function define_menu($capabilities = 'manage_options')
 {
     /** @var WooSms\DIContainer $woo_sms_di */
@@ -206,7 +223,6 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
     global $woo_sms_di;
 
     $woo_sms_module = $woo_sms_di->getModule();
-    $woo_sms_settings = $woo_sms_di->getSettings();
 
     ?>
         <div id="woo-sms">
@@ -237,56 +253,71 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                         <div class="spinner"></div>
                         <p><?= Escape::html(woosms_translate('loading_content', 'Loading content')); ?></p>
                     </div>
-                </div>      
-                <div id="react-language-footer"></div>
-                <script type="application/javascript">
-                      var _bg_client_config = {
-                            url: {
-                              authenticationService : ajaxurl
-                            },
-                            actions: {
-                                authenticate: function () {
-                                    return {
-                                        data: {
-                                            action: "authenticate",
-                                            data: {}
-                                        }
-                                    }
-                                }
-                            }
-                          };
-                </script>
-                <script src="<?= Escape::url($woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/widget-api/widget-api.js')); ?>"></script>
-                <script type="application/javascript">
-                    _bg_client.registerMiddleware(function (data)
-                    {
-                        if(data.init._generic)
-                        {
-                            data.init.env.homepage.logo_link = <?= Escape::js($woo_sms_module->getUrl('/images/products/ws.svg')); ?>;
-                            data.init._generic.scope.module_info = <?= Escape::js($woo_sms_module->info()); ?>;
-                        }
-                    });
-                                      
-                    var input = _bg_client.parseQuery(location.search);
-                    
-                    _bg_client.require(<?= Escape::js($woo_sms_settings->load('static:application_id', '')) ?>, {
-                        product: 'ws',
-                        language: <?= Escape::js($woo_sms_settings->load('main:language', 'en')) ?>,
-                        view : {
-                            presenter: <?= Escape::js($presenter) ?>,
-                            action: <?= Escape::js($action) ?>
-                        },
-                        params: {
-                            id: <?php if(isset($params['id'])): echo Escape::js($params['id']); else: ?>input["id"]<?php  endif; ?>,
-                            key: <?php if(isset($params['key'])): echo Escape::js($params['key']); else: ?>input["key"]<?php  endif; ?>,
-                            type: <?php if(isset($params['type'])): echo Escape::js($params['type']); else: ?>input["type"]<?php  endif; ?>,
-                            profile_id: <?php if(isset($params['profile_id'])): echo Escape::js($params['profile_id']); else: ?>input["profile_id"]<?php  endif; ?>
-                        },
-                        proxy: <?= Escape::js(woosms_get_proxy_links($presenter, $action)); ?>
-                    });
-                </script>
+                </div>
+                <?php
+                    woosms_print_widget($presenter, $action, $params);
+                ?>
             </div>
         </div>
+    <?php
+}
+
+function woosms_print_widget($presenter, $action, $params = array())
+{
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    $woo_sms_module = $woo_sms_di->getModule();
+    $woo_sms_settings = $woo_sms_di->getSettings();
+
+    ?>
+        <div id="react-language-footer"></div>
+        <script type="application/javascript">
+            var _bg_client_config = {
+                url: {
+                    authenticationService : ajaxurl
+                },
+                actions: {
+                    authenticate: function () {
+                        return {
+                            data: {
+                                action: "authenticate",
+                                data: {}
+                            }
+                        }
+                    }
+                }
+            };
+        </script>
+        <script src="<?= Escape::url($woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/widget-api/widget-api.js')); ?>"></script>
+        <script type="application/javascript">
+            _bg_client.registerMiddleware(function (data)
+            {
+                if(data.init._generic)
+                {
+                    data.init.env.homepage.logo_link = <?= Escape::js($woo_sms_module->getUrl('/images/products/ws.svg')); ?>;
+                    data.init._generic.scope.module_info = <?= Escape::js($woo_sms_module->info()); ?>;
+                }
+            });
+
+            var input = _bg_client.parseQuery(location.search);
+
+            _bg_client.require(<?= Escape::js($woo_sms_settings->load('static:application_id', '')) ?>, {
+                product: 'ws',
+                language: <?= Escape::js($woo_sms_settings->load('main:language', 'en')) ?>,
+                view : {
+                    presenter: <?= Escape::js($presenter) ?>,
+                    action: <?= Escape::js($action) ?>
+                },
+                params: {
+                    id: <?php if(isset($params['id'])): echo Escape::js($params['id']); else: ?>input["id"]<?php  endif; ?>,
+                    key: <?php if(isset($params['key'])): echo Escape::js($params['key']); else: ?>input["key"]<?php  endif; ?>,
+                    type: <?php if(isset($params['type'])): echo Escape::js($params['type']); else: ?>input["type"]<?php  endif; ?>,
+                    profile_id: <?php if(isset($params['profile_id'])): echo Escape::js($params['profile_id']); else: ?>input["profile_id"]<?php  endif; ?>
+                },
+                proxy: <?= Escape::js(woosms_get_proxy_links($presenter, $action)); ?>
+            });
+        </script>
     <?php
 }
 
