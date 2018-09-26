@@ -189,6 +189,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 **2.0.13**
 * Customer email variable from order bug  
 
+**2.0.14**
+* Send SMS form in WooCommerce Order Detail
+
 ## Upgrade Notice
 
 Noting here
