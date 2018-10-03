@@ -74,11 +74,6 @@ function woosms_isset($array_object, $key, $default = null)
     return $default;
 }
 
-function woosms_get_lang_iso()
-{
-    return get_locale();
-}
-
 function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
 {
     /** @var WooSms\DIContainer $woo_sms_di */
@@ -86,7 +81,7 @@ function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
 
     $hook = new Extensions\Hook\Hook(
         $woo_sms_di->getModule()->getUrl('/module/hook'),
-        woosms_get_lang_iso(),
+        $variables->get('lang_id', woosms_get_lang_iso()),
         0 /* single store */,
         $woo_sms_di->getConnection(),
         $woo_sms_di->getSettings(),
@@ -109,24 +104,55 @@ function woosms_get_shop_name()
     return html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES);
 }
 
+function woosms_get_lang_iso()
+{
+    /* WPML Plugin */
+    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') && defined('ICL_LANGUAGE_CODE'))
+    {
+        return ICL_LANGUAGE_CODE;
+    }
+    else
+    {
+        return get_locale();
+    }
+}
+
+function woosms_get_post_lang($post_id)
+{
+    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php'))
+    {
+        return get_post_meta($post_id, 'wpml_language', true) ?: woosms_get_lang_iso();
+    }
+    else
+    {
+        return woosms_get_lang_iso();
+    }
+}
+
 function woosms_load_languages()
 {
     $output = array();
 
-    $actual = (array) get_available_languages();
-
-    require_once( ABSPATH . 'wp-admin/includes/translation-install.php' );
-    $translations = wp_get_available_translations();
-
-    foreach ($actual as $lang)
+    /** WPML Plugin */
+    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php'))
     {
-        if(isset($translations[$lang]) && isset($translations[$lang]['native_name']))
+        $languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
+
+        foreach ($languages as $lang => $item)
         {
-            $output[$lang] = $translations[$lang]['native_name'];
+            $output[$lang] = isset($item['native_name']) ? $item['native_name'] : $lang;
         }
-        else
+    }
+    else
+    {
+        $actual = (array) get_available_languages();
+
+        require_once(ABSPATH.'wp-admin/includes/translation-install.php' );
+        $translations = wp_get_available_translations();
+
+        foreach ($actual as $lang)
         {
-            $output[$lang] = $lang;
+            $output[$lang] = (isset($translations[$lang]) && isset($translations[$lang]['native_name'])) ? $translations[$lang]['native_name'] : $lang;
         }
     }
     return count($output) === 0 ? array(woosms_get_lang_iso() => 'Default') : $output;
@@ -170,7 +196,7 @@ function woosms_add_links_meta( $links, $file )
             'api'    => '<a href="' . esc_url('https://www.bulkgate.com/en/developers/sms-api/') . '" aria-label="' . esc_attr( 'API' ) . '">' . esc_html( 'API' ) . '</a>',
         );
 
-        return array_merge( $links, $row_meta );
+        return array_merge($links, $row_meta);
     }
 
     return (array) $links;

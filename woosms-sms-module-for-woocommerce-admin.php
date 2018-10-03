@@ -313,7 +313,6 @@ function woosms_print_widget($presenter, $action, $params = array())
                     id: <?php if(isset($params['id'])): echo Escape::js($params['id']); else: ?>input["id"]<?php  endif; ?>,
                     key: <?php if(isset($params['key'])): echo Escape::js($params['key']); else: ?>input["key"]<?php  endif; ?>,
                     type: <?php if(isset($params['type'])): echo Escape::js($params['type']); else: ?>input["type"]<?php  endif; ?>,
-                    profile_id: <?php if(isset($params['profile_id'])): echo Escape::js($params['profile_id']); else: ?>input["profile_id"]<?php  endif; ?>
                 },
                 proxy: <?= Escape::js(woosms_get_proxy_links($presenter, $action)); ?>
             });

@@ -195,6 +195,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 = 2.0.14 =
 * Send SMS form in WooCommerce Order Detail
 
+= 2.0.15 =
+* WPML plugin support https://wpml.org/
+
 == Upgrade Notice ==
 
 Nothing here

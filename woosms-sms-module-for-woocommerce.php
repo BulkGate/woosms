@@ -3,7 +3,7 @@
   Plugin Name: WooSMS - SMS module for WooCommerce
   Plugin URI: http://www.woo-sms.net/
   Description: Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status via customer SMS notifications. Receive order updates via Admin SMS notifications.
-  Version: 2.0.14
+  Version: 2.0.15
   Author: BulkGate SMS gateway
   Author URI: https://www.bulkgate.com/
 */
@@ -75,7 +75,8 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     function woosms_hook_actionValidateOrder($order_id)
     {
         woosms_run_hook('order_new', new Extensions\Hook\Variables(array(
-            'order_id' => $order_id
+            'order_id' => $order_id,
+            'lang_id' => woosms_get_post_lang($order_id)
         )));
     }
 
@@ -94,7 +95,8 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
 
         woosms_run_hook('order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(array(
             'order_status_id' => $order->get_status(),
-            'order_id' => $order_id
+            'order_id' => $order_id,
+            'lang_id' => woosms_get_post_lang($order_id)
         )));
     }
 
@@ -134,7 +136,8 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
             'product_quantity' => woosms_isset($data, 'quantity', 0),
             'product_name' => woosms_isset($product->post, 'post_title', '-'),
             'product_ref' => woosms_isset($product->post, 'post_name', '-'),
-            'order_id' => woosms_isset($data, 'order_id', false)
+            'order_id' => woosms_isset($data, 'order_id', false),
+            'lang_id' => woosms_get_post_lang(woosms_isset($data, 'order_id', false))
         )));
     }
 
