@@ -162,7 +162,10 @@ add_action('wp_ajax_logout_module', function()
 
 add_action('add_meta_boxes', function ($post_type)
 {
-    if($post_type === 'shop_order')
+    /** @var WooSms\DIContainer $woo_sms_di */
+    global $woo_sms_di;
+
+    if($post_type === 'shop_order' && $woo_sms_di->getSettings()->load("static:application_token", false))
     {
         add_meta_box('send_sms', 'WooSMS', function($post) {
             ?><div id="woo-sms" style="margin:0; zoom: 0.85">
