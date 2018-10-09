@@ -146,22 +146,25 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         /** @var WooSms\DIContainer $woo_sms_di */
         global $woo_sms_di;
 
-        $module = $woo_sms_di->getModule();
-
-        $status = $module->statusLoad(); $language = $module->languageLoad(); $store = $module->storeLoad();
-
-        $now = $now || $status || $language || $store;
-
-        try
+        if($woo_sms_di->getSettings()->load('static:application_token'))
         {
-            $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now);
+            $module = $woo_sms_di->getModule();
 
-            return true;
+            $status = $module->statusLoad(); $language = $module->languageLoad(); $store = $module->storeLoad();
+
+            $now = $now || $status || $language || $store;
+
+            try
+            {
+                $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now);
+
+                return true;
+            }
+            catch (Extensions\IO\InvalidResultException $e)
+            {
+            }
         }
-        catch (Extensions\IO\InvalidResultException $e)
-        {
-            return false;
-        }
+        return false;
     }
 
     /**
