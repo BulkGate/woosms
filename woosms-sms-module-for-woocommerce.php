@@ -150,9 +150,13 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         {
             $module = $woo_sms_di->getModule();
 
+            $status = $module->statusLoad(); $language = $module->languageLoad(); $stores = $module->storeLoad();
+
+            $now = $now || $status || $language || $stores;
+
             try
             {
-                $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now || $module->statusLoad() || $module->languageLoad() || $module->storeLoad());
+                $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now);
 
                 return true;
             }

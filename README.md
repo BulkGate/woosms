@@ -201,6 +201,10 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 **2.0.17**
 * Connection timeout page crash bug
 
+**2.0.18**
+* Customer SMS & Admin SMS bug fix from 2.0.17
+
+
 ## Upgrade Notice
 
 Noting here
