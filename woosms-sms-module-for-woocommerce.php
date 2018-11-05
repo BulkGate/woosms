@@ -3,7 +3,7 @@
   Plugin Name: WooSMS - SMS module for WooCommerce
   Plugin URI: http://www.woo-sms.net/
   Description: Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status via customer SMS notifications. Receive order updates via Admin SMS notifications.
-  Version: 2.0.16
+  Version: 2.0.17
   Author: BulkGate SMS gateway
   Author URI: https://www.bulkgate.com/
 */
@@ -124,7 +124,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
                     'variables' => $variables,
                     'settings' => $settings
                 ),
-            true));
+            true, 5));
     }
 
     function woosms_hook_productOnBackOrder($data)
@@ -150,13 +150,9 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         {
             $module = $woo_sms_di->getModule();
 
-            $status = $module->statusLoad(); $language = $module->languageLoad(); $store = $module->storeLoad();
-
-            $now = $now || $status || $language || $store;
-
             try
             {
-                $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now);
+                $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now || $module->statusLoad() || $module->languageLoad() || $module->storeLoad());
 
                 return true;
             }
