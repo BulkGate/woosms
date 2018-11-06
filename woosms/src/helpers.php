@@ -161,7 +161,7 @@ function woosms_load_languages()
 
 function woosms_ajax_url()
 {
-    return network_home_url().'/wp-admin/admin-ajax.php';
+    return network_home_url('/wp-admin/admin-ajax.php', is_ssl() ? 'https' : 'http');
 }
 
 function woosms_add_settings_link($links, $file)
