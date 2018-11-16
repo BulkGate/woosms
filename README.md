@@ -1,9 +1,9 @@
 <img src="https://portal.bulkgate.com/images/products/ws.svg" width="200" />
 
 # WooSMS – SMS Module for WooCommerce
-- Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms portal, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin
+- Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin
 - Requires at least: 3.0
-- Tested up to: 4.9.5
+- Tested up to: 5.0.0
 - Stable tag: trunk
 - Requires PHP: 5.3
 - License: GPLv3
