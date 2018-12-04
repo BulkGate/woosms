@@ -210,6 +210,10 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 = 2.0.19 =
 * Ajax Cross origin proxy link scheme bug
 
+= 2.0.20 =
+* Order status campaign filter
+* Admin page ajax url bug fix
+
 == Upgrade Notice ==
 
 Nothing here

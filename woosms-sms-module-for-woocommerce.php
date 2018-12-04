@@ -3,7 +3,7 @@
   Plugin Name: WooSMS - SMS module for WooCommerce
   Plugin URI: http://www.woo-sms.net/
   Description: Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status via customer SMS notifications. Receive order updates via Admin SMS notifications.
-  Version: 2.0.19
+  Version: 2.0.21
   Author: BulkGate SMS gateway
   Author URI: https://www.bulkgate.com/
 */
@@ -58,6 +58,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     add_action("woocommerce_created_customer", "woosms_hook_customerAddHook", 100, 3);
     add_action("woocommerce_low_stock", "woosms_hook_productOutOfStockHook");
     add_action("woocommerce_no_stock", "woosms_hook_productOutOfStockHook");
+    add_action("woocommerce_payment_complete", "woosms_hook_paymentComplete", 100, 1);
     add_action("woocommerce_product_on_backorder", "woosms_hook_productOnBackOrder");
     add_action("woosms_send_sms", "woosms_hook_sendSms", 100, 4);
 
@@ -110,6 +111,14 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
+    function woosms_hook_paymentComplete($order_id)
+    {
+        woosms_run_hook('order_payment_complete', new Extensions\Hook\Variables(array(
+            'order_id' => $order_id,
+            'lang_id' => woosms_get_post_lang($order_id)
+        )));
+    }
+
     function woosms_hook_sendSms($number, $template, array $variables = array(), array $settings = array())
     {
         /** @var WooSms\DIContainer $woo_sms_di */
@@ -149,6 +158,8 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         if($woo_sms_di->getSettings()->load('static:application_token'))
         {
             $module = $woo_sms_di->getModule();
+
+            $woo_sms_di->getSettings()->set('main:version', woosms_version());
 
             $status = $module->statusLoad(); $language = $module->languageLoad(); $store = $module->storeLoad();
 

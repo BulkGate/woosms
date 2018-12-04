@@ -87,6 +87,9 @@ class Customers extends Extensions\Customers
                     case 'order_date':
                         $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->table('posts')}` WHERE `post_type`='shop_order' AND {$this->getSql($filter, 'post_date')}"), $customers);
                         break;
+                    case 'order_status':
+                        $customers = $this->getCustomers($this->db->execute("SELECT `post_author` AS `user_id` FROM `{$this->db->table('posts')}` WHERE `post_type`='shop_order' AND {$this->getSql($filter, 'post_status')}"), $customers);
+                        break;
                 }
                 $filtered = true;
             }
