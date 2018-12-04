@@ -1,7 +1,7 @@
 <img src="https://portal.bulkgate.com/images/products/ws.svg" width="200" />
 
 # WooSMS – SMS Module for WooCommerce
-- Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin
+- Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin, marketing campaigns, 2-way SMS, two way SMS, two way communication
 - Requires at least: 3.0
 - Tested up to: 5.0.0
 - Stable tag: trunk
@@ -34,7 +34,7 @@ https://youtu.be/j1rrqWUcQlg
 **Customer & Admin SMS notification**
 
 Your customers are what matters most. Notify them. 
-* Send personalized and automated <a href="https://www.bulkgate.com/en/solutions/sms-notification/" target="_blank" title="SMS notifications">SMS notifications</a> to your customers about their <strong>order status</strong> and improve customer relationship
+* Send personalized and automated SMS notifications to your customers about their <strong>order status</strong> and improve customer relationship
 * <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-activate-or-adjust-customer-sms-https-wwwbulkgatecom-en-sms-module-customer-sms-notification-message-template" target="_blank" title="SMS template activation"><strong>Activate/deactivate SMS message templates</strong></a> for any situation that occurs during the order process, and adjust the text
 * Create your <strong>custom SMS notifications</strong>
 * Adjust <a href="https://help.bulkgate.com/docs/en/customer-sms.html#how-can-i-adjust-multilingual-sms-templates" target="_blank" title="Multilingual SMS templates"><strong>multilingual SMS templates</strong></a> and notify your customers in their native language, or the language of the visited website
@@ -54,7 +54,7 @@ Attract your customer’s attention.
 * Promote your products and services, and increase your sales via <strong>targeted & personalized bulk SMS campaigns</strong>
 * <strong>Import contacts</strong> to your bulk SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard" target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually</a> or your WooCommerce store
 * Use different <a href="https://help.bulkgate.com/docs/en/sender-type.html#what-is-a-sender-type-and-how-can-i-use-it" target="_blank" title="Sender types"><strong>sender ID types</strong></a> to send your SMS campaigns. Look at our <a href="https://www.bulkgate.com/en/sms-price" target="_blank" title="SMS price list">SMS price list</a> to see which are available in your country!
-* <strong>Shorten your links in your SMS campaigns</strong> with our <a href="https://www.bulkgate.com/en/sms-portal/#url-shortener" target="_blank" title="URL shortener"><strong>URL shortener</strong></a> and save the precious characters to create better messages
+* <strong>Shorten your links in your marketing campaigns</strong> with our <a href="https://www.bulkgate.com/en/sms-portal/#url-shortener" target="_blank" title="URL shortener"><strong>URL shortener</strong></a> and save the precious characters to create better messages
 * <strong>DND (Do not Disturb)</strong> solution for India and other countries (NDNC registry)
 
 
@@ -66,7 +66,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 = Few of other great features =
 
 **Inbox**
-* <strong>Interact with your customers directly</strong> and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS</a> 
+* <strong>Interact with your customers directly</strong> and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="Two-way SMS">2-way SMS</a> 
 
 **Records and Statistics**
 * Have a complete overview of your <a href="https://help.bulkgate.com/docs/en/campaigns.html"target="_blank" title="SMS campaign activity"><strong>SMS messaging activity</strong></a> 
@@ -78,7 +78,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
 = Powered by BulkGate =
-<a href="http://www.woo-sms.net/" target="_blank" title="WooSMS plugin for WooCommerce">WooSMS plugin for WooCommerce</a> has our <a href="https://www.bulkgate.com/en/" target="_blank" title="SMS Gateway">SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate SMS gateway (www.bulkgate.com/en/) in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/sms-module" target="_blank" title="SMS Modules">SMS modules</a> we have developed so far.</strong>
+WooSMS plugin for WooCommerce has our <a href="https://www.bulkgate.com/en/" target="_blank" title="SMS Gateway">SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate communications platform in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="">integrations</a> and SMS APIs we have developed so far.</strong>
 
 **Helpdesk**
 Get comfortable with our <a href="https://help.bulkgate.com/docs/en/woosms-module-installation.html" target="_blank" title="SMS Gateway helpdesk">helpdesk.</a> It is here for your convenience. Helpdesk gives you <strong>answers to all the questions you might want to ask.</strong>
