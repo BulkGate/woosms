@@ -214,6 +214,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 * Order status campaign filter
 * Admin page ajax url bug fix
 
+= 2.0.21 =
+* Payment complete Customer & Admin hook
+
 == Upgrade Notice ==
 
 Nothing here
