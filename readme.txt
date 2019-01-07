@@ -217,6 +217,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 = 2.0.21 =
 * Payment complete Customer & Admin hook
 
+= 2.0.22 =
+* Multisite proxy_link bug fix
+
 == Upgrade Notice ==
 
 Nothing here
