@@ -161,7 +161,7 @@ function woosms_load_languages()
 
 function woosms_ajax_url()
 {
-    return network_admin_url('/admin-ajax.php', is_ssl() ? 'https' : 'http');
+    return admin_url('/admin-ajax.php', is_ssl() ? 'https' : 'http');
 }
 
 function woosms_add_settings_link($links, $file)
