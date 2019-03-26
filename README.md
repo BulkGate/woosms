@@ -23,7 +23,7 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 * Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a>
 
 <strong>Stay informed</strong>
-* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more
+* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more. You can now receive <strong>Viber notifications</strong> as well!
 
 Watch a short walkthrough video of this Woocommerce SMS plugin and its important features.
 
@@ -44,8 +44,8 @@ https://youtu.be/B3vdkNm64rE
 
 <strong>Receive SMS notification whenever there is any change in your WooCommerce store.</strong>
 
-* <strong>Receive SMS notifications</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
-* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks. One of the admins will receive SMS alerts whenever the event happens
+* <strong>Receive SMS notifications</strong> or <strong>Viber notifications</strong> whenever a new order is placed, cancelled, product is out of stock, or other event occurs in your WooCommerce store
+* <strong>Activate one or more admins</strong> for each SMS message template (event), so nothing slips through the cracks. One of the admins will receive SMS or Viber alerts whenever the event happens
 
 https://youtu.be/mj6Ea3eVOac
 
