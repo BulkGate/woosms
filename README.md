@@ -216,6 +216,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 
 **2.0.22**
 * Multisite proxy_link bug fix
+ 
+**2.0.23**
+* Widget Api update
 
 ## Upgrade Notice
 
@@ -224,6 +227,37 @@ Noting here
 
 ## Translations 
 
-- English 
+- Български
+- Česky
+- Dansk
+- Deutsch
+- English
+- Español
+- Eesti
+- Ελληνικά 
 - Français
-- Czech
+- Italiano
+- Nederlands
+- Hrvatski
+- Bahasa Indonesia
+- Latviešu
+- Magyar
+- Bahasa Melayu
+- Norsk
+- Polski
+- Português
+- Română
+- Русский
+- Slovenčina
+- Slovenščina
+- Српски / srpski
+- Suomi
+- Svenska
+- Tagalog
+- Türkçe
+- Українська
+- Tiếng Việt
+- 日本語
+- 한국어
+- العربية
+- עברית

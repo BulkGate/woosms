@@ -292,7 +292,7 @@ function woosms_print_widget($presenter, $action, $params = array())
                 }
             };
         </script>
-        <script src="<?= Escape::url($woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/widget-api/widget-api.js')); ?>"></script>
+        <script src="<?= Escape::url($woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/widget-api/widget-api.js?v=2')); ?>"></script>
         <script type="application/javascript">
             _bg_client.registerMiddleware(function (data)
             {

@@ -1,4 +1,4 @@
-=== WooSMS – SMS Module for WooCommerce ===
+﻿=== WooSMS – SMS Module for WooCommerce ===
 Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin, marketing campaigns, 2-way SMS, two way SMS, two way communication, viber notification woocommerce, viber notifications
 Requires at least: 3.0
 Tested up to: 5.1.1
@@ -220,12 +220,46 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 = 2.0.22 =
 * Multisite proxy_link bug fix
 
+= 2.0.23 =
+* Widget Api update
+
 == Upgrade Notice ==
 
 Nothing here
 
 == Translations ==
 
-* English 
+* Български
+* Česky
+* Dansk
+* Deutsch
+* English
+* Español
+* Eesti
+* Ελληνικά
 * Français
-* Czech
+* Italiano
+* Nederlands
+* Hrvatski
+* Bahasa Indonesia
+* Latviešu
+* Magyar
+* Bahasa Melayu
+* Norsk
+* Polski
+* Português
+* Română
+* Русский
+* Slovenčina
+* Slovenščina
+* Српски / srpski
+* Suomi
+* Svenska
+* Tagalog
+* Türkçe
+* Українська
+* Tiếng Việt
+* 日本語
+* 한국어
+* العربية
+* עברית
