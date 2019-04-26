@@ -241,6 +241,7 @@ Noting here
 - Hrvatski
 - Bahasa Indonesia
 - Latviešu
+- Lietuvių
 - Magyar
 - Bahasa Melayu
 - Norsk
@@ -261,3 +262,4 @@ Noting here
 - 한국어
 - العربية
 - עברית
+- 中文
