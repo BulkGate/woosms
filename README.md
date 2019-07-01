@@ -16,7 +16,7 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 
 <strong>Extend your WooCommerce store capabilities and create new opportunities for your business</strong> with <a href="http://www.woo-sms.net/" target="_blank" title="WooSMS - SMS module for WooCommerce">WooSMS module </a> – the new generation SMS plugin for WooCommerce.
 
-WooSMS enables businesses to send messages and reach their customers in over **200 countries and regions all around the world.** MageSMS is is one of BulkGate's <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="BulkGate's e-commerce plugns">e-commerce plugins</a> and therefore has all the features and design you can find on BulkGate Portal.
+WooSMS enables businesses to send messages and reach their customers in over **200 countries and regions all around the world.** WooSMS is is one of BulkGate's <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="BulkGate's e-commerce plugns">e-commerce plugins</a> and therefore has all the features and design you can find on BulkGate Portal.
 
 <strong>Improve customer relationship</strong>
 * Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
