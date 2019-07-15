@@ -225,6 +225,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 = 2.0.23 =
 * Widget Api update
 
+= 2.0.24 =
+* WPML plugin support https://wpml.org/ #2
+
 == Upgrade Notice ==
 
 Nothing here
