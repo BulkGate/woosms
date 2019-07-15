@@ -107,7 +107,7 @@ function woosms_get_shop_name()
 function woosms_get_lang_iso()
 {
     /* WPML Plugin */
-    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') && defined('ICL_LANGUAGE_CODE'))
+    if ((is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php')) && defined('ICL_LANGUAGE_CODE'))
     {
         return ICL_LANGUAGE_CODE;
     }
@@ -120,7 +120,7 @@ function woosms_get_lang_iso()
 function woosms_get_post_lang($post_id)
 {
     /* WPML Plugin */
-    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php'))
+    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php'))
     {
         return get_post_meta($post_id, 'wpml_language', true) ?: woosms_get_lang_iso();
     }
@@ -135,7 +135,7 @@ function woosms_load_languages()
     $output = array();
 
     /* WPML Plugin */
-    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php'))
+    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php'))
     {
         $languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
 
