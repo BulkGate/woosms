@@ -57,7 +57,7 @@ Attract your customer’s attention
 
 * Promote your products and services, and increase your sales via <strong>targeted & personalized bulk SMS campaigns</strong>
 * <strong>Import contacts</strong> to your bulk SMS campaign via <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-csv-excel.html#how-do-i-import-contacts-to-campaign-via-csv-excel" target="_blank" title="Import contacts via CSV/Excel">CSV/Excel,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-vcard.html#how-do-i-import-contacts-to-campaign-via-vcard"target="_blank" title="Import contacts via vCard">vCard,</a> <a href="https://help.bulkgate.com/docs/en/importing-contacts-to-campaign-via-enter-number.html" target="_blank" title="Import contacts manually">enter numbers manually</a> or your WooCommerce store
-* Use different <a href="https://help.bulkgate.com/docs/en/sender-type.html#what-is-a-sender-type-and-how-can-i-use-it" target="_blank" title="Sender types"><strong>sender ID types</strong></a> to send your SMS campaigns. Look at our <a href="https://www.bulkgate.com/en/sms-price" target="_blank" title="SMS price list">SMS price list</a> to see which are available in your country!
+* Use different <a href="https://help.bulkgate.com/docs/en/sender-type.html#what-is-a-sender-type-and-how-can-i-use-it" target="_blank" title="Sender types"><strong>sender ID types</strong></a> to send your SMS campaigns. Look at our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS pricing">SMS price list</a> to see which are available in your country!
 * <strong>Shorten your links in your marketing campaigns</strong> with our <a href="https://www.bulkgate.com/en/sms-portal/#url-shortener" target="_blank" title="URL shortener"><strong>URL shortener.</strong></a> Save precious characters to create a better message & get more valuable statistics in the <a href="https://www.bulkgate.com/en/sms-portal/#sms-campaign-dashboard-selection" target="_blank" title="analyze campaigns"><strong>campaign dashboard.</strong></a>
 * <strong>DND (Do not Disturb)</strong> solution for India and other countries (NDNC registry)
 
@@ -109,11 +109,11 @@ See <a href="https://help.bulkgate.com/docs/en/woosms-module-installation.html" 
 
 = Can I send SMS campaigns worldwide? =
 
-Yes. See our <a href="https://www.bulkgate.com/en/sms-price" target="_blank" title="SMS price list">SMS price list</a> to check the SMS price for your desired country.
+Yes. See our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS pricing">SMS price list</a> to check the SMS price for your desired country.
 
 = Can I have a two-way communication with a customer? =
 
-You are able to interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS.</a> You have to choose the correct sender ID type. However, two-way SMS may not be supported in some countries and/or by a specific sender ID type. See our <a href="https://www.bulkgate.com/en/sms-price" target="_blank" title="SMS price list">SMS pricing.</a>
+You are able to interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS.</a> You have to choose the correct sender ID type. However, two-way SMS may not be supported in some countries and/or by a specific sender ID type. See our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS pricing">SMS pricing.</a>
 
 = Can I try WooSMS for free?  =
 
