@@ -1,17 +1,20 @@
 <?php
+
 namespace BulkGate\WooSms;
+
+/**
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
+ * @link https://www.bulkgate.com/
+ */
 
 use BulkGate\Extensions\Json;
 use BulkGate\Extensions\IModule;
 use BulkGate\Extensions\ISettings;
 use BulkGate\Extensions\Strict;
 
-/**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
- * @link https://www.bulkgate.com/
- */
 class WooSMS extends Strict implements IModule
 {
+    /** @var string */
     const PRODUCT = 'ws';
 
     private $info = array(
@@ -30,10 +33,12 @@ class WooSMS extends Strict implements IModule
     /** @var array */
     private $plugin_data = array();
 
+
     public function __construct(ISettings $settings)
     {
         $this->settings = $settings;
     }
+
 
     public function getUrl($path = '')
     {
@@ -47,12 +52,13 @@ class WooSMS extends Strict implements IModule
         }
     }
 
+
     public function statusLoad()
     {
         $status_list = (array) $this->settings->load(':order_status_list', null);
         $actual = (array) wc_get_order_statuses();
 
-        if($status_list !== $actual)
+        if ($status_list !== $actual)
         {
             $this->settings->set(':order_status_list', Json::encode($actual), array('type' => 'json'));
             return true;
@@ -60,14 +66,15 @@ class WooSMS extends Strict implements IModule
         return false;
     }
 
+
     public function languageLoad()
     {
-        if((bool) $this->settings->load('main:language_mutation'))
+        if ((bool) $this->settings->load('main:language_mutation'))
         {
             $languages = (array) $this->settings->load(':languages', null);
             $actual = (array) woosms_load_languages();
 
-            if($languages !== $actual)
+            if ($languages !== $actual)
             {
                 $this->settings->set(':languages', Json::encode($actual), array('type' => 'json'));
                 return true;
@@ -76,17 +83,26 @@ class WooSMS extends Strict implements IModule
         }
         else
         {
-            $this->settings->set(':languages', Json::encode(array('default' => 'Default')), array('type' => 'json'));
-            return true;
+            $default_language = array('default' => 'Default');
+
+            $languages = (array) $this->settings->load(':languages', null);
+
+            if ($languages !== $default_language)
+            {
+                $this->settings->set(':languages', Json::encode($default_language), array('type' => 'json'));
+                return true;
+            }
+            return false;
         }
     }
+
 
     public function storeLoad()
     {
         $stores = (array) $this->settings->load(':stores', null);
         $actual = array(0 => woosms_get_shop_name());
 
-        if($stores !== $actual)
+        if ($stores !== $actual)
         {
             $this->settings->set(':stores', Json::encode($actual), array('type' => 'json'));
             return true;
@@ -94,19 +110,22 @@ class WooSMS extends Strict implements IModule
         return false;
     }
 
+
     public function product()
     {
         return self::PRODUCT;
     }
+
 
     public function url()
     {
         return get_site_url();
     }
 
+
     public function info($key = null)
     {
-        if(empty($this->plugin_data))
+        if (empty($this->plugin_data))
         {
             $plugin_data = array_change_key_case(get_plugin_data(__DIR__.'/../../woosms-sms-module-for-woocommerce.php'));
 
@@ -121,7 +140,7 @@ class WooSMS extends Strict implements IModule
                 $this->info
             );
         }
-        if($key === null)
+        if ($key === null)
         {
             return $this->plugin_data;
         }

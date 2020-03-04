@@ -1,15 +1,17 @@
 <?php
-use BulkGate\Extensions, BulkGate\WooSMS\Escape, BulkGate\WooSms\Post, BulkGate\Extensions\JsonResponse, BulkGate\WooSms;
 
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
+
+use BulkGate\Extensions, BulkGate\WooSMS\Escape, BulkGate\WooSms\Post, BulkGate\Extensions\JsonResponse, BulkGate\WooSms;
 
 if (!defined('ABSPATH'))
 {
     exit;
 }
+
 
 add_action('admin_menu', function ()
 {
@@ -26,6 +28,7 @@ add_action('admin_menu', function ()
     wp_enqueue_style('woosms-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
 });
 
+
 add_action('wp_ajax_authenticate', function ()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
@@ -35,39 +38,42 @@ add_action('wp_ajax_authenticate', function ()
     {
         JsonResponse::send($woo_sms_di->getProxy()->authenticate());
     }
-    catch(Extensions\IO\AuthenticateException $e)
+    catch (Extensions\IO\AuthenticateException $e)
     {
-        JsonResponse::send(array('redirect' => admin_url("admin.php?page=woosms_sign_in")));
+        JsonResponse::send(array('redirect' => admin_url('admin.php?page=woosms_sign_in')));
     }
 });
+
 
 add_action('wp_ajax_register', function ()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response = $woo_sms_di->getProxy()->register(array_merge(array("name" => woosms_get_shop_name()), Post::get('__bulkgate')));
+    $response = $woo_sms_di->getProxy()->register(array_merge(array('name' => woosms_get_shop_name()), Post::get('__bulkgate')));
 
-    if($response instanceof Extensions\IO\Response)
+    if ($response instanceof Extensions\IO\Response)
     {
         JsonResponse::send($response);
     }
-    JsonResponse::send(array('token' => $response, 'redirect' => admin_url("admin.php?page=woosms_dashboard_default")));
+    JsonResponse::send(array('token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')));
 });
+
 
 add_action('wp_ajax_login', function ()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    $response =  $woo_sms_di->getProxy()->login(array_merge(array("name" => woosms_get_shop_name()), Post::get('__bulkgate')));
+    $response =  $woo_sms_di->getProxy()->login(array_merge(array('name' => woosms_get_shop_name()), Post::get('__bulkgate')));
 
-    if($response instanceof Extensions\IO\Response)
+    if ($response instanceof Extensions\IO\Response)
     {
         JsonResponse::send($response);
     }
-    JsonResponse::send(array('token' => $response, 'redirect' => admin_url("admin.php?page=woosms_dashboard_default")));
+    JsonResponse::send(array('token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')));
 });
+
 
 add_action('wp_ajax_load_module_data', function ()
 {
@@ -80,6 +86,7 @@ add_action('wp_ajax_load_module_data', function ()
     ));
 });
 
+
 add_action('wp_ajax_save_module_customers', function ()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
@@ -90,6 +97,7 @@ add_action('wp_ajax_save_module_customers', function ()
         Post::getFromArray('__bulkgate', 'campaign_id')
     ));
 });
+
 
 add_action('wp_ajax_add_module_filter', function ()
 {
@@ -104,18 +112,20 @@ add_action('wp_ajax_add_module_filter', function ()
     ));
 });
 
+
 add_action('wp_ajax_remove_module_filter', function ()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
     JsonResponse::send($woo_sms_di->getProxy()->loadCustomersCount(
-            Post::getFromArray('__bulkgate', 'application_id'),
-            Post::getFromArray('__bulkgate', 'campaign_id'),
-            'removeFilter',
-            Post::get('__bulkgate')
+        Post::getFromArray('__bulkgate', 'application_id'),
+        Post::getFromArray('__bulkgate', 'campaign_id'),
+        'removeFilter',
+        Post::get('__bulkgate')
     ));
 });
+
 
 add_action('wp_ajax_save_customer_notifications', function ()
 {
@@ -123,9 +133,10 @@ add_action('wp_ajax_save_customer_notifications', function ()
     global $woo_sms_di;
 
     JsonResponse::send($woo_sms_di->getProxy()->saveCustomerNotifications(
-        Post::get('__bulkgate', array(), array("template"))
+        Post::get('__bulkgate', array(), array('template'))
     ));
 });
+
 
 add_action('wp_ajax_save_admin_notifications', function ()
 {
@@ -133,22 +144,24 @@ add_action('wp_ajax_save_admin_notifications', function ()
     global $woo_sms_di;
 
     JsonResponse::send($woo_sms_di->getProxy()->saveAdminNotifications(
-        Post::get('__bulkgate', array(), array("template"))
+        Post::get('__bulkgate', array(), array('template'))
     ));
 });
+
 
 add_action('wp_ajax_save_module_settings', function()
 {
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    if(Post::get('__bulkgate', false))
+    if (Post::get('__bulkgate', false))
     {
         $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
     }
 
-    JsonResponse::send(array('redirect' => admin_url("admin.php?page=woosms_modulesettings_default")));
+    JsonResponse::send(array('redirect' => admin_url('admin.php?page=woosms_modulesettings_default')));
 });
+
 
 add_action('wp_ajax_logout_module', function()
 {
@@ -157,15 +170,16 @@ add_action('wp_ajax_logout_module', function()
 
     $woo_sms_di->getProxy()->logout();
 
-    JsonResponse::send(array('token' => 'guest', 'redirect' => admin_url("admin.php?page=woosms_sign_in")));
+    JsonResponse::send(array('token' => 'guest', 'redirect' => admin_url('admin.php?page=woosms_sign_in')));
 });
+
 
 add_action('add_meta_boxes', function ($post_type)
 {
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    if($post_type === 'shop_order' && $woo_sms_di->getSettings()->load("static:application_token", false))
+    if ($post_type === 'shop_order' && $woo_sms_di->getSettings()->load('static:application_token', false))
     {
         add_meta_box('send_sms', 'WooSMS', function($post) {
             ?><div id="woo-sms" style="margin:0; zoom: 0.85">
@@ -180,6 +194,7 @@ add_action('add_meta_boxes', function ($post_type)
     }
 });
 
+
 function define_menu($capabilities = 'manage_options')
 {
     /** @var WooSms\DIContainer $woo_sms_di */
@@ -187,15 +202,21 @@ function define_menu($capabilities = 'manage_options')
 
     $woo_sms_settings = $woo_sms_di->getSettings();
 
-    $menu = $woo_sms_settings->load("menu:");
+    $menu = $woo_sms_settings->load('menu:');
 
-    $application_token = $woo_sms_settings->load("static:application_token", false);
-
-    add_menu_page('woosms_profile_page', "WooSMS", $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', ((float)$wp_version) >= 3.8 ? 'dashicons-email-alt' : plugins_url(WOOSMS_DIR . '/img/logo.png'), '58');
-
-    if($application_token && is_array($menu))
+    if (empty($menu))
     {
-        foreach($menu as $slug => $m)
+        woosms_synchronize(true);
+        $menu = $woo_sms_settings->load('menu:', array(), true);
+    }
+
+    $application_token = $woo_sms_settings->load('static:application_token', false);
+
+    add_menu_page('woosms_profile_page', 'WooSMS', $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', ((float)$wp_version) >= 3.8 ? 'dashicons-email-alt' : plugins_url(WOOSMS_DIR . '/img/logo.png'), '58');
+
+    if ($application_token && is_array($menu))
+    {
+        foreach ($menu as $slug => $m)
         {
             add_submenu_page($application_token ? $m->parent : null, woosms_translate($m->title), woosms_translate($m->title), $capabilities, $slug, function () use ($m) {
                 woosms_page($m->presenter, $m->action, woosms_translate($m->title), $m->box);
@@ -220,8 +241,11 @@ function define_menu($capabilities = 'manage_options')
     });
 }
 
+
 function woosms_page($presenter, $action, $title, $box, $params = array())
 {
+    woosms_synchronize();
+
     /** @var WooSms\DIContainer $woo_sms_di */
     global $woo_sms_di;
 
@@ -233,7 +257,7 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                 <div class="container-fluid">
                     <div class="nav-wrapper">
                         <div id="brand-logo">
-                            <a class="brand-logo hide-on-med-and-down" href="<?= Escape::url(admin_url("admin.php?page=woosms_dashboard_default")); ?>">
+                            <a class="brand-logo hide-on-med-and-down" href="<?= Escape::url(admin_url('admin.php?page=woosms_dashboard_default')); ?>">
                                 <img alt="woosms" width="120" src="<?= Escape::url($woo_sms_module->getUrl('/images/products/ws.svg')); ?>" />
                             </a>
                         </div>
@@ -264,6 +288,7 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
         </div>
     <?php
 }
+
 
 function woosms_print_widget($presenter, $action, $params = array())
 {
@@ -323,9 +348,10 @@ function woosms_print_widget($presenter, $action, $params = array())
     <?php
 }
 
+
 function woosms_get_proxy_links($presenter, $action)
 {
-    switch($presenter.':'.$action)
+    switch ($presenter.':'.$action)
     {
         case 'ModuleNotifications:customer':
             return array('_generic' => array('save' => array(

@@ -3,13 +3,13 @@
   Plugin Name: WooSMS - SMS module for WooCommerce
   Plugin URI: http://www.woo-sms.net/
   Description: Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status via customer SMS notifications. Receive order updates via Admin SMS notifications.
-  Version: 2.0.24
+  Version: 2.0.25
   Author: BulkGate SMS gateway
   Author URI: https://www.bulkgate.com/
 */
 
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
@@ -22,27 +22,23 @@ if (!defined('ABSPATH'))
 
 define("WOOSMS_DIR", basename(__DIR__));
 
-if(file_exists(__DIR__.'/extensions/src/debug.php'))
+if (file_exists(__DIR__.'/extensions/src/debug.php'))
 {
     require_once __DIR__.'/extensions/src/debug.php';
 }
 
-/**
- * Enable SMS demo feature (Disable save settings in profile)
- */
-//define("SMS_DEMO", true);
-
 require_once(ABSPATH . 'wp-admin/includes/plugin.php');
 
 /**
- * Check if woocommerce is installed
+ * Check if WooCommerce is installed
  */
 if (is_plugin_active('woocommerce/woocommerce.php'))
 {
     /**
-     * Init woosms
+     * Init WooSMS
      */
     require_once(__DIR__.'/woosms/src/init.php');
+
 
     function woosms_version()
     {
@@ -62,6 +58,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     add_action("woocommerce_product_on_backorder", "woosms_hook_productOnBackOrder");
     add_action("woosms_send_sms", "woosms_hook_sendSms", 100, 4);
 
+
     /**
      * Load backend for woosms
      */
@@ -69,6 +66,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     {
         require(__DIR__."/woosms-sms-module-for-woocommerce-admin.php");
     }
+
 
     /*
      * Woosms actions
@@ -81,6 +79,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
+
     function woosms_hook_customerAddHook($customer_id, $data)
     {
         woosms_run_hook('customer_new', new Extensions\Hook\Variables(array(
@@ -90,16 +89,19 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
+
     function woosms_hook_changeOrderStatusHook($order_id)
     {
         $run_hook = true;
         $order = new WC_Order($order_id);
 
-        if( has_filter( 'run_woosms_hook_changeOrderStatusHook' ) ) {
-            $run_hook = apply_filters( 'run_woosms_hook_changeOrderStatusHook', $order );
+        if (has_filter('run_woosms_hook_changeOrderStatusHook'))
+        {
+            $run_hook = apply_filters('run_woosms_hook_changeOrderStatusHook', $order);
         }
       
-        if( $run_hook ) {
+        if ($run_hook)
+        {
             woosms_run_hook('order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(array(
                 'order_status_id' => $order->get_status(),
                 'order_id' => $order_id,
@@ -107,6 +109,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
             )));
         }
     }
+
 
     function woosms_hook_productOutOfStockHook($data)
     {
@@ -118,6 +121,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
+
     function woosms_hook_paymentComplete($order_id)
     {
         woosms_run_hook('order_payment_complete', new Extensions\Hook\Variables(array(
@@ -125,6 +129,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
             'lang_id' => woosms_get_post_lang($order_id)
         )));
     }
+
 
     function woosms_hook_sendSms($number, $template, array $variables = array(), array $settings = array())
     {
@@ -143,6 +148,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
             true, 5));
     }
 
+
     function woosms_hook_productOnBackOrder($data)
     {
         $product = woosms_isset($data, 'product');
@@ -157,12 +163,13 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         )));
     }
 
+
     function woosms_synchronize($now = false)
     {
         /** @var WooSms\DIContainer $woo_sms_di */
         global $woo_sms_di;
 
-        if($woo_sms_di->getSettings()->load('static:application_token'))
+        if ($woo_sms_di->getSettings()->load('static:application_token'))
         {
             $module = $woo_sms_di->getModule();
 
@@ -185,18 +192,20 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
         return false;
     }
 
+
     /**
      * Register install scripts
      */
     register_activation_hook(__FILE__, function ()
     {
-        /** @var \wpdb $wpdb */
+        /** @var wpdb $wpdb */
         global $wpdb;
 
         $woo_sms_di = new WooSms\DIContainer($wpdb);
 
         $woo_sms_di->getSettings()->install();
     });
+
 
     /**
      * Register uninstall scripts
@@ -208,12 +217,11 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
 
         $woo_sms_di->getSettings()->uninstall();
     });
-
 }
 else
 {
     /**
-     * Woocommerce is not installed
+     * WooCommerce is not installed
      */
     deactivate_plugins(plugin_basename(__FILE__));
 }
