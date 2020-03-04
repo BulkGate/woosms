@@ -92,13 +92,20 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
 
     function woosms_hook_changeOrderStatusHook($order_id)
     {
+        $run_hook = true;
         $order = new WC_Order($order_id);
 
-        woosms_run_hook('order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(array(
-            'order_status_id' => $order->get_status(),
-            'order_id' => $order_id,
-            'lang_id' => woosms_get_post_lang($order_id)
-        )));
+        if( has_filter( 'run_woosms_hook_changeOrderStatusHook' ) ) {
+            $run_hook = apply_filters( 'run_woosms_hook_changeOrderStatusHook', $order );
+        }
+      
+        if( $run_hook ) {
+            woosms_run_hook('order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(array(
+                'order_status_id' => $order->get_status(),
+                'order_id' => $order_id,
+                'lang_id' => woosms_get_post_lang($order_id)
+            )));
+        }
     }
 
     function woosms_hook_productOutOfStockHook($data)
