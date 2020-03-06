@@ -3,9 +3,10 @@
 namespace BulkGate\WooSms;
 
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
+
 require_once __DIR__ . '/Escape.php';
 require_once __DIR__ . '/Post.php';
 require_once __DIR__ . '/DIContainer.php';

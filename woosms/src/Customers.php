@@ -1,15 +1,18 @@
 <?php
+
 namespace BulkGate\WooSms;
 
-use BulkGate\Extensions;
-
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
+
+use BulkGate\Extensions;
+use BulkGate\Extensions\Database\IDatabase;
+
 class Customers extends Extensions\Customers
 {
-    public function __construct(Extensions\Database\IDatabase $db)
+    public function __construct(IDatabase $db)
     {
         parent::__construct($db);
         $this->table_user_key = 'user_id';
@@ -43,10 +46,10 @@ class Customers extends Extensions\Customers
                         MAX(CASE WHEN meta_key = 'billing_city' THEN meta_value ELSE (CASE WHEN meta_key = 'shipping_city' THEN  meta_value END) END) city,
                         MAX(CASE WHEN meta_key = 'billing_email' THEN meta_value END) email
             FROM `{$this->db->table('usermeta')}`
-            ". (count($customers) > 0 ? "WHERE `user_id` IN ('".implode("','", $customers)."') " : "") . "
+            ". (count($customers) > 0 ? "WHERE `user_id` IN ('".implode("','", $customers)."') " : '') . "
             GROUP BY `user_id`
             HAVING `phone_mobile` NOT LIKE '' 	
-            ". ($limit !== null ? "LIMIT $limit" : ""))->getRows();
+            ". ($limit !== null ? "LIMIT $limit" : ''))->getRows();
     }
 
 
@@ -54,9 +57,9 @@ class Customers extends Extensions\Customers
     {
         $customers = array(); $filtered = false;
 
-        foreach($filters as $key => $filter)
+        foreach ($filters as $key => $filter)
         {
-            if(isset($filter['values']) && count($filter['values']) > 0 && !$this->empty)
+            if (isset($filter['values']) && count($filter['values']) > 0 && !$this->empty)
             {
                 switch ($key)
                 {

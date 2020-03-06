@@ -1,26 +1,33 @@
 <?php
+
 namespace BulkGate\WooSms;
 
-use BulkGate;
-use BulkGate\Extensions\Hook\Variables;
-
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions\Hook\ILoad
+
+use BulkGate;
+use BulkGate\Extensions\Buffer;
+use BulkGate\Extensions\Hook\ILoad;
+use BulkGate\Extensions\Hook\Variables;
+use BulkGate\Extensions\Strict;
+
+class HookLoad extends Strict implements ILoad
 {
     /** @var Database */
     private $db;
-    
+
+
     public function __construct(Database $db)
     {
         $this->db = $db;
     }
 
+
     public function order(Variables $variables)
     {
-        if($variables->get('order_id'))
+        if ($variables->get('order_id'))
         {
             $variables->set("long_order_id", sprintf("%06d", $variables->get('order_id')));
 
@@ -31,7 +38,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
             $variables->set('order_ref', $row->_order_key);
             $variables->set('customer_email', $row->_billing_email);
 
-            if(isset($row->_order_currency))
+            if (isset($row->_order_currency))
             {
                 $variables->set('order_currency', $row->_order_currency);
             }
@@ -52,7 +59,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
             $variables->set('customer_lastname', $row->_shipping_last_name, $row->_billing_last_name);
             $variables->set('customer_firstname', $row->_shipping_first_name, $row->_billing_first_name);
 
-            if(strlen($row->_shipping_address_2) > 0)
+            if (strlen($row->_shipping_address_2) > 0)
             {
                 $variables->set('customer_address', $row->_shipping_address_1 . ', ' . $row->_shipping_address_2, $row->_billing_address_1 . ', ' . $row->_billing_address_2);
             }
@@ -76,7 +83,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
             $variables->set('customer_invoice_lastname', $row->_billing_last_name, $row->_shipping_last_name);
             $variables->set('customer_invoice_firstname', $row->_billing_first_name, $row->_shipping_first_name);
 
-            if(strlen($row->_billing_address_2) > 0)
+            if (strlen($row->_billing_address_2) > 0)
             {
                 $variables->set('customer_invoice_address', $row->_billing_address_1 . ', ' . $row->_billing_address_2, $row->_shipping_address_1 . ', ' . $row->_shipping_address_2);
             }
@@ -107,9 +114,9 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
             $newOrder1_pre = $newOrder2_pre = $newOrder3_pre = $newOrder4_pre = $sms_printer1 = $sms_printer2 = array();
 
-            if($result->getNumRows() > 0)
+            if ($result->getNumRows() > 0)
             {
-                foreach($result as $row)
+                foreach ($result as $row)
                 {
                     $order_item_id = $row->order_item_id;
 
@@ -122,7 +129,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
                     ' , array((int) $order_item_id))
                     );
 
-                    if($result->getNumRows())
+                    if ($result->getNumRows())
                     {
                         $qty = $result->getRow()->qty;
                         $product_id = $result->getRow()->product_id;
@@ -130,16 +137,16 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
                         $data = (array) get_post($product_id);
                         $params = '';
 
-                        if(isset($result->getRow()->tmcartepo_data))
+                        if (isset($result->getRow()->tmcartepo_data))
                         {
                             $params = '\n';
                             $product_list = unserialize($result->getRow()->tmcartepo_data);
 
-                            if(is_array($product_list))
+                            if (is_array($product_list))
                             {
-                                foreach($product_list as $item)
+                                foreach ($product_list as $item)
                                 {
-                                    if(strlen($item['name']))
+                                    if (strlen($item['name']))
                                     {
                                         $params .= '- ' .$item['quantity'].'x '.$item['name'].': '.$item['value'].' '.$item['price'] . $variables->get('order_currency') . ' \n';
                                     }
@@ -147,7 +154,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
                             }
                         }
 
-                        if(count($data))
+                        if (count($data))
                         {
                             $newOrder1_pre[] = $qty.'x '.$data['post_title'].' '.$data['post_name'].' '.$params;
                             $newOrder2_pre[] = $qty.'x '.$data['post_title'].' '.$params;
@@ -176,17 +183,18 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         }
     }
 
+
     public function customer(Variables $variables)
     {
-        if($variables->get('customer_id'))
+        if ($variables->get('customer_id'))
         {
             $result = $this->db->execute(
                 $this->db->prepare('SELECT * FROM `'.$this->db->table('users').'` WHERE `ID` = %s', array((int) $variables->get('customer_id')))
             );
 
-            if($result->getNumRows())
+            if ($result->getNumRows())
             {
-                foreach($result as $row)
+                foreach ($result as $row)
                 {
                     $variables->set('username', $row->user_login, '', false);
                     $variables->set('customer_email', $row->user_email, '', false);
@@ -197,7 +205,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
         $row = woosms_get_address_meta_array($variables->get('customer_id'));
 
-        if($row instanceof BulkGate\Extensions\Buffer)
+        if ($row instanceof Buffer)
         {
             $variables->set('customer_firstname', $row->first_name, '', false);
             $variables->set('customer_lastname', $row->last_name, '', false);
@@ -209,7 +217,7 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
             $variables->set('customer_country_id', $row->shipping_country, $row->billing_country, false);
 
-            if(strlen($row->_shipping_address_2) > 0)
+            if (strlen($row->_shipping_address_2) > 0)
             {
                 $variables->set('customer_address', $row->shipping_address_1 . ', ' . $row->shipping_address_2, $row->billing_address_1 . ', ' . $row->billing_address_2, false);
             }
@@ -228,13 +236,14 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         $variables->set('shop_id', 0, '', false);
     }
 
+
     public function orderStatus(Variables $variables)
     {
-        if(function_exists('wc_get_order_statuses'))
+        if (function_exists('wc_get_order_statuses'))
         {
             $statuses = \wc_get_order_statuses();
 
-            if(isset($statuses['wc-'.$variables->get('order_status_id')]))
+            if (isset($statuses['wc-'.$variables->get('order_status_id')]))
             {
                 $variables->set('order_status', $statuses['wc-'.$variables->get('order_status_id')], $variables->get('order_status_id'));
             }
@@ -245,9 +254,11 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         }
     }
 
+
     public function returnOrder(Variables $variables)
     {
     }
+
 
     public function shop(Variables $variables)
     {
@@ -255,24 +266,24 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
 
         if ($result->getNumRows() > 0)
         {
-            foreach($result as $row)
+            foreach ($result as $row)
             {
-                if($row->option_name === 'blogname')
+                if ($row->option_name === 'blogname')
                 {
                     $variables->set('shop_name', html_entity_decode($row->option_value, ENT_QUOTES));
                 }
 
-                if($row->option_name === 'admin_email')
+                if ($row->option_name === 'admin_email')
                 {
                     $variables->set('shop_email', $row->option_value);
                 }
 
-                if($row->option_name === 'siteurl')
+                if ($row->option_name === 'siteurl')
                 {
                     $variables->set('shop_domain', $row->option_value);
                 }
 
-                if($row->option_name === 'woocommerce_currency')
+                if ($row->option_name === 'woocommerce_currency')
                 {
                     $variables->set('shop_currency', $row->option_value);
                 }
@@ -280,14 +291,16 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         }
     }
 
+
     public function extension(Variables $variables)
     {
-        if(class_exists('BulkGate\WooSMS\HookExtension'))
+        if (class_exists('BulkGate\WooSMS\HookExtension'))
         {
             $hook = new HookExtension();
             $hook->extend($this->db, $variables);
         }
     }
+
 
     private $mapping = array(
         'first_name' => 'customer_firstname',
@@ -311,17 +324,20 @@ class HookLoad extends BulkGate\Extensions\Strict implements BulkGate\Extensions
         'billing_country' => 'customer_country',
     );
 
+
     public function post(Variables $variables)
     {
-        foreach($this->mapping as $key => $variable)
+        foreach ($this->mapping as $key => $variable)
         {
             $variables->set($variable, Post::get($key));
         }
     }
 
+
     public function product(Variables $variables)
     {
     }
+
 
     public function load(Variables $variables)
     {

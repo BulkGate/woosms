@@ -1,21 +1,28 @@
 <?php
+
 namespace BulkGate\WooSms;
 
+/**
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
+ * @link https://www.bulkgate.com/
+ */
+
+use wpdb;
 use BulkGate, BulkGate\Extensions;
+use BulkGate\Extensions\ServiceNotFoundException;
 
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
- * @link https://www.bulkgate.com/
  * @method Database getDatabase()
  * @method WooSMS getModule()
  * @method Customers getCustomers()
  */
 class DIContainer extends Extensions\DIContainer
 {
-    /** @var \wpdb */
+    /** @var wpdb */
     private $wpdb;
 
-    public function __construct(\wpdb $wpdb)
+
+    public function __construct(wpdb $wpdb)
     {
         $this->wpdb = $wpdb;
     }
@@ -31,7 +38,8 @@ class DIContainer extends Extensions\DIContainer
 
 
     /**
-     * @return WooSMS
+     * @return Extensions\IModule|WooSMS
+     * @throws ServiceNotFoundException
      */
     protected function createModule()
     {
@@ -40,7 +48,8 @@ class DIContainer extends Extensions\DIContainer
 
 
     /**
-     * @return Customers
+     * @return Extensions\ICustomers|Customers
+     * @throws ServiceNotFoundException
      */
     protected function createCustomers()
     {

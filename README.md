@@ -229,6 +229,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 * Stop send Message hook "run_woosms_hook_changeOrderStatusHook" https://wordpress.org/support/topic/conditions-7/
 * Performance improve
 
+**2.0.26**
+* PHP 7.4 compatibility
+
 ## Upgrade Notice
 
 Noting here

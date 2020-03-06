@@ -3,7 +3,7 @@
   Plugin Name: WooSMS - SMS module for WooCommerce
   Plugin URI: http://www.woo-sms.net/
   Description: Extend your WooCommerce store capabilities. Send personalized bulk SMS messages. Notify your customers about order status via customer SMS notifications. Receive order updates via Admin SMS notifications.
-  Version: 2.0.25
+  Version: 2.0.26
   Author: BulkGate SMS gateway
   Author URI: https://www.bulkgate.com/
 */
@@ -20,7 +20,7 @@ if (!defined('ABSPATH'))
     exit;
 }
 
-define("WOOSMS_DIR", basename(__DIR__));
+define('WOOSMS_DIR', basename(__DIR__));
 
 if (file_exists(__DIR__.'/extensions/src/debug.php'))
 {
@@ -49,14 +49,14 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     /**
      * Connect woosms actions for customers and admin SMS
      */
-    add_action("woocommerce_order_status_changed", "woosms_hook_changeOrderStatusHook");
-    add_action("woocommerce_checkout_order_processed", "woosms_hook_actionValidateOrder");
-    add_action("woocommerce_created_customer", "woosms_hook_customerAddHook", 100, 3);
-    add_action("woocommerce_low_stock", "woosms_hook_productOutOfStockHook");
-    add_action("woocommerce_no_stock", "woosms_hook_productOutOfStockHook");
-    add_action("woocommerce_payment_complete", "woosms_hook_paymentComplete", 100, 1);
-    add_action("woocommerce_product_on_backorder", "woosms_hook_productOnBackOrder");
-    add_action("woosms_send_sms", "woosms_hook_sendSms", 100, 4);
+    add_action('woocommerce_order_status_changed', 'woosms_hook_changeOrderStatusHook');
+    add_action('woocommerce_checkout_order_processed', 'woosms_hook_actionValidateOrder');
+    add_action('woocommerce_created_customer', 'woosms_hook_customerAddHook', 100, 3);
+    add_action('woocommerce_low_stock', 'woosms_hook_productOutOfStockHook');
+    add_action('woocommerce_no_stock', 'woosms_hook_productOutOfStockHook');
+    add_action('woocommerce_payment_complete', 'woosms_hook_paymentComplete', 100, 1);
+    add_action('woocommerce_product_on_backorder', 'woosms_hook_productOnBackOrder');
+    add_action('woosms_send_sms', 'woosms_hook_sendSms', 100, 4);
 
 
     /**
@@ -64,7 +64,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
      */
     if (is_admin())
     {
-        require(__DIR__."/woosms-sms-module-for-woocommerce-admin.php");
+        require(__DIR__.'/woosms-sms-module-for-woocommerce-admin.php');
     }
 
 
@@ -115,7 +115,7 @@ if (is_plugin_active('woocommerce/woocommerce.php'))
     {
         woosms_run_hook('product_out_of_stock', new Extensions\Hook\Variables(array(
             'product_id' => woosms_isset($data, 'id', 0),
-            'product_quantity' => woosms_isset(get_post_meta($data->id, "_stock"), 0, 0),
+            'product_quantity' => woosms_isset(get_post_meta($data->id, '_stock'), 0, 0),
             'product_name' => woosms_isset($data->post, 'post_title', '-'),
             'product_ref' => woosms_isset($data->post, 'post_name', '-'),
         )));

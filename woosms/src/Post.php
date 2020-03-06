@@ -1,13 +1,16 @@
 <?php
+
 namespace BulkGate\WooSms;
 
-use BulkGate;
-
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
-class Post extends BulkGate\Extensions\Strict
+
+use BulkGate;
+use BulkGate\Extensions\Strict;
+
+class Post extends Strict
 {
     /** @var array */
     private static $post = array();
@@ -21,7 +24,7 @@ class Post extends BulkGate\Extensions\Strict
      */
     public static function get($name, $default = null, $skip = array())
     {
-        if(!isset(self::$post[$name]))
+        if (!isset(self::$post[$name]))
         {
             self::$post[$name] = self::sanitize(isset($_POST[$name]) ? $_POST[$name] : $default, $skip);
         }
@@ -39,7 +42,7 @@ class Post extends BulkGate\Extensions\Strict
     {
         $array = self::get($array_name);
 
-        if(is_array($array) && isset($array[$name]))
+        if (is_array($array) && isset($array[$name]))
         {
             return $array[$name];
         }
@@ -54,7 +57,7 @@ class Post extends BulkGate\Extensions\Strict
      */
     private static function sanitize($data, $skip = array())
     {
-        if(is_array($data))
+        if (is_array($data))
         {
             $output = array();
             foreach ($data as $key => $item)
@@ -68,7 +71,7 @@ class Post extends BulkGate\Extensions\Strict
             }
             return $output;
         }
-        elseif(is_scalar($data))
+        else if (is_scalar($data))
         {
             return sanitize_text_field($data);
         }

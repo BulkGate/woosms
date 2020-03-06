@@ -1,16 +1,19 @@
 <?php
+
 namespace BulkGate\WooSms;
 
 /**
- * @author Lukáš Piják 2018 TOPefekt s.r.o.
+ * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
+
 class Escape
 {
     public static function html($s)
     {
         return esc_html($s);
     }
+
 
     public static function js($s)
     {
@@ -21,10 +24,12 @@ class Escape
         );
     }
 
+
     public static function url($s)
     {
         return esc_url($s);
     }
+
 
     public static function htmlAttr($s)
     {

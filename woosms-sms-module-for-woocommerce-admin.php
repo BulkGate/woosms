@@ -321,7 +321,7 @@ function woosms_print_widget($presenter, $action, $params = array())
         <script type="application/javascript">
             _bg_client.registerMiddleware(function (data)
             {
-                if(data.init._generic)
+                if (data.init._generic)
                 {
                     data.init.env.homepage.logo_link = <?= Escape::js($woo_sms_module->getUrl('/images/products/ws.svg')); ?>;
                     data.init._generic.scope.module_info = <?= Escape::js($woo_sms_module->info()); ?>;

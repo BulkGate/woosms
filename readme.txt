@@ -229,8 +229,11 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 * WPML plugin support https://wpml.org/ #2
 
 = 2.0.25 =
-* Stop send Message hook "run_woosms_hook_changeOrderStatusHook" https://wordpress.org/support/topic/conditions-7/
+* Stop send Message hook "run_woosms_hook_changeOrderStatusHook" <a href="https://wordpress.org/support/topic/conditions-7/" target="_blank" title="issue">https://wordpress.org/support/topic/conditions-7/</a>
 * Performance improve
+
+= 2.0.26 =
+* PHP 7.4 compatibility
 
 == Upgrade Notice ==
 

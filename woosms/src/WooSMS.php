@@ -42,7 +42,7 @@ class WooSMS extends Strict implements IModule
 
     public function getUrl($path = '')
     {
-        if(defined('BULKGATE_DEBUG'))
+        if (defined('BULKGATE_DEBUG'))
         {
             return Escape::url(BULKGATE_DEBUG.$path);
         }
