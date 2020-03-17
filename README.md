@@ -19,7 +19,7 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 WooSMS enables businesses to send messages and reach their customers in over **200 countries and regions all around the world.** WooSMS is is one of BulkGate's <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="BulkGate's e-commerce plugns">e-commerce plugins</a> and therefore has all the features and design you can find on BulkGate Portal.
 
 <strong>Improve customer relationship</strong>
-* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/sms-module#customer-sms-notification" target="_blank" title="Customer SMS notifications"><strong>SMS notifications</strong></a> 
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"><strong>SMS notifications</strong></a> 
 
 <strong>Increase sales</strong>
 * Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a>
@@ -63,7 +63,7 @@ Attract your customer’s attention.
 **Affiliate program for developers**
 
 Earn a commission on happy customers with our <a href="https://www.bulkgate.com/en/developers/affiliate-program/" target="_blank" title="Affiliate program">affiliate program.</a> 
-* <strong>Earn 5% commission on every SMS message</strong> your customer sends via this SMS plugin for WooCommerce or other <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="BulkGate integrations">integrations,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS API</a> and BulkGate <a href="https://www.bulkgate.com/en/sms-portal/" target="_blank" title="SMS Gateway">SMS Portal</a>   
+* <strong>Earn 5% commission on every SMS message</strong> your customer sends via this SMS plugin for WooCommerce or other <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="BulkGate integrations">integrations,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS API</a> and BulkGate <a href="https://www.bulkgate.com/en/web-portal/" target="_blank" title="Web Portal">Web Portal</a>  
 
 = Few of other great features =
 
@@ -79,11 +79,12 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * Use Simple API to <strong>add functions you need</strong> to your WooCommerce store
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
-= Powered by BulkGate =
-WooSMS plugin for WooCommerce has our <a href="https://www.bulkgate.com/en/" target="_blank" title="SMS Gateway">SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate communications platform in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="">integrations</a> and <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS APIs</a> we have developed so far.</strong>
+= Powered by BulkGate <a href="https://www.bulkgate.com/en/solutions/sms-gateway" target="_blank" title="Multichannel platform"> multichannel platform</a> =
+
+WooSMS plugin for WooCommerce has our <a href="https://www.bulkgate.com/en/solutions/sms-gateway" target="_blank" title="SMS Gateway">SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate communications platform in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="">integrations</a> and <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS APIs</a> we have developed so far.</strong>
 
 **Helpdesk**
-Get comfortable with our <a href="https://help.bulkgate.com/docs/en/woosms-module-installation.html" target="_blank" title="SMS Gateway helpdesk">helpdesk.</a> It is here for your convenience. Helpdesk gives you <strong>answers to all the questions you might want to ask.</strong>
+Get comfortable with our <a href="https://help.bulkgate.com/docs/en/woosms-module-installation.html" target="_blank" title="BulkGate helpdesk">helpdesk.</a> It is here for your convenience. Helpdesk gives you <strong>answers to all the questions you might want to ask.</strong>
 
 
 ## Installation
