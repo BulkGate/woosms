@@ -18,11 +18,11 @@ WooSMS enables businesses to send messages and reach their customers in over **2
 
 <strong>Improve customer relationship</strong>
 
-* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"><strong>SMS notifications</strong></a> 
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"><strong>SMS notifications</strong></a> or <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for business">Viber notifications.</a>
 
 <strong>Increase sales</strong>
 
-* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a> 
+* Promote your products and services via targeted & personalized <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>bulk SMS</strong></a> and <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for business">Viber business messages.</a>
 
 <strong>Stay informed</strong>
 
