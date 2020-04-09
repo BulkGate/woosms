@@ -19,13 +19,15 @@ Extend your WooCommerce store capabilities. Notify your customers about order st
 WooSMS enables businesses to send messages and reach their customers in over **200 countries and regions all around the world.** WooSMS is is one of BulkGate's <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="BulkGate's e-commerce plugns">e-commerce plugins</a> and therefore has all the features and design you can find on BulkGate Portal.
 
 <strong>Improve customer relationship</strong>
-* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"><strong>SMS notifications</strong></a> 
+* Make your customers happy and notify them about order status change via <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"><strong>SMS notifications</strong></a> or <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for business">Viber notifications.</a>
 
 <strong>Increase sales</strong>
-* Promote your products and services via <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>targeted & personalized bulk SMS</strong></a>
+
+* Promote your products and services via targeted & personalized <a href="https://www.bulkgate.com/en/solutions/bulk-sms" target="_blank" title="Bulk SMS"><strong>bulk SMS</strong></a> and <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for business">Viber business messages.</a>
 
 <strong>Stay informed</strong>
-* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more. You can now receive <strong>Viber notifications</strong> as well!
+
+* Receive with other store admins <a href="https://www.bulkgate.com/en/sms-module#admin-sms-notification" target="_blank" title="Admin SMS notifications"><strong>SMS notifications</strong></a> whenever a new order is placed, a product is out of stock, and much more. You can now receive <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for business">Viber</a> <strong>notifications</strong> as well!
 
 Watch a short walkthrough video of this Woocommerce SMS plugin and its important features.
 
