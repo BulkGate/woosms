@@ -73,7 +73,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * <strong>Interact with your customers directly</strong> and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="Two-way SMS">2-way SMS</a> 
 
 **Records and Statistics**
-* Have a complete overview of your <a href="https://help.bulkgate.com/docs/en/campaigns.html"target="_blank" title="SMS campaign activity"><strong>SMS messaging activity</strong></a> 
+* Have a complete overview of your <a href="https://help.bulkgate.com/docs/en/campaigns.html" target="_blank" title="SMS campaign activity"><strong>SMS messaging activity</strong></a>
 * Check <a href="https://help.bulkgate.com/docs/en/statistics.html" target="_blank" title="SMS statistics"><strong>SMS statistics</strong></a> to see what impact your campaigns have
 * Browse through the <a href="https://help.bulkgate.com/docs/en/history.html" target="_blank" title="SMS history list"><strong>SMS history list</strong></a>
 
