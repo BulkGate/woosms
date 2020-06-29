@@ -83,7 +83,7 @@ Earn a commission on happy customers with our <a href="https://www.bulkgate.com/
 * Use Simple API to <strong>add functions you need</strong> to your WooCommerce store
 * Use <strong>custom hooks</strong> to add your own admin/customer notification to your WooCommerce SMS plugin
 
-= Powered by BulkGate <a href="https://www.bulkgate.com/en/" target="_blank" title="Multichannel platform"> platform</a> multichannel platform =
+= Powered by BulkGate <a href="https://www.bulkgate.com/en/" target="_blank" title="Multichannel platform"> multichannel platform</a> =
 WooSMS plugin for WooCommerce has our <a href="https://www.bulkgate.com/en/solutions/sms-gateway" target="_blank" title="SMS Gateway">SMS gateway</a> in its heart. This means that WooSMS communicates with and is depended on our BulkGate communications platform in order to provide you all the necessary services. This WooCommerce SMS plugin has all the important functions and intuitive design that you can find in BulkGate Portal. <strong>See all the <a href="https://www.bulkgate.com/en/integrations/" target="_blank" title="">integrations</a> and <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS APIs">SMS APIs</a> we have developed so far.</strong>
 
 **Helpdesk**
