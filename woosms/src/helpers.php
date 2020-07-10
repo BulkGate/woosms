@@ -93,7 +93,7 @@ function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
         $hook->run((string) $name, $variables);
         return true;
     }
-    catch (Extensions\IO\InvalidResultException $e)
+    catch (Extensions\IO\ConnectionException $e)
     {
         return false;
     }
