@@ -235,6 +235,10 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 **2.0.26**
 * PHP 7.4 compatibility
 
+**2.0.27**
+* device.min.css removed
+* Unavailable server crash fix
+
 ## Upgrade Notice
 
 Noting here
