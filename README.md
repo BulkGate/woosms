@@ -151,33 +151,58 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 
 ## Changelog
 
-**2.0**
-* Next generation module
+**2.0.27**
+* device.min.css removed
+* Unavailable server crash fix
 
-**2.0.5**
-* Username and password variables on new customer action
-* bug fix
+**2.0.26**
+* PHP 7.4 compatibility
 
-**2.0.6**
-* Priority of retrieving variables in hooks
-* Menu position changed
-* Added send SMS customized action - `do_action('woosms_send_sms', '777777777', 'Hello <var>', array('var' => 'John'), array('unicode' => true, 'flash' => false));`
-* bug fix
+**2.0.25**
+* Stop send Message hook "run_woosms_hook_changeOrderStatusHook" https://wordpress.org/support/topic/conditions-7/
+* Performance improve
 
-**2.0.7**
-* Default languages mutation (Simple usage)
-* Bug fix
+**2.0.24**
+* WPML plugin support https://wpml.org/ #2
+ 
+**2.0.23**
+* Widget Api update
 
-**2.0.8**
-* Sender type admin/customer SMS fix
+**2.0.22**
+* Multisite proxy_link bug fix
 
-**2.0.9**
-* Support custom order status
-* Bug fix
+**2.0.21**
+* Payment complete Customer & Admin hook
 
-**2.0.10**
-* Sms Campaign filter fix
-* Extensions support
+**2.0.20**
+* Order status campaign filter
+* Admin page ajax url bug fix
+
+**2.0.19**
+* Ajax Cross origin proxy link scheme bug
+
+**2.0.18**
+* Customer SMS & Admin SMS bug fix from 2.0.17
+
+**2.0.17**
+* Connection timeout page crash bug
+
+**2.0.16**
+* Order detail Send SMS form bug fix - not logged module redirect
+
+**2.0.15**
+* WPML plugin support https://wpml.org/
+
+**2.0.14**
+* Send SMS form in WooCommerce Order Detail
+
+**2.0.13**
+* Customer email variable from order bug  
+
+**2.0.12**
+* New invoice data page
+* Low credit alert
+* Synchronize bug fix
 
 **2.0.11**
 * Module logout bug fix
@@ -186,58 +211,34 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 * Customer/Admin SMS remember last selected mutation bug fix
 * Campaign recipients from store & variables load bug fix
 
-**2.0.12**
-* New invoice data page
-* Low credit alert
-* Synchronize bug fix
+**2.0.10**
+* Sms Campaign filter fix
+* Extensions support
 
-**2.0.13**
-* Customer email variable from order bug  
+**2.0.9**
+* Support custom order status
+* Bug fix
 
-**2.0.14**
-* Send SMS form in WooCommerce Order Detail
+**2.0.8**
+* Sender type admin/customer SMS fix
 
-**2.0.15**
-* WPML plugin support https://wpml.org/
+**2.0.7**
+* Default languages mutation (Simple usage)
+* Bug fix
 
-**2.0.16**
-* Order detail Send SMS form bug fix - not logged module redirect
+**2.0.6**
+* Priority of retrieving variables in hooks
+* Menu position changed
+* Added send SMS customized action - `do_action('woosms_send_sms', '777777777', 'Hello <var>', array('var' => 'John'), array('unicode' => true, 'flash' => false));`
+* bug fix
 
-**2.0.17**
-* Connection timeout page crash bug
+**2.0.5**
+* Username and password variables on new customer action
+* bug fix
 
-**2.0.18**
-* Customer SMS & Admin SMS bug fix from 2.0.17
+**2.0**
+* Next generation module
 
-**2.0.19**
-* Ajax Cross origin proxy link scheme bug
-
-**2.0.20**
-* Order status campaign filter
-* Admin page ajax url bug fix
-
-**2.0.21**
-* Payment complete Customer & Admin hook
-
-**2.0.22**
-* Multisite proxy_link bug fix
- 
-**2.0.23**
-* Widget Api update
-
-**2.0.24**
-* WPML plugin support https://wpml.org/ #2
-
-**2.0.25**
-* Stop send Message hook "run_woosms_hook_changeOrderStatusHook" https://wordpress.org/support/topic/conditions-7/
-* Performance improve
-
-**2.0.26**
-* PHP 7.4 compatibility
-
-**2.0.27**
-* device.min.css removed
-* Unavailable server crash fix
 
 ## Upgrade Notice
 
