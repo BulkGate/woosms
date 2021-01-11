@@ -52,7 +52,7 @@ class HookLoad extends Strict implements ILoad
             $variables->set('order_date5', preg_replace('/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/', '\\2.\\3.\\1', $row->post_date));
             $variables->set('order_date6', preg_replace('/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/', '\\2/\\3/\\1', $row->post_date));
             $variables->set('order_date7', preg_replace('/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/', '\\2-\\3-\\1', $row->post_date));
-            $variables->set('order_time', preg_replace('/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/', '\\4:\\5', $row->post_date));
+            $variables->set('order_time',  preg_replace('/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/', '\\4:\\5', $row->post_date));
             $variables->set('order_time1', preg_replace('/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/', '\\4:\\5:\\6', $row->post_date));
 
             $variables->set('customer_company', $row->_shipping_company, $row->_billing_company);
@@ -107,7 +107,7 @@ class HookLoad extends Strict implements ILoad
 
             $result = $this->db->execute(
                 $this->db->prepare(
-                    'SELECT `order_item_id` FROM `'.$this->db->table('woocommerce_order_items').'` WHERE `order_item_type` = \'line_item\' AND `order_id` = %s',
+                    'SELECT `order_item_id`, `order_item_name` FROM `'.$this->db->table('woocommerce_order_items').'` WHERE `order_item_type` = \'line_item\' AND `order_id` = %s',
                     array((int) $variables->get('order_id'))
                 )
             );
@@ -124,7 +124,8 @@ class HookLoad extends Strict implements ILoad
                         'SELECT 
                                 MAX(CASE WHEN `meta_key` = \'_qty\' THEN `meta_value` END) qty,
                                 MAX(CASE WHEN `meta_key` = \'_product_id\' THEN `meta_value` END) product_id,
-                                MAX(CASE WHEN `meta_key` = \'_tmcartepo_data\' THEN `meta_value` END) tmcartepo_data
+                                MAX(CASE WHEN `meta_key` = \'_tmcartepo_data\' THEN `meta_value` END) tmcartepo_data,
+                                MAX(CASE WHEN `meta_key` = \'_course_id\' THEN `meta_value` END) course_id
                             FROM  `'.$this->db->table('woocommerce_order_itemmeta').'` WHERE `order_item_id` = %s
                     ' , array((int) $order_item_id))
                     );
@@ -133,13 +134,20 @@ class HookLoad extends Strict implements ILoad
                     {
                         $qty = $result->getRow()->qty;
                         $product_id = $result->getRow()->product_id;
+
+                        if (!$product_id)
+                        {
+                            $product_id = $result->getRow()->course_id ?: 0;
+                        }
+
                         $meta = get_post_meta($product_id, '_sale_price');
-                        $data = (array) get_post($product_id);
+                        $product_name = $row->order_item_name;
+                        $product_model = preg_replace('~\s~', '-', strtolower($row->order_item_name));
                         $params = '';
 
                         if (isset($result->getRow()->tmcartepo_data))
                         {
-                            $params = '\n';
+                            $params = "\n";
                             $product_list = unserialize($result->getRow()->tmcartepo_data);
 
                             if (is_array($product_list))
@@ -148,22 +156,19 @@ class HookLoad extends Strict implements ILoad
                                 {
                                     if (strlen($item['name']))
                                     {
-                                        $params .= '- ' .$item['quantity'].'x '.$item['name'].': '.$item['value'].' '.$item['price'] . $variables->get('order_currency') . ' \n';
+                                        $params .= '- ' .$item['quantity'].'x '.$item['name'].': '.$item['value'].' '.$item['price'] . $variables->get('order_currency') . " \n";
                                     }
                                 }
                             }
                         }
 
-                        if (count($data))
-                        {
-                            $newOrder1_pre[] = $qty.'x '.$data['post_title'].' '.$data['post_name'].' '.$params;
-                            $newOrder2_pre[] = $qty.'x '.$data['post_title'].' '.$params;
-                            $newOrder3_pre[] = $qty.'x ('.$product_id.')'.$data['post_title'].' '.$data['post_name'].' '.$params;
-                            $newOrder4_pre[] = $qty.'x '.$data['post_name'].' '.$params;
+                        $newOrder1_pre[] = $qty . 'x ' . $product_name . ' ' . $product_model . ' ' . $params;
+                        $newOrder2_pre[] = $qty . 'x ' . $product_name.' ' . $params;
+                        $newOrder3_pre[] = $qty . 'x (' . $product_id . ')' . $product_name . ' ' . $product_model . ' ' . $params;
+                        $newOrder4_pre[] = $qty . 'x ' . $product_model . ' ' . $params;
 
-                            $sms_printer1[] = $qty.','.$data['post_title'].','.$meta[0];
-                            $sms_printer2[] = $qty.';'.$data['post_title'].';'.$meta[0];
-                        }
+                        $sms_printer1[] = $qty . ',' . $product_name . ',' . $meta[0];
+                        $sms_printer2[] = $qty . ';' . $product_name . ';' . $meta[0];
                     }
                 }
             }
@@ -173,10 +178,10 @@ class HookLoad extends Strict implements ILoad
             $variables->set('order_products3', implode('; ', $newOrder3_pre));
             $variables->set('order_products4', implode('; ', $newOrder4_pre));
 
-            $variables->set('order_products5', implode('\n', $newOrder1_pre));
-            $variables->set('order_products6', implode('\n', $newOrder2_pre));
-            $variables->set('order_products7', implode('\n', $newOrder3_pre));
-            $variables->set('order_products8', implode('\n', $newOrder4_pre));
+            $variables->set('order_products5', implode("\n", $newOrder1_pre));
+            $variables->set('order_products6', implode("\n", $newOrder2_pre));
+            $variables->set('order_products7', implode("\n", $newOrder3_pre));
+            $variables->set('order_products8', implode("\n", $newOrder4_pre));
 
             $variables->set('order_smsprinter1', implode(';', $sms_printer1));
             $variables->set('order_smsprinter2', implode(';', $sms_printer2));
