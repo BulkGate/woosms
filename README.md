@@ -35,6 +35,9 @@ https://youtu.be/j1rrqWUcQlg
 
 ## Features
 
+**New feature – Mobile Connect (Android only)**
+* Use the <strong>free or cheap SMS messages of your mobile phone plan</strong> in your WooCommerce store. Enjoy your mobile plan’s deal and reach your customers and clients with your new sender type via WooSMS. Find out more <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect">here.</a>
+
 **Customer & Admin SMS notification**
 
 Your customers are what matters most. Notify them. 
