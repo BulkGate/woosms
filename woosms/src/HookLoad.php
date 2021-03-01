@@ -59,7 +59,7 @@ class HookLoad extends Strict implements ILoad
             $variables->set('customer_lastname', $row->_shipping_last_name, $row->_billing_last_name);
             $variables->set('customer_firstname', $row->_shipping_first_name, $row->_billing_first_name);
 
-            if (strlen($row->_shipping_address_2) > 0)
+            if (mb_strlen($row->_shipping_address_2) > 0)
             {
                 $variables->set('customer_address', $row->_shipping_address_1 . ', ' . $row->_shipping_address_2, $row->_billing_address_1 . ', ' . $row->_billing_address_2);
             }
@@ -74,7 +74,7 @@ class HookLoad extends Strict implements ILoad
             $variables->set('customer_state', $row->_shipping_state, $row->_billing_state);
 
 
-            $variables->set('customer_country', strtolower($row->_shipping_country));
+            $variables->set('customer_country', mb_strtolower($row->_shipping_country));
 
             $variables->set('customer_phone', $row->_billing_phone);
             $variables->set('customer_mobile', $row->_billing_phone);
@@ -83,7 +83,7 @@ class HookLoad extends Strict implements ILoad
             $variables->set('customer_invoice_lastname', $row->_billing_last_name, $row->_shipping_last_name);
             $variables->set('customer_invoice_firstname', $row->_billing_first_name, $row->_shipping_first_name);
 
-            if (strlen($row->_billing_address_2) > 0)
+            if (mb_strlen($row->_billing_address_2) > 0)
             {
                 $variables->set('customer_invoice_address', $row->_billing_address_1 . ', ' . $row->_billing_address_2, $row->_shipping_address_1 . ', ' . $row->_shipping_address_2);
             }
@@ -97,7 +97,7 @@ class HookLoad extends Strict implements ILoad
             $variables->set('customer_invoice_country_id', $row->_billing_country);
             $variables->set('customer_invoice_state', $row->_billing_state);
 
-            $variables->set('customer_invoice_country', strtolower($row->_billing_country));
+            $variables->set('customer_invoice_country', mb_strtolower($row->_billing_country));
 
             $variables->set('customer_invoice_phone', $row->_billing_phone);
             $variables->set('customer_invoice_mobile', $row->_billing_phone);
@@ -142,7 +142,7 @@ class HookLoad extends Strict implements ILoad
 
                         $meta = get_post_meta($product_id, '_sale_price');
                         $product_name = $row->order_item_name;
-                        $product_model = preg_replace('~\s~', '-', strtolower($row->order_item_name));
+                        $product_model = preg_replace('~\s~', '-', mb_strtolower($row->order_item_name));
                         $params = '';
 
                         if (isset($result->getRow()->tmcartepo_data))
@@ -154,7 +154,7 @@ class HookLoad extends Strict implements ILoad
                             {
                                 foreach ($product_list as $item)
                                 {
-                                    if (strlen($item['name']))
+                                    if (mb_strlen($item['name']))
                                     {
                                         $params .= '- ' .$item['quantity'].'x '.$item['name'].': '.$item['value'].' '.$item['price'] . $variables->get('order_currency') . " \n";
                                     }
