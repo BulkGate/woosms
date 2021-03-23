@@ -3,7 +3,7 @@
 # WooSMS – SMS Module for WooCommerce
 - Tags: sms, send sms,  sms notifications, bulk sms, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin, marketing campaigns, 2-way SMS, two way SMS, two way communication, viber notification woocommerce, viber notifications
 - Requires at least: 3.0
-- Tested up to: 5.6
+- Tested up to: 5.7
 - Stable tag: trunk
 - Requires PHP: 5.3
 - License: GPLv3
@@ -36,8 +36,7 @@ https://youtu.be/j1rrqWUcQlg
 ## Features
 
 **New feature – Mobile Connect (Android only)**
-
-* Enjoy the free or cheap SMS messages of your mobile phone plan in the WooCommerce store! Connect your Android phone with BulkGate and start communicating with your customers via WooSMS. Find out more <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect">here.</a>
+* Use the <strong>free or cheap SMS messages of your mobile phone plan</strong> in your WooCommerce store. Enjoy your mobile plan’s deal and reach your customers and clients with your new sender type via WooSMS. Find out more <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect">here.</a>
 
 **Customer & Admin SMS notification**
 
@@ -154,6 +153,12 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 6. SMS statistics
 
 ## Changelog
+
+**2.0.30**
+* New design
+
+**2.0.29**
+* Invalidate cache
 
 **2.0.28**
 * Mobile Connect
