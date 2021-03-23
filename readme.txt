@@ -154,6 +154,9 @@ Yes. WooSMS plugin for WooCommerce communicates with our BulkGate <a href="https
 
 == Changelog ==
 
+= 2.0.31 =
+* Fix multibyte characters in SMS
+
 = 2.0.30 =
 * New design
 
