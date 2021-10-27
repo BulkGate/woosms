@@ -180,7 +180,7 @@ add_action('add_meta_boxes', function ($post_type)
 
     if ($post_type === 'shop_order' && $woo_sms_di->getSettings()->load('static:application_token', false))
     {
-        add_meta_box('send_sms', 'WooSMS', function($post) {
+        add_meta_box('send_sms', 'BulkGate', function($post) {
             ?><div id="woo-sms" style="margin:0; zoom: 0.85">
             <div id="react-snack-root" style="zoom: 0.8"></div>
             <div id="react-app-root">
@@ -211,7 +211,7 @@ function define_menu($capabilities = 'manage_options')
 
     $application_token = $woo_sms_settings->load('static:application_token', false);
 
-    add_menu_page('woosms_profile_page', 'WooSMS', $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', ((float)$wp_version) >= 3.8 ? 'dashicons-email-alt' : plugins_url(WOOSMS_DIR . '/img/logo.png'), '58');
+    add_menu_page('woosms_profile_page', 'BulkGate (WooSMS)', $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', ((float)$wp_version) >= 3.8 ? 'dashicons-email-alt' : plugins_url(WOOSMS_DIR . '/img/logo.png'), '58');
 
     if ($application_token && is_array($menu))
     {
