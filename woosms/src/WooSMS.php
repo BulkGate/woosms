@@ -20,7 +20,7 @@ class WooSMS extends Strict implements IModule
     private $info = array(
         'store' => 'WooCommerce',
         'store_version' => '2.2.x - 5.x.x',
-        'name' => 'WooSMS',
+        'name' => 'BulkGate SMS Plugin',
         'url' => 'http://www.woo-sms.net',
         'developer' => 'TOPefekt s.r.o.',
         'developer_url' => 'http://www.bulkgate.com/',
