@@ -10,7 +10,7 @@
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
-Send SMS and Viber messages from your WooCommerce store. Notify customers about order status. Send personalized bulk messages. Receive alerts.
+Send SMS and Viber messages from your WooCommerce store. Notify customers about the order status. Send personalized bulk messages. Receive alerts.
 
 ## Description
 
@@ -48,7 +48,7 @@ You only pay for the messages you send. Take a look at our <a href="https://www.
 **Viber business messages**
 The minimum monthly spend required by Viber is €100, or €150 in some countries. Business messages sent above this are charged according to the actual spending rate.
 
-Take advantage of great <a href="https://www.bulkgate.com/en/pricing/viber" target="_blank" title="Viber price list"> prices</a>with the official Viber partner BulkGate. 
+Take advantage of great <a href="https://www.bulkgate.com/en/pricing/viber" target="_blank" title="Viber price list"> prices</a> with the official Viber partner BulkGate. 
 
 ## BulkGate Plugin Features
 
@@ -91,7 +91,7 @@ Install our Android app and connect your WooCommerce eshop with your mobile phon
 This SMS plugin for WooCommerce has been developed by the <a href="https://www.bulkgate.com/en/" target="_blank" title="Multichannel platform"> BulkGate multichannel platform.</a> It has all the functions and intuitive design that you can find in the BulkGate Portal.
 
 **SMS Affiliate program**
-Are you a programmer? Earn 5% commission on every SMS message your client sends via this SMS plugin or our other <a href=" https://www.bulkgate.com/en/integrations/" target="_blank" title="SMS integration"> SMS integration,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS API">SMS APIs,</a> <a href="https://www.bulkgate.com/en/web-portal/" target="_blank" title="Web Portal">Web Portal</a> or other <a href="https://www.bulkgate.com/en/solutions/sms-gateway/" target="_blank" title="SMS Gateway"> SMS gateway</a> solution.
+Are you a programmer? Earn 5% commission on every SMS message your client sends via this SMS plugin or our other <a href=" https://www.bulkgate.com/en/integrations/" target="_blank" title="SMS integration"> SMS integration,</a> <a href="https://www.bulkgate.com/en/developers/sms-api/" target="_blank" title="SMS API">SMS APIs,</a> <a href="https://www.bulkgate.com/en/web-portal/" target="_blank" title="Web Portal">Web Portal</a>, or other <a href="https://www.bulkgate.com/en/solutions/sms-gateway/" target="_blank" title="SMS Gateway"> SMS gateway</a> solution.
 
 **Helpdesk**
 Discover all the documentation on our <a href="https://help.bulkgate.com/en/" target="_blank" title="BulkGate helpdesk">helpdesk.</a> It gives you answers to all the questions you may have when using or installing the BulkGate SMS plugin for WooCommerce.
@@ -105,9 +105,9 @@ You can:
  * Upload the `woosms-sms-module-for-woocommerce` folder to `/wp-content/plugins/` directory via FTP
  * Upload the full ZIP file via **WordPress Admin > Plugins > Add New** and **Upload Plugin** with the file you downloaded with **Choose File**
  2. Plugin activation
- * Activate plugin through *Plugins* menu on WordPress Administration Panel
+ * Activate the plugin through *Plugins* menu on WordPress Administration Panel
 3. Service registration
- * Fill in the registration form, verify your phone number and accept terms & conditions to successfully create BulkGate account
+ * Fill in the registration form, verify your phone number and accept terms & conditions to successfully create a BulkGate account
 4. Language option
  * Click "Settings" in the main menu. Choose your language and click Save
 
@@ -120,11 +120,11 @@ See <a href="https://help.bulkgate.com/docs/en/woosms-module-installation.html" 
 
 Yes. See our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS pricing">SMS price list</a> to check the SMS price for your desired country.
 
-### Can I have a two-way communication with a customer?
+### Can I have two-way communication with a customer?
 
-You are able to interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS</a> and Viber. You have to choose the correct sender ID type. However, two-way SMS may not be supported in some countries and/or by a specific sender ID type. See our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS pricing">SMS pricing.</a>
+You can interact with your customers directly and receive their reactions through <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="2-way SMS">two-way SMS</a> and Viber. You have to choose the correct sender ID type. However, two-way SMS may not be supported in some countries and/or by a specific sender ID type. See our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS pricing">SMS pricing.</a>
 
-### Can I try BulkGate plugin for free?
+### Can I try the BulkGate plugin for free?
 
 Yes, every new customer of this WooCommerce SMS plugin can send 10 SMS messages for free.
 
@@ -132,7 +132,7 @@ Yes, every new customer of this WooCommerce SMS plugin can send 10 SMS messages 
 
 Credits are a virtual currency in the SMS plugin. Credits don’t have any expiration date. They disappear only when you spend them.
 
-### How do I create SMS campaign?
+### How do I create an SMS campaign?
 
 It is simple, take a look at a <a href="https://help.bulkgate.com/docs/en/creating-sms-campaign.html#how-do-i-create-sms-campaign" target="_blank" title="Creating SMS campaign">video</a>
 
@@ -142,11 +142,11 @@ You can import contacts to your SMS campaign via <a href="https://help.bulkgate.
 
 ### Can I send a message under my company's name?
 
-Yes, in many countries you can use <a href="https://help.bulkgate.com/docs/en/sender-type.html#text-sender-id" target="_blank" title="Text sender">text sender ID</a> and send an SMS message under your company's name.
+Yes, in many countries you can use a <a href="https://help.bulkgate.com/docs/en/sender-type.html#text-sender-id" target="_blank" title="Text sender">text sender ID</a> and send an SMS message under your company's name.
 
-### Do I have to create BulkGate account during the installation in order to use WooSMS?
+### Do I have to create a BulkGate account during the installation to use the SMS plugin
 
-Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="https://www.bulkgate.com/en/solutions/sms-gateway/target="_blank" title="SMS gateway">SMS gateway.</a> So in order to send SMS messages via this WooCommerce SMS plugin, there is a need to have a BulkGate account.
+Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="https://www.bulkgate.com/en/solutions/sms-gateway/" target="_blank" title="SMS gateway">SMS gateway.</a> So to send SMS messages via this WooCommerce SMS plugin, there is a need to have a BulkGate account.
 
 
 ## Screenshots
