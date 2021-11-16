@@ -14,10 +14,9 @@ Send SMS and Viber messages from your WooCommerce store. Notify customers about 
 
 ## Description
 
-**Send text messages from your WooCommerce store.**
-BulkGate helps your WooCommerce store deliver automatic and personalized messages to your customers via SMS and Viber channels.
+<a href="https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/" target="_blank" title="BulkGate SMS plugin for WooCommerce"> BulkGate SMS plugin for WooCommerce</a> **(former WooSMS)** helps you deliver automatic and personalized **SMS and Viber messages** to your customers.
 
-Create new opportunities for your business. <a href="https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/" target="_blank" title="BulkGate SMS plugin for WooCommerce"> BulkGate SMS plugin for WooCommerce</a> **(former WooSMS)** enables you to send messages to over 200 countries and regions.
+Create new opportunities for your business. BulkGate enables you to send messages to over 200 countries and regions.
 * Notify your customers about their order status. Make them loyal.
 * Promote your products and services better to generate interest and increase sales.
 * Have direct two-way communication with customers and answer all their questions.
