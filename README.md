@@ -10,7 +10,7 @@
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
-SMS and Viber plugin for WooCommerce. Order status notifications, Personalized bulk SMS and Viber campaigns, 2-way messaging and Admin alerts.
+SMS and Viber plugin for WooCommerce. Order status notifications, personalized Bulk SMS and Viber campaigns, 2-way messaging and admin alerts.
 
 ## Description
 
