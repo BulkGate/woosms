@@ -161,6 +161,9 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 == Changelog ==
 
+= 2.0.32 =
+* DB Maria bug fix
+
 = 2.0.31 =
 * Fix multibyte characters in SMS
 
