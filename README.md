@@ -10,19 +10,18 @@
 - License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 
-Send SMS and Viber messages from your WooCommerce store. Notify customers about the order status. Send personalized bulk messages. Receive alerts.
+SMS and Viber plugin for WooCommerce. Order status notifications, personalized Bulk SMS and Viber campaigns, 2-way messaging and admin alerts.
 
 ## Description
 
-**Send text messages from your WooCommerce store.**
+**SMS and VIBER plugin for WooCommerce (former WooSMS plugin)**
 
-<a href="https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/" target="_blank" title="BulkGate SMS plugin for WooCommerce"> BulkGate SMS plugin for WooCommerce</a> **(former WooSMS)** helps you deliver automatic and personalized **SMS and Viber messages** to your customers.
+* Order status notifications for customers and admins
+* Personalized and targeted bulk SMS and Viber campaigns 
+* Two-way messaging with customers
+* Admin alerts (e.g. stock status and others)
 
-Create new opportunities for your business. BulkGate enables you to send messages to over 200 countries and regions.
-* Notify your customers about their order status. Make them loyal.
-* Promote your products and services better to generate interest and increase sales.
-* Have direct two-way communication with customers and answer all their questions.
-* Receive stock alerts and other admin notifications to stay one step ahead of problems.
+Send SMS and Viber messages to over 200 countries and regions via <a href="https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/" target="_blank" title="BulkGate SMS plugin for WooCommerce">BulkGate SMS plugin for WooCommerce</a> and create new opportunities for your business.
 
 https://youtu.be/j1rrqWUcQlg
 
