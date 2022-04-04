@@ -14,7 +14,7 @@ SMS and Viber plugin for WooCommerce. Order status notifications, personalized B
 == Description ==
 
 
-**SMS and VIBER plugin for WooCommerce (former WooSMS plugin)**
+**Send SMS and VIBER messages from your e-shop using BulkGate plugin for WooCommerce (former WooSMS plugin)**
 
 * Order status notifications for customers and admins
 * Personalized and targeted bulk SMS and Viber campaigns 
