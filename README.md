@@ -161,6 +161,9 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 ## Changelog
 
+**2.0.33**
+* Change name WooSMS -> BulkGate
+
 **2.0.32**
 * DB Maria bug fix
 

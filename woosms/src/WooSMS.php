@@ -19,12 +19,12 @@ class WooSMS extends Strict implements IModule
 
     private $info = array(
         'store' => 'WooCommerce',
-        'store_version' => '2.2.x - 5.x.x',
+        'store_version' => '2.2.x +',
         'name' => 'BulkGate SMS Plugin',
-        'url' => 'http://www.woo-sms.net',
-        'developer' => 'TOPefekt s.r.o.',
+        'url' => 'https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/',
+        'developer' => 'BulkGate',
         'developer_url' => 'http://www.bulkgate.com/',
-        'description' => 'WooSMS module extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',
+        'description' => 'BulkGate SMS plugin extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',
     );
 
     /** @var ISettings */
