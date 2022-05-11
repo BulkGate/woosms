@@ -184,7 +184,7 @@ add_action('add_meta_boxes', function ($post_type)
             ?><div id="woo-sms" style="margin:0; zoom: 0.85">
             <div id="react-snack-root" style="zoom: 0.8"></div>
             <div id="react-app-root">
-                <?= Escape::html(woosms_translate('loading_content', 'Loading content')); ?>
+                <?php Escape::html(woosms_translate('loading_content', 'Loading content')); ?>
             </div>
             <?php
             woosms_print_widget('ModuleComponents', 'sendSms', array('id' => get_post_meta($post->ID, '_billing_phone', 'true'), 'key' => strtolower(get_post_meta($post->ID, '_billing_country', 'true'))));
@@ -256,8 +256,8 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                 <div class="container-fluid">
                     <div class="nav-wrapper">
                         <div id="brand-logo">
-                            <a class="brand-logo hide-on-med-and-down" href="<?= Escape::url(admin_url('admin.php?page=woosms_dashboard_default')); ?>">
-                                <img alt="woosms" width="120" src="<?= Escape::url($woo_sms_module->getUrl('/images/products/ws.svg')); ?>" />
+                            <a class="brand-logo hide-on-med-and-down" href="<?php Escape::url(admin_url('admin.php?page=woosms_dashboard_default')); ?>">
+                                <img alt="woosms" width="120" src="<?php Escape::url($woo_sms_module->getUrl('/images/products/ws.svg')); ?>" />
                             </a>
                         </div>
                         <ul class="controls">
@@ -266,7 +266,7 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                         </ul>
                         <div class="nav-h1">
                             <span class="h1-divider"></span>
-                            <h1 class="truncate"><?= Escape::html($title) ?><span id="react-app-h1-sub"></span></h1>
+                            <h1 class="truncate"><?php Escape::html($title) ?><span id="react-app-h1-sub"></span></h1>
                         </div>
                     </div>
                 </div>
@@ -277,7 +277,7 @@ function woosms_page($presenter, $action, $title, $box, $params = array())
                 <div id="react-app-root">
                     <div class="loader loading">
                         <div class="spinner"></div>
-                        <p><?= Escape::html(woosms_translate('loading_content', 'Loading content')); ?></p>
+                        <p><?php Escape::html(woosms_translate('loading_content', 'Loading content')); ?></p>
                     </div>
                 </div>
                 <?php
