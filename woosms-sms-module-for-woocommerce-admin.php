@@ -305,7 +305,7 @@ function woosms_print_widget($presenter, $action, $params = array())
         <div id="react-language-footer"></div>
     <?php
 
-    wp_print_inline_script_tag(<<<SCRIPT
+    wp_print_inline_script_tag(<<<JS
 var _bg_client_config = {
     url: {
         authenticationService : ajaxurl
@@ -321,13 +321,13 @@ var _bg_client_config = {
         }
     }
 };
-SCRIPT
+JS
     );
     wp_print_script_tag([
         'src' => Escape::url($woo_sms_module->getUrl('/' . (defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist') . '/widget-api/widget-api.js?v=3.2'))
     ]);
 
-    wp_print_inline_script_tag(<<<SCRIPT
+    wp_print_inline_script_tag(<<<JS
 _bg_client.registerMiddleware(function (data)
             {
                 if (data.init._generic)
@@ -349,7 +349,7 @@ _bg_client.registerMiddleware(function (data)
                 params: Object.assign(input, {$escape_js($params)}),
                 proxy: {$escape_js(woosms_get_proxy_links($presenter, $action))}
             });
-SCRIPT
+JS
     );
 }
 
