@@ -53,7 +53,7 @@ add_action(
         }
         catch (Extensions\IO\AuthenticateException $e)
         {
-            JsonResponse::send(array('redirect' => admin_url('admin.php?page=woosms_sign_in')));
+            JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_sign_in')]);
         }
     }
 );
@@ -68,12 +68,12 @@ add_action(
          */
         global $woo_sms_di;
 
-        $response = $woo_sms_di->getProxy()->register(array_merge(array('name' => woosms_get_shop_name()), Post::get('__bulkgate')));
+        $response = $woo_sms_di->getProxy()->register(array_merge(['name' => woosms_get_shop_name()], Post::get('__bulkgate')));
 
         if ($response instanceof Extensions\IO\Response) {
             JsonResponse::send($response);
         }
-        JsonResponse::send(array('token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')));
+        JsonResponse::send(['token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')]);
     }
 );
 
@@ -87,12 +87,12 @@ add_action(
          */
         global $woo_sms_di;
 
-        $response =  $woo_sms_di->getProxy()->login(array_merge(array('name' => woosms_get_shop_name()), Post::get('__bulkgate')));
+        $response =  $woo_sms_di->getProxy()->login(array_merge(['name' => woosms_get_shop_name()], Post::get('__bulkgate')));
 
         if ($response instanceof Extensions\IO\Response) {
             JsonResponse::send($response);
         }
-        JsonResponse::send(array('token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')));
+        JsonResponse::send(['token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')]);
     }
 );
 
@@ -188,7 +188,7 @@ add_action(
 
         JsonResponse::send(
             $woo_sms_di->getProxy()->saveCustomerNotifications(
-                Post::get('__bulkgate', array(), array('template'))
+                Post::get('__bulkgate', [], ['template'])
             )
         );
     }
@@ -206,7 +206,7 @@ add_action(
 
         JsonResponse::send(
             $woo_sms_di->getProxy()->saveAdminNotifications(
-                Post::get('__bulkgate', array(), array('template'))
+                Post::get('__bulkgate', [], ['template'])
             )
         );
     }
@@ -226,7 +226,7 @@ add_action(
             $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
         }
 
-        JsonResponse::send(array('redirect' => admin_url('admin.php?page=woosms_modulesettings_default')));
+        JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_modulesettings_default')]);
     }
 );
 
@@ -242,7 +242,7 @@ add_action(
 
         $woo_sms_di->getProxy()->logout();
 
-        JsonResponse::send(array('token' => 'guest', 'redirect' => admin_url('admin.php?page=woosms_sign_in')));
+        JsonResponse::send(['token' => 'guest', 'redirect' => admin_url('admin.php?page=woosms_sign_in')]);
     }
 );
 
@@ -265,7 +265,7 @@ add_action(
                     <?php echo Escape::html(woosms_translate('loading_content', 'Loading content')); ?>
             </div>
                     <?php
-                    Woosms_Print_widget('ModuleComponents', 'sendSms', array('id' => get_post_meta($post->ID, '_billing_phone', 'true'), 'key' => strtolower(get_post_meta($post->ID, '_billing_country', 'true'))));
+                    Woosms_Print_widget('ModuleComponents', 'sendSms', ['id' => get_post_meta($post->ID, '_billing_phone', 'true'), 'key' => strtolower(get_post_meta($post->ID, '_billing_country', 'true'))]);
                     ?></div><?php
                 }, 'shop_order', 'side', 'high'
             );
@@ -288,7 +288,7 @@ function Woosms_Define_menu($capabilities = 'manage_options')
      *
      * @var WooSms\DIContainer $woo_sms_di DI Container
      */
-    global $wp_version, $woo_sms_di;
+    global $woo_sms_di;
 
     $woo_sms_settings = $woo_sms_di->getSettings();
 
@@ -296,17 +296,17 @@ function Woosms_Define_menu($capabilities = 'manage_options')
 
     if (empty($menu)) {
         Woosms_synchronize(true);
-        $menu = $woo_sms_settings->load('menu:', array(), true);
+        $menu = $woo_sms_settings->load('menu:', [], true);
     }
 
     $application_token = $woo_sms_settings->load('static:application_token', false);
 
-    add_menu_page('woosms_profile_page', 'BulkGate SMS', $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', ((float)$wp_version) >= 3.8 ? 'dashicons-email-alt' : plugins_url(WOOSMS_DIR . '/img/logo.png'), '58');
+    add_menu_page('woosms_profile_page', 'BulkGate SMS', $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', 'dashicons-email-alt', '58');
 
     if ($application_token && is_array($menu)) {
         foreach ($menu as $slug => $m) {
             add_submenu_page(
-                $application_token ? $m->parent : null, woosms_translate($m->title), woosms_translate($m->title), $capabilities, $slug, function () use ($m) {
+                $m->parent, woosms_translate($m->title), woosms_translate($m->title), $capabilities, $slug, function () use ($m) {
                     Woosms_page($m->presenter, $m->action, woosms_translate($m->title), $m->box);
                 }
             );
@@ -348,7 +348,7 @@ function Woosms_Define_menu($capabilities = 'manage_options')
  *
  * @return void
  */
-function Woosms_page($presenter, $action, $title, $box, $params = array())
+function Woosms_page($presenter, $action, $title, $box, array $params = [])
 {
     Woosms_synchronize();
 
@@ -410,7 +410,7 @@ function Woosms_page($presenter, $action, $title, $box, $params = array())
  *
  * @return void
  */
-function Woosms_Print_widget($presenter, $action, $params = array())
+function Woosms_Print_widget($presenter, $action, array $params = [])
 {
     /**
      * DI Container
@@ -422,9 +422,7 @@ function Woosms_Print_widget($presenter, $action, $params = array())
     $woo_sms_module = $woo_sms_di->getModule();
     $woo_sms_settings = $woo_sms_di->getSettings();
 
-    $escape_js = function ($value) {
-        return Escape::js($value);
-    };
+    $escape_js = [Escape::class, 'js'];
 
     ?>
         <div id="react-language-footer"></div>
@@ -449,6 +447,7 @@ function Woosms_Print_widget($presenter, $action, $params = array())
             };
 JS
     );
+
     wp_print_script_tag(
         [
         'src' => Escape::url($woo_sms_module->getUrl('/' . (defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist') . '/widget-api/widget-api.js?v=3.2'))
@@ -496,61 +495,76 @@ function Woosms_Get_Proxy_links($presenter, $action)
     switch ("$presenter:$action")
     {
     case 'ModuleNotifications:customer':
-        return array('_generic' => array('save' => array(
-                'url' => woosms_ajax_url(),
-                'params' => array('action' => 'save_customer_notifications')
-            )));
-        break;
+        return [
+            '_generic' => [
+                'save' => [
+                    'url' => woosms_ajax_url(),
+                    'params' => ['action' => 'save_customer_notifications']
+                ]
+            ]
+        ];
     case 'ModuleNotifications:admin':
-        return array('_generic' => array('save' => array(
-                'url' => woosms_ajax_url(),
-                'params' => array('action' => 'save_admin_notifications')
-            )));
-            break;
+        return [
+            '_generic' => [
+                'save' => [
+                    'url' => woosms_ajax_url(),
+                    'params' => ['action' => 'save_admin_notifications']
+                ]
+            ]
+        ];
     case 'Sign:up':
-        return array('_generic' => array('register' => array(
-            'url' => woosms_ajax_url(),
-            'params' => array('action' => 'register')
-        )));
-        break;
+        return [
+            '_generic' => [
+                'register' => [
+                    'url' => woosms_ajax_url(),
+                    'params' => ['action' => 'register']
+                ]
+            ]
+        ];
     case 'ModuleSign:in':
-        return array('_generic' => array('login' => array(
-                'url' => woosms_ajax_url(),
-                'params' => array('action' => 'login')
-            )));
-        break;
+        return [
+            '_generic' => [
+                'login' => [
+                    'url' => woosms_ajax_url(),
+                    'params' => ['action' => 'login']
+                ]
+            ]
+        ];
     case 'ModuleSettings:default':
-        return array('_generic' => array(
-                'save' => array(
+        return [
+            '_generic' => [
+                'save' => [
                     'url' => woosms_ajax_url(),
-                    'params' => array('action' => 'save_module_settings')
-                ),
-                'logout' => array(
+                    'params' => ['action' => 'save_module_settings']
+                ],
+                'logout' => [
                     'url' => woosms_ajax_url(),
-                    'params' => array('action' => 'logout_module')
-            )));
-        break;
+                    'params' => ['action' => 'logout_module']
+                ]
+            ]
+        ];
     case 'SmsCampaign:campaign':
-        return array('campaign' => array(
-                'loadModuleData' => array(
+        return [
+            'campaign' => [
+                'loadModuleData' => [
                     'url' => woosms_ajax_url(),
-                    'params' => array('action' => 'load_module_data')
-                ),
-                'saveModuleCustomers' => array(
+                    'params' => ['action' => 'load_module_data']
+                ],
+                'saveModuleCustomers' => [
                     'url' => woosms_ajax_url(),
-                    'params' => array('action' => 'save_module_customers')
-                ),
-                'addModuleFilter' => array(
+                    'params' => ['action' => 'save_module_customers']
+                ],
+                'addModuleFilter' => [
                     'url' => woosms_ajax_url(),
-                    'params' => array('action' => 'add_module_filter')
-                ),
-                'removeModuleFilter' => array(
+                    'params' => ['action' => 'add_module_filter']
+                ],
+                'removeModuleFilter' => [
                     'url' => woosms_ajax_url(),
-                    'params' => array('action' => 'remove_module_filter')
-                )
-            ));
-        break;
+                    'params' => ['action' => 'remove_module_filter']
+                ]
+            ]
+        ];
     default:
-        return array();
+        return [];
     }
 }

@@ -85,10 +85,10 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
         woosms_run_hook(
             'order_new',
             new Extensions\Hook\Variables(
-                array(
+                [
                     'order_id' => $order_id,
                     'lang_id' => woosms_get_post_lang($order_id)
-                )
+                ]
             )
         );
     }
@@ -106,11 +106,11 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     {
         woosms_run_hook(
             'customer_new', new Extensions\Hook\Variables(
-                array(
-                'customer_id' => $customer_id,
-                'password' => woosms_isset($data, 'user_pass', '-'),
-                'shop_id' => 0
-                )
+                [
+                    'customer_id' => $customer_id,
+                    'password' => woosms_isset($data, 'user_pass', '-'),
+                    'shop_id' => 0
+                ]
             )
         );
     }
@@ -137,11 +137,11 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 
             woosms_run_hook(
                 'order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(
-                    array(
-                    'order_status_id' => $order->get_status(),
-                    'order_id' => $order_id,
-                    'lang_id' => woosms_get_post_lang($order_id)
-                    )
+                    [
+                        'order_status_id' => $order->get_status(),
+                        'order_id' => $order_id,
+                        'lang_id' => woosms_get_post_lang($order_id)
+                    ]
                 )
             );
         }
@@ -159,12 +159,12 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     {
         woosms_run_hook(
             'product_out_of_stock', new Extensions\Hook\Variables(
-                array(
-                'product_id' => woosms_isset($data, 'id', 0),
-                'product_quantity' => woosms_isset(get_post_meta($data->id, '_stock'), 0, 0),
-                'product_name' => woosms_isset($data->post, 'post_title', '-'),
-                'product_ref' => woosms_isset($data->post, 'post_name', '-'),
-                )
+                [
+                    'product_id' => woosms_isset($data, 'id', 0),
+                    'product_quantity' => woosms_isset(get_post_meta($data->id, '_stock'), 0, 0),
+                    'product_name' => woosms_isset($data->post, 'post_title', '-'),
+                    'product_ref' => woosms_isset($data->post, 'post_name', '-')
+                ]
             )
         );
     }
@@ -181,10 +181,10 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     {
         woosms_run_hook(
             'order_payment_complete', new Extensions\Hook\Variables(
-                array(
-                'order_id' => $order_id,
-                'lang_id' => woosms_get_post_lang($order_id)
-                )
+                [
+                    'order_id' => $order_id,
+                    'lang_id' => woosms_get_post_lang($order_id)
+                ]
             )
         );
     }
@@ -200,7 +200,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
      *
      * @return void
      */
-    function Woosms_Hook_sendSms($number, $template, array $variables = array(), array $settings = array())
+    function Woosms_Hook_sendSms($number, $template, array $variables = [], array $settings = [])
     {
         /**
          * DI container
@@ -212,12 +212,12 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
         $woo_sms_di->getConnection()->run(
             new BulkGate\Extensions\IO\Request(
                 $woo_sms_di->getModule()->getUrl('/module/hook/custom'),
-                array(
+                [
                     'number' => $number,
                     'template' => $template,
                     'variables' => $variables,
                     'settings' => $settings
-                ),
+                ],
                 true, 5
             )
         );
@@ -237,14 +237,14 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 
         woosms_run_hook(
             'product_on_back_order', new Extensions\Hook\Variables(
-                array(
-                'product_id' => woosms_isset($product, 'id', 0),
-                'product_quantity' => woosms_isset($data, 'quantity', 0),
-                'product_name' => woosms_isset($product->post, 'post_title', '-'),
-                'product_ref' => woosms_isset($product->post, 'post_name', '-'),
-                'order_id' => woosms_isset($data, 'order_id', false),
-                'lang_id' => woosms_get_post_lang(woosms_isset($data, 'order_id', false))
-                )
+                [
+                    'product_id' => woosms_isset($product, 'id', 0),
+                    'product_quantity' => woosms_isset($data, 'quantity', 0),
+                    'product_name' => woosms_isset($product->post, 'post_title', '-'),
+                    'product_ref' => woosms_isset($product->post, 'post_name', '-'),
+                    'order_id' => woosms_isset($data, 'order_id', false),
+                    'lang_id' => woosms_get_post_lang(woosms_isset($data, 'order_id', false))
+                ]
             )
         );
     }
