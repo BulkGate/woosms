@@ -4,8 +4,7 @@
   "minimum-stability": "RC",
   "require": {
     "php": ">= 7.4",
-    "bulkgate/plugin": "dev-master",
-    "nette/utils": "^3.2"
+    "bulkgate/plugin": "dev-master"
   },
   "autoload": {
     "classmap": [
