@@ -3,7 +3,7 @@
  * Plugin Name: BulkGate SMS Plugin for WooCommerce
  * Plugin URI: https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/
  * Description: Notify your customers about order status via SMS notifications.
- * Version: 2.1.0
+ * Version: 3.0.0
  * Author: BulkGate
  * Author URI: https://www.bulkgate.com/
  * Requires at least: 5.7
@@ -17,16 +17,14 @@
  */
 
 use BulkGate\Extensions, BulkGate\WooSms;
+use BulkGate\WooSms\DI;
+use BulkGate\Plugin\{Eshop, Event};
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
 define('WOOSMS_DIR', basename(__DIR__));
-
-if (file_exists(__DIR__.'/extensions/src/debug.php')) {
-    include_once __DIR__ . '/extensions/src/debug.php';
-}
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -38,18 +36,33 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     /**
      * Init WooSMS
      */
-    include_once __DIR__ . '/woosms/src/init.php';
+    include_once __DIR__ . '/vendor/autoload.php';
+
+	DI\Factory::setup(fn () => [
+		'db' => $wpdb,
+		'debug' => WP_DEBUG,
+		'url' => get_site_url(),
+		'plugin_data' => get_plugin_data(__FILE__),
+		'api_version' => '1.0'
+	]);
+
+	dump(DI\Factory::get()->getByClass(Event\Asynchronous::class));
+
+
+	die;
 
 
     /**
      * Return plugin version
-     *
-     * @return mixed|string
+     * @deprecated
      */
-    function Woosms_Package_version()
+    function Woosms_Package_version(): string
     {
-        $plugin_data = get_plugin_data(__FILE__);
-        return isset($plugin_data['Version']) ? $plugin_data['Version'] : 'unknown';
+		$di = WooSms\DI\Factory::get();
+
+	    $configuration = $di->getByClass(Eshop\Configuration::class);
+
+		return $configuration->version();
     }
 
     /**

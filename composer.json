@@ -6,6 +6,9 @@
     "php": ">= 7.4",
     "bulkgate/plugin": "dev-master"
   },
+  "require-dev": {
+    "tracy/tracy": "^2.10"
+  },
   "autoload": {
     "classmap": [
       "src/"
