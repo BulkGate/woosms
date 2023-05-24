@@ -1,0 +1,15 @@
+{
+  "name": "bulkgate/woosms",
+  "type": "project",
+  "minimum-stability": "RC",
+  "require": {
+    "php": ">= 7.4",
+    "bulkgate/plugin": "dev-master",
+    "nette/utils": "^3.2"
+  },
+  "autoload": {
+    "classmap": [
+      "woosms/"
+    ]
+  }
+}
