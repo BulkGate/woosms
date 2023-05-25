@@ -7,7 +7,7 @@
  * Author: BulkGate
  * Author URI: https://www.bulkgate.com/
  * Requires at least: 5.7
- * PHP version 7.3
+ * PHP version 7.4
  *
  * @category WooSMS
  * @package  BulkGate
@@ -16,9 +16,12 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\Extensions, BulkGate\WooSms;
-use BulkGate\WooSms\DI;
-use BulkGate\Plugin\{Eshop, Event};
+use BulkGate\WooSms;
+use BulkGate\Plugin\{
+    Eshop,
+    DI\Container as DIContainer,
+    Settings\Settings,
+};
 
 if (!defined('ABSPATH')) {
     exit;
@@ -37,20 +40,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
      * Init WooSMS
      */
     include_once __DIR__ . '/vendor/autoload.php';
-
-	DI\Factory::setup(fn () => [
-		'db' => $wpdb,
-		'debug' => WP_DEBUG,
-		'url' => get_site_url(),
-		'plugin_data' => get_plugin_data(__FILE__),
-		'api_version' => '1.0'
-	]);
-
-	dump(DI\Factory::get()->getByClass(Event\Asynchronous::class));
-
-
-	die;
-
+    include_once __DIR__ . '/src/init.php';
 
     /**
      * Return plugin version
@@ -218,7 +208,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
         /**
          * DI container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI container
+         * @var DIContainer $woo_sms_di DI container
         */
         global $woo_sms_di;
 
@@ -268,38 +258,18 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
      *
      * @param bool $now Instant synchronize
      *
-     * @return bool
+     * @return void
      */
     function Woosms_synchronize($now = false)
     {
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di
+         * @var DIContainer $woo_sms_di
         */
         global $woo_sms_di;
 
-        if ($woo_sms_di->getSettings()->load('static:application_token')) {
-
-            $module = $woo_sms_di->getModule();
-
-            $woo_sms_di->getSettings()->set('main:version', Woosms_Package_version());
-
-            $status = $module->statusLoad(); $language = $module->languageLoad(); $store = $module->storeLoad();
-
-            $now = $now || $status || $language || $store;
-
-            try
-            {
-                $woo_sms_di->getSynchronize()->run($module->getUrl('/module/settings/synchronize'), $now);
-
-                return true;
-            }
-            catch (Extensions\IO\InvalidResultException $e)
-            {
-            }
-        }
-        return false;
+        $woo_sms_di->getByClass(Eshop\EshopSynchronizer::class)->run($now);
     }
 
 
@@ -309,15 +279,13 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     register_activation_hook(
         __FILE__, function () {
             /**
-             * Database Connection
+             * DI Container
              *
-             * @var wpdb $wpdb Connection DI container
-            */
-            global $wpdb;
+             * @var DIContainer $woo_sms_di
+             */
+            global $woo_sms_di;
 
-            $woo_sms_di = new WooSms\DIContainer($wpdb);
-
-            $woo_sms_di->getSettings()->install();
+            $woo_sms_di->getByClass(Settings::class)->install();
         }
     );
 
@@ -330,11 +298,11 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
             /**
              * DI Container
              *
-             * @var WooSms\DIContainer $woo_sms_di
+             * @var DIContainer $woo_sms_di
              */
             global $woo_sms_di;
 
-            $woo_sms_di->getSettings()->uninstall();
+            $woo_sms_di->getByClass(Settings::class)->uninstall();
         }
     );
 

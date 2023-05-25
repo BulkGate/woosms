@@ -5,14 +5,19 @@
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Extensions, BulkGate\WooSms;
+use BulkGate\WooSms;
+use BulkGate\Plugin\{
+    DI\Container as DIContainer,
+    Localization\Translator,
+    Settings\Settings,
+};
 
 function woosms_translate($key, $default = null)
 {
-    /** @var WooSms\DIContainer $woo_sms_di */
+    /** @var DIContainer $woo_sms_di */
     global $woo_sms_di;
 
-    return $woo_sms_di->getTranslator()->translate($key, $default);
+    return $woo_sms_di->getByClass(Translator::class)->translate($key, $default);
 }
 
 function woosms_get_order_meta_array($id)
@@ -76,7 +81,7 @@ function woosms_isset($array_object, $key, $default = null)
 
 function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
 {
-    /** @var WooSms\DIContainer $woo_sms_di */
+    /** @var DIContainer $woo_sms_di */
     global $woo_sms_di;
 
     $hook = new Extensions\Hook\Hook(
@@ -166,12 +171,12 @@ function woosms_ajax_url()
 
 function woosms_add_settings_link($links, $file)
 {
-    /** @var WooSms\DIContainer $woo_sms_di */
+    /** @var DIContainer $woo_sms_di */
     global $woo_sms_di;
 
     if(basename(dirname($file)) === WOOSMS_DIR)
     {
-        if($woo_sms_di->getSettings()->load('static:application_token', false))
+        if($woo_sms_di->getByClass(Settings::class)->load('static:application_token') ?? false)
         {
             $settings_link = '<a href="'.esc_url(admin_url("admin.php?page=woosms_modulesettings_default")).'">'.esc_html__('Settings').'</a>';
         }

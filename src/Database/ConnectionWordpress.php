@@ -34,6 +34,7 @@ class ConnectionWordpress implements Connection
 
 		$this->sql[] = $sql;
 
+        bdump($sql);
 		$result = $this->db->get_results($sql);
 
 		if (is_array($result) && count($result) > 0)

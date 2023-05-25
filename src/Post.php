@@ -7,11 +7,12 @@ namespace BulkGate\WooSms;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate;
-use BulkGate\Extensions\Strict;
+use BulkGate\Plugin\Strict;
 
-class Post extends Strict
+class Post
 {
+    use Strict;
+
     /** @var array */
     private static $post = array();
 

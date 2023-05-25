@@ -1,25 +1,26 @@
 <?php
 
+use BulkGate\WooSms;
+
 /**
  * @author Lukáš Piják 2020 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms;
+require_once __DIR__ . '/helpers.php';
 
-require_once(__DIR__.'/../../extensions/src/_extension.php');
-require_once(__DIR__.'/_extension.php');
+global $wpdb, $woo_sms_di;
 
 /**
- * Init WooSMS
+ * @var wpdb $wpdb
  */
-add_action('init', function()
-{
-    /**
-     * @var wpdb $wpdb
-     * @var WooSms\DIContainer $woo_sms_di
-     */
-    global $wpdb, $woo_sms_di;
+WooSms\DI\Factory::setup(fn () => [
+    'db' => $wpdb,
+    'debug' => true,//WP_DEBUG,
+    'gate_url' => 'http://192.168.80.1:81',
+    'url' => get_site_url(),
+    'plugin_data' => get_plugin_data(__FILE__),
+    'api_version' => '1.0'
+]);
 
-    $woo_sms_di = new WooSms\DIContainer($wpdb);
-});
+$woo_sms_di = WooSms\DI\Factory::get();

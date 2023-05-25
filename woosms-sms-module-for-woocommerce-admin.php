@@ -11,7 +11,16 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\Extensions, BulkGate\WooSMS\Escape, BulkGate\WooSms\Post, BulkGate\Extensions\JsonResponse, BulkGate\WooSms;
+use BulkGate\WooSms\Escape, BulkGate\WooSms\Post;
+use BulkGate\Plugin\{
+    AuthenticateException,
+    DI\Container as DIContainer,
+    Eshop,
+    IO,
+    User,
+    Utils\JsonResponse,
+    Settings,
+};
 
 if (!defined('ABSPATH')) {
     exit;
@@ -23,16 +32,16 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
-        $woo_sms_module = $woo_sms_di->getModule();
+        $url = $woo_sms_di->getByClass(IO\Url::class);
 
         Woosms_Define_menu(defined('SMS_DEMO') ? 'read' : 'manage_options');
         add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
         add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
-        wp_enqueue_style('woosms', $woo_sms_module->getUrl('/'.(defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/css/bulkgate-woosms.css?v=2.2'));
+        wp_enqueue_style('woosms', $url->get((defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/css/bulkgate-woosms.css?v=2.2'));
         wp_enqueue_style('woosms-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
     }
 );
@@ -43,15 +52,15 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
         try
         {
-            JsonResponse::send($woo_sms_di->getProxy()->authenticate());
+            JsonResponse::send($woo_sms_di->getByClass(User\Sign::class)->authenticate());
         }
-        catch (Extensions\IO\AuthenticateException $e)
+        catch (AuthenticateException $e)
         {
             JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_sign_in')]);
         }
@@ -64,7 +73,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -83,16 +92,14 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
-        $response =  $woo_sms_di->getProxy()->login(array_merge(['name' => woosms_get_shop_name()], Post::get('__bulkgate')));
+        ['email' => $email, 'password' => $password] = Post::get('__bulkgate');
+        $response = $woo_sms_di->getByClass(User\Sign::class)->in($email, $password, woosms_get_shop_name(), admin_url('admin.php?page=woosms_dashboard_default'));
 
-        if ($response instanceof Extensions\IO\Response) {
-            JsonResponse::send($response);
-        }
-        JsonResponse::send(['token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')]);
+        JsonResponse::send($response);
     }
 );
 
@@ -102,7 +109,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -121,7 +128,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -140,7 +147,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -161,7 +168,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -182,7 +189,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -200,7 +207,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -218,7 +225,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -236,11 +243,11 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
-        $woo_sms_di->getProxy()->logout();
+        $woo_sms_di->getByClass(User\Sign::class)->out();
 
         JsonResponse::send(['token' => 'guest', 'redirect' => admin_url('admin.php?page=woosms_sign_in')]);
     }
@@ -252,7 +259,7 @@ add_action(
         /**
          * DI Container
          *
-         * @var WooSms\DIContainer $woo_sms_di DI Container
+         * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
 
@@ -286,17 +293,17 @@ function Woosms_Define_menu($capabilities = 'manage_options')
     /**
      * DI Container
      *
-     * @var WooSms\DIContainer $woo_sms_di DI Container
+     * @var DIContainer $woo_sms_di DI Container
      */
     global $woo_sms_di;
 
-    $woo_sms_settings = $woo_sms_di->getSettings();
+    $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
 
     $menu = $woo_sms_settings->load('menu:');
 
     if (empty($menu)) {
         Woosms_synchronize(true);
-        $menu = $woo_sms_settings->load('menu:', [], true);
+        $menu = $woo_sms_settings->load('menu:', true) ?? [];
     }
 
     $application_token = $woo_sms_settings->load('static:application_token', false);
@@ -305,10 +312,10 @@ function Woosms_Define_menu($capabilities = 'manage_options')
 
     if ($application_token && is_array($menu)) {
         foreach ($menu as $slug => $m) {
+            $value = $m->value;
+
             add_submenu_page(
-                $m->parent, woosms_translate($m->title), woosms_translate($m->title), $capabilities, $slug, function () use ($m) {
-                    Woosms_page($m->presenter, $m->action, woosms_translate($m->title), $m->box);
-                }
+                $value['parent'], woosms_translate($value['title']), woosms_translate($value['title']), $capabilities, $slug, fn () => Woosms_page($value['presenter'], $value['action'], woosms_translate($value['title']), $value['box'])
             );
         }
 
@@ -355,11 +362,11 @@ function Woosms_page($presenter, $action, $title, $box, array $params = [])
     /**
      * DI Container
      *
-     * @var WooSms\DIContainer $woo_sms_di DI Container
+     * @var DIContainer $woo_sms_di DI Container
      */
     global $woo_sms_di;
 
-    $woo_sms_module = $woo_sms_di->getModule();
+    $url = $woo_sms_di->getByClass(IO\Url::class);
 
     ?>
         <div id="woo-sms">
@@ -368,7 +375,7 @@ function Woosms_page($presenter, $action, $title, $box, array $params = [])
                     <div class="nav-wrapper">
                         <div id="brand-logo">
                             <a class="brand-logo hide-on-med-and-down" href="<?php echo Escape::url(admin_url('admin.php?page=woosms_dashboard_default')); ?>">
-                                <img alt="woosms" width="120" src="<?php echo Escape::url($woo_sms_module->getUrl('/images/products/ws.svg')); ?>" />
+                                <img alt="woosms" width="120" src="<?php echo Escape::url($url->get('images/products/ws.svg')); ?>" />
                             </a>
                         </div>
                         <ul class="controls">
@@ -415,12 +422,13 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
     /**
      * DI Container
      *
-     * @var WooSms\DIContainer $woo_sms_di DI Container
+     * @var DIContainer $woo_sms_di DI Container
      */
     global $woo_sms_di;
 
-    $woo_sms_module = $woo_sms_di->getModule();
-    $woo_sms_settings = $woo_sms_di->getSettings();
+    $url = $woo_sms_di->getByClass(IO\Url::class);
+    $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
+    $configuration = $woo_sms_di->getByClass(Eshop\Configuration::class);
 
     $escape_js = [Escape::class, 'js'];
 
@@ -450,7 +458,7 @@ JS
 
     wp_print_script_tag(
         [
-        'src' => Escape::url($woo_sms_module->getUrl('/' . (defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist') . '/widget-api/widget-api.js?v=3.2'))
+        'src' => Escape::url($url->get((defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist') . '/widget-api/widget-api.js?v=3.2'))
         ]
     );
 
@@ -460,16 +468,16 @@ JS
             {
                 if (data.init._generic)
                 {
-                    data.init.env.homepage.logo_link = {$escape_js($woo_sms_module->getUrl('/images/products/ws.svg'))};
-                    data.init._generic.scope.module_info = {$escape_js($woo_sms_module->info())};
+                    data.init.env.homepage.logo_link = {$escape_js($url->get('images/products/ws.svg'))};
+                    data.init._generic.scope.module_info = {$escape_js($configuration->info())};
                 }
             });
 
             var input = _bg_client.parseQuery(location.search);            
 
-            _bg_client.require({$escape_js($woo_sms_settings->load('static:application_id', ''))}, {
+            _bg_client.require({$escape_js($woo_sms_settings->load('static:application_id'))}, {
                 product: 'ws',
-                language: {$escape_js($woo_sms_settings->load('main:language', 'en'))},
+                language: {$escape_js($woo_sms_settings->load('main:language') ?? 'en')},
                 view : {
                     presenter: {$escape_js($presenter)},
                     action: {$escape_js($action)}

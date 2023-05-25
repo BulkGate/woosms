@@ -9,7 +9,13 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
-use BulkGate\WooSms\{Eshop\ConfigurationWordpress, Database\ConnectionWordpress};
+use BulkGate\WooSms\{
+    Eshop\ConfigurationWordpress,
+    Eshop\MultiStoreWordpress,
+    Eshop\OrderStatusWordpress,
+    Eshop\ReturnStatusWordpress,
+    Eshop\LanguageWordpress,
+    Database\ConnectionWordpress};
 use BulkGate\Plugin\{DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use function is_callable;
 
@@ -62,7 +68,7 @@ class Factory implements DIFactory
 		{
 			Debugger::$strictMode = true;
 			Debugger::$maxDepth = 10;
-			Debugger::enable();
+			Debugger::enable(Debugger::Development);
 		}
 
 		if (!$parameters['db'] instanceof wpdb)
@@ -79,9 +85,14 @@ class Factory implements DIFactory
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];
 
 		// Eshop
-		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'])];
+        $container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;
+		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $container->getByClass(Settings\Settings::class))];
+        $container['eshop.order_status'] = ['factory' => Eshop\OrderStatus::class, 'factory_method' => fn () => new OrderStatusWordpress()];
+        $container['eshop.return_status'] = ['factory' => Eshop\ReturnStatus::class, 'factory_method' => fn () => new ReturnStatusWordpress()];
+        $container['eshop.language'] = ['factory' => Eshop\Language::class, 'factory_method' => fn () => new LanguageWordpress()];
+        $container['eshop.multistore'] = ['factory' => Eshop\MultiStore::class, 'factory_method' => fn () => new MultiStoreWordpress()];
 
-		// Event
+        // Event
 		$container['event.hook'] = ['factory' => Event\Hook::class, 'parameters' => ['version' => $parameters['api_version'] ?? '1.0']];
 		$container['event.asynchronous.repository'] = Event\Repository\AsynchronousDatabase::class;
 		$container['event.asynchronous'] = Event\Asynchronous::class;
