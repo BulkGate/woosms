@@ -41,8 +41,8 @@ add_action(
         Woosms_Define_menu(defined('SMS_DEMO') ? 'read' : 'manage_options');
         add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
         add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
-        wp_enqueue_style('woosms', $url->get((defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/css/bulkgate-woosms.css?v=2.2'));
-        wp_enqueue_style('woosms-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
+        //wp_enqueue_style('woosms', $url->get((defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/css/bulkgate-woosms.css?v=2.2'));
+        //wp_enqueue_style('woosms-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
     }
 );
 
@@ -367,9 +367,16 @@ function Woosms_page($presenter, $action, $title, $box, array $params = [])
     global $woo_sms_di;
 
     $url = $woo_sms_di->getByClass(IO\Url::class);
+    Woosms_Print_widget($presenter, $action, $params);
+
 
     ?>
         <div id="woo-sms">
+            <ecommerce-module></ecommerce-module>
+        </div>
+    <?php
+
+    /*<div id="woo-sms">
             <nav>
                 <div class="container-fluid">
                     <div class="nav-wrapper">
@@ -403,8 +410,10 @@ function Woosms_page($presenter, $action, $title, $box, array $params = [])
                     Woosms_Print_widget($presenter, $action, $params);
                 ?>
             </div>
-        </div>
+        </div>*/
+        ?>
     <?php
+
 }
 
 
@@ -427,8 +436,9 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
     global $woo_sms_di;
 
     $url = $woo_sms_di->getByClass(IO\Url::class);
-    $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
     $configuration = $woo_sms_di->getByClass(Eshop\Configuration::class);
+    $user = $woo_sms_di->getByClass(User\Sign::class);
+    $jwt = $user->authenticate()['token'];
 
     $escape_js = [Escape::class, 'js'];
 
@@ -436,6 +446,80 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
         <div id="react-language-footer"></div>
     <?php
 
+    wp_print_inline_script_tag(
+        <<<JS
+            function initWidget_ecommerce_module(widget) {
+                widget.initialize({
+                    _generic: {
+                        scope: {$escape_js($configuration->info())}
+                    }
+                });
+                widget.authenticator = {
+                    getHeaders: () => {
+                        return {
+                            Authorization: "Bearer $jwt"
+                        }
+                    }
+                };
+                //todo: nastavovat externe v ramci typu aplikace? 
+                widget.options.main = {
+                    showLanguagePanel: false,
+                    showPermanentLogin: false,
+                    logo: "images/white-label/bulkgate/logo/logo-title.svg",
+                    logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
+                    background: "images/products/backgrounds/ws.svg"
+                };
+                widget.options.layout = {
+                    appBar: {
+                        showLogOut: false,
+                        logoUrl: "images/products/bg.svg",
+                        logoStyle: {
+                            height: "40px",
+                            width: "100px",
+                            filter: "brightness(0) invert(1)",
+                        }
+                    },
+                    navBar: {
+                        hidden: true,
+                    }
+                };
+                widget.options.proxyFactory = function(store) {
+                    let proxyData = {$escape_js(Woosms_Get_Proxy_links())};
+                    
+                    return function proxy(reducerName, requestData) {
+                        let {activeRoute} = store.getState().routing.server;
+                        let data = (proxyData[activeRoute] || {})[reducerName] || {}
+                        let {url, params} = data[requestData.url] || {};
+    
+                        if (url){
+                            requestData.contentType = "application/x-www-form-urlencoded";
+                            requestData.url = url;
+                            requestData.data = {__bulkgate: requestData.data, ...params};
+                            return true;
+                        }
+                        
+                        try {
+                            // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions). What about redirect??
+                            let baseUrl = new URL({$escape_js($url->get(''))}); // bulkgate's app url
+                            url = new URL(requestData.url, baseUrl);
+                            requestData.url = url.toString();
+                            return true;
+                        } catch {}
+                    }
+                
+                console.log("configuration called", widget);
+            }
+        }
+JS
+    );
+
+    wp_print_script_tag(
+        [
+            'src' => Escape::url($url->get('web-components/ecommerce/default/'.$jwt.'?config=initWidget_ecommerce_module')),
+            'async' => true,
+        ]
+    );
+    /*
     wp_print_inline_script_tag(
         <<<JS
             var _bg_client_config = {
@@ -453,17 +537,7 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
                     }
                 }
             };
-JS
-    );
 
-    wp_print_script_tag(
-        [
-        'src' => Escape::url($url->get((defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist') . '/widget-api/widget-api.js?v=3.2'))
-        ]
-    );
-
-    wp_print_inline_script_tag(
-        <<<JS
             _bg_client.registerMiddleware(function (data)
             {
                 if (data.init._generic)
@@ -486,7 +560,7 @@ JS
                 proxy: {$escape_js(Woosms_Get_Proxy_links($presenter, $action))}
             });
 JS
-    );
+    );*/
 }
 
 
@@ -498,48 +572,42 @@ JS
  *
  * @return array|array[][]
  */
-function Woosms_Get_Proxy_links($presenter, $action)
+function Woosms_Get_Proxy_links()
 {
-    switch ("$presenter:$action")
-    {
-    case 'ModuleNotifications:customer':
-        return [
+    return [
+        'ModuleNotifications:customer' => [
             '_generic' => [
                 'save' => [
                     'url' => woosms_ajax_url(),
                     'params' => ['action' => 'save_customer_notifications']
                 ]
             ]
-        ];
-    case 'ModuleNotifications:admin':
-        return [
+        ],
+        'ModuleNotifications:admin' => [
             '_generic' => [
                 'save' => [
                     'url' => woosms_ajax_url(),
                     'params' => ['action' => 'save_admin_notifications']
                 ]
             ]
-        ];
-    case 'Sign:up':
-        return [
+        ],
+        'Sign:up' => [
             '_generic' => [
                 'register' => [
                     'url' => woosms_ajax_url(),
                     'params' => ['action' => 'register']
                 ]
             ]
-        ];
-    case 'ModuleSign:in':
-        return [
+        ],
+        'Sign:in' => [
             '_generic' => [
                 'login' => [
                     'url' => woosms_ajax_url(),
                     'params' => ['action' => 'login']
                 ]
             ]
-        ];
-    case 'ModuleSettings:default':
-        return [
+        ],
+        'ModuleSettings:default' => [
             '_generic' => [
                 'save' => [
                     'url' => woosms_ajax_url(),
@@ -550,9 +618,8 @@ function Woosms_Get_Proxy_links($presenter, $action)
                     'params' => ['action' => 'logout_module']
                 ]
             ]
-        ];
-    case 'SmsCampaign:campaign':
-        return [
+        ],
+        'SmsCampaign:campaign' => [
             'campaign' => [
                 'loadModuleData' => [
                     'url' => woosms_ajax_url(),
@@ -571,8 +638,6 @@ function Woosms_Get_Proxy_links($presenter, $action)
                     'params' => ['action' => 'remove_module_filter']
                 ]
             ]
-        ];
-    default:
-        return [];
-    }
+        ]
+    ];
 }
