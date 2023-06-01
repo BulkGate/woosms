@@ -28,21 +28,11 @@ if (!defined('ABSPATH')) {
 
 
 add_action(
-    'admin_menu', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        $url = $woo_sms_di->getByClass(IO\Url::class);
-
+    'admin_menu', function ()
+    {
         Woosms_Define_menu(defined('SMS_DEMO') ? 'read' : 'manage_options');
         add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
         add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
-        //wp_enqueue_style('woosms', $url->get((defined('BULKGATE_DEV_MODE') ? 'dev' : 'dist').'/css/bulkgate-woosms.css?v=2.2'));
-        //wp_enqueue_style('woosms-icons', 'https://fonts.googleapis.com/icon?family=Material+Icons|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i');
     }
 );
 
@@ -69,25 +59,6 @@ add_action(
 
 
 add_action(
-    'wp_ajax_register', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        $response = $woo_sms_di->getProxy()->register(array_merge(['name' => woosms_get_shop_name()], Post::get('__bulkgate')));
-
-        if ($response instanceof Extensions\IO\Response) {
-            JsonResponse::send($response);
-        }
-        JsonResponse::send(['token' => $response, 'redirect' => admin_url('admin.php?page=woosms_dashboard_default')]);
-    }
-);
-
-
-add_action(
     'wp_ajax_login', function () {
         /**
          * DI Container
@@ -100,122 +71,6 @@ add_action(
         $response = $woo_sms_di->getByClass(User\Sign::class)->in($email, $password, woosms_get_shop_name(), admin_url('admin.php?page=woosms_dashboard_default'));
 
         JsonResponse::send($response);
-    }
-);
-
-
-add_action(
-    'wp_ajax_load_module_data', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        JsonResponse::send(
-            $woo_sms_di->getProxy()->loadCustomersCount(
-                Post::getFromArray('__bulkgate', 'application_id'),
-                Post::getFromArray('__bulkgate', 'campaign_id')
-            )
-        );
-    }
-);
-
-
-add_action(
-    'wp_ajax_save_module_customers', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        JsonResponse::send(
-            $woo_sms_di->getProxy()->saveModuleCustomers(
-                Post::getFromArray('__bulkgate', 'application_id'),
-                Post::getFromArray('__bulkgate', 'campaign_id')
-            )
-        );
-    }
-);
-
-
-add_action(
-    'wp_ajax_add_module_filter', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        JsonResponse::send(
-            $woo_sms_di->getProxy()->loadCustomersCount(
-                Post::getFromArray('__bulkgate', 'application_id'),
-                Post::getFromArray('__bulkgate', 'campaign_id'),
-                'addFilter',
-                Post::get('__bulkgate')
-            )
-        );
-    }
-);
-
-
-add_action(
-    'wp_ajax_remove_module_filter', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        JsonResponse::send(
-            $woo_sms_di->getProxy()->loadCustomersCount(
-                Post::getFromArray('__bulkgate', 'application_id'),
-                Post::getFromArray('__bulkgate', 'campaign_id'),
-                'removeFilter',
-                Post::get('__bulkgate')
-            )
-        );
-    }
-);
-
-
-add_action(
-    'wp_ajax_save_customer_notifications', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        JsonResponse::send(
-            $woo_sms_di->getProxy()->saveCustomerNotifications(
-                Post::get('__bulkgate', [], ['template'])
-            )
-        );
-    }
-);
-
-
-add_action(
-    'wp_ajax_save_admin_notifications', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        JsonResponse::send(
-            $woo_sms_di->getProxy()->saveAdminNotifications(
-                Post::get('__bulkgate', [], ['template'])
-            )
-        );
     }
 );
 
@@ -254,13 +109,13 @@ add_action(
 );
 
 
-add_action(
+/*add_action(
     'add_meta_boxes', function ($post_type) {
         /**
          * DI Container
          *
          * @var DIContainer $woo_sms_di DI Container
-         */
+         *
         global $woo_sms_di;
 
         if ($post_type === 'shop_order' && $woo_sms_di->getSettings()->load('static:application_token', false)) {
@@ -278,7 +133,7 @@ add_action(
             );
         }
     }
-);
+);*/
 
 
 /**
@@ -299,48 +154,9 @@ function Woosms_Define_menu($capabilities = 'manage_options')
 
     $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
 
-    $menu = $woo_sms_settings->load('menu:');
-
-    if (empty($menu)) {
-        Woosms_synchronize(true);
-        $menu = $woo_sms_settings->load('menu:', true) ?? [];
-    }
-
     $application_token = $woo_sms_settings->load('static:application_token', false);
 
-    add_menu_page('woosms_profile_page', 'BulkGate SMS', $capabilities, $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', '', 'dashicons-email-alt', '58');
-
-    if ($application_token && is_array($menu)) {
-        foreach ($menu as $slug => $m) {
-            $value = $m->value;
-
-            add_submenu_page(
-                $value['parent'], woosms_translate($value['title']), woosms_translate($value['title']), $capabilities, $slug, fn () => Woosms_page($value['presenter'], $value['action'], woosms_translate($value['title']), $value['box'])
-            );
-        }
-
-        add_submenu_page(
-            null, woosms_translate('sign_in'), woosms_translate('sign_in'), $capabilities, 'woosms_sign_in', function () {
-                Woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false);
-            }
-        );
-    } else {
-        add_submenu_page(
-            'woosms_sign_in', woosms_translate('sign_in'), woosms_translate('sign_in'), $capabilities, 'woosms_sign_in', function () {
-                Woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false);
-            }
-        );
-        add_submenu_page(
-            'woosms_sign_in', woosms_translate('sign_up'), woosms_translate('sign_up'), $capabilities, 'woosms_sign_up', function () {
-                Woosms_page('Sign', 'up', woosms_translate('sign_up'), false);
-            }
-        );
-    }
-    add_submenu_page(
-        $application_token ? 'woosms_dashboard_default' : 'woosms_sign_in', woosms_translate('about_module'), woosms_translate('about_module'), $capabilities, 'woosms_about_default', function () {
-            Woosms_page('ModuleAbout', 'default', woosms_translate('about_module'), false);
-        }
-    );
+    add_menu_page('bulkgate', 'BulkGate SMS', $capabilities, 'bulkgate', fn () => Woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false), 'dashicons-email-alt', '58');
 }
 
 
@@ -358,62 +174,9 @@ function Woosms_Define_menu($capabilities = 'manage_options')
 function Woosms_page($presenter, $action, $title, $box, array $params = [])
 {
     Woosms_synchronize();
-
-    /**
-     * DI Container
-     *
-     * @var DIContainer $woo_sms_di DI Container
-     */
-    global $woo_sms_di;
-
-    $url = $woo_sms_di->getByClass(IO\Url::class);
     Woosms_Print_widget($presenter, $action, $params);
 
-
-    ?>
-        <div id="woo-sms">
-            <ecommerce-module></ecommerce-module>
-        </div>
-    <?php
-
-    /*<div id="woo-sms">
-            <nav>
-                <div class="container-fluid">
-                    <div class="nav-wrapper">
-                        <div id="brand-logo">
-                            <a class="brand-logo hide-on-med-and-down" href="<?php echo Escape::url(admin_url('admin.php?page=woosms_dashboard_default')); ?>">
-                                <img alt="woosms" width="120" src="<?php echo Escape::url($url->get('images/products/ws.svg')); ?>" />
-                            </a>
-                        </div>
-                        <ul class="controls">
-                            <span id="react-app-panel-admin-buttons"></span>
-                            <span id="react-app-info"></span>                              
-                        </ul>
-                        <div class="nav-h1">
-                            <span class="h1-divider"></span>
-                            <h1 class="truncate"><?php echo Escape::html($title) ?><span id="react-app-h1-sub"></span></h1>
-                        </div>
-                    </div>
-                </div>
-            </nav>
-            <div id="profile-tab"></div>
-            <div<?php if($box) : ?> class="module-box"<?php 
-           endif; ?>>
-                <div id="react-snack-root"></div>
-                <div id="react-app-root">
-                    <div class="loader loading">
-                        <div class="spinner"></div>
-                        <p><?php echo Escape::html(woosms_translate('loading_content', 'Loading content')); ?></p>
-                    </div>
-                </div>
-                <?php
-                    Woosms_Print_widget($presenter, $action, $params);
-                ?>
-            </div>
-        </div>*/
-        ?>
-    <?php
-
+    echo "<ecommerce-module></ecommerce-module>";
 }
 
 
@@ -438,13 +201,9 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
     $url = $woo_sms_di->getByClass(IO\Url::class);
     $configuration = $woo_sms_di->getByClass(Eshop\Configuration::class);
     $user = $woo_sms_di->getByClass(User\Sign::class);
-    $jwt = $user->authenticate()['token'];
+    $jwt = $user->authenticate();
 
     $escape_js = [Escape::class, 'js'];
-
-    ?>
-        <div id="react-language-footer"></div>
-    <?php
 
     wp_print_inline_script_tag(
         <<<JS
@@ -457,7 +216,7 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
                 widget.authenticator = {
                     getHeaders: () => {
                         return {
-                            Authorization: "Bearer $jwt"
+                            Authorization: {$escape_js("Bearer $jwt")}
                         }
                     }
                 };
@@ -510,57 +269,12 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
                 console.log("configuration called", widget);
             }
         }
-JS
-    );
+    JS);
 
-    wp_print_script_tag(
-        [
-            'src' => Escape::url($url->get('web-components/ecommerce/default/'.$jwt.'?config=initWidget_ecommerce_module')),
-            'async' => true,
-        ]
-    );
-    /*
-    wp_print_inline_script_tag(
-        <<<JS
-            var _bg_client_config = {
-                url: {
-                    authenticationService : ajaxurl
-                },
-                actions: {
-                    authenticate: function () {
-                        return {
-                            data: {
-                                action: "authenticate",
-                                data: {}
-                            }
-                        }
-                    }
-                }
-            };
-
-            _bg_client.registerMiddleware(function (data)
-            {
-                if (data.init._generic)
-                {
-                    data.init.env.homepage.logo_link = {$escape_js($url->get('images/products/ws.svg'))};
-                    data.init._generic.scope.module_info = {$escape_js($configuration->info())};
-                }
-            });
-
-            var input = _bg_client.parseQuery(location.search);            
-
-            _bg_client.require({$escape_js($woo_sms_settings->load('static:application_id'))}, {
-                product: 'ws',
-                language: {$escape_js($woo_sms_settings->load('main:language') ?? 'en')},
-                view : {
-                    presenter: {$escape_js($presenter)},
-                    action: {$escape_js($action)}
-                },
-                params: Object.assign(input, {$escape_js($params)}),
-                proxy: {$escape_js(Woosms_Get_Proxy_links($presenter, $action))}
-            });
-JS
-    );*/
+    wp_print_script_tag([
+        'src' => Escape::url($url->get("web-components/ecommerce/default/$jwt?config=initWidget_ecommerce_module")),
+        'async' => true,
+    ]);
 }
 
 
@@ -575,30 +289,6 @@ JS
 function Woosms_Get_Proxy_links()
 {
     return [
-        'ModuleNotifications:customer' => [
-            '_generic' => [
-                'save' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'save_customer_notifications']
-                ]
-            ]
-        ],
-        'ModuleNotifications:admin' => [
-            '_generic' => [
-                'save' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'save_admin_notifications']
-                ]
-            ]
-        ],
-        'Sign:up' => [
-            '_generic' => [
-                'register' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'register']
-                ]
-            ]
-        ],
         'Sign:in' => [
             '_generic' => [
                 'login' => [
@@ -619,25 +309,5 @@ function Woosms_Get_Proxy_links()
                 ]
             ]
         ],
-        'SmsCampaign:campaign' => [
-            'campaign' => [
-                'loadModuleData' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'load_module_data']
-                ],
-                'saveModuleCustomers' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'save_module_customers']
-                ],
-                'addModuleFilter' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'add_module_filter']
-                ],
-                'removeModuleFilter' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'remove_module_filter']
-                ]
-            ]
-        ]
     ];
 }
