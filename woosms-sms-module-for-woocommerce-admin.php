@@ -239,6 +239,8 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
                         if (token) {
                             widget.authenticator.getHeaders = getHeaders(token);
                         }
+                        
+                        return {};
                     }
                 };
                 //todo: nastavovat externe v ramci typu aplikace? 
