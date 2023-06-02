@@ -55,14 +55,15 @@ add_action(
          * @var DIContainer $woo_sms_di DI Container
          */
         global $woo_sms_di;
+        $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
 
-        try
+        if ($woo_sms_settings->load('static:application_token') === null)
         {
-            JsonResponse::send($woo_sms_di->getByClass(User\Sign::class)->authenticate());
+            JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_sign_in#/sign/in')]);
         }
-        catch (AuthenticateException $e)
+        else
         {
-            JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_sign_in')]);
+            JsonResponse::send(['token' => $woo_sms_di->getByClass(User\Sign::class)->authenticate()]);
         }
     }
 );
@@ -449,16 +450,38 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
     wp_print_inline_script_tag(
         <<<JS
             function initWidget_ecommerce_module(widget) {
+                function getHeaders(token) {
+                    return function () {
+                        return {
+                            Authorization: "Bearer " + token
+                        }
+                    }
+                }
                 widget.initialize({
                     _generic: {
                         scope: {$escape_js($configuration->info())}
                     }
                 });
                 widget.authenticator = {
-                    getHeaders: () => {
-                        return {
-                            Authorization: "Bearer $jwt"
+                    getHeaders: getHeaders("$jwt"),
+                    authenticate: async () => {
+                        let response = await fetch(ajaxurl, {
+                            method: "POST",
+                            headers: {
+                                'Content-Type': "application/x-www-form-urlencoded"
+                            },
+                            body: "action=authenticate",
+                        });
+                        let {token, redirect} = await response.json();
+                        
+                        if (redirect){
+                            return {redirect};
                         }
+                        if (token) {
+                            widget.authenticator.getHeaders = getHeaders(token);
+                        }
+                        
+                        
                     }
                 };
                 //todo: nastavovat externe v ramci typu aplikace? 
