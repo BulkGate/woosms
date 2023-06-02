@@ -87,10 +87,10 @@ class Factory implements DIFactory
 		// Eshop
         $container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;
 		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $container->getByClass(Settings\Settings::class))];
-        $container['eshop.order_status'] = ['factory' => Eshop\OrderStatus::class, 'factory_method' => fn () => new OrderStatusWordpress()];
-        $container['eshop.return_status'] = ['factory' => Eshop\ReturnStatus::class, 'factory_method' => fn () => new ReturnStatusWordpress()];
-        $container['eshop.language'] = ['factory' => Eshop\Language::class, 'factory_method' => fn () => new LanguageWordpress()];
-        $container['eshop.multistore'] = ['factory' => Eshop\MultiStore::class, 'factory_method' => fn () => new MultiStoreWordpress()];
+        $container['eshop.order_status'] = OrderStatusWordpress::class;
+        $container['eshop.return_status'] = ReturnStatusWordpress::class;
+        $container['eshop.language'] = LanguageWordpress::class;
+        $container['eshop.multistore'] = MultiStoreWordpress::class;
 
         // Event
 		$container['event.hook'] = ['factory' => Event\Hook::class, 'parameters' => ['version' => $parameters['api_version'] ?? '1.0']];
