@@ -12,13 +12,6 @@ use BulkGate\Plugin\{
     Settings\Settings,
 };
 
-function woosms_translate($key, $default = null)
-{
-    /** @var DIContainer $woo_sms_di */
-    global $woo_sms_di;
-
-    return $woo_sms_di->getByClass(Translator::class)->translate($key, $default);
-}
 
 function woosms_get_order_meta_array($id)
 {
@@ -104,11 +97,6 @@ function woosms_run_hook($name, \BulkGate\Extensions\Hook\Variables $variables)
     }
 }
 
-function woosms_get_shop_name()
-{
-    return html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES);
-}
-
 function woosms_get_lang_iso()
 {
     /* WPML Plugin */
@@ -167,44 +155,5 @@ function woosms_load_languages()
 function woosms_ajax_url()
 {
     return admin_url('/admin-ajax.php', is_ssl() ? 'https' : 'http');
-}
-
-function woosms_add_settings_link($links, $file)
-{
-    /** @var DIContainer $woo_sms_di */
-    global $woo_sms_di;
-
-    if(basename(dirname($file)) === WOOSMS_DIR)
-    {
-        if($woo_sms_di->getByClass(Settings::class)->load('static:application_token') ?? false)
-        {
-            $settings_link = '<a href="'.esc_url(admin_url("admin.php?page=woosms_modulesettings_default")).'">'.esc_html__('Settings').'</a>';
-        }
-        else
-        {
-            $settings_link = '<a href="'.esc_url(admin_url("admin.php?page=woosms_sign_in")).'">'.esc_html__('Log In').'</a>';
-        }
-        array_unshift($links, $settings_link);
-    }
-
-    return $links;
-}
-
-function woosms_add_links_meta( $links, $file )
-{
-    if(basename(dirname($file)) === WOOSMS_DIR)
-    {
-        $row_meta = array(
-            'help_desk'    => '<a href="' . esc_url('https://help.bulkgate.com/en/') . '" aria-label="' . esc_attr( 'Help Desk' ) . '">' . esc_html( 'Help Desk' ) . '</a>',
-            'price_list'    => '<a href="' . esc_url('https://www.bulkgate.com/en/sms-price/') . '" aria-label="' . esc_attr( 'Price List' ) . '">' . esc_html( 'Price List' ) . '</a>',
-            'youtube_channel'    => '<a href="' . esc_url('https://www.youtube.com/channel/UCGD7ndC4z2NfuWUrS-DGELg') . '" aria-label="' . esc_attr( 'YouTube Channel' ) . '">' . esc_html( 'YouTube Channel' ) . '</a>',
-            'contact_us'    => '<a href="' . esc_url('https://www.bulkgate.com/en/contact-us/') . '" aria-label="' . esc_attr( 'Contact us' ) . '">' . esc_html( 'Contact us' ) . '</a>',
-            'api'    => '<a href="' . esc_url('https://www.bulkgate.com/en/developers/sms-api/') . '" aria-label="' . esc_attr( 'API' ) . '">' . esc_html( 'API' ) . '</a>',
-        );
-
-        return array_merge($links, $row_meta);
-    }
-
-    return (array) $links;
 }
 

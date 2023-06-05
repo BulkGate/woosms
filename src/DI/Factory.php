@@ -9,7 +9,7 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Eshop\ConfigurationWordpress, Eshop\MultiStoreWordpress, Eshop\OrderStatusWordpress, Eshop\ReturnStatusWordpress, Eshop\LanguageWordpress, Database\ConnectionWordpress};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Ajax\Logout, Eshop\ConfigurationWordpress, Eshop\MultiStoreWordpress, Eshop\OrderStatusWordpress, Eshop\ReturnStatusWordpress, Eshop\LanguageWordpress, Database\ConnectionWordpress};
 use BulkGate\Plugin\{DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use function is_callable;
 
@@ -78,6 +78,7 @@ class Factory implements DIFactory
 		// Ajax
 		$container['ajax.authenticate'] = Authenticate::class;
 		$container['ajax.login'] = Login::class;
+		$container['ajax.logout'] = Logout::class;
 
 		// Database
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];

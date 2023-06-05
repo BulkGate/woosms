@@ -1,43 +1,40 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * Back office plugin
- * PHP version 7.3
+ * PHP version 7.4
  *
- * @category WooSMS
+ * @category BulkGate Plugin
  * @package  BulkGate
  * @author   Lukáš Piják <pijak@bulkgate.com>
  * @license  GNU General Public License v3.0
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\Ajax\Authenticate;
-use BulkGate\WooSms\Ajax\Login;
-use BulkGate\WooSms\DI\Factory;
-use BulkGate\WooSms\Escape, BulkGate\WooSms\Post;
-use BulkGate\Plugin\{
-    DI\Container as DIContainer,
-    Eshop,
-    IO,
-    User,
-    Utils\JsonResponse,
-    Settings,
-};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Ajax\Logout, DI\Factory, Utils\Escape, Post, Utils\Meta};
+use BulkGate\Plugin\{DI\Container as DIContainer, Eshop, IO, User, Utils\JsonResponse};
 
-if (!defined('ABSPATH')) {
+if (!defined('ABSPATH'))
+{
     exit;
 }
 
 
-add_action('admin_menu', function ()
+add_action('admin_menu', function (): void
 {
-    add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', fn () => Woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false), 'dashicons-email-alt', '58');
-    add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
-    add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
-});
+    add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', function ()
+    {
+	    Woosms_synchronize();
+	    Woosms_Print_widget();
 
+	    echo "<ecommerce-module></ecommerce-module>";
+    }, 'dashicons-email-alt', '58');
+    add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
+    add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
+});
 add_action('wp_ajax_authenticate', fn () => Factory::get()->getByClass(Authenticate::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
 add_action('wp_ajax_login', fn () => Factory::get()->getByClass(Login::class)->run(admin_url('admin.php?page=bulkgate#/dashboard')));
+add_action('wp_ajax_logout_module', fn () => Factory::get()->getByClass(Logout::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
 
 
 add_action(
@@ -54,22 +51,6 @@ add_action(
         }
 
         JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/module-settings')]);
-    }
-);
-
-
-add_action(
-    'wp_ajax_logout_module', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        $woo_sms_di->getByClass(User\Sign::class)->out();
-
-        JsonResponse::send(['token' => 'guest', 'redirect' => admin_url('admin.php?page=bulkgate#/sign/in')]);
     }
 );
 
@@ -102,37 +83,7 @@ add_action(
 
 
 
-
-/**
- * Prints WooSMS Page
- *
- * @param string $presenter Presenter
- * @param string $action    Action
- * @param string $title     Title
- * @param bool   $box       Box
- * @param array  $params    Parameters
- *
- * @return void
- */
-function Woosms_page($presenter, $action, $title, $box, array $params = [])
-{
-    Woosms_synchronize();
-    Woosms_Print_widget($presenter, $action, $params);
-
-    echo "<ecommerce-module></ecommerce-module>";
-}
-
-
-/**
- * Prints Widget from Widget API
- *
- * @param string $presenter Presenter
- * @param string $action    Action
- * @param array  $params    Parameters
- *
- * @return void
- */
-function Woosms_Print_widget($presenter, $action, array $params = [])
+function Woosms_Print_widget()
 {
     /**
      * DI Container
@@ -140,6 +91,8 @@ function Woosms_Print_widget($presenter, $action, array $params = [])
      * @var DIContainer $woo_sms_di DI Container
      */
     global $woo_sms_di;
+
+
 
     $url = $woo_sms_di->getByClass(IO\Url::class);
     $configuration = $woo_sms_di->getByClass(Eshop\Configuration::class);

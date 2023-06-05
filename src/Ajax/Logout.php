@@ -7,10 +7,10 @@ namespace BulkGate\WooSms\Ajax;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\{Post, DI\Factory};
+use BulkGate\WooSms\DI\Factory;
 use BulkGate\Plugin\{DI\MissingParameterException, DI\MissingServiceException, Strict, User\Sign, Utils\JsonResponse};
 
-class Login
+class Logout
 {
 	use Strict;
 
@@ -20,8 +20,6 @@ class Login
 	 */
 	public function run(string $redirect_url): void
 	{
-		['email' => $email, 'password' => $password] = Post::get('__bulkgate');
-
-		JsonResponse::send(Factory::get()->getByClass(Sign::class)->in($email, $password, $redirect_url));
+		JsonResponse::send(Factory::get()->getByClass(Sign::class)->out($redirect_url));
 	}
 }
