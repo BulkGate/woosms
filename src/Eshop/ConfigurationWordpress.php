@@ -21,6 +21,8 @@ class ConfigurationWordpress implements EshopConfiguration
 
 	private string $site_url;
 
+	private string $site_name;
+
     private Settings $settings;
 
     private array $info = [
@@ -29,14 +31,15 @@ class ConfigurationWordpress implements EshopConfiguration
         'name' => 'BulkGate SMS Plugin',
         'url' => 'https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/',
         'developer' => 'BulkGate',
-        'developer_url' => 'http://www.bulkgate.com/',
+        'developer_url' => 'https://www.bulkgate.com/',
         'description' => 'BulkGate SMS plugin extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',
     ];
 
-	public function __construct(array $plugin_data, string $site_url, Settings $settings)
+	public function __construct(array $plugin_data, string $site_url, string $site_name, Settings $settings)
 	{
 		$this->plugin_data = array_change_key_case($plugin_data);
 		$this->site_url = $site_url;
+		$this->site_name = $site_name;
         $this->settings = $settings;
 	}
 
@@ -57,6 +60,13 @@ class ConfigurationWordpress implements EshopConfiguration
 	{
 		return $this->plugin_data['version'] ?? 'unknown';
 	}
+
+
+	public function name(): string
+	{
+		return $this->site_name;
+	}
+
 
     public function info(): array
     {

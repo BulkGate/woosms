@@ -2,13 +2,27 @@
 
 namespace BulkGate\WooSms\Eshop;
 
+/**
+ * @author Lukáš Piják 2023 TOPefekt s.r.o.
+ * @link https://www.bulkgate.com/
+ */
 
-use BulkGate\Plugin\{Eshop\MultiStore};
+use BulkGate\Plugin\{Strict, Eshop\Configuration, Eshop\MultiStore};
 
 class MultiStoreWordpress implements MultiStore
 {
+	use Strict;
+
+	private Configuration $configuration;
+
+	public function __construct(Configuration $configuration)
+	{
+		$this->configuration = $configuration;
+	}
+
+
     public function load(): array
     {
-        return []; //todo: implement. Nevim jestli ve wordpressu je vubec multi-store
+        return [0 => $this->configuration->name()];
     }
 }

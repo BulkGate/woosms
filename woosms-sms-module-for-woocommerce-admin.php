@@ -11,6 +11,9 @@
  * @link     https://www.bulkgate.com/
  */
 
+use BulkGate\WooSms\Ajax\Authenticate;
+use BulkGate\WooSms\Ajax\Login;
+use BulkGate\WooSms\DI\Factory;
 use BulkGate\WooSms\Escape, BulkGate\WooSms\Post;
 use BulkGate\Plugin\{
     DI\Container as DIContainer,
@@ -26,53 +29,15 @@ if (!defined('ABSPATH')) {
 }
 
 
-add_action(
-    'admin_menu', function ()
-    {
-        Woosms_Define_menu(defined('SMS_DEMO') ? 'read' : 'manage_options');
-        add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
-        add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
-    }
-);
+add_action('admin_menu', function ()
+{
+    add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', fn () => Woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false), 'dashicons-email-alt', '58');
+    add_filter('plugin_action_links', 'woosms_add_settings_link', 10, 2);
+    add_filter('plugin_row_meta', 'woosms_add_links_meta', 10, 2);
+});
 
-
-add_action(
-    'wp_ajax_authenticate', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-        $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
-
-        if ($woo_sms_settings->load('static:application_token') === null)
-        {
-            JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/sign/in')]);
-        }
-        else
-        {
-            JsonResponse::send(['token' => $woo_sms_di->getByClass(User\Sign::class)->authenticate()]);
-        }
-    }
-);
-
-
-add_action(
-    'wp_ajax_login', function () {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        global $woo_sms_di;
-
-        ['email' => $email, 'password' => $password] = Post::get('__bulkgate');
-        $response = $woo_sms_di->getByClass(User\Sign::class)->in($email, $password, woosms_get_shop_name(), admin_url('admin.php?page=bulkgate#/dashboard'));
-
-        JsonResponse::send($response);
-    }
-);
+add_action('wp_ajax_authenticate', fn () => Factory::get()->getByClass(Authenticate::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
+add_action('wp_ajax_login', fn () => Factory::get()->getByClass(Login::class)->run(admin_url('admin.php?page=bulkgate#/dashboard')));
 
 
 add_action(
@@ -136,28 +101,6 @@ add_action(
 );*/
 
 
-/**
- * Defines structure of WooSMS menu
- *
- * @param string $capabilities Capabilities
- *
- * @return void
- */
-function Woosms_Define_menu($capabilities = 'manage_options')
-{
-    /**
-     * DI Container
-     *
-     * @var DIContainer $woo_sms_di DI Container
-     */
-    global $woo_sms_di;
-
-    $woo_sms_settings = $woo_sms_di->getByClass(Settings\Settings::class);
-
-    $application_token = $woo_sms_settings->load('static:application_token', false);
-
-    add_menu_page('bulkgate', 'BulkGate SMS', $capabilities, 'bulkgate', fn () => Woosms_page('ModuleSign', 'in', woosms_translate('sign_in'), false), 'dashicons-email-alt', '58');
-}
 
 
 /**

@@ -9,13 +9,7 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
-use BulkGate\WooSms\{
-    Eshop\ConfigurationWordpress,
-    Eshop\MultiStoreWordpress,
-    Eshop\OrderStatusWordpress,
-    Eshop\ReturnStatusWordpress,
-    Eshop\LanguageWordpress,
-    Database\ConnectionWordpress};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Eshop\ConfigurationWordpress, Eshop\MultiStoreWordpress, Eshop\OrderStatusWordpress, Eshop\ReturnStatusWordpress, Eshop\LanguageWordpress, Database\ConnectionWordpress};
 use BulkGate\Plugin\{DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use function is_callable;
 
@@ -81,12 +75,16 @@ class Factory implements DIFactory
 			throw new InvalidStateException('Eshop url is not set.');
 		}
 
+		// Ajax
+		$container['ajax.authenticate'] = Authenticate::class;
+		$container['ajax.login'] = Login::class;
+
 		// Database
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];
 
 		// Eshop
         $container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;
-		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $container->getByClass(Settings\Settings::class))];
+		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $parameters['name'] ?? 'Store', $container->getByClass(Settings\Settings::class))];
         $container['eshop.order_status'] = OrderStatusWordpress::class;
         $container['eshop.return_status'] = ReturnStatusWordpress::class;
         $container['eshop.language'] = LanguageWordpress::class;

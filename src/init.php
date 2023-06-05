@@ -16,10 +16,11 @@ global $wpdb, $woo_sms_di;
  */
 WooSms\DI\Factory::setup(fn () => [
     'db' => $wpdb,
-    'debug' => true,//WP_DEBUG,
-    'gate_url' => 'http://192.168.80.1:81',
+    'debug' => WP_DEBUG,
+    'gate_url' => 'https://dev1.bulkgate.com',
+	'name' => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES),
     'url' => get_site_url(),
-    'plugin_data' => get_plugin_data(__FILE__),
+    'plugin_data' => get_plugin_data(__DIR__ . '/../woosms-sms-module-for-woocommerce.php'),
     'api_version' => '1.0'
 ]);
 

@@ -43,19 +43,6 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     include_once __DIR__ . '/src/init.php';
 
     /**
-     * Return plugin version
-     * @deprecated
-     */
-    function Woosms_Package_version(): string
-    {
-		$di = WooSms\DI\Factory::get();
-
-	    $configuration = $di->getByClass(Eshop\Configuration::class);
-
-		return $configuration->version();
-    }
-
-    /**
      * Connect woosms actions for customers and admin SMS
      */
     add_action('woocommerce_order_status_changed', 'Woosms_Hook_changeOrderStatusHook');
