@@ -13,7 +13,6 @@
 
 use BulkGate\WooSms\Escape, BulkGate\WooSms\Post;
 use BulkGate\Plugin\{
-    AuthenticateException,
     DI\Container as DIContainer,
     Eshop,
     IO,
