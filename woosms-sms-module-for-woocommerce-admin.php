@@ -49,7 +49,7 @@ add_action(
 
         if ($woo_sms_settings->load('static:application_token') === null)
         {
-            JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_sign_in#/sign/in')]);
+            JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/sign/in')]);
         }
         else
         {
@@ -69,7 +69,7 @@ add_action(
         global $woo_sms_di;
 
         ['email' => $email, 'password' => $password] = Post::get('__bulkgate');
-        $response = $woo_sms_di->getByClass(User\Sign::class)->in($email, $password, woosms_get_shop_name(), admin_url('admin.php?page=woosms_dashboard_default#/dashboard'));
+        $response = $woo_sms_di->getByClass(User\Sign::class)->in($email, $password, woosms_get_shop_name(), admin_url('admin.php?page=bulkgate#/dashboard'));
 
         JsonResponse::send($response);
     }
@@ -89,7 +89,7 @@ add_action(
             $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
         }
 
-        JsonResponse::send(['redirect' => admin_url('admin.php?page=woosms_modulesettings_default')]);
+        JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/module-settings')]);
     }
 );
 
@@ -105,7 +105,7 @@ add_action(
 
         $woo_sms_di->getByClass(User\Sign::class)->out();
 
-        JsonResponse::send(['token' => 'guest', 'redirect' => admin_url('admin.php?page=woosms_sign_in#/sign/in')]);
+        JsonResponse::send(['token' => 'guest', 'redirect' => admin_url('admin.php?page=bulkgate#/sign/in')]);
     }
 );
 
