@@ -118,6 +118,9 @@ function Woosms_Print_widget()
                 });
                 widget.authenticator = {
                     getHeaders: getHeaders({$escape_js($jwt)}),
+                    setToken: (token) => {
+                        widget.authenticator.getHeaders = getHeaders(token);
+                    },
                     authenticate: async () => {
                         let response = await fetch(ajaxurl, {
                             method: "POST",
