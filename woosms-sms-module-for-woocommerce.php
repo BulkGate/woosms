@@ -1,9 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * Plugin Name: BulkGate SMS Plugin for WooCommerce
  * Plugin URI: https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/
  * Description: Notify your customers about order status via SMS notifications.
- * Version: 3.0.0
+ * Version: 3.0.0 alfa
  * Author: BulkGate
  * Author URI: https://www.bulkgate.com/
  * Requires at least: 5.7
@@ -16,12 +16,8 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms;
-use BulkGate\Plugin\{
-    Eshop,
-    DI\Container as DIContainer,
-    Settings\Settings,
-};
+use BulkGate\WooSms\DI\Factory;
+use BulkGate\Plugin\{DI\MissingParameterException, DI\MissingServiceException, Eshop, DI\Container as DIContainer, Settings\Settings};
 
 if (!defined('ABSPATH')) {
     exit;
@@ -58,7 +54,8 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     /**
      * Load backend for woosms
      */
-    if (is_admin()) {
+    if (is_admin())
+	{
         include __DIR__ . '/woosms-sms-module-for-woocommerce-admin.php';
     }
 
@@ -240,58 +237,30 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     }
 
 
-    /**
-     * Synchronize plugin settings with BulkGate portal
-     *
-     * @param bool $now Instant synchronize
-     *
-     * @return void
-     */
-    function Woosms_synchronize($now = false)
+	/**
+	 * Synchronize plugin settings with BulkGate portal
+	 *
+	 * @param bool $now Instant synchronize
+	 *
+	 * @return void
+	 * @throws MissingParameterException|MissingServiceException
+	 */
+    function Woosms_synchronize(bool $now = false): void
     {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di
-        */
-        global $woo_sms_di;
-
-        $woo_sms_di->getByClass(Eshop\EshopSynchronizer::class)->run($now);
+		Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run($now);
     }
 
 
     /**
      * Register install scripts
      */
-    register_activation_hook(
-        __FILE__, function () {
-            /**
-             * DI Container
-             *
-             * @var DIContainer $woo_sms_di
-             */
-            global $woo_sms_di;
-
-            $woo_sms_di->getByClass(Settings::class)->install();
-        }
-    );
+    register_activation_hook(__FILE__, fn () => Factory::get()->getByClass(Settings::class)->install());
 
 
-    /**
-     * Register uninstall scripts
-     */
-    register_deactivation_hook(
-        __FILE__, function () {
-            /**
-             * DI Container
-             *
-             * @var DIContainer $woo_sms_di
-             */
-            global $woo_sms_di;
-
-            $woo_sms_di->getByClass(Settings::class)->uninstall();
-        }
-    );
+	/**
+	 * Register uninstall scripts
+	 */
+	register_deactivation_hook(__FILE__, fn () => Factory::get()->getByClass(Settings::class)->uninstall());
 
 } else {
 

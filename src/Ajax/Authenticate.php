@@ -27,7 +27,7 @@ class Authenticate
 	/**
 	 * @return never
 	 */
-	public function authenticate(string $invalid_redirect): void
+	public function run(string $invalid_redirect): void
 	{
 		if ($this->settings->load('static:application_token') === null)
 		{
