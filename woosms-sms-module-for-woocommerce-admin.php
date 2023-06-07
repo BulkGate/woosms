@@ -154,9 +154,6 @@ function Woosms_Print_widget()
                             width: "100px",
                             filter: "brightness(0) invert(1)",
                         }
-                    },
-                    navBar: {
-                        hidden: true,
                     }
                 };
                 widget.options.proxyFactory = function(store) {
