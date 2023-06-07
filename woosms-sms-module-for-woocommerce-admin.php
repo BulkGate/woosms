@@ -12,7 +12,7 @@
  */
 
 use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Ajax\Logout, DI\Factory, Utils\Escape, Post, Utils\Meta};
-use BulkGate\Plugin\{DI\Container as DIContainer, Eshop, IO, User, Utils\JsonResponse};
+use BulkGate\Plugin\{DI\Container as DIContainer, Eshop, IO, Settings\Settings, User, Utils\JsonResponse};
 
 if (!defined('ABSPATH'))
 {
@@ -55,17 +55,13 @@ add_action(
 );
 
 
-/*add_action(
+add_action(
     'add_meta_boxes', function ($post_type) {
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         *
-        global $woo_sms_di;
 
-        if ($post_type === 'shop_order' && $woo_sms_di->getSettings()->load('static:application_token', false)) {
-            add_meta_box(
+        if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
+		{
+			add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn () => print("TODO SEND MESSAGE FORM"), 'shop_order', 'side', 'high');
+            /*add_meta_box(
                 'send_sms', 'BulkGate', function ($post) {
                     ?><div id="woo-sms" style="margin:0; zoom: 0.85">
             <div id="react-snack-root" style="zoom: 0.8"></div>
@@ -76,10 +72,10 @@ add_action(
                     Woosms_Print_widget('ModuleComponents', 'sendSms', ['id' => get_post_meta($post->ID, '_billing_phone', 'true'), 'key' => strtolower(get_post_meta($post->ID, '_billing_country', 'true'))]);
                     ?></div><?php
                 }, 'shop_order', 'side', 'high'
-            );
+            );*/
         }
     }
-);*/
+);
 
 
 
