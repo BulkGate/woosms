@@ -9,47 +9,13 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
+use BulkGate\Plugin\{DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Ajax\Logout, Eshop\ConfigurationWordpress, Eshop\MultiStoreWordpress, Eshop\OrderStatusWordpress, Eshop\ReturnStatusWordpress, Eshop\LanguageWordpress, Database\ConnectionWordpress};
-use BulkGate\Plugin\{DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
-use function is_callable;
 
 class Factory implements DIFactory
 {
 	use Strict;
-
-	private static Container $container;
-
-	/**
-	 * @var callable(): array<string, mixed>
-	 */
-	private static $parameters_callback;
-
-	/**
-	 * @var array<string, mixed>
-	 */
-	private static array $parameters;
-
-	public static function setup(callable $callback): void
-	{
-		self::$parameters_callback = $callback;
-	}
-
-
-	public static function get(): Container
-	{
-		if (!isset(self::$container))
-		{
-			if (!isset(self::$parameters))
-			{
-				self::$parameters = isset(self::$parameters_callback) && is_callable(self::$parameters_callback) ? (self::$parameters_callback)() : [];
-			}
-
-			self::$container = self::createContainer(self::$parameters);
-		}
-
-		return self::$container;
-	}
-
+	use FactoryStatic;
 
 	/**
 	 * @throws Exception
@@ -84,10 +50,10 @@ class Factory implements DIFactory
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];
 
 		// Eshop
-        $container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;
+		$container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;
 		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $parameters['name'] ?? 'Store', $container->getByClass(Settings\Settings::class))];
-        $container['eshop.order_status'] = OrderStatusWordpress::class;
-        $container['eshop.return_status'] = ReturnStatusWordpress::class;
+		$container['eshop.order_status'] = OrderStatusWordpress::class;
+		$container['eshop.return_status'] = ReturnStatusWordpress::class;
         $container['eshop.language'] = LanguageWordpress::class;
         $container['eshop.multistore'] = MultiStoreWordpress::class;
 

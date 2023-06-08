@@ -123,34 +123,6 @@ function woosms_get_post_lang($post_id)
     }
 }
 
-function woosms_load_languages()
-{
-    $output = array();
-
-    /* WPML Plugin */
-    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php'))
-    {
-        $languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
-
-        foreach ($languages as $lang => $item)
-        {
-            $output[$lang] = isset($item['native_name']) ? $item['native_name'] : $lang;
-        }
-    }
-    else
-    {
-        $actual = (array) get_available_languages();
-
-        require_once(ABSPATH.'wp-admin/includes/translation-install.php' );
-        $translations = wp_get_available_translations();
-
-        foreach ($actual as $lang)
-        {
-            $output[$lang] = (isset($translations[$lang]) && isset($translations[$lang]['native_name'])) ? $translations[$lang]['native_name'] : $lang;
-        }
-    }
-    return count($output) === 0 ? array(woosms_get_lang_iso() => 'Default') : $output;
-}
 
 function woosms_ajax_url()
 {
