@@ -12,19 +12,19 @@ use function get_locale, defined, is_plugin_active, apply_filters;
 
 class LanguageWordpress implements Language
 {
-    public function load(): array
-    {
-	    $output = [];
+	public function load(): array
+	{
+		$output = [];
 
-	    if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php'))
-	    {
-		    $languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
+		if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php'))
+		{
+			$languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
 
-		    foreach ($languages as $iso => $item)
-		    {
-			    $output[$iso] = $item['native_name'] ?? $iso;
-		    }
-	    }
+			foreach ($languages as $iso => $item)
+			{
+				$output[$iso] = $item['native_name'] ?? $iso;
+			}
+		}
 		else
 		{
 			$output = [get_locale() => 'Default'];
