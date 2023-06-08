@@ -26,8 +26,21 @@ add_action('admin_menu', function (): void
     {
 	    Woosms_synchronize();
 	    Woosms_Print_widget();
-
-	    echo "<ecommerce-module></ecommerce-module>";
+        echo <<<CSS
+            <style>
+                #woo-sms {
+                    margin-left: calc(var(--woosms-body-indent, 0) * -1);
+                }
+                ecommerce-module {
+                    box-sizing: border-box; /* realne se tyka pouze web-componenty */
+                }
+            </style>
+        CSS;
+        echo <<<HTML
+            <div id='woo-sms' style='--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;'>
+                <ecommerce-module></ecommerce-module>
+            </div>
+        HTML;
     }, 'dashicons-email-alt', '58');
     add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
     add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
