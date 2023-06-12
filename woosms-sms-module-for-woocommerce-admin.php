@@ -26,8 +26,23 @@ add_action('admin_menu', function (): void
     {
 	    Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
 	    Woosms_Print_widget();
-
-	    echo "<ecommerce-module></ecommerce-module>";
+        echo <<<CSS
+            <style>
+                #woo-sms {
+                    margin-left: calc(var(--woosms-body-indent, 0) * -1);
+                }
+                ecommerce-module {
+                    box-sizing: border-box; /* realne se tyka pouze web-componenty */
+                }
+            </style>
+        CSS;
+        echo <<<HTML
+            <div id='woo-sms' style='--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;'>
+                <ecommerce-module>
+                    TODO: loading app
+                </ecommerce-module>
+            </div>
+        HTML;
     }, 'dashicons-email-alt', '58');
     add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
     add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
@@ -137,8 +152,21 @@ function Woosms_Print_widget()
                         return {};
                     }
                 };
-                //todo: nastavovat externe v ramci typu aplikace? 
+                widget.events.onComputeHostLayout = (compute) => {
+                    let hostAppBar = document.getElementById("wpadminbar");
+                    let hostNavBar = document.getElementById("adminmenuback");
+                    let hostRootWrap = document.getElementById("woo-sms");
+                    
+                    compute({appBar: hostAppBar, navBar: hostNavBar});
+                    
+                    if (hostRootWrap.parentElement.id === "wpbody-content") { // woosms-module page, otherwise eg. send-sms widget
+                        let style = getComputedStyle(document.getElementById("wpcontent"));
+                        hostRootWrap.style.setProperty("--woosms-body-indent", style.getPropertyValue("padding-left"));
+                    }
+                };
+                
                 widget.options.main = {
+                    //sign:in
                     showLanguagePanel: false,
                     showPermanentLogin: false,
                     logo: "images/white-label/bulkgate/logo/logo-title.svg",
@@ -152,7 +180,6 @@ function Woosms_Print_widget()
                         logoStyle: {
                             height: "40px",
                             width: "100px",
-                            filter: "brightness(0) invert(1)",
                         }
                     }
                 };
@@ -161,7 +188,7 @@ function Woosms_Print_widget()
                     
                     return function proxy(reducerName, requestData) {
                         let {activeRoute} = store.getState().routing.server;
-                        let data = (proxyData[activeRoute] || {})[reducerName] || {}
+                        let data = (proxyData[activeRoute] || {})[reducerName] || {};
                         let {url, params} = data[requestData.url] || {};
     
                         if (url){
@@ -172,7 +199,7 @@ function Woosms_Print_widget()
                         }
                         
                         try {
-                            // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions). What about redirect??
+                            // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions).
                             let baseUrl = new URL({$escape_js($url->get(''))}); // bulkgate's app url
                             url = new URL(requestData.url, baseUrl);
                             requestData.url = url.toString();
