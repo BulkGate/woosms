@@ -9,7 +9,7 @@
  * Requires at least: 5.7
  * PHP version 7.4
  *
- * @category WooSMS
+ * @category BulkGate plugin for WooCommerce
  * @package  BulkGate
  * @author   Lukáš Piják <pijak@bulkgate.com>
  * @license  GNU General Public License v3.0
@@ -17,7 +17,8 @@
  */
 
 use BulkGate\WooSms\DI\Factory;
-use BulkGate\Plugin\{DI\MissingParameterException, DI\MissingServiceException, Eshop, DI\Container as DIContainer, Settings\Settings};
+use BulkGate\WooSms\Event\Helpers;
+use BulkGate\Plugin\{DI\MissingParameterException, DI\MissingServiceException, Eshop, DI\Container as DIContainer, Event\Asynchronous, Event\Dispatcher, Event\Variables, Settings\Settings};
 
 if (!defined('ABSPATH')) {
     exit;
@@ -39,100 +40,125 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     include_once __DIR__ . '/src/init.php';
 
     /**
-     * Connect woosms actions for customers and admin SMS
+     * Connect BulkGate actions for customers and admin SMS
      */
-    add_action('woocommerce_order_status_changed', 'Woosms_Hook_changeOrderStatusHook');
-    add_action('woocommerce_checkout_order_processed', 'Woosms_Hook_actionValidateOrder');
-    add_action('woocommerce_created_customer', 'Woosms_Hook_customerAddHook', 100, 3);
+    add_action('woocommerce_order_status_changed', Helpers::dispatch('order_status_change', function (
+		Dispatcher $dispatcher,
+		int $order_id,
+		string $from,
+		string $to,
+		object $order
+    ): void
+    {
+	    $run_hook = true;
+
+	    if (has_filter('run_woosms_hook_changeOrderStatusHook')) // BC
+	    {
+		    $run_hook = apply_filters('run_woosms_hook_changeOrderStatusHook', $order);
+	    }
+
+	    if ($run_hook)
+	    {
+		    $dispatcher->dispatch('order', 'change_status', $v = new Variables([
+			    'order_id' => $order_id,
+			    'order_status_id' => $to,
+			    'order_status_id_from' => $from,
+		    ]), ['order' => $order]);
+		    dump($v);die;
+	    }
+    }), 100, 4);
+
+
+    add_action('woocommerce_checkout_order_processed', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, int $order_id, array $posted_data, WC_Order $order) =>
+		$dispatcher->dispatch('order', 'new', new Variables([
+		    'order_id' => $order_id,
+		]), ['order' => $order])
+	), 100, 3);
+
+
+    add_action('woocommerce_created_customer', Helpers::dispatch('customer_new', fn (Dispatcher $dispatcher, int $customer_id, array $data, string $password_generated) =>
+        $dispatcher->dispatch('customer', 'new', new Variables([
+		    'customer_id' => $customer_id,
+		    'password' => $password_generated,
+        ]))
+    ), 100, 3);
+
+
     add_action('woocommerce_low_stock', 'Woosms_Hook_productOutOfStockHook');
     add_action('woocommerce_no_stock', 'Woosms_Hook_productOutOfStockHook');
     add_action('woocommerce_payment_complete', 'Woosms_Hook_paymentComplete', 100, 1);
     add_action('woocommerce_product_on_backorder', 'Woosms_Hook_productOnBackOrder');
     add_action('woosms_send_sms', 'Woosms_Hook_sendSms', 100, 4);
 
-
-    /**
-     * Load backend for woosms
-     */
-    if (is_admin())
+	/**
+	 * Load Back office for BulkGate SMS plugin
+	 */
+	if (is_admin())
 	{
-        include __DIR__ . '/woosms-sms-module-for-woocommerce-admin.php';
-    }
+		include __DIR__ . '/woosms-sms-module-for-woocommerce-admin.php';
+	}
+
+	add_filter( 'cron_schedules', function (array $schedules): array
+	{
+		$schedules['bulkgate_send_interval'] ??= [
+			'interval' => 60,
+			'display' => __('BulkGate Sending Interval')
+		];
+
+		$schedules['bulkgate_synchronize_interval'] ??= [
+			'interval' => 300,
+			'display' => __('BulkGate Synchronize Interval')
+		];
+
+		return $schedules;
+	});
 
 
-    /**
-     * New order hook
-     *
-     * @param int $order_id Order identification
-     *
-     * @return void
-     */
-    function Woosms_Hook_actionValidateOrder($order_id)
-    {
-        woosms_run_hook(
-            'order_new',
-            new Extensions\Hook\Variables(
-                [
-                    'order_id' => $order_id,
-                    'lang_id' => woosms_get_post_lang($order_id)
-                ]
-            )
-        );
-    }
+	add_action( 'init', function (): void
+	{
+	    if (!wp_next_scheduled('bulkgate_sending'))
+		{
+		    wp_schedule_event(time(), 'bulkgate_send_interval', 'bulkgate_sending');
+	    }
+
+		if (!wp_next_scheduled('bulkgate_synchronize'))
+		{
+			wp_schedule_event(time(), 'bulkgate_synchronize_interval', 'bulkgate_synchronize');
+		}
+	});
 
 
-    /**
-     * New customer hook
-     *
-     * @param int            $customer_id Customer identification
-     * @param array|stdClass $data        Hook Data
-     *
-     * @return void
-     */
-    function Woosms_Hook_customerAddHook($customer_id, $data)
-    {
-        woosms_run_hook(
-            'customer_new', new Extensions\Hook\Variables(
-                [
-                    'customer_id' => $customer_id,
-                    'password' => woosms_isset($data, 'user_pass', '-'),
-                    'shop_id' => 0
-                ]
-            )
-        );
-    }
+	add_action('bulkgate_sending', $f = function (): void
+	{
+		$di = Factory::get();
+
+		/**
+		 * @var Settings $settings
+		 */
+		$settings = $di->getByClass(Settings::class);
+
+		if ($settings->load('main:dispatcher') === 'cron')
+		{
+			$settings->set('main:cron-run-before', date('Y-m-d H:i:s'), ['type' => 'string']);
+			/**
+			 * @var Asynchronous $asynchronous
+			 */
+			$asynchronous = $di->getByClass(Asynchronous::class);
+
+			$asynchronous->run((int) ($settings->load('main:cron-limit') ?? 10));
+
+			$settings->set('main:cron-run', date('Y-m-d H:i:s'), ['type' => 'string']);
+		}
+	});
 
 
-    /**
-     * Change order status hook
-     *
-     * @param int $order_id Order identification
-     *
-     * @return void
-     */
-    function Woosms_Hook_changeOrderStatusHook($order_id)
-    {
-        $run_hook = true;
-        $order = new WC_Order($order_id);
+	add_action('bulkgate_synchronize', fn () => Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run());
 
-        if (has_filter('run_woosms_hook_changeOrderStatusHook')) {
 
-            $run_hook = apply_filters('run_woosms_hook_changeOrderStatusHook', $order);
-        }
-      
-        if ($run_hook) {
 
-            woosms_run_hook(
-                'order_status_change_wc-'.$order->get_status(), new Extensions\Hook\Variables(
-                    [
-                        'order_status_id' => $order->get_status(),
-                        'order_id' => $order_id,
-                        'lang_id' => woosms_get_post_lang($order_id)
-                    ]
-                )
-            );
-        }
-    }
+
+
+
 
 
     /**
@@ -234,20 +260,6 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
                 ]
             )
         );
-    }
-
-
-	/**
-	 * Synchronize plugin settings with BulkGate portal
-	 *
-	 * @param bool $now Instant synchronize
-	 *
-	 * @return void
-	 * @throws MissingParameterException|MissingServiceException
-	 */
-    function Woosms_synchronize(bool $now = false): void
-    {
-		Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run($now);
     }
 
 

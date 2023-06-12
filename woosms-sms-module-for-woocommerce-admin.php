@@ -24,7 +24,7 @@ add_action('admin_menu', function (): void
 {
     add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', function ()
     {
-	    Woosms_synchronize();
+	    Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
 	    Woosms_Print_widget();
 
 	    echo "<ecommerce-module></ecommerce-module>";
