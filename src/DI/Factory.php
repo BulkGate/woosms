@@ -10,7 +10,21 @@ namespace BulkGate\WooSms\DI;
 use wpdb;
 use Tracy\Debugger;
 use BulkGate\Plugin\{DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Ajax\Logout, Eshop\ConfigurationWordpress, Eshop\MultiStoreWordpress, Eshop\OrderStatusWordpress, Eshop\ReturnStatusWordpress, Eshop\LanguageWordpress, Database\ConnectionWordpress};
+use BulkGate\WooSms\{Ajax\Authenticate,
+	Ajax\Login,
+	Ajax\Logout,
+	Database\ConnectionWordpress,
+	Eshop\ConfigurationWordpress,
+	Eshop\LanguageWordpress,
+	Eshop\MultiStoreWordpress,
+	Eshop\OrderStatusWordpress,
+	Eshop\ReturnStatusWordpress,
+	Event\Loader\Customer,
+	Event\Loader\Extension,
+	Event\Loader\Order,
+	Event\Loader\OrderStatus,
+	Event\Loader\Shop};
+use function extension_loaded;
 
 class Factory implements DIFactory
 {
@@ -57,10 +71,25 @@ class Factory implements DIFactory
         $container['eshop.language'] = LanguageWordpress::class;
         $container['eshop.multistore'] = MultiStoreWordpress::class;
 
-        // Event
+        // Event loaders
+		$container['event.loader.extension'] = ['factory' => Extension::class, 'auto_wiring' => false];
+		$container['event.loader.shop'] = ['factory' => Shop::class, 'auto_wiring' => false];
+		$container['event.loader.order'] = ['factory' => Order::class, 'auto_wiring' => false];
+		$container['event.loader.order_status'] = ['factory' => OrderStatus::class, 'auto_wiring' => false];
+		$container['event.loader.customer'] = ['factory' => Customer::class, 'auto_wiring' => false];
+
+		// Event
 		$container['event.hook'] = ['factory' => Event\Hook::class, 'parameters' => ['version' => $parameters['api_version'] ?? '1.0']];
 		$container['event.asynchronous.repository'] = Event\Repository\AsynchronousDatabase::class;
 		$container['event.asynchronous'] = Event\Asynchronous::class;
+		$container['event.loader'] = ['factory' => Event\Loader::class, 'factory_method' => fn () => new Event\Loader([
+			$container->getByClass(Order::class),
+			$container->getByClass(OrderStatus::class),
+			$container->getByClass(Customer::class),
+			$container->getByClass(Shop::class),
+			$container->getByClass(Extension::class),
+		])];
+		$container['event.dispatcher'] = Event\Dispatcher::class;
 
 		// IO
 		$container['io.connection.factory'] = ['factory' => IO\ConnectionFactory::class, 'factory_method' => function () use ($container): IO\ConnectionFactory
@@ -77,6 +106,7 @@ class Factory implements DIFactory
 
 		// Localization
 		$container['localization.translator'] = Localization\TranslatorSettings::class;
+		$container['localization.formatter'] = extension_loaded('intl') ? ['factory' => Localization\FormatterIntl::class, 'factory_method' => fn () => new Localization\FormatterIntl($parameters['language'], $parameters['country'] ?? null)] : Localization\FormatterBasic::class;
 
 		// Settings
 		$container['settings.repository.database'] = Settings\Repository\SettingsDatabase::class;
