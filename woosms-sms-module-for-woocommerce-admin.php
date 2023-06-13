@@ -123,9 +123,7 @@ function Woosms_Print_widget()
                     }
                 }
                 widget.initialize({
-                    _generic: {
-                        scope: {$escape_js($configuration->info())}
-                    }
+                    module_info: {$escape_js($configuration->info())}
                 });
                 widget.authenticator = {
                     getHeaders: getHeaders({$escape_js($jwt)}),
