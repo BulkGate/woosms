@@ -181,33 +181,28 @@ function Woosms_Print_widget()
                         }
                     }
                 };
-                widget.options.proxyFactory = function(store) {
+                widget.options.proxy = function(reducerName, requestData) {
                     let proxyData = {$escape_js(Woosms_Get_Proxy_links())};
-                    
-                    return function proxy(reducerName, requestData) {
-                        let {activeRoute} = store.getState().routing.server;
-                        let data = (proxyData[activeRoute] || {})[reducerName] || {};
-                        let {url, params} = data[requestData.url] || {};
-    
-                        if (url){
-                            requestData.contentType = "application/x-www-form-urlencoded";
-                            requestData.url = url;
-                            requestData.data = {__bulkgate: requestData.data, ...params};
-                            return true;
-                        }
-                        
-                        try {
-                            // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions).
-                            let baseUrl = new URL({$escape_js($url->get(''))}); // bulkgate's app url
-                            url = new URL(requestData.url, baseUrl);
-                            requestData.url = url.toString();
-                            return true;
-                        } catch {}
+                    let {url, params} = proxyData[requestData.actionType] || {};
+
+                    if (url){
+                        requestData.contentType = "application/x-www-form-urlencoded";
+                        requestData.url = url;
+                        requestData.data = {__bulkgate: requestData.data, ...params};
+                        return true;
                     }
+                    
+                    try {
+                        // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions).
+                        let baseUrl = new URL({$escape_js($url->get(''))}); // bulkgate's app url
+                        url = new URL(requestData.url, baseUrl);
+                        requestData.url = url.toString();
+                        return true;
+                    } catch {}
+                };
                 
                 console.log("configuration called", widget);
             }
-        }
     JS);
 
     wp_print_script_tag([
@@ -228,25 +223,17 @@ function Woosms_Print_widget()
 function Woosms_Get_Proxy_links()
 {
     return [
-        'Sign:in' => [
-            '_generic' => [
-                'login' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'login']
-                ]
-            ]
+        'PROXY_LOG_IN' => [
+            'url' => woosms_ajax_url(),
+            'params' => ['action' => 'login']
         ],
-        'ModuleSettings:default' => [
-            '_generic' => [
-                'save' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'save_module_settings']
-                ],
-                'logout' => [
-                    'url' => woosms_ajax_url(),
-                    'params' => ['action' => 'logout_module']
-                ]
-            ]
+        'PROXY_LOG_OUT' => [
+            'url' => woosms_ajax_url(),
+            'params' => ['action' => 'logout_module']
         ],
+        'PROXY_SAVE_MODULE_SETTINGS' => [
+            'url' => woosms_ajax_url(),
+            'params' => ['action' => 'save_module_settings']
+        ]
     ];
 }
