@@ -128,6 +128,66 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 	});
 
 
+    /**
+     * Add frontend Asynchronous task consumer asset
+     */
+    add_action( 'init', function (): void
+    {
+        $handle = 'bulkgate_asynchronous_asset';
+
+        add_filter('script_loader_tag', function ($tag, $_handle, $src) use($handle) {
+            if ($_handle === $handle) { //found bulkgate's asynchronous asset consumer
+                return wp_get_script_tag(['src' => $src, 'async' => true]);
+            } else {
+                return $tag;
+            }
+        }, 10, 3);
+
+        wp_enqueue_script($handle, '/bulkgate/assets/asynchronous.js/', [], null);
+    });
+
+    /**
+     * Register custom query_var
+     */
+    add_filter('query_vars', function( $query_vars ) {
+        $query_vars[] = 'bulkgate_asynchronous';
+        return $query_vars;
+    });
+
+    /**
+     * Implementation of frontend Asynchronous task consumer script
+     * This is expected to be invoked via <script src="/bulkgate/assets/asynchronous.js" async />
+     */
+    add_action('template_redirect', function() {
+        if (get_query_var('bulkgate_asynchronous') === 'asset')
+        {
+            header('Content-Type: application/javascript');
+            header('Cache-Control: no-store');
+
+            $hit = false;
+            $di = Factory::get();
+
+            /**
+             * @var Settings $settings
+             */
+            $settings = $di->getByClass(Settings::class);
+
+            if ($settings->load('main:dispatcher') === 'asset')
+            {
+                /**
+                 * @var Asynchronous $asynchronous
+                 */
+                $asynchronous = $di->getByClass(Asynchronous::class);
+                $asynchronous->run((int) ($settings->load('main:cron-limit') ?? 10));
+                $hit = true;
+            }
+
+            echo '//Asynchronous task consumer (HIT: '. ($hit ? 'yes' : 'no') .')';
+            exit;
+        }
+    });
+
+
 	add_action('bulkgate_sending', $f = function (): void
 	{
 		$di = Factory::get();
@@ -267,12 +327,23 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
      * Register install scripts
      */
     register_activation_hook(__FILE__, fn () => Factory::get()->getByClass(Settings::class)->install());
+    register_activation_hook(__FILE__, function() {
+        add_rewrite_rule( 'bulkgate/assets/asynchronous\.js$', 'index.php?bulkgate_asynchronous=asset', 'top');
+        flush_rewrite_rules();
+    });
+
+    //todo: TESTING - smazat a otestovat jak funguje pri aktivaci a deaktivaci pluginu
+    add_action('init', function (){
+        add_rewrite_rule( 'bulkgate/assets/asynchronous\.js$', 'index.php?bulkgate_asynchronous=asset', 'top');
+        //flush_rewrite_rules();
+    });
 
 
 	/**
 	 * Register uninstall scripts
 	 */
 	register_deactivation_hook(__FILE__, fn () => Factory::get()->getByClass(Settings::class)->uninstall());
+    register_deactivation_hook(__FILE__, fn () => flush_rewrite_rules());
 
 } else {
 
