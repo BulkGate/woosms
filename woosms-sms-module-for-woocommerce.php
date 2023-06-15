@@ -52,7 +52,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     {
 	    $run_hook = true;
 
-	    if (has_filter('run_woosms_hook_changeOrderStatusHook')) // BC
+	    if (has_filter('run_woosms_hook_changeOrderStatusHook')) // BC todo: tim ze budeme vydavat novou major verzi 3.x si to muzeme dovolit odstranit.
 	    {
 		    $run_hook = apply_filters('run_woosms_hook_changeOrderStatusHook', $order);
 	    }
@@ -64,7 +64,6 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 			    'order_status_id' => $to,
 			    'order_status_id_from' => $from,
 		    ]), ['order' => $order]);
-		    dump($v);die;
 	    }
     }), 100, 4);
 
