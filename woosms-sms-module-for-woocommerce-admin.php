@@ -54,18 +54,19 @@ add_action('wp_ajax_logout_module', fn () => Factory::get()->getByClass(Logout::
 
 add_action(
     'wp_ajax_save_module_settings', function () {
+        JsonResponse::send(['data' => ['layout' => ['server' => ['application_settings' => Post::get('__bulkgate')]]], 'success' => ['Setting was updated']]);
         /**
          * DI Container
          *
          * @var DIContainer $woo_sms_di DI Container
          */
-        global $woo_sms_di;
+        /*global $woo_sms_di;
 
         if (Post::get('__bulkgate', false)) {
             $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
         }
 
-        JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/module-settings')]);
+        JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/module-settings')]);*/
     }
 );
 
@@ -123,7 +124,18 @@ function Woosms_Print_widget()
                     }
                 }
                 widget.initialize({
-                    module_info: {$escape_js($configuration->info())}
+                    layout: {
+                        server: {
+                            application: {$escape_js($configuration->info())},
+                            application_settings: {
+                                dispatcher: "cron",
+                                synchronization: "all",
+                                language: "lv",
+                                language_mutation: false,
+                                delete_db: false,
+                            }
+                        }
+                    }
                 });
                 widget.authenticator = {
                     getHeaders: getHeaders({$escape_js($jwt)}),
