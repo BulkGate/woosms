@@ -134,6 +134,13 @@ function Woosms_Print_widget()
                                 language_mutation: false,
                                 delete_db: false,
                             }
+                        },
+                        // static (dictionary) for frontend form
+                        scope: {
+                            application_settings: {
+                                dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
+                                synchronization: {all: "sync_all", message: "sync_message"}
+                            }
                         }
                     }
                 });
