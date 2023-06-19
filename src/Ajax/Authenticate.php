@@ -29,13 +29,10 @@ class Authenticate
 	 */
 	public function run(string $invalid_redirect): void
 	{
-		if ($this->settings->load('static:application_token') === null)
-		{
-			JsonResponse::send(['redirect' => $invalid_redirect]);
-		}
-		else
-		{
-			JsonResponse::send(['token' => $this->sign->authenticate()]);
-		}
+		JsonResponse::send(
+			$this->settings->load('static:application_token') === null ?
+			['redirect' => $invalid_redirect] :
+			['token' => $this->sign->authenticate()]
+		);
 	}
 }

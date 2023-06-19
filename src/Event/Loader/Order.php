@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Event\Loader;
  */
 
 use WC_Order, WC_Product, WC_Meta_Data;
-use BulkGate\{WooSms\Event\Helpers, Plugin\Eshop\Language, Plugin\Event\Variables, Plugin\Localization\Formatter, Plugin\Strict, Plugin\Event\DataLoader, Plugin\Utils\Strings};
+use BulkGate\{Plugin\Event\Helpers, Plugin\Eshop\Language, Plugin\Event\Variables, Plugin\Localization\Formatter, Plugin\Strict, Plugin\Event\DataLoader, Plugin\Utils\Strings};
 use function date, implode, sprintf, strtotime;
 
 class Order implements DataLoader
@@ -44,7 +44,13 @@ class Order implements DataLoader
 		$variables['order_total_paid'] = (string) $order->get_total();
 		$variables['order_total_formatted'] = $this->formatter->format('price', $variables['order_total_paid'], $variables['order_currency']);
 
-		$date = $order->get_date_created()->format('Y-m-d H:i:s');
+		$date = $order->get_date_created();
+
+		if ($date !== null)
+		{
+			$date = $date->format('Y-m-d H:i:s');
+		}
+
 		$variables['order_date'] = $this->formatter->format('date', $date);
 		$variables['order_datetime'] = $this->formatter->format('datetime', $date);
 		$variables['order_time'] = $this->formatter->format('time', $date);
@@ -62,7 +68,7 @@ class Order implements DataLoader
 		$variables['customer_state'] = Helpers::address('state', $shipping, $billing);
 		$variables['customer_postcode'] = Helpers::address('postcode', $shipping, $billing);
 		$variables['customer_country'] = $this->formatter->format('country', Helpers::address('country', $billing, $shipping));
-		$variables['customer_country_id'] = Strings::lower(Helpers::address('country', $billing, $shipping));
+		$variables['customer_country_id'] = Strings::lower(Helpers::address('country', $billing, $shipping) ?? '') ?: null;
 		$variables['customer_mobile'] = $variables['customer_phone'] = Helpers::address('phone', $shipping, $billing);
 		$variables['customer_email'] = Helpers::address('email', $shipping, $billing);
 
@@ -74,7 +80,7 @@ class Order implements DataLoader
 		$variables['customer_invoice_state'] = Helpers::address('state', $billing, $shipping);
 		$variables['customer_invoice_postcode'] = Helpers::address('postcode', $billing, $shipping);
 		$variables['customer_invoice_country'] = $this->formatter->format('country', Helpers::address('country', $billing, $shipping));
-		$variables['customer_invoice_country_id'] = Strings::lower(Helpers::address('country', $billing, $shipping));
+		$variables['customer_invoice_country_id'] = Strings::lower(Helpers::address('country', $billing, $shipping) ?? '') ?: null;
 		$variables['customer_invoice_mobile'] = $variables['customer_invoice_phone'] = Helpers::address('phone', $billing, $shipping);
 		$variables['customer_invoice_email'] = Helpers::address('email', $billing, $shipping);
 
@@ -86,10 +92,16 @@ class Order implements DataLoader
 		{
 			$qty = $item->get_quantity();
 			$name = $item->get_name();
-			$product = $item->get_product();
+			$model = $name;
+
+			if ($item instanceof \WC_Order_Item_Product)
+			{
+				$product = $item->get_product();
+				$model = $product instanceof WC_Product ? $product->get_sku() : $name;
+			}
+
 			$product_id = $item->get_id();
-			$model = $product instanceof WC_Product ? $product->get_sku() : $name;
-			$total = $item['total'] ?? 0.0;
+			$total = $item->get_total();
 			$total_formatted = $this->formatter->format('price', $total, $variables['order_currency']);
 
 
@@ -115,7 +127,7 @@ class Order implements DataLoader
 		$variables['order_smsprinter1'] = implode(';', $p1);
 		$variables['order_smsprinter2'] = implode(';', $p2);
 
-		$timestamp = strtotime($date);
+		$timestamp = $date !== null ? strtotime($date) ?: time() : time();
 		$variables['order_date1'] = date('d.m.Y', $timestamp);
 		$variables['order_date2'] = date('d/m/Y', $timestamp);
 		$variables['order_date3'] = date('d-m-Y', $timestamp);

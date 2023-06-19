@@ -16,15 +16,14 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\DI\Factory;
-use BulkGate\WooSms\Event\Helpers;
-use BulkGate\Plugin\{DI\MissingParameterException, DI\MissingServiceException, Eshop, DI\Container as DIContainer, Event\Asynchronous, Event\Dispatcher, Event\Variables, Settings\Settings};
+use BulkGate\WooSms\{DI\Factory, Event\Cron, Event\Hook};
+use BulkGate\Plugin\{Event\Asynchronous, Event\Dispatcher, Settings\Settings};
 
 if (!defined('ABSPATH')) {
     exit;
 }
 
-define('WOOSMS_DIR', basename(__DIR__));
+define('BULKGATE_PLUGIN_DIR', basename(__DIR__));
 
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
@@ -34,61 +33,29 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
 if (is_plugin_active('woocommerce/woocommerce.php')) {
 
     /**
-     * Init WooSMS
+     * Init BulkGate DI container
      */
     include_once __DIR__ . '/vendor/autoload.php';
-    include_once __DIR__ . '/src/init.php';
+
+	add_action('init', fn () => Factory::setup(fn () => [
+		'db' => $GLOBALS['wpdb'],
+		'debug' => WP_DEBUG,
+		'gate_url' => 'https://dev1.bulkgate.com',
+		'language' => substr(get_locale(), 0, 2) ?: 'en',
+		'country' => function_exists('wc_get_base_location') ? wc_get_base_location()['country'] ?? null : null,
+		'name' => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES),
+		'url' => get_site_url(),
+		'plugin_data' => get_plugin_data(__FILE__),
+		'api_version' => '1.0'
+	]));
 
     /**
      * Connect BulkGate actions for customers and admin SMS
      */
-    add_action('woocommerce_order_status_changed', Helpers::dispatch('order_status_change', function (
-		Dispatcher $dispatcher,
-		int $order_id,
-		string $from,
-		string $to,
-		object $order
-    ): void
-    {
-	    $run_hook = true;
+	Hook::init();
+	Cron::init();
 
-	    if (has_filter('run_woosms_hook_changeOrderStatusHook')) // BC
-	    {
-		    $run_hook = apply_filters('run_woosms_hook_changeOrderStatusHook', $order);
-	    }
-
-	    if ($run_hook)
-	    {
-		    $dispatcher->dispatch('order', 'change_status', $v = new Variables([
-			    'order_id' => $order_id,
-			    'order_status_id' => $to,
-			    'order_status_id_from' => $from,
-		    ]), ['order' => $order]);
-		    dump($v);die;
-	    }
-    }), 100, 4);
-
-
-    add_action('woocommerce_checkout_order_processed', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, int $order_id, array $posted_data, WC_Order $order) =>
-		$dispatcher->dispatch('order', 'new', new Variables([
-		    'order_id' => $order_id,
-		]), ['order' => $order])
-	), 100, 3);
-
-
-    add_action('woocommerce_created_customer', Helpers::dispatch('customer_new', fn (Dispatcher $dispatcher, int $customer_id, array $data, string $password_generated) =>
-        $dispatcher->dispatch('customer', 'new', new Variables([
-		    'customer_id' => $customer_id,
-		    'password' => $password_generated,
-        ]))
-    ), 100, 3);
-
-
-    add_action('woocommerce_low_stock', 'Woosms_Hook_productOutOfStockHook');
-    add_action('woocommerce_no_stock', 'Woosms_Hook_productOutOfStockHook');
-    add_action('woocommerce_payment_complete', 'Woosms_Hook_paymentComplete', 100, 1);
-    add_action('woocommerce_product_on_backorder', 'Woosms_Hook_productOnBackOrder');
-    add_action('woosms_send_sms', 'Woosms_Hook_sendSms', 100, 4);
+    //add_action('woosms_send_sms', 'Woosms_Hook_sendSms', 100, 4);
 
 	/**
 	 * Load Back office for BulkGate SMS plugin
@@ -98,58 +65,41 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 		include __DIR__ . '/woosms-sms-module-for-woocommerce-admin.php';
 	}
 
-	add_filter( 'cron_schedules', function (array $schedules): array
-	{
-		$schedules['bulkgate_send_interval'] ??= [
-			'interval' => 60,
-			'display' => __('BulkGate Sending Interval')
-		];
-
-		$schedules['bulkgate_synchronize_interval'] ??= [
-			'interval' => 300,
-			'display' => __('BulkGate Synchronize Interval')
-		];
-
-		return $schedules;
-	});
-
-
-	add_action( 'init', function (): void
-	{
-	    if (!wp_next_scheduled('bulkgate_sending'))
-		{
-		    wp_schedule_event(time(), 'bulkgate_send_interval', 'bulkgate_sending');
-	    }
-
-		if (!wp_next_scheduled('bulkgate_synchronize'))
-		{
-			wp_schedule_event(time(), 'bulkgate_synchronize_interval', 'bulkgate_synchronize');
-		}
-	});
-
-
     /**
      * Add frontend Asynchronous task consumer asset
      */
     add_action( 'init', function (): void
     {
-        $handle = 'bulkgate_asynchronous_asset';
+		/**
+		 * @var Settings $settings
+		 */
+	    $settings = Factory::get()->getByClass(Settings::class);
 
-        add_filter('script_loader_tag', function ($tag, $_handle, $src) use($handle) {
-            if ($_handle === $handle) { //found bulkgate's asynchronous asset consumer
-                return wp_get_script_tag(['src' => $src, 'async' => true]);
-            } else {
-                return $tag;
-            }
-        }, 10, 3);
+		if ($settings->load('main:dispatcher') === 'asset')
+		{
+			$handle = 'bulkgate_asynchronous_asset';
 
-        wp_enqueue_script($handle, '/bulkgate/assets/asynchronous.js/', [], null);
+			add_filter('script_loader_tag', function ($tag, $_handle, $src) use($handle)
+			{
+				if ($_handle === $handle) //found bulkgate's asynchronous asset consumer
+				{
+					return wp_get_script_tag(['src' => $src, 'async' => true]);
+				}
+				else
+				{
+					return $tag;
+				}
+			}, 10, 3);
+
+			wp_enqueue_script($handle, '/bulkgate/assets/asynchronous.js/', [], null);
+		}
     });
 
     /**
      * Register custom query_var
      */
-    add_filter('query_vars', function( $query_vars ) {
+    add_filter('query_vars', function( $query_vars )
+    {
         $query_vars[] = 'bulkgate_asynchronous';
         return $query_vars;
     });
@@ -158,13 +108,14 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
      * Implementation of frontend Asynchronous task consumer script
      * This is expected to be invoked via <script src="/bulkgate/assets/asynchronous.js" async />
      */
-    add_action('template_redirect', function() {
+    add_action('template_redirect', function()
+    {
         if (get_query_var('bulkgate_asynchronous') === 'asset')
         {
             header('Content-Type: application/javascript');
             header('Cache-Control: no-store');
 
-            $hit = false;
+            $hit = 'no';
             $di = Factory::get();
 
             /**
@@ -172,115 +123,27 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
              */
             $settings = $di->getByClass(Settings::class);
 
-            if ($settings->load('main:dispatcher') === 'asset')
+            if ($settings->load('main:dispatcher') === Dispatcher::Asset)
             {
                 /**
                  * @var Asynchronous $asynchronous
                  */
                 $asynchronous = $di->getByClass(Asynchronous::class);
-                $asynchronous->run((int) ($settings->load('main:cron-limit') ?? 10));
-                $hit = true;
+                $asynchronous->run(max(5, (int) ($settings->load('main:cron-limit') ?? 10)));
+                $hit = 'yes';
             }
 
-            echo '//Asynchronous task consumer (HIT: '. ($hit ? 'yes' : 'no') .')';
+            echo "// Asynchronous task consumer (HIT: $hit)";
             exit;
         }
     });
 
 
-	add_action('bulkgate_sending', $f = function (): void
-	{
-		$di = Factory::get();
-
-		/**
-		 * @var Settings $settings
-		 */
-		$settings = $di->getByClass(Settings::class);
-
-		if ($settings->load('main:dispatcher') === 'cron')
-		{
-			$settings->set('main:cron-run-before', date('Y-m-d H:i:s'), ['type' => 'string']);
-			/**
-			 * @var Asynchronous $asynchronous
-			 */
-			$asynchronous = $di->getByClass(Asynchronous::class);
-
-			$asynchronous->run((int) ($settings->load('main:cron-limit') ?? 10));
-
-			$settings->set('main:cron-run', date('Y-m-d H:i:s'), ['type' => 'string']);
-		}
-	});
-
-
-	add_action('bulkgate_synchronize', fn () => Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run());
 
 
 
-
-
-
-
-
-    /**
-     * Product out of stock hook
-     *
-     * @param stdClass $data Hook data
-     *
-     * @return void
-     */
-    function Woosms_Hook_productOutOfStockHook($data)
+    /*function Woosms_Hook_sendSms($number, $template, array $variables = [], array $settings = [])
     {
-        woosms_run_hook(
-            'product_out_of_stock', new Extensions\Hook\Variables(
-                [
-                    'product_id' => woosms_isset($data, 'id', 0),
-                    'product_quantity' => woosms_isset(get_post_meta($data->id, '_stock'), 0, 0),
-                    'product_name' => woosms_isset($data->post, 'post_title', '-'),
-                    'product_ref' => woosms_isset($data->post, 'post_name', '-')
-                ]
-            )
-        );
-    }
-
-
-    /**
-     * Payment complete hook
-     *
-     * @param int $order_id Order identification
-     *
-     * @return void
-     */
-    function Woosms_Hook_paymentComplete($order_id)
-    {
-        woosms_run_hook(
-            'order_payment_complete', new Extensions\Hook\Variables(
-                [
-                    'order_id' => $order_id,
-                    'lang_id' => woosms_get_post_lang($order_id)
-                ]
-            )
-        );
-    }
-
-
-    /**
-     * Custom send sms hook
-     *
-     * @param string $number    Phone Number
-     * @param string $template  Template of SMS
-     * @param array  $variables Variables for template
-     * @param array  $settings  Additional settings
-     *
-     * @return void
-     */
-    function Woosms_Hook_sendSms($number, $template, array $variables = [], array $settings = [])
-    {
-        /**
-         * DI container
-         *
-         * @var DIContainer $woo_sms_di DI container
-        */
-        global $woo_sms_di;
 
         $woo_sms_di->getConnection()->run(
             new BulkGate\Extensions\IO\Request(
@@ -294,33 +157,8 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
                 true, 5
             )
         );
-    }
+    }*/
 
-
-    /**
-     * Back order hook
-     *
-     * @param stdClass $data Hook data
-     *
-     * @return void
-     */
-    function Woosms_Hook_productOnBackOrder($data)
-    {
-        $product = woosms_isset($data, 'product');
-
-        woosms_run_hook(
-            'product_on_back_order', new Extensions\Hook\Variables(
-                [
-                    'product_id' => woosms_isset($product, 'id', 0),
-                    'product_quantity' => woosms_isset($data, 'quantity', 0),
-                    'product_name' => woosms_isset($product->post, 'post_title', '-'),
-                    'product_ref' => woosms_isset($product->post, 'post_name', '-'),
-                    'order_id' => woosms_isset($data, 'order_id', false),
-                    'lang_id' => woosms_get_post_lang(woosms_isset($data, 'order_id', false))
-                ]
-            )
-        );
-    }
 
 
     /**
@@ -333,10 +171,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     });
 
     //todo: TESTING - smazat a otestovat jak funguje pri aktivaci a deaktivaci pluginu
-    add_action('init', function (){
-        add_rewrite_rule( 'bulkgate/assets/asynchronous\.js$', 'index.php?bulkgate_asynchronous=asset', 'top');
-        //flush_rewrite_rules();
-    });
+    add_action('init', fn () => add_rewrite_rule( 'bulkgate/assets/asynchronous\.js$', 'index.php?bulkgate_asynchronous=asset', 'top'));
 
 
 	/**

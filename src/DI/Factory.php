@@ -11,8 +11,6 @@ use wpdb;
 use Tracy\Debugger;
 use BulkGate\Plugin\{DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use BulkGate\WooSms\{Ajax\Authenticate,
-	Ajax\Login,
-	Ajax\Logout,
 	Database\ConnectionWordpress,
 	Eshop\ConfigurationWordpress,
 	Eshop\LanguageWordpress,
@@ -23,6 +21,8 @@ use BulkGate\WooSms\{Ajax\Authenticate,
 	Event\Loader\Extension,
 	Event\Loader\Order,
 	Event\Loader\OrderStatus,
+	Event\Loader\Post,
+	Event\Loader\Product,
 	Event\Loader\Shop};
 use function extension_loaded;
 
@@ -32,9 +32,10 @@ class Factory implements DIFactory
 	use FactoryStatic;
 
 	/**
+	 * @param array<string, mixed> $parameters
 	 * @throws Exception
 	 */
-	private static function createContainer(array $parameters = []): Container
+	protected static function createContainer(array $parameters = []): Container
 	{
 		$container = new Container($parameters['mode'] ?? 'strict');
 
@@ -45,7 +46,7 @@ class Factory implements DIFactory
 			Debugger::enable(Debugger::Development);
 		}
 
-		if (!$parameters['db'] instanceof wpdb)
+		if (!($parameters['db'] ?? null) instanceof wpdb)
 		{
 			throw new InvalidStateException('Database connection is not set.');
 		}
@@ -55,17 +56,17 @@ class Factory implements DIFactory
 			throw new InvalidStateException('Eshop url is not set.');
 		}
 
+		$parameters['language'] ??= 'en';
+
 		// Ajax
 		$container['ajax.authenticate'] = Authenticate::class;
-		$container['ajax.login'] = Login::class;
-		$container['ajax.logout'] = Logout::class;
 
 		// Database
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];
 
 		// Eshop
 		$container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;
-		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $parameters['name'] ?? 'Store', $container->getByClass(Settings\Settings::class))];
+		$container['eshop.configuration'] = ['factory' => Eshop\Configuration::class, 'factory_method' => fn () => new ConfigurationWordpress($parameters['plugin_data'] ?? [], $parameters['url'], $parameters['name'] ?? 'Store')];
 		$container['eshop.order_status'] = OrderStatusWordpress::class;
 		$container['eshop.return_status'] = ReturnStatusWordpress::class;
         $container['eshop.language'] = LanguageWordpress::class;
@@ -77,6 +78,8 @@ class Factory implements DIFactory
 		$container['event.loader.order'] = ['factory' => Order::class, 'auto_wiring' => false];
 		$container['event.loader.order_status'] = ['factory' => OrderStatus::class, 'auto_wiring' => false];
 		$container['event.loader.customer'] = ['factory' => Customer::class, 'auto_wiring' => false];
+		$container['event.loader.product'] = ['factory' => Product::class, 'auto_wiring' => false];
+		$container['event.loader.post'] = ['factory' => Post::class, 'auto_wiring' => false];
 
 		// Event
 		$container['event.hook'] = ['factory' => Event\Hook::class, 'parameters' => ['version' => $parameters['api_version'] ?? '1.0']];
@@ -87,6 +90,8 @@ class Factory implements DIFactory
 			$container->getByClass(OrderStatus::class),
 			$container->getByClass(Customer::class),
 			$container->getByClass(Shop::class),
+			$container->getByClass(Product::class),
+			$container->getByClass(Post::class),
 			$container->getByClass(Extension::class),
 		])];
 		$container['event.dispatcher'] = Event\Dispatcher::class;

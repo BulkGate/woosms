@@ -8,8 +8,8 @@ namespace BulkGate\WooSms\Utils;
  */
 
 use BulkGate\WooSms\DI\Factory;
-use BulkGate\Plugin\{DI\MissingParameterException, DI\MissingServiceException, Settings\Settings, Strict};
-use function basename, dirname, array_merge, esc_url, admin_url, array_unshift;
+use BulkGate\Plugin\{DI\MissingServiceException, Settings\Settings, Strict};
+use function basename, dirname, array_merge, admin_url, array_unshift;
 
 class Meta
 {
@@ -21,7 +21,10 @@ class Meta
 	 */
 	public static function links(array $links, string $file): array
 	{
-		if (basename(dirname($file)) !== WOOSMS_DIR)
+		/**
+		 * @phpstan-ignore-next-line
+		 */
+		if (basename(dirname($file)) !== BULKGATE_PLUGIN_DIR)
 		{
 			return $links;
 		}
@@ -37,19 +40,24 @@ class Meta
 
 
 	/**
-	 * @throws MissingServiceException|MissingParameterException
+	 * @param array<array-key, string> $links
+	 * @return array<array-key, string>
+	 * @throws MissingServiceException
 	 */
 	public static function settingsLink(array $links, string $file): array
 	{
-		if (basename(dirname($file)) === WOOSMS_DIR)
+		/**
+		 * @phpstan-ignore-next-line
+		 */
+		if (basename(dirname($file)) === BULKGATE_PLUGIN_DIR)
 		{
 			if (Factory::get()->getByClass(Settings::class)->load('static:application_token') ?? null)
 			{
-				$settings_link = '<a href="' . esc_url(admin_url("admin.php?page=bulkgate#/module-settings/default")) . '">Settings</a>';
+				$settings_link = '<a href="' . Escape::url(admin_url("admin.php?page=bulkgate#/module-settings/default")) . '">Settings</a>';
 			}
 			else
 			{
-				$settings_link = '<a href="' . esc_url(admin_url("admin.php?page=bulkgate#/sign/in")) . '">Log In</a>';
+				$settings_link = '<a href="' . Escape::url(admin_url("admin.php?page=bulkgate#/sign/in")) . '">Log In</a>';
 			}
 
 			array_unshift($links, $settings_link);

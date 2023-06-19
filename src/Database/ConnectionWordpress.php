@@ -51,7 +51,12 @@ class ConnectionWordpress implements Connection
 
 	public function prepare(string $sql, ...$parameters): string
 	{
-		return $this->db->prepare($sql, ...$parameters);
+		/**
+		 * @var literal-string $sql
+		 */
+		$sql =  $this->db->prepare($sql, ...$parameters);
+
+		return $sql;
 	}
 
 
@@ -63,13 +68,23 @@ class ConnectionWordpress implements Connection
 
 	public function escape(string $string): string
 	{
-		return $this->db->_escape($string);
+		/**
+		 * @var literal-string $string
+		 */
+		$string = $this->db->_escape($string);
+
+		return $string;
 	}
 
 
 	public function prefix(): string
 	{
-		return $this->db->prefix;
+		/**
+		 * @var literal-string $prefix
+		 */
+		$prefix = $this->db->prefix;
+
+		return $prefix;
 	}
 
 
