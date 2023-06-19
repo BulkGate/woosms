@@ -11,6 +11,7 @@ use wpdb;
 use Tracy\Debugger;
 use BulkGate\Plugin\{DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use BulkGate\WooSms\{Ajax\Authenticate,
+	Ajax\PluginSettingsChange,
 	Database\ConnectionWordpress,
 	Eshop\ConfigurationWordpress,
 	Eshop\LanguageWordpress,
@@ -60,6 +61,7 @@ class Factory implements DIFactory
 
 		// Ajax
 		$container['ajax.authenticate'] = Authenticate::class;
+		$container['ajax.plugin_settings'] = PluginSettingsChange::class;
 
 		// Database
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];

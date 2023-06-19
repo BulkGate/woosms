@@ -9,8 +9,7 @@ namespace BulkGate\WooSms\Event\Test;
 
 use Mockery;
 use Tester\{Assert, TestCase};
-use BulkGate\{
-	Plugin\DI\Container,
+use BulkGate\{Plugin\DI\Container,
 	Plugin\DI\InvalidStateException,
 	Plugin\Eshop\Configuration,
 	Plugin\Eshop\EshopSynchronizer,
@@ -28,6 +27,7 @@ use BulkGate\{
 	Plugin\Settings\Settings,
 	Plugin\User\Sign,
 	WooSms\Ajax\Authenticate,
+	WooSms\Ajax\PluginSettingsChange,
 	WooSms\Database\ConnectionWordpress,
 	WooSms\DI\Factory,
 	WooSms\Eshop\LanguageWordpress,
@@ -74,7 +74,8 @@ class FactoryTest extends TestCase
 		Assert::type(Container::class, Factory::get());
 		Assert::same(Factory::get(), Factory::get());
 
-		Assert::type(Authenticate::class, Factory::get()->getByClass(Authenticate::class));
+		Assert::type(Authenticate::class, Factory::get()->getService('ajax.authenticate'));
+		Assert::type(PluginSettingsChange::class, Factory::get()->getService('ajax.plugin_settings'));
 
 		Assert::type(ConnectionWordpress::class, Factory::get()->getService('database.connection'));
 
@@ -112,7 +113,7 @@ class FactoryTest extends TestCase
 
 		Assert::type(Sign::class, Factory::get()->getService('user.sign'));
 
-		Assert::count(30, Factory::get());
+		Assert::count(31, Factory::get());
 	}
 }
 

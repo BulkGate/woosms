@@ -11,7 +11,7 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\{Ajax\Authenticate, DI\Factory, Utils\Escape, Utils\Meta};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, DI\Factory, Utils\Escape, Utils\Meta};
 use BulkGate\Plugin\{Eshop, IO, Settings\Settings, User, User\Sign, Utils\JsonResponse};
 
 if (!defined('ABSPATH'))
@@ -58,24 +58,7 @@ add_action('wp_ajax_login', fn () => JsonResponse::send(Factory::get()->getByCla
 )));
 
 add_action('wp_ajax_logout_module', fn () => JsonResponse::send(Factory::get()->getByClass(Sign::class)->out(admin_url('admin.php?page=bulkgate#/sign/in'))));
-
-/*add_action(
-    'wp_ajax_save_module_settings', function () {
-        /**
-         * DI Container
-         *
-
-         *
-        global $woo_sms_di;
-
-        if (Post::get('__bulkgate', false)) {
-            $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
-        }
-
-        JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/module-settings')]);
-    }
-);*/
-
+add_action('wp_ajax_save_module_settings', fn () => JsonResponse::send(Factory::get()->getByClass(PluginSettingsChange::class)->run($_POST['__bulkgate'] ?? [])));
 
 add_action(
     'add_meta_boxes', function ($post_type) {
@@ -140,6 +123,14 @@ function Woosms_Print_widget(): void
 		'language_mutation' => $settings->load('main:language_mutation') ?? 0
 	];
 
+	$plugin_settings = [
+		'dispatcher' => $settings->load('main:dispatcher') ?? 'cron',
+		'synchronization' => $settings->load('main:synchronization') ?? 'all',
+		'language' => $settings->load('main:language') ?? 'en',
+		'language_mutation' => $settings->load('main:language_mutation') ?? 0,
+		'delete_db' => $settings->load('main:delete_db') ?? 0
+	];
+
     $url = $di->getByClass(IO\Url::class);
     $user = $di->getByClass(User\Sign::class);
     $jwt = $user->authenticate();
@@ -157,7 +148,19 @@ function Woosms_Print_widget(): void
                     }
                 }
                 widget.initialize({
-                    module_info: {$escape_js($info)}
+                    layout: {
+                        server: {
+                            application: {$escape_js($info)},
+                            application_settings: {$escape_js($plugin_settings)}
+                        },
+                        // static (dictionary) for frontend form
+                        scope: {
+                            application_settings: {
+                                dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
+                                synchronization: {all: "sync_all", message: "sync_message"}
+                            }
+                        }
+                    }
                 });
                 widget.authenticator = {
                     getHeaders: getHeaders({$escape_js($jwt)}),
