@@ -93,17 +93,17 @@ class Order implements DataLoader
 			$qty = $item->get_quantity();
 			$name = $item->get_name();
 			$model = $name;
+			$total = '0.0';
 
 			if ($item instanceof \WC_Order_Item_Product)
 			{
 				$product = $item->get_product();
+				$total = $item->get_total();
 				$model = $product instanceof WC_Product ? $product->get_sku() : $name;
 			}
 
 			$product_id = $item->get_id();
-			$total = $item->get_total();
 			$total_formatted = $this->formatter->format('price', $total, $variables['order_currency']);
-
 
 			$v1[] = "{$qty}x $name $model $total_formatted";
 			$v2[] = "{$qty}x $name $total_formatted";

@@ -105,22 +105,17 @@ function Woosms_Print_widget(): void
 		]
 	];
 
-	$configuration = $di->getByClass(Eshop\Configuration::class);
 	$settings = $di->getByClass(Settings::class);
 
-	$info = [
+	$info = [ // FOR TEST USE ONLY
+		/*'version' => '1.0.0',
 		'store' => 'WooCommerce',
 		'store_version' => '2.2.x +',
 		'name' => 'BulkGate SMS Plugin',
 		'url' => 'https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/',
 		'developer' => 'BulkGate',
 		'developer_url' => 'https://www.bulkgate.com/',
-		'description' => 'BulkGate SMS plugin extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',
-		'version' => $configuration->version(),
-		'application_product' => $configuration->product(),
-		'application_id' => $settings->load('static:application_id') ?? -1,
-		'delete_db' => $settings->load('main:delete_db') ?? 0,
-		'language_mutation' => $settings->load('main:language_mutation') ?? 0
+		'description' => 'BulkGate SMS plugin extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',*/
 	];
 
 	$plugin_settings = [
@@ -222,7 +217,7 @@ function Woosms_Print_widget(): void
                     let proxyData = {$escape_js($proxy)};
                     let {url, params} = proxyData[requestData.actionType] || {};
 
-                    if (url){
+                    if (url) {
                         requestData.contentType = "application/x-www-form-urlencoded";
                         requestData.url = url;
                         requestData.data = {__bulkgate: requestData.data, ...params};

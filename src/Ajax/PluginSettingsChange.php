@@ -8,6 +8,7 @@ namespace BulkGate\WooSms\Ajax;
  */
 
 use BulkGate\Plugin\{Settings\Synchronizer, Strict, Settings\Settings as SettingsPlugin};
+use function _PHPStan_f6e65bd66\RingCentral\Psr7\str;
 use function is_scalar;
 
 class PluginSettingsChange
@@ -25,6 +26,10 @@ class PluginSettingsChange
 	}
 
 
+	/**
+	 * @param array<array-key, mixed> $unsafe_post_data
+	 * @return array{data: array{layout: array{server: array{application_settings: array<string, string>}}}}
+	 */
 	public function run(array $unsafe_post_data = []): array
 	{
 		$output = [];
@@ -41,11 +46,15 @@ class PluginSettingsChange
 	}
 
 
+	/**
+	 * @param array<array-key, mixed> $unsafe_data
+	 * @param array<array-key, string> $output
+	 */
 	private function change(string $key, array $unsafe_data, array &$output, string $type = 'string'): void
 	{
 		if (isset($unsafe_data[$key]) && is_scalar($unsafe_data[$key]))
 		{
-			$this->settings->set("main:$key", $output[$key] = sanitize_text_field($unsafe_data[$key]), ['type' => $type]);
+			$this->settings->set("main:$key", $output[$key] = sanitize_text_field((string) $unsafe_data[$key]), ['type' => $type]);
 		}
 	}
 }

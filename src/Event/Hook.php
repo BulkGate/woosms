@@ -87,5 +87,23 @@ class Hook
 				'order_back_quantity' => $data['quantity'] ?? null,
 			]), $data)
 		), 100, 2);
+
+		//add_action('woosms_send_sms', 'Woosms_Hook_sendSms', 100, 4);
+		/*function Woosms_Hook_sendSms($number, $template, array $variables = [], array $settings = [])
+		{
+
+			$woo_sms_di->getConnection()->run(
+				new BulkGate\Extensions\IO\Request(
+					$woo_sms_di->getModule()->getUrl('/module/hook/custom'),
+					[
+						'number' => $number,
+						'template' => $template,
+						'variables' => $variables,
+						'settings' => $settings
+					],
+					true, 5
+				)
+			);
+		}*/
 	}
 }
