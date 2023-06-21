@@ -57,7 +57,7 @@ add_action('admin_menu', function (): void
                 #bulkgate-plugin {
                     position: relative;
                     z-index: 0;
-                    margin-left: calc(var(--woosms-body-indent, 0) * -1);
+                    margin-left: calc(var(--bulkgate-plugin-body-indent, 0) * -1);
                 }
                 #bulkgate-plugin .loading {
                     position: fixed;
@@ -242,13 +242,13 @@ function Woosms_Print_widget(): void
                 widget.events.onComputeHostLayout = (compute) => {
                     let hostAppBar = document.getElementById("wpadminbar");
                     let hostNavBar = document.getElementById("adminmenuback");
-                    let hostRootWrap = document.getElementById("woo-sms");
+                    let hostRootWrap = document.getElementById("bulkgate-plugin");
                     
                     compute({appBar: hostAppBar, navBar: hostNavBar});
                     
                     if (hostRootWrap.parentElement.id === "wpbody-content") { // woosms-module page, otherwise eg. send-sms widget
                         let style = getComputedStyle(document.getElementById("wpcontent"));
-                        hostRootWrap.style.setProperty("--woosms-body-indent", style.getPropertyValue("padding-left"));
+                        hostRootWrap.style.setProperty("--bulkgate-plugin-body-indent", style.getPropertyValue("padding-left"));
                     }
                 };
                 
