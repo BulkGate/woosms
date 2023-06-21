@@ -14,6 +14,9 @@ class OrderStatus implements DataLoader
 {
 	use Strict;
 
+	/**
+	 * @var array<string, string>|null
+	 */
 	private ?array $statuses = null;
 
 	public function load(Variables $variables, array $parameters = []): void
@@ -22,12 +25,12 @@ class OrderStatus implements DataLoader
 		{
 			$this->statuses ??= wc_get_order_statuses();
 
-			$variables['order_status_id'] = 'wc-' . str_replace('wc-', '', $variables['order_status_id'] ?? 'unknown');
-			$variables['order_status'] = $this->statuses['wc-' . ($variables['order_status_id'])] ?? $variables['order_status_id'];
+			$variables['order_status_id'] = 'wc-' . str_replace('wc-', '', (string) ($variables['order_status_id'] ?? 'unknown'));
+			$variables['order_status'] = $this->statuses[$variables['order_status_id']] ?? $variables['order_status_id'];
 
 			if (isset($variables['order_status_id_from']))
 			{
-				$variables['order_status_id_from'] = 'wc-' . str_replace('wc-', '', $variables['order_status_id_from'] ?? 'unknown');
+				$variables['order_status_id_from'] = 'wc-' . str_replace('wc-', '', (string) ($variables['order_status_id_from'] ?? 'unknown'));
 				$variables['order_status_from'] = $this->statuses[$variables['order_status_id_from']] ?? $variables['order_status_id_from'];
 			}
 

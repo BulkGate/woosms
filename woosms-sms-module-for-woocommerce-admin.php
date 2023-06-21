@@ -11,22 +11,23 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\Login, Ajax\Logout, DI\Factory, Utils\Escape, Post, Utils\Meta};
-use BulkGate\Plugin\{DI\Container as DIContainer, Eshop, IO, Settings\Settings, User, Utils\JsonResponse};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, DI\Factory, Utils\Escape, Utils\Meta};
+use BulkGate\Plugin\{Eshop, IO, Settings\Settings, User, User\Sign, Utils\JsonResponse};
 
 if (!defined('ABSPATH'))
 {
     exit;
 }
 
-
 add_action('admin_menu', function (): void
 {
-    add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', function ()
+    add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', function (): void
     {
 	    Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
+
 	    Woosms_Print_widget();
-        echo <<<CSS
+
+        echo <<<'HTML'
             <style>
                 #woo-sms {
                     margin-left: calc(var(--woosms-body-indent, 0) * -1);
@@ -35,41 +36,29 @@ add_action('admin_menu', function (): void
                     box-sizing: border-box; /* realne se tyka pouze web-componenty */
                 }
             </style>
-        CSS;
+        HTML;
         echo <<<HTML
-            <div id='woo-sms' style='--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;'>
+            <div id="woo-sms" style="--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;">
                 <ecommerce-module>
                     TODO: loading app
                 </ecommerce-module>
             </div>
         HTML;
-    }, 'dashicons-email-alt', '58');
+    }, 'dashicons-email-alt', 58);
     add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
     add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
 });
+
 add_action('wp_ajax_authenticate', fn () => Factory::get()->getByClass(Authenticate::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
-add_action('wp_ajax_login', fn () => Factory::get()->getByClass(Login::class)->run(admin_url('admin.php?page=bulkgate#/dashboard')));
-add_action('wp_ajax_logout_module', fn () => Factory::get()->getByClass(Logout::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
 
+add_action('wp_ajax_login', fn () => JsonResponse::send(Factory::get()->getByClass(Sign::class)->in(
+	sanitize_text_field((string) ($_POST['__bulkgate']['email'] ?? '')),
+	sanitize_text_field((string) ($_POST['__bulkgate']['password'] ?? '')),
+	admin_url('admin.php?page=bulkgate#/dashboard')
+)));
 
-add_action(
-    'wp_ajax_save_module_settings', function () {
-        JsonResponse::send(['data' => ['layout' => ['server' => ['application_settings' => Post::get('__bulkgate')]]], 'success' => ['Setting was updated']]);
-        /**
-         * DI Container
-         *
-         * @var DIContainer $woo_sms_di DI Container
-         */
-        /*global $woo_sms_di;
-
-        if (Post::get('__bulkgate', false)) {
-            $woo_sms_di->getProxy()->saveSettings(Post::get('__bulkgate'));
-        }
-
-        JsonResponse::send(['redirect' => admin_url('admin.php?page=bulkgate#/module-settings')]);*/
-    }
-);
-
+add_action('wp_ajax_logout_module', fn () => JsonResponse::send(Factory::get()->getByClass(Sign::class)->out(admin_url('admin.php?page=bulkgate#/sign/in'))));
+add_action('wp_ajax_save_module_settings', fn () => JsonResponse::send(Factory::get()->getByClass(PluginSettingsChange::class)->run($_POST['__bulkgate'] ?? [])));
 
 add_action(
     'add_meta_boxes', function ($post_type) {
@@ -95,20 +84,50 @@ add_action(
 
 
 
-function Woosms_Print_widget()
+function Woosms_Print_widget(): void
 {
-    /**
-     * DI Container
-     *
-     * @var DIContainer $woo_sms_di DI Container
-     */
-    global $woo_sms_di;
+	$di = Factory::get();
 
+	$url = admin_url('/admin-ajax.php', is_ssl() ? 'https' : 'http');
 
+	$proxy = [
+		'PROXY_LOG_IN' => [
+			'url' => $url,
+			'params' => ['action' => 'login']
+		],
+		'PROXY_LOG_OUT' => [
+			'url' => $url,
+			'params' => ['action' => 'logout_module']
+		],
+		'PROXY_SAVE_MODULE_SETTINGS' => [
+			'url' => $url,
+			'params' => ['action' => 'save_module_settings']
+		]
+	];
 
-    $url = $woo_sms_di->getByClass(IO\Url::class);
-    $configuration = $woo_sms_di->getByClass(Eshop\Configuration::class);
-    $user = $woo_sms_di->getByClass(User\Sign::class);
+	$settings = $di->getByClass(Settings::class);
+
+	$info = [ // FOR TEST USE ONLY
+		/*'version' => '1.0.0',
+		'store' => 'WooCommerce',
+		'store_version' => '2.2.x +',
+		'name' => 'BulkGate SMS Plugin',
+		'url' => 'https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/',
+		'developer' => 'BulkGate',
+		'developer_url' => 'https://www.bulkgate.com/',
+		'description' => 'BulkGate SMS plugin extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',*/
+	];
+
+	$plugin_settings = [
+		'dispatcher' => $settings->load('main:dispatcher') ?? 'cron',
+		'synchronization' => $settings->load('main:synchronization') ?? 'all',
+		'language' => $settings->load('main:language') ?? 'en',
+		'language_mutation' => $settings->load('main:language_mutation') ?? 0,
+		'delete_db' => $settings->load('main:delete_db') ?? 0
+	];
+
+    $url = $di->getByClass(IO\Url::class);
+    $user = $di->getByClass(User\Sign::class);
     $jwt = $user->authenticate();
 
     $escape_js = [Escape::class, 'js'];
@@ -126,14 +145,8 @@ function Woosms_Print_widget()
                 widget.merge({
                     layout: {
                         server: {
-                            application: {$escape_js($configuration->info())},
-                            application_settings: {
-                                dispatcher: "cron",
-                                synchronization: "all",
-                                language: "lv",
-                                language_mutation: false,
-                                delete_db: false,
-                            }
+                            application: {$escape_js($info)},
+                            application_settings: {$escape_js($plugin_settings)}
                         },
                         // static (dictionary) for frontend form
                         scope: {
@@ -201,10 +214,10 @@ function Woosms_Print_widget()
                     }
                 };
                 widget.options.proxy = function(reducerName, requestData) {
-                    let proxyData = {$escape_js(Woosms_Get_Proxy_links())};
+                    let proxyData = {$escape_js($proxy)};
                     let {url, params} = proxyData[requestData.actionType] || {};
 
-                    if (url){
+                    if (url) {
                         requestData.contentType = "application/x-www-form-urlencoded";
                         requestData.url = url;
                         requestData.data = {__bulkgate: requestData.data, ...params};
@@ -213,7 +226,7 @@ function Woosms_Print_widget()
                     
                     try {
                         // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions).
-                        let baseUrl = new URL({$escape_js($url->get(''))}); // bulkgate's app url
+                        let baseUrl = new URL({$escape_js($url->get())}); // bulkgate's app url
                         url = new URL(requestData.url, baseUrl);
                         requestData.url = url.toString();
                         return true;
@@ -228,31 +241,4 @@ function Woosms_Print_widget()
         'src' => Escape::url($url->get("web-components/ecommerce/default/$jwt?config=initWidget_ecommerce_module")),
         'async' => true,
     ]);
-}
-
-
-/**
- * Proxy structure generate
- *
- * @param string $presenter Presenter
- * @param string $action    Action
- *
- * @return array|array[][]
- */
-function Woosms_Get_Proxy_links()
-{
-    return [
-        'PROXY_LOG_IN' => [
-            'url' => woosms_ajax_url(),
-            'params' => ['action' => 'login']
-        ],
-        'PROXY_LOG_OUT' => [
-            'url' => woosms_ajax_url(),
-            'params' => ['action' => 'logout_module']
-        ],
-        'PROXY_SAVE_MODULE_SETTINGS' => [
-            'url' => woosms_ajax_url(),
-            'params' => ['action' => 'save_module_settings']
-        ]
-    ];
 }

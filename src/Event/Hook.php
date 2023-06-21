@@ -1,0 +1,109 @@
+<?php declare(strict_types=1);
+
+namespace BulkGate\WooSms\Event;
+
+/**
+ * @author Lukáš Piják 2023 TOPefekt s.r.o.
+ * @link https://www.bulkgate.com/
+ */
+
+use WC_Order, WC_Product;
+use BulkGate\Plugin\{Strict, Event\Dispatcher, Event\Variables};
+use function add_action;
+
+class Hook
+{
+	use Strict;
+
+	public static function init(): void
+	{
+		add_action('woocommerce_order_status_changed', Helpers::dispatch('order_status_change', function (
+			Dispatcher $dispatcher,
+			int $order_id,
+			string $from,
+			string $to,
+			object $order
+		): void
+		{
+			$run_hook = true;
+
+			if (has_filter('run_woosms_hook_changeOrderStatusHook')) // BC
+			{
+				$run_hook = apply_filters('run_woosms_hook_changeOrderStatusHook', $order);
+			}
+
+			if ($run_hook)
+			{
+				$dispatcher->dispatch('order', 'change-status', new Variables([
+					'order_id' => $order_id,
+					'order_status_id' => $to,
+					'order_status_id_from' => $from,
+				]), ['order' => $order]);
+			}
+		}), 100, 4);
+
+
+		add_action('woocommerce_checkout_order_processed', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, int $order_id, array $posted_data, WC_Order $order) =>
+			$dispatcher->dispatch('order', 'new', new Variables([
+				'order_id' => $order_id,
+			]), ['order' => $order])
+		), 100, 3);
+
+
+		add_action('woocommerce_created_customer', Helpers::dispatch('customer_new', fn (Dispatcher $dispatcher, int $customer_id, array $data, string $password_generated) =>
+			$dispatcher->dispatch('customer', 'new', new Variables([
+				'customer_id' => $customer_id,
+				'password' => $password_generated,
+			]))
+		), 100, 3);
+
+
+		add_action('woocommerce_payment_complete', Helpers::dispatch('order_payment', fn (Dispatcher $dispatcher, int $order_id, string $transaction_id) =>
+			$dispatcher->dispatch('order', 'payment', new Variables([
+				'order_id' => $order_id,
+				'order_payment_transaction_id' => $transaction_id
+			]))
+		), 100, 2);
+
+
+		add_action('woocommerce_low_stock', Helpers::dispatch('product_out_of_stock', fn (Dispatcher $dispatcher, WC_Product $product) =>
+			$dispatcher->dispatch('product', 'out-of-stock', new Variables([
+				'product_id' => $product->get_id(),
+			]), ['product' => $product])
+		), 100, 2);
+
+
+		add_action('woocommerce_no_stock', Helpers::dispatch('product_out_of_stock', fn (Dispatcher $dispatcher, WC_Product $product) =>
+			$dispatcher->dispatch('product', 'out-of-stock', new Variables([
+				'product_id' => $product->get_id(),
+			]), ['product' => $product])
+		), 100, 2);
+
+
+		add_action('woocommerce_product_on_backorder', Helpers::dispatch('product_on_backorder', fn (Dispatcher $dispatcher, array $data) =>
+			$dispatcher->dispatch('product', 'on-back-order', new Variables([
+				'product_id' => $data['product']->get_id(),
+				'order_id' => $data['order_id'] ?? null,
+				'order_back_quantity' => $data['quantity'] ?? null,
+			]), $data)
+		), 100, 2);
+
+		//add_action('woosms_send_sms', 'Woosms_Hook_sendSms', 100, 4);
+		/*function Woosms_Hook_sendSms($number, $template, array $variables = [], array $settings = [])
+		{
+
+			$woo_sms_di->getConnection()->run(
+				new BulkGate\Extensions\IO\Request(
+					$woo_sms_di->getModule()->getUrl('/module/hook/custom'),
+					[
+						'number' => $number,
+						'template' => $template,
+						'variables' => $variables,
+						'settings' => $settings
+					],
+					true, 5
+				)
+			);
+		}*/
+	}
+}
