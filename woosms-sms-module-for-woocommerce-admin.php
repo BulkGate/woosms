@@ -107,17 +107,6 @@ function Woosms_Print_widget(): void
 
 	$settings = $di->getByClass(Settings::class);
 
-	$info = [ // FOR TEST USE ONLY
-		/*'version' => '1.0.0',
-		'store' => 'WooCommerce',
-		'store_version' => '2.2.x +',
-		'name' => 'BulkGate SMS Plugin',
-		'url' => 'https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/',
-		'developer' => 'BulkGate',
-		'developer_url' => 'https://www.bulkgate.com/',
-		'description' => 'BulkGate SMS plugin extends your WooCommerce store capabilities and creates new opportunities for your business. You can promote your products and sales via personalized bulk SMS. Make your customers happy by notifying them about order status change via SMS notifications. Receive an SMS whenever a new order is placed, a product is out of stock, and much more.',*/
-	];
-
 	$plugin_settings = [
 		'dispatcher' => $settings->load('main:dispatcher') ?? 'cron',
 		'synchronization' => $settings->load('main:synchronization') ?? 'all',
@@ -145,7 +134,6 @@ function Woosms_Print_widget(): void
                 widget.merge({
                     layout: {
                         server: {
-                            application: {$escape_js($info)},
                             application_settings: {$escape_js($plugin_settings)}
                         },
                         // static (dictionary) for frontend form
@@ -238,7 +226,7 @@ function Woosms_Print_widget(): void
     JS);
 
     wp_print_script_tag([
-        'src' => Escape::url($url->get("web-components/ecommerce/default/$jwt?config=initWidget_ecommerce_module")),
+        'src' => Escape::url($url->get("widget/eshop/load/$jwt?config=initWidget_ecommerce_module")),
         'async' => true,
     ]);
 }
