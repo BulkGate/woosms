@@ -123,7 +123,7 @@ function Woosms_Print_widget()
                         }
                     }
                 }
-                widget.initialize({
+                widget.merge({
                     layout: {
                         server: {
                             application: {$escape_js($configuration->info())},
