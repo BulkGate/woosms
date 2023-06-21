@@ -8,8 +8,9 @@ namespace BulkGate\WooSms\Event;
  */
 
 use WC_Order, WC_Product;
-use BulkGate\Plugin\{Strict, Event\Dispatcher, Event\Variables};
-use function add_action;
+use BulkGate\WooSms\DI\Factory;
+use BulkGate\Plugin\{DI\MissingServiceException, Event\Hook as HookDispatcher, Strict, Event\Dispatcher, Event\Variables};
+use function add_action, apply_filters, has_filter;
 
 class Hook
 {
@@ -88,22 +89,30 @@ class Hook
 			]), $data)
 		), 100, 2);
 
-		//add_action('woosms_send_sms', 'Woosms_Hook_sendSms', 100, 4);
-		/*function Woosms_Hook_sendSms($number, $template, array $variables = [], array $settings = [])
-		{
+		add_action('woosms_send_sms', [Hook::class, 'customMessage'], 100, 4);
+		add_action('bulkgate_send_sms', [Hook::class, 'customMessage'], 100, 4);
+	}
 
-			$woo_sms_di->getConnection()->run(
-				new BulkGate\Extensions\IO\Request(
-					$woo_sms_di->getModule()->getUrl('/module/hook/custom'),
-					[
-						'number' => $number,
-						'template' => $template,
-						'variables' => $variables,
-						'settings' => $settings
-					],
-					true, 5
-				)
-			);
-		}*/
+
+	/**
+	 * @param array<string, scalar> $variables
+	 * @param array{unicode: bool, country: string, senderType: string, senderValue: string} $settings
+	 * @throws MissingServiceException
+	 */
+	public static function customMessage(string $number, string $template, array $variables, array $settings): void
+	{
+		Factory::get()->getByClass(HookDispatcher::class)->send('/api/2.0/advanced/transactional', [
+			'number' => $number,
+			'variables' => $variables,
+			'country' => $settings['country'] ?? null,
+			'channel' => [
+				'sms' => [
+					'sender_id' => $settings['senderType'] ?? 'gSystem',
+			        'sender_id_value' => $settings['senderValue'] ?? '',
+			        'unicode' => $settings['unicode'] ?? false,
+			        'text' => $template
+		        ]
+			]
+		]);
 	}
 }
