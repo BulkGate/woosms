@@ -27,21 +27,78 @@ add_action('admin_menu', function (): void
 
 	    Woosms_Print_widget();
 
-        echo <<<'HTML'
+        $logo = plugins_url('assets/icon.svg', __FILE__);
+        echo <<<CSS
             <style>
-                #woo-sms {
-                    margin-left: calc(var(--woosms-body-indent, 0) * -1);
+                @keyframes logo {
+                    0% {
+                        filter: grayscale(1) opacity(.2);
+                        transform: scale(.6);
+                    }
+                    25% {
+                        filter: none;
+                        transform: scale(.65);
+                    }
+                    70% {
+                        transform: none;
+                    }
                 }
-                ecommerce-module {
+                @keyframes heading {
+                    0% {
+                        opacity: .1;
+                    }
+                    50% {
+                        opacity: .8;
+                    }                 
+                    100% {
+                        opacity: 1;
+                    }
+                }
+                #bulkgate-plugin {
+                    position: relative;
+                    z-index: 0;
+                    margin-left: calc(var(--bulkgate-plugin-body-indent, 0) * -1);
+                }
+                #bulkgate-plugin .loading {
+                    position: fixed;
+                    contain: layout;
+                    left: 0;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: #fff;
+                    z-index: 2999;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    text-align: center;
+                }
+                #bulkgate-plugin .loading img {
+                    border-radius: 16px;
+                    width: 120px;
+                    animation: logo 1.5s .3s both;
+                }              
+                #bulkgate-plugin .loading h3 {
+                    font-size: 32px;
+                    color: #606469;
+                    animation: heading .5s .675s both;
+                }
+                gate-ecommerce-plugin {
                     box-sizing: border-box; /* realne se tyka pouze web-componenty */
                 }
             </style>
-        HTML;
+        CSS;
         echo <<<HTML
-            <div id="woo-sms" style="--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;">
-                <ecommerce-module>
-                    TODO: loading app
-                </ecommerce-module>
+            <div id="bulkgate-plugin" style="--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;">
+                <gate-ecommerce-plugin>
+                    
+                </gate-ecommerce-plugin>
+                <div class="loading" style="display: none;">
+                    <div>
+                        <img src="$logo" />
+                        <h3>BulkGate SMS plugin</h3>
+                    </div>
+                </div>
             </div>
         HTML;
     }, 'dashicons-email-alt', 58);
@@ -173,13 +230,13 @@ function Woosms_Print_widget(): void
                 widget.events.onComputeHostLayout = (compute) => {
                     let hostAppBar = document.getElementById("wpadminbar");
                     let hostNavBar = document.getElementById("adminmenuback");
-                    let hostRootWrap = document.getElementById("woo-sms");
+                    let hostRootWrap = document.getElementById("bulkgate-plugin");
                     
                     compute({appBar: hostAppBar, navBar: hostNavBar});
                     
                     if (hostRootWrap.parentElement.id === "wpbody-content") { // woosms-module page, otherwise eg. send-sms widget
                         let style = getComputedStyle(document.getElementById("wpcontent"));
-                        hostRootWrap.style.setProperty("--woosms-body-indent", style.getPropertyValue("padding-left"));
+                        hostRootWrap.style.setProperty("--bulkgate-plugin-body-indent", style.getPropertyValue("padding-left"));
                     }
                 };
                 
