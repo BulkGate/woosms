@@ -34,12 +34,15 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     /**
      * Init BulkGate DI container
      */
-    include_once __DIR__ . '/vendor/autoload.php';
+    require_once __DIR__ . '/vendor/autoload.php';
+
+
+	!file_exists(__DIR__ . '/src/debug.php') ?: include_once __DIR__ . '/src/debug.php';
 
 	add_action('init', fn () => Factory::setup(fn () => [
 		'db' => $GLOBALS['wpdb'],
 		'debug' => WP_DEBUG,
-		'gate_url' => 'https://dev1.bulkgate.com',
+		'gate_url' => defined('BulkGateDebugUrl') ? BulkGateDebugUrl : 'https://portal.bulkgate.com',
 		'language' => substr(get_locale(), 0, 2) ?: 'en',
 		'country' => function_exists('wc_get_base_location') ? wc_get_base_location()['country'] ?? null : null,
 		'name' => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES),

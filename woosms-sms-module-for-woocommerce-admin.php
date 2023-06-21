@@ -28,7 +28,7 @@ add_action('admin_menu', function (): void
 	    Woosms_Print_widget();
 
         $logo = plugins_url('assets/icon.svg', __FILE__);
-        echo <<<CSS
+        echo <<<HTML
             <style>
                 @keyframes logo {
                     0% {
@@ -87,8 +87,6 @@ add_action('admin_menu', function (): void
                     box-sizing: border-box; /* realne se tyka pouze web-componenty */
                 }
             </style>
-        CSS;
-        echo <<<HTML
             <div id="bulkgate-plugin" style="--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;">
                 <gate-ecommerce-plugin>
                     
