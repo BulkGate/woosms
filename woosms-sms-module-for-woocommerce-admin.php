@@ -142,7 +142,7 @@ function Woosms_Print_widget(): void
                         }
                     }
                 }
-                widget.initialize({
+                widget.merge({
                     layout: {
                         server: {
                             application: {$escape_js($info)},
