@@ -10,7 +10,7 @@ namespace BulkGate\WooSms\Event\Test;
 use Mockery;
 use WC_Order, WC_Product;
 use Tester\{Assert, TestCase};
-use BulkGate\{Plugin\DI\Container, Plugin\Event\Dispatcher, Plugin\Event\Variables, WooSms\DI\Factory, WooSms\Event\Hook};
+use BulkGate\{Plugin\DI\Container, Plugin\Event\Dispatcher, Plugin\Event\Hook as HookDispatcher, Plugin\Event\Variables, WooSms\DI\Factory, WooSms\Event\Hook};
 
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/.mock-hook.php';
@@ -26,11 +26,11 @@ class HookTest extends TestCase
 
 		$factory = Mockery::mock('overload:' . Factory::class);
 		$factory->shouldReceive('get')->withNoArgs()->once()->andReturn($container = Mockery::mock(Container::class));
-		$container->shouldReceive('getByClass')->with(Dispatcher::class)->once()->andReturn($dispatcher = Mockery::mock(Dispatcher::class));
+		$container->shouldReceive('getByClass')->with(Dispatcher::class)->times(7)->andReturn($dispatcher = Mockery::mock(Dispatcher::class));
 
 		$callbacks = $GLOBALS['hook_callback'];
 
-		Assert::count(7, $callbacks);
+		Assert::count(9, $callbacks);
 
 		$dispatcher->shouldReceive('dispatch')->with('order', 'change-status', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'order_id' => 451,
@@ -72,6 +72,25 @@ class HookTest extends TestCase
 			'order_back_quantity' => 153,
 		]), Mockery::type('array'))->once();
 		$callbacks['action_woocommerce_product_on_backorder'](['product' => new \WC_Product(), 'order_id' => 451, 'quantity' => 153]);
+
+		$container->shouldReceive('getByClass')->with(HookDispatcher::class)->twice()->andReturn($hook = Mockery::mock(HookDispatcher::class));
+		$hook->shouldReceive('send')->with('/api/2.0/advanced/transactional', [
+			'number' => '420777777777',
+			'variables' => ['abc' => 'test'],
+			'country' => 'cz',
+			'channel' => [
+				'sms' => [
+					'sender_id' => 'gText',
+					'sender_id_value' => 'BulkGate',
+					'unicode' => true,
+					'text' => 'test <abc>',
+				]
+			]
+		])->twice();
+		$callbacks['action_bulkgate_send_sms']('420777777777', 'test <abc>', ['abc' => 'test'], ['unicode' => true, 'country' => 'cz', 'senderValue' => 'BulkGate', 'senderType' => 'gText']);
+		$callbacks['action_woosms_send_sms']('420777777777', 'test <abc>', ['abc' => 'test'], ['unicode' => true, 'country' => 'cz', 'senderValue' => 'BulkGate', 'senderType' => 'gText']);
+
+		Mockery::close();
 	}
 }
 
