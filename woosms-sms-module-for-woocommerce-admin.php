@@ -26,8 +26,9 @@ add_action('admin_menu', function (): void
 	    Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
 
 	    Woosms_Print_widget();
-
-        $logo = plugins_url('assets/icon.svg', __FILE__);
+        $di = Factory::get();
+        $url = $di->getByClass(IO\Url::class);
+        $logo = $url->get('/images/white-label/bulkgate/logo/logo-social.png'); //plugins_url('assets/icon.svg', __FILE__);
         echo <<<HTML
             <style>
                 @keyframes logo {
@@ -54,12 +55,18 @@ add_action('admin_menu', function (): void
                         opacity: 1;
                     }
                 }
+                @keyframes progress {
+                100% {opacity: 1};
+                }
+                @keyframes progress-processing{
+                0%{transform:translateX(-300px)}5%{transform:translateX(-240px)}15%{transform:translateX(-30px)}25%{transform:translateX(-30px)}30%{transform:translateX(-20px)}45%{transform:translateX(-20px)}50%{transform:translateX(-15px)}65%{transform:translateX(-15px)}70%{transform:translateX(-10px)}95%{transform:translateX(-10px)}100%{transform:translateX(-5px)}
+                }
                 #bulkgate-plugin {
                     position: relative;
                     z-index: 0;
                     margin-left: calc(var(--bulkgate-plugin-body-indent, 0) * -1);
                 }
-                #bulkgate-plugin .loading {
+                #bulkgate-plugin #loading {
                     position: fixed;
                     contain: layout;
                     left: 0;
@@ -73,15 +80,34 @@ add_action('admin_menu', function (): void
                     justify-content: center;
                     text-align: center;
                 }
-                #bulkgate-plugin .loading img {
+                #bulkgate-plugin #loading img {
                     border-radius: 16px;
-                    width: 120px;
+                    width: 200px;
                     animation: logo 1.5s .3s both;
                 }              
-                #bulkgate-plugin .loading h3 {
+                #bulkgate-plugin #loading h3 {
                     font-size: 32px;
                     color: #606469;
                     animation: heading .5s .675s both;
+                }
+                #bulkgate-plugin #progress {
+                    animation: progress .5s 2.5s 1 both;
+                    height: 4px;
+                    width: 100%;
+                    opacity: 0;
+                    background: #ddd;
+                    position: relative;
+                    overflow: hidden;
+                }
+                #bulkgate-plugin #progress:before {
+                    animation: progress-processing 20s 3s linear both;
+                    background-color: var(--secondary);
+                    content: '';
+                    display: block;
+                    height: 100%;
+                    position: absolute;
+                    transform: translateX(-300px);
+                    width: 100%;
                 }
                 gate-ecommerce-plugin {
                     box-sizing: border-box; /* realne se tyka pouze web-componenty */
@@ -91,10 +117,11 @@ add_action('admin_menu', function (): void
                 <gate-ecommerce-plugin>
                     
                 </gate-ecommerce-plugin>
-                <div class="loading" style="display: none;">
+                <div id="loading">
                     <div>
                         <img src="$logo" />
-                        <h3>BulkGate SMS plugin</h3>
+                        <div id="progress"></div>
+                        <h3>BulkGate <span style="color: var(--secondary);">SMS</span> plugin</h3>
                     </div>
                 </div>
             </div>
@@ -276,7 +303,16 @@ function Woosms_Print_widget(): void
                     } catch {}
                 };
                 
-                console.log("configuration called", widget);
+                // loading management
+                function handleViewRender(ev) {
+                    const loading = document.querySelector("#bulkgate-plugin #loading");
+                    loading.style.display = "none";
+                    
+                    //remove handler after hide loader
+                    window.removeEventListener("gate-view-render", handleViewRender);
+                }
+                
+                window.addEventListener("gate-view-render", handleViewRender);
             }
     JS);
 
