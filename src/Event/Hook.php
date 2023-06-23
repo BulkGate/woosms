@@ -103,6 +103,8 @@ class Hook
 	{
 		Factory::get()->getByClass(HookDispatcher::class)->send('/api/2.0/advanced/transactional', [
 			'number' => $number,
+			'application_product' => 'ws',
+			'tag' => 'module_custom',
 			'variables' => $variables,
 			'country' => $settings['country'] ?? null,
 			'channel' => [
