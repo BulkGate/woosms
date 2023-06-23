@@ -28,7 +28,7 @@ add_action('admin_menu', function (): void
 	    Woosms_Print_widget();
         $di = Factory::get();
         $url = $di->getByClass(IO\Url::class);
-        $logo = $url->get('/images/white-label/bulkgate/logo/logo-social.png'); //plugins_url('assets/icon.svg', __FILE__);
+        $logo = $url->get('/images/white-label/bulkgate/logo/short.svg'); //plugins_url('assets/icon.svg', __FILE__);
         echo <<<HTML
             <style>
                 @keyframes logo {
@@ -81,9 +81,9 @@ add_action('admin_menu', function (): void
                     text-align: center;
                 }
                 #bulkgate-plugin #loading img {
-                    border-radius: 16px;
-                    width: 200px;
+                    width: 160px;
                     animation: logo 1.5s .3s both;
+                    margin: 24px 0;
                 }              
                 #bulkgate-plugin #loading h3 {
                     font-size: 32px;
@@ -121,7 +121,7 @@ add_action('admin_menu', function (): void
                     <div>
                         <img src="$logo" />
                         <div id="progress"></div>
-                        <h3>BulkGate <span style="color: var(--secondary);">SMS</span> plugin</h3>
+                        <!--h3>BulkGate <span style="color: var(--secondary);">SMS</span> plugin</h3-->
                     </div>
                 </div>
             </div>
