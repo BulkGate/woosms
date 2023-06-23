@@ -275,6 +275,14 @@ function Woosms_Print_widget(): void
                                 logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
                                 background: "images/products/backgrounds/ws.svg"
                             }
+                        },
+                        BulkGateSignUpView: {
+                            defaultProps: {
+                                showLanguagePanel: false,
+                                logo: "images/white-label/bulkgate/logo/logo-title.svg",
+                                logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
+                                background: "images/products/backgrounds/ws.svg"
+                            }
                         }
                     }
                 };
