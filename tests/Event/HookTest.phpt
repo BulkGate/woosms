@@ -76,6 +76,8 @@ class HookTest extends TestCase
 		$container->shouldReceive('getByClass')->with(HookDispatcher::class)->twice()->andReturn($hook = Mockery::mock(HookDispatcher::class));
 		$hook->shouldReceive('send')->with('/api/2.0/advanced/transactional', [
 			'number' => '420777777777',
+			'application_product' => 'ws',
+			'tag' => 'module_custom',
 			'variables' => ['abc' => 'test'],
 			'country' => 'cz',
 			'channel' => [
