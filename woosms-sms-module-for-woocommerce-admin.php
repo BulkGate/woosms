@@ -265,13 +265,18 @@ function Woosms_Print_widget(): void
                     }
                 };
                 
-                widget.options.main = {
-                    //sign:in
-                    showLanguagePanel: false,
-                    showPermanentLogin: false,
-                    logo: "images/white-label/bulkgate/logo/logo-title.svg",
-                    logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
-                    background: "images/products/backgrounds/ws.svg"
+                widget.options.theme = {
+                    components: {
+                        BulkGateSignInView: {
+                            defaultProps: {
+                                showLanguagePanel: false,
+                                showPermanentLogin: false,
+                                logo: "images/white-label/bulkgate/logo/logo-title.svg",
+                                logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
+                                background: "images/products/backgrounds/ws.svg"
+                            }
+                        }
+                    }
                 };
                 widget.options.layout = {
                     appBar: {
