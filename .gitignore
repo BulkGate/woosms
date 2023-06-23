@@ -1,4 +1,4 @@
-src/debug.php
+debug.php
 .idea
 vendor
 composer.lock

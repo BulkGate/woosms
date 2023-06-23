@@ -9,10 +9,17 @@ namespace BulkGate\WooSms\Test;
 
 use Tester\{Assert, TestCase};
 use BulkGate\WooSms\Utils\Escape;
+use function define;
 use function file_exists;
+use const BulkGateDebug;
+
 
 require_once __DIR__ . '/bootstrap.php';
-require_once __DIR__ . '/../src/debug.default.php';
+
+define('WP_DEBUG', true);
+
+require_once __DIR__ . '/../debug.default.php';
+
 
 /**
  * @testCase
@@ -21,6 +28,7 @@ class DebugTest extends TestCase
 {
 	public function testEscape(): void
 	{
+		Assert::true(BulkGateDebug);
 		Assert::same('https://portal.bulkgate.com', BulkGateDebugUrl);
 	}
 }

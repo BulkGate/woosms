@@ -16,7 +16,7 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\{WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings};
+use BulkGate\{WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect};
 
 if (!defined('ABSPATH')) {
     exit;
@@ -37,11 +37,11 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
     require_once __DIR__ . '/vendor/autoload.php';
 
 
-	!file_exists(__DIR__ . '/src/debug.php') ?: include_once __DIR__ . '/src/debug.php';
+	!file_exists(__DIR__ . '/debug.php') ?: include_once __DIR__ . '/debug.php';
 
 	add_action('init', fn () => Factory::setup(fn () => [
 		'db' => $GLOBALS['wpdb'],
-		'debug' => WP_DEBUG,
+		'debug' => defined('BulkGateDebug') ? BulkGateDebug : WP_DEBUG,
 		'gate_url' => defined('BulkGateDebugUrl') ? BulkGateDebugUrl : 'https://portal.bulkgate.com',
 		'language' => substr(get_locale(), 0, 2) ?: 'en',
 		'country' => function_exists('wc_get_base_location') ? wc_get_base_location()['country'] ?? null : null,
@@ -56,6 +56,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
      */
 	Hook::init();
 	Cron::init();
+	Redirect::init();
 	AssetDispatcher::init();
 
 	/**

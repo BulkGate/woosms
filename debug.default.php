@@ -5,4 +5,7 @@
  * @link https://www.bulkgate.com/
  */
 
+const BulkGateDebug = WP_DEBUG;
+
 const BulkGateDebugUrl = 'https://portal.bulkgate.com';
+

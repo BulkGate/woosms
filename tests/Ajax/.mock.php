@@ -12,3 +12,9 @@ function sanitize_text_field($s): string
 {
 	return "$$s$";
 }
+
+
+function site_url(string $path): string
+{
+	return "https://eshop.com/$path";
+}

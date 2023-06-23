@@ -8,8 +8,7 @@ namespace BulkGate\WooSms\Ajax;
  */
 
 use BulkGate\Plugin\{Settings\Synchronizer, Strict, Settings\Settings as SettingsPlugin};
-use function _PHPStan_f6e65bd66\RingCentral\Psr7\str;
-use function is_scalar;
+use function is_scalar, site_url, sanitize_text_field;
 
 class PluginSettingsChange
 {
@@ -34,6 +33,8 @@ class PluginSettingsChange
 	{
 		$output = [];
 
+		$actual_language = $this->settings->load('main:language');
+
 		$this->change('dispatcher', $unsafe_post_data, $output);
 		$this->change('synchronization', $unsafe_post_data, $output);
 		$this->change('language', $unsafe_post_data, $output);
@@ -41,6 +42,11 @@ class PluginSettingsChange
 		$this->change('delete_db', $unsafe_post_data, $output, 'bool');
 
 		$this->synchronizer->synchronize(true);
+
+		if (isset($unsafe_post_data['language']) && $actual_language !== $unsafe_post_data['language'])
+		{
+			return ['redirect' => site_url('/?bulkgate-redirect=dashboard')];
+		}
 
 		return ['data' => ['layout' => ['server' => ['application_settings' => $output]]]];
 	}
