@@ -67,7 +67,7 @@ class Factory implements DIFactory
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];
 
 		// Debug
-		$container['debug.logger.repository'] = ['factory' => LoggerSettings::class, 'factory_method' => function () use ($container, $parameters): LoggerSettings
+		$container['debug.repository.logger'] = ['factory' => LoggerSettings::class, 'factory_method' => function () use ($container, $parameters): LoggerSettings
 		{
 			$service = new LoggerSettings($container->getByClass(Settings\Settings::class));
 			$service->setup(is_int($parameters['logger_limit'] ?? null) ? $parameters['logger_limit'] : 100);
