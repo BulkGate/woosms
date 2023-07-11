@@ -12,7 +12,7 @@
  */
 
 use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, DI\Factory, Utils\Escape, Utils\Meta};
-use BulkGate\Plugin\{Eshop, IO, Settings\Settings, User, User\Sign, Utils\JsonResponse};
+use BulkGate\Plugin\{Eshop, IO, Settings\Settings, Settings\Synchronizer, User, User\Sign, Utils\JsonResponse};
 
 if (!defined('ABSPATH'))
 {
@@ -189,6 +189,10 @@ function Woosms_Print_widget(): void
 
 	$settings = $di->getByClass(Settings::class);
 
+	$application = [
+		'last_sync' => date('c', $di->getByClass(Synchronizer::class)->getLastSync()),
+	];
+
 	$plugin_settings = [
 		'dispatcher' => $settings->load('main:dispatcher') ?? 'cron',
 		'synchronization' => $settings->load('main:synchronization') ?? 'all',
@@ -216,6 +220,7 @@ function Woosms_Print_widget(): void
                 widget.merge({
                     layout: {
                         server: {
+                            application: {$escape_js($application)},
                             application_settings: {$escape_js($plugin_settings)}
                         },
                         // static (dictionary) for frontend form

@@ -96,7 +96,7 @@ class Hook
 
 	/**
 	 * @param array<string, scalar> $variables
-	 * @param array{unicode: bool, country: string, senderType: string, senderValue: string} $settings
+	 * @param array{unicode?: bool, country?: string, senderType?: string, senderValue?: string} $settings
 	 * @throws MissingServiceException
 	 */
 	public static function customMessage(string $number, string $template, array $variables, array $settings): void
