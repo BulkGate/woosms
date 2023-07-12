@@ -27,7 +27,7 @@ class PluginSettingsChange
 
 	/**
 	 * @param array<array-key, mixed> $unsafe_post_data
-	 * @return array{data: array{layout: array{server: array{application_settings: array<string, string>}}}}|array{redirect: string}
+	 * @return array{data: array{layout: array{server: array{application_settings: array<string, string>}}}}|array{data: array{redirect: string}}
 	 */
 	public function run(array $unsafe_post_data = []): array
 	{
