@@ -1,9 +1,10 @@
 name: Release plugin
 
-on:
-  workflow_dispatch:
-  release:
-    types: [created]
+on: [push]
+#on:
+#  workflow_dispatch:
+#  release:
+#    types: [created]
 
 jobs:
   build:
