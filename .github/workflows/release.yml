@@ -1,9 +1,10 @@
 name: Release plugin
 
-on:
-  workflow_dispatch:
-  release:
-    types: [created]
+on: [push]
+#on:
+#  workflow_dispatch:
+#  release:
+#    types: [created]
 
 jobs:
   build:
@@ -14,6 +15,8 @@ jobs:
       - name: Install packages
         run: composer install --prefer-dist --no-progress --no-suggest
 
-      - name: Create plugin zip archive
-        run: ls -l
+      - name: Create plugin archive
+        run: tar -czf /tmp/plugin.tar.gz assets src vendor .compatibility.php LICENSE readme.txt $(ls woosms-*)
 
+      - name: Archive contents
+        run: tar -tf /tmp/plugin.tar.gz
