@@ -36,6 +36,6 @@ class Redirect
 				wp_safe_redirect(admin_url('admin.php?page=bulkgate#/') . $target);
 				exit;
 			}
-		});
+		}, 20);
 	}
 }

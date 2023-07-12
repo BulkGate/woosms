@@ -31,7 +31,7 @@ class AssetDispatcher
 
 		add_filter('query_vars', fn (array $query_vars) => array_merge($query_vars, [self::QueryVar]));
 
-		add_action('template_redirect', function(): void
+		add_action('template_redirect', function (): void
 		{
 			if (get_query_var(self::QueryVar) === Dispatcher::Asset)
 			{
@@ -54,6 +54,6 @@ class AssetDispatcher
 				}
 				exit;
 			}
-		});
+		}, 15);
 	}
 }
