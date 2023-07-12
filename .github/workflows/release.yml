@@ -17,3 +17,6 @@ jobs:
 
       - name: Create plugin archive
         run: tar -czf /tmp/plugin.tar.gz assets src vendor .compatibility.php LICENSE readme.txt $(ls woosms-*)
+
+      - name: Archive contents
+        run: tar -tf /tmp/plugin.tar.gz
