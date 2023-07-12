@@ -9,7 +9,7 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
-use BulkGate\Plugin\{Debug\Logger, Debug\Repository\LoggerSettings, DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
+use BulkGate\Plugin\{Debug\Logger, Debug\Repository\LoggerSettings, Debug\Requirements, DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use BulkGate\WooSms\{Ajax\Authenticate,
 	Ajax\PluginSettingsChange,
 	Database\ConnectionWordpress,
@@ -74,6 +74,7 @@ class Factory implements DIFactory
 			return $service;
 		}];
 		$container['debug.logger'] = Logger::class;
+		$container['debug.requirements'] = Requirements::class;
 
 		// Eshop
 		$container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;

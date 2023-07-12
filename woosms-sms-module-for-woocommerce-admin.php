@@ -11,8 +11,8 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, DI\Factory, Utils\Escape, Utils\Meta};
-use BulkGate\Plugin\{Eshop, IO, Settings\Settings, Settings\Synchronizer, User, User\Sign, Utils\JsonResponse};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, Debug\Page, DI\Factory, Utils\Escape, Utils\Logo, Utils\Meta};
+use BulkGate\Plugin\{Debug\Logger, Debug\Requirements, Eshop, IO, Settings\Settings, Settings\Synchronizer, User, User\Sign, Utils\JsonResponse};
 
 if (!defined('ABSPATH'))
 {
@@ -21,6 +21,14 @@ if (!defined('ABSPATH'))
 
 add_action('admin_menu', function (): void
 {
+	add_management_page(
+		'BulkGate Debug',
+		'BulkGate Debug',
+		'manage_options',
+		'bulkgate-debug',
+		fn () => Page::print(Factory::get()->getByClass(Logger::class), Factory::get()->getByClass(Requirements::class))
+	);
+
     add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', function (): void
     {
 	    Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
@@ -28,7 +36,7 @@ add_action('admin_menu', function (): void
 	    Woosms_Print_widget();
         $di = Factory::get();
         $url = $di->getByClass(IO\Url::class);
-        $logo = $url->get('/images/white-label/bulkgate/logo/short.svg'); //plugins_url('assets/icon.svg', __FILE__);
+        $logo = $url->get('/images/white-label/bulkgate/logo/short.svg');
         echo <<<HTML
             <style>
                 @keyframes logo {
@@ -126,7 +134,7 @@ add_action('admin_menu', function (): void
                 </div>
             </div>
         HTML;
-    }, 'dashicons-email-alt', 58);
+    }, Logo::Menu, 58);
     add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
     add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
 });

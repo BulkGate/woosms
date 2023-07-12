@@ -11,6 +11,7 @@ use Mockery;
 use Tester\{Assert, TestCase};
 use BulkGate\{Plugin\Debug\Logger,
 	Plugin\Debug\Repository\LoggerSettings,
+	Plugin\Debug\Requirements,
 	Plugin\DI\Container,
 	Plugin\DI\InvalidStateException,
 	Plugin\Eshop\Configuration,
@@ -83,6 +84,7 @@ class FactoryTest extends TestCase
 
 		Assert::type(Logger::class, Factory::get()->getService('debug.logger'));
 		Assert::type(LoggerSettings::class, Factory::get()->getService('debug.repository.logger'));
+		Assert::type(Requirements::class, Factory::get()->getService('debug.requirements'));
 
 		Assert::type(EshopSynchronizer::class, Factory::get()->getService('eshop.synchronizer'));
 		Assert::type(Configuration::class, Factory::get()->getService('eshop.configuration'));
@@ -118,7 +120,7 @@ class FactoryTest extends TestCase
 
 		Assert::type(Sign::class, Factory::get()->getService('user.sign'));
 
-		Assert::count(33, Factory::get());
+		Assert::count(34, Factory::get());
 	}
 }
 
