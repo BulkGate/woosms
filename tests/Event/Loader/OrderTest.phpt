@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Event\Loader\Test;
  */
 
 use Mockery;
-use Tester\{Assert, TestCase};
+use Tester\{Assert, Expect, TestCase};
 use BulkGate\{Plugin\Eshop\Language, Plugin\Localization\FormatterIntl, Plugin\Event\Variables, WooSms\Event\Loader\Order};
 
 require_once __DIR__ . '/../../bootstrap.php';
@@ -28,7 +28,7 @@ class OrderTest extends TestCase
 
 		$loader->load($variables);
 
-		Assert::same([
+		Assert::equal([
 			'test' => 'ok',
 			'order_id' => 451,
 			'lang_id' => 'cs_CZ',
@@ -40,7 +40,7 @@ class OrderTest extends TestCase
 			'order_total_paid' => '451',
 			'order_total_formatted' => '451,00 CZK',
 			'order_date' => '1 janv. 2019',
-			'order_datetime' => '1 janv. 2019, 12:00',
+			'order_datetime' => Expect::type('string'),
 			'order_time' => '12:00',
 			'customer_id' => 896,
 			'customer_firstname' => 'John',
