@@ -9,7 +9,7 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
-use BulkGate\Plugin\{DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
+use BulkGate\Plugin\{Debug\Logger, Debug\Repository\LoggerSettings, DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
 use BulkGate\WooSms\{Ajax\Authenticate,
 	Ajax\PluginSettingsChange,
 	Database\ConnectionWordpress,
@@ -25,7 +25,7 @@ use BulkGate\WooSms\{Ajax\Authenticate,
 	Event\Loader\Post,
 	Event\Loader\Product,
 	Event\Loader\Shop};
-use function extension_loaded;
+use function extension_loaded, is_int;
 
 class Factory implements DIFactory
 {
@@ -65,6 +65,15 @@ class Factory implements DIFactory
 
 		// Database
 		$container['database.connection'] = ['factory' => ConnectionWordpress::class, 'parameters' => ['db' => $parameters['db']]];
+
+		// Debug
+		$container['debug.repository.logger'] = ['factory' => LoggerSettings::class, 'factory_method' => function () use ($container, $parameters): LoggerSettings
+		{
+			$service = new LoggerSettings($container->getByClass(Settings\Settings::class));
+			$service->setup(is_int($parameters['logger_limit'] ?? null) ? $parameters['logger_limit'] : 100);
+			return $service;
+		}];
+		$container['debug.logger'] = Logger::class;
 
 		// Eshop
 		$container['eshop.synchronizer'] = Eshop\EshopSynchronizer::class;

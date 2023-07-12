@@ -48,7 +48,8 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 		'name' => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES),
 		'url' => get_site_url(),
 		'plugin_data' => get_plugin_data(__FILE__),
-		'api_version' => '1.0'
+		'api_version' => '1.0',
+		'logger_limit' => 100
 	]));
 
     /**

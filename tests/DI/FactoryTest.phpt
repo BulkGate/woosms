@@ -9,7 +9,9 @@ namespace BulkGate\WooSms\Event\Test;
 
 use Mockery;
 use Tester\{Assert, TestCase};
-use BulkGate\{Plugin\DI\Container,
+use BulkGate\{Plugin\Debug\Logger,
+	Plugin\Debug\Repository\LoggerSettings,
+	Plugin\DI\Container,
 	Plugin\DI\InvalidStateException,
 	Plugin\Eshop\Configuration,
 	Plugin\Eshop\EshopSynchronizer,
@@ -79,6 +81,9 @@ class FactoryTest extends TestCase
 
 		Assert::type(ConnectionWordpress::class, Factory::get()->getService('database.connection'));
 
+		Assert::type(Logger::class, Factory::get()->getService('debug.logger'));
+		Assert::type(LoggerSettings::class, Factory::get()->getService('debug.repository.logger'));
+
 		Assert::type(EshopSynchronizer::class, Factory::get()->getService('eshop.synchronizer'));
 		Assert::type(Configuration::class, Factory::get()->getService('eshop.configuration'));
 		Assert::type(OrderStatusWordpress::class, Factory::get()->getService('eshop.order_status'));
@@ -113,7 +118,7 @@ class FactoryTest extends TestCase
 
 		Assert::type(Sign::class, Factory::get()->getService('user.sign'));
 
-		Assert::count(31, Factory::get());
+		Assert::count(33, Factory::get());
 	}
 }
 
