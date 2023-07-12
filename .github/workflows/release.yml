@@ -1,0 +1,19 @@
+name: Release plugin
+
+on:
+  workflow_dispatch:
+  release:
+    types: [created]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install packages
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Create plugin zip archive
+        run: ls -l
+
