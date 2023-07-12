@@ -68,7 +68,9 @@ class PluginSettingsChangeTest extends TestCase
 		$settings->shouldReceive('set')->with('main:delete_db', '$0$', ['type' => 'bool'])->once();
 		$synchronize->shouldReceive('synchronize')->with(true)->once();
 
-		Assert::same(['redirect' => 'https://eshop.com//?bulkgate-redirect=dashboard'], $plugin_settings->run([
+		Assert::same([
+            'data' => ['redirect' => 'https://eshop.com//?bulkgate-redirect=dashboard'],
+        ], $plugin_settings->run([
 			'dispatcher' => 'cron',
 			'synchronization' => 'all',
 			'language' => 'cs',

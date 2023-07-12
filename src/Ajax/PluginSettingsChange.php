@@ -45,7 +45,7 @@ class PluginSettingsChange
 
 		if (isset($unsafe_post_data['language']) && $actual_language !== $unsafe_post_data['language'])
 		{
-			return ['redirect' => site_url('/?bulkgate-redirect=dashboard')];
+			return ['data' => ['redirect' => site_url('/?bulkgate-redirect=dashboard')]];
 		}
 
 		return ['data' => ['layout' => ['server' => ['application_settings' => $output]]]];
