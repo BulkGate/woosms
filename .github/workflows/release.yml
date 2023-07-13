@@ -1,8 +1,6 @@
 name: Release plugin
 
-#on: [push]
 on:
-#  workflow_dispatch:
   release:
     types: [created]
 
@@ -25,3 +23,5 @@ jobs:
 
       - name: Add archive to release
         run: gh release upload ${{github.ref_name}} /tmp/plugin.tar.gz
+
+  #todo: publish to wordpress SVN
