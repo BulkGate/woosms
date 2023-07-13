@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Event;
  */
 
 use BulkGate\Plugin\Strict;
-use function array_merge, is_string, preg_replace, wp_safe_redirect;
+use function array_merge, preg_replace, wp_safe_redirect;
 
 class Redirect
 {
@@ -26,14 +26,7 @@ class Redirect
 
 			if (!empty($target))
 			{
-				$target = preg_replace('~[^a-z/-_]~', '', $target);
-
-				if (!is_string($target) || $target === '')
-				{
-					$target = 'dashboard';
-				}
-
-				wp_safe_redirect(admin_url('admin.php?page=bulkgate#/') . $target);
+				wp_safe_redirect(admin_url('admin.php?page=bulkgate#/') . preg_replace('~[^a-z/-_]~', '', $target));
 				exit;
 			}
 		}, 20);

@@ -22,7 +22,7 @@ function add_action(string $hook_name, callable $callback, int $priority = 10, i
 
 function get_query_var(string $query_var, $default_value = null): string
 {
-	return $query_var === 'bulkgate-redirect' ? '' : $default_value;
+	return $query_var === 'bulkgate-redirect' ? '/redirect' : $default_value;
 }
 
 
