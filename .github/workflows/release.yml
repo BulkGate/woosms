@@ -24,4 +24,4 @@ jobs:
         run: tar -tf /tmp/plugin.tar.gz
 
       - name: Add archive to release
-        run: gh release upload ${{github.ref}} /tmp/plugin.tar.gz
+        run: gh release upload ${{github.ref_name}} /tmp/plugin.tar.gz
