@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{github.token}} #required by gh cli
     steps:
       - uses: actions/checkout@v1
 
