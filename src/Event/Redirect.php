@@ -20,11 +20,11 @@ class Redirect
 	{
 		add_filter('query_vars', fn (array $query_vars) => array_merge($query_vars, [self::QueryVar]));
 
-		add_action('template_redirect', function(): void
+		add_action('template_redirect', function (): void
 		{
 			$target = get_query_var(self::QueryVar);
 
-			if ($target !== null)
+			if (!empty($target))
 			{
 				$target = preg_replace('~[^a-z/-_]~', '', $target);
 
