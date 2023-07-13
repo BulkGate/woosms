@@ -31,6 +31,9 @@ class MetaTest extends TestCase
 			'youtube_channel' => '<a href="https://www.youtube.com/channel/UCGD7ndC4z2NfuWUrS-DGELg" aria-label="YouTube Channel">YouTube Channel</a>',
 			'contact_us' => '<a href="https://www.bulkgate.com/en/contact-us/" aria-label="Contact us">Contact us</a>',
 			'api' => '<a href="https://www.bulkgate.com/en/developers/sms-api/" aria-label="API">API</a>',
+			'github' => '<a href="https://github.com/bulkgate/woosms" aria-label="GitHub">GitHub</a>',
+			'terms_of_service' => '<a href="https://portal.bulkgate.com/page/terms-and-conditions" aria-label="Terms of Service">Terms of Service</a>',
+			'privacy_policy' => '<a href="https://portal.bulkgate.com/page/privacy-policy" aria-label="Privacy Policy">Privacy Policy</a>',
 		], Meta::links(['xxx' => '<a href="http://www.bulkgate.com/cs/">BulkGate</a>'], '/yyy/woosms-sms-module-for-woocommerce/woosms-sms-module-for-woocommerce.php'));
 
 		Assert::same([
