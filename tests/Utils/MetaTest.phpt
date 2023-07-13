@@ -39,7 +39,7 @@ class MetaTest extends TestCase
 	}
 
 
-	public function testSettingsLinkSettings(): void
+	public function testLogged(): void
 	{
 		$di = Mockery::mock('overload:' . Factory::class);
 		$di->shouldReceive('get')->once()->andReturn($container = Mockery::mock(Container::class));
@@ -47,7 +47,7 @@ class MetaTest extends TestCase
 		$settings->shouldReceive('load')->with('static:application_token')->once()->andReturn('token');
 
 		Assert::same([
-			'<a href="$_admin://admin/admin.php?page=bulkgate#/module-settings/default_$">Settings</a>',
+			'<a href="$_admin://admin/tools.php?page=bulkgate-debug_$">Debug</a>',
 			'xxx' => '<a href="http://www.bulkgate.com/cs/">BulkGate</a>',
 		], Meta::settingsLink(['xxx' => '<a href="http://www.bulkgate.com/cs/">BulkGate</a>'], '/yyy/woosms-sms-module-for-woocommerce/woosms-sms-module-for-woocommerce.php'));
 	}
@@ -62,6 +62,7 @@ class MetaTest extends TestCase
 
 		Assert::same([
 			'<a href="$_admin://admin/admin.php?page=bulkgate#/sign/in_$">Log In</a>',
+			'<a href="$_admin://admin/tools.php?page=bulkgate-debug_$">Debug</a>',
 			'xxx' => '<a href="http://www.bulkgate.com/cs/">BulkGate</a>',
 		], Meta::settingsLink(['xxx' => '<a href="http://www.bulkgate.com/cs/">BulkGate</a>'], '/yyy/woosms-sms-module-for-woocommerce/woosms-sms-module-for-woocommerce.php'));
 	}
