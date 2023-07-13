@@ -40,6 +40,10 @@ class PluginSettingsChange
 		$this->change('language', $unsafe_post_data, $output);
 		$this->change('language_mutation', $unsafe_post_data, $output, 'bool');
 		$this->change('delete_db', $unsafe_post_data, $output, 'bool');
+		$this->change('marketing_message_opt_in_enabled', $unsafe_post_data, $output, 'bool');
+		$this->change('marketing_message_opt_in_label', $unsafe_post_data, $output);
+		$this->change('marketing_message_opt_in_default', $unsafe_post_data, $output, 'bool');
+		$this->change('marketing_message_opt_in_url', $unsafe_post_data, $output);
 
 		$this->synchronizer->synchronize(true);
 

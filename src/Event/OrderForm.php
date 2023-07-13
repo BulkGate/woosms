@@ -14,6 +14,8 @@ class OrderForm
 {
 	use Strict;
 
+	public const DefaultEnabled = true;
+
 	private const Consent = [
 		'en' => 'I consent to receiving marketing communications via SMS, Viber, RCS, WhatsApp, and other similar channels.',
 		'cs' => 'Souhlasím se zasíláním marketingových sdělení prostřednictvím SMS, Viber, RCS, WhatsApp a dalších podobných kanálů.',
@@ -65,7 +67,7 @@ class OrderForm
 		{
 			$settings = Factory::get()->getByClass(Settings::class);
 
-			if ($settings->load('main:marketing_message_opt_in_enabled') ?? true)
+			if ($settings->load('main:marketing_message_opt_in_enabled') ?? self::DefaultEnabled)
 			{
 				$text = $settings->load('main:marketing_message_opt_in_label');
 
@@ -74,7 +76,7 @@ class OrderForm
 					$text = self::Consent[self::getLocale($locale)] ?? self::Consent['en'];
 				}
 
-				woocommerce_form_field('marketing_message_opt_in', [
+				woocommerce_form_field('bulkgate_marketing_message_opt_in', [
 					'type' => 'checkbox',
 					'class' => ['form-row mycheckbox'],
 					'label_class' => ['woocommerce-form__label woocommerce-form__label-for-checkbox checkbox'],
@@ -82,7 +84,7 @@ class OrderForm
 					'required' => false,
 					'default' => $settings->load('main:marketing_message_opt_in_default') ?? false,
 					'label' => $settings->load('main:marketing_message_opt_in_url') ?
-						'<a href="' . Escape::htmlAttr($settings->load('main:marketing_message_opt_in_url')) . '">' .
+						'<a href="' . Escape::htmlAttr($settings->load('main:marketing_message_opt_in_url')) . '" target="_blank">' .
 							Escape::html($text) .
 						'</a>' :
 						Escape::html($text),

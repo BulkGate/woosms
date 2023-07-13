@@ -11,7 +11,7 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, Debug\Page, DI\Factory, Utils\Escape, Utils\Logo, Utils\Meta};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, Debug\Page, DI\Factory, Event\OrderForm, Utils\Escape, Utils\Logo, Utils\Meta};
 use BulkGate\Plugin\{Debug\Logger, Debug\Requirements, Eshop, IO, Settings\Settings, Settings\Synchronizer, User, User\Sign, Utils\JsonResponse};
 
 if (!defined('ABSPATH'))
@@ -205,8 +205,12 @@ function Woosms_Print_widget(): void
 		'dispatcher' => $settings->load('main:dispatcher') ?? 'cron',
 		'synchronization' => $settings->load('main:synchronization') ?? 'all',
 		'language' => $settings->load('main:language') ?? 'en',
-		'language_mutation' => $settings->load('main:language_mutation') ?? 0,
-		'delete_db' => $settings->load('main:delete_db') ?? 0
+		'language_mutation' => $settings->load('main:language_mutation') ?? false,
+		'delete_db' => $settings->load('main:delete_db') ?? false,
+		'marketing_message_opt_in_enabled' => $settings->load('main:marketing_message_opt_in_enabled') ?? OrderForm::DefaultEnabled,
+		'marketing_message_opt_in_label' => $settings->load('main:marketing_message_opt_in_label') ?? '',
+		'marketing_message_opt_in_default' => $settings->load('main:marketing_message_opt_in_default') ?? false,
+		'marketing_message_opt_in_url' => $settings->load('main:marketing_message_opt_in_url') ?? '',
 	];
 
     $url = $di->getByClass(IO\Url::class);

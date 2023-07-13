@@ -31,6 +31,7 @@ class Post implements DataLoader
 		'billing_phone' => 'customer_mobile',
 		'billing_company' => 'customer_company',
 		'billing_country' => 'customer_country',
+		'bulkgate_marketing_message_opt_in' => 'marketing_message_opt_in'
 	];
 
 
