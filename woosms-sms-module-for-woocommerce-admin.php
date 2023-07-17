@@ -207,6 +207,7 @@ function Woosms_Print_widget(): void
 		'language' => $settings->load('main:language') ?? 'en',
 		'language_mutation' => $settings->load('main:language_mutation') ?? false,
 		'delete_db' => $settings->load('main:delete_db') ?? false,
+		'address_preference' => $settings->load('main:address_preference') ?? 'delivery',
 		'marketing_message_opt_in_enabled' => $settings->load('main:marketing_message_opt_in_enabled') ?? OrderForm::DefaultEnabled,
 		'marketing_message_opt_in_label' => $settings->load('main:marketing_message_opt_in_label') ?? '',
 		'marketing_message_opt_in_default' => $settings->load('main:marketing_message_opt_in_default') ?? false,
@@ -240,6 +241,7 @@ function Woosms_Print_widget(): void
                             application_settings: {
                                 dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
                                 synchronization: {all: "synchronization_all", message: "synchronization_message", off: "synchronization_off"},
+                                address_preference: {delivery: "address_preference_delivery", billing: "address_preference_billing"},
                             }
                         }
                     }
