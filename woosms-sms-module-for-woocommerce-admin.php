@@ -241,7 +241,7 @@ function Woosms_Print_widget(): void
                             application_settings: {
                                 dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
                                 synchronization: {all: "synchronization_all", message: "synchronization_message", off: "synchronization_off"},
-                                address_preference: {delivery: "address_preference_delivery", billing: "address_preference_billing"},
+                                address_preference: {delivery: "address_preference_delivery", invoice: "address_preference_invoice"},
                             }
                         }
                     }
