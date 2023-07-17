@@ -29,6 +29,11 @@ class PluginSettingsChangeTest extends TestCase
 		$settings->shouldReceive('set')->with('main:language', '$en$', ['type' => 'string'])->once();
 		$settings->shouldReceive('set')->with('main:language_mutation', '$0$', ['type' => 'bool'])->once();
 		$settings->shouldReceive('set')->with('main:delete_db', '$0$', ['type' => 'bool'])->once();
+		$settings->shouldReceive('set')->with('main:address_preference', '$invoice$', ['type' => 'string'])->once();
+		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_enabled', '$1$', ['type' => 'bool'])->once();
+		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_label', '$xxx$', ['type' => 'string'])->once();
+		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_default', '$true$', ['type' => 'bool'])->once();
+		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_url', '$xxx$', ['type' => 'string'])->once();
 		$synchronize->shouldReceive('synchronize')->with(true)->once();
 
 		Assert::same([
@@ -41,17 +46,27 @@ class PluginSettingsChangeTest extends TestCase
 							'language' => '$en$',
 							'language_mutation' => '$0$',
 							'delete_db' => '$0$',
+							'address_preference' => '$invoice$',
+							'marketing_message_opt_in_enabled' => '$1$',
+							'marketing_message_opt_in_label' => '$xxx$',
+							'marketing_message_opt_in_default' => '$true$',
+							'marketing_message_opt_in_url' => '$xxx$',
 						],
 					],
 				],
 			],
 		], $plugin_settings->run([
-				'dispatcher' => 'cron',
-				'synchronization' => 'all',
-				'language' => 'en',
-				'language_mutation' => 0,
-				'delete_db' => 0,
-				'invalid' => 'xxx'
+			'dispatcher' => 'cron',
+			'synchronization' => 'all',
+			'language' => 'en',
+			'language_mutation' => 0,
+			'delete_db' => 0,
+			'address_preference' => 'invoice',
+			'marketing_message_opt_in_enabled' => true,
+			'marketing_message_opt_in_label' => 'xxx',
+			'marketing_message_opt_in_default' => 'true',
+			'marketing_message_opt_in_url' => 'xxx',
+			'invalid' => 'xxx',
 		]));
 	}
 
