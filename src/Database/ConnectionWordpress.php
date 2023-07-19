@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Database;
  */
 
 use wpdb;
-use BulkGate\Plugin\{Strict, Database\Connection};
+use BulkGate\Plugin\{Database\ResultCollection, Strict, Database\Connection};
 use function count, is_array;
 
 class ConnectionWordpress implements Connection
@@ -28,9 +28,9 @@ class ConnectionWordpress implements Connection
 	}
 
 
-	public function execute(string $sql): ?array
+	public function execute(string $sql): ?ResultCollection
 	{
-		$output = [];
+		$output = new ResultCollection();
 
 		$this->sql[] = $sql;
 
@@ -65,12 +65,15 @@ class ConnectionWordpress implements Connection
 	}
 
 
-	public function escape(string $string): string
+	/**
+	 * @param scalar|null $string
+	 */
+	public function escape($string): string
 	{
 		/**
 		 * @var literal-string $string
 		 */
-		$string = $this->db->_escape($string);
+		$string = $this->db->_escape((string) $string);
 
 		return $string;
 	}

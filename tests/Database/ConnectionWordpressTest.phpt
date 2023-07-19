@@ -26,7 +26,8 @@ class ConnectionWordpressTest extends TestCase
 			['id' => 4], ['id' => 5]
 		]);
 
-		Assert::same([['id' => 4], ['id' => 5]], $connection->execute('SQL'));
+		[$e1, $e2] = $connection->execute('SQL')->toArray();
+		Assert::same([['id' => 4], ['id' => 5]], [$e1->toArray(), $e2->toArray()]);
 
 		Assert::same(['SQL'], $connection->getSqlList());
 	}
