@@ -31,14 +31,13 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
  */
 if (is_plugin_active('woocommerce/woocommerce.php')) {
 
-    /**
-     * Init BulkGate DI container
-     */
     require_once __DIR__ . '/vendor/autoload.php';
-
 
 	!file_exists(__DIR__ . '/debug.php') ?: include_once __DIR__ . '/debug.php';
 
+	/**
+	 * Init BulkGate DI container
+	 */
 	add_action('init', fn () => Factory::setup(fn () => [
 		'db' => $GLOBALS['wpdb'],
 		'debug' => defined('BulkGateDebug') ? BulkGateDebug : WP_DEBUG,
@@ -64,8 +63,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 	/**
 	 * Load Back office for BulkGate SMS plugin
 	 */
-	if (is_admin())
-	{
+	if (is_admin()) {
 		include __DIR__ . '/woosms-sms-module-for-woocommerce-admin.php';
 	}
 
