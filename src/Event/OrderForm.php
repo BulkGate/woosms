@@ -76,6 +76,8 @@ class OrderForm
 					$text = self::Consent[self::getLocale($locale)] ?? self::Consent['en'];
 				}
 
+				$url = $settings->load('main:marketing_message_opt_in_url');
+
 				woocommerce_form_field('bulkgate_marketing_message_opt_in', [
 					'type' => 'checkbox',
 					'class' => ['form-row mycheckbox'],
@@ -83,8 +85,8 @@ class OrderForm
 					'input_class' => ['woocommerce-form__input woocommerce-form__input-checkbox input-checkbox'],
 					'required' => false,
 					'default' => $settings->load('main:marketing_message_opt_in_default') ?? false,
-					'label' => $settings->load('main:marketing_message_opt_in_url') ?
-						'<a href="' . Escape::htmlAttr($settings->load('main:marketing_message_opt_in_url')) . '" target="_blank">' .
+					'label' => $url ?
+						'<a href="' . Escape::htmlAttr($url) . '" target="_blank">' .
 							Escape::html($text) .
 						'</a>' :
 						Escape::html($text),
