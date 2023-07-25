@@ -32,17 +32,28 @@ class HookTest extends TestCase
 
 		Assert::count(9, $callbacks);
 
+		$order = Mockery::mock(WC_Order::class);
+		$order->shouldReceive('add_order_note')->with('📲 BulkGate: processing ➡️ complete')->once();
 		$dispatcher->shouldReceive('dispatch')->with('order', 'change-status', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'order_id' => 451,
 			'order_status_id' => 'complete',
 			'order_status_id_from' => 'processing',
-		]), Mockery::type('array'))->once();
-		$callbacks['action_woocommerce_order_status_changed'](451, 'processing', 'complete', Mockery::mock(WC_Order::class));
+		]), Mockery::type('array'), Mockery::on(function (callable $callback): bool
+		{
+			$callback();
+			return true;
+		}))->once();
+		$callbacks['action_woocommerce_order_status_changed'](451, 'processing', 'complete', $order);
 
+		$order->shouldReceive('add_order_note')->with('📲 BulkGate: New Order')->once();
 		$dispatcher->shouldReceive('dispatch')->with('order', 'new', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'order_id' => 451,
-		]), Mockery::type('array'))->once();
-		$callbacks['action_woocommerce_checkout_order_processed'](451, [], Mockery::mock(WC_Order::class));
+		]), Mockery::type('array'), Mockery::on(function (callable $callback): bool
+		{
+			$callback();
+			return true;
+		}))->once();
+		$callbacks['action_woocommerce_checkout_order_processed'](451, [], $order);
 
 		$dispatcher->shouldReceive('dispatch')->with('customer', 'new', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'customer_id' => 789,

@@ -39,15 +39,15 @@ class Hook
 					'order_id' => $order_id,
 					'order_status_id' => $to,
 					'order_status_id_from' => $from,
-				]), ['order' => $order]);
+				]), ['order' => $order], fn () => $order instanceof WC_Order && $order->add_order_note("📲 BulkGate: $from ➡️ $to"));
 			}
 		}), 100, 4);
 
 
-		add_action('woocommerce_checkout_order_processed', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, int $order_id, array $posted_data, WC_Order $order) =>
+		add_action('woocommerce_checkout_order_processed', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, int $order_id, array $posted_data, object $order) =>
 			$dispatcher->dispatch('order', 'new', new Variables([
 				'order_id' => $order_id,
-			]), ['order' => $order])
+			]), ['order' => $order], fn () => $order instanceof WC_Order && $order->add_order_note('📲 BulkGate: New Order'))
 		), 100, 3);
 
 
