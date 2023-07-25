@@ -169,6 +169,8 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * Support for order custom fields ('extra_' prefix)
 * Support for custom order id sequence
 * Preparation for more complex automation
+* New Order page send message form
+* Order change/create notes
 * And more new features
 
 = 2.1.0 =
