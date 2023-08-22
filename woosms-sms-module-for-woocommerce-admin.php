@@ -216,7 +216,7 @@ function Woosms_Print_widget(): void
 
     $url = $di->getByClass(IO\Url::class);
     $user = $di->getByClass(User\Sign::class);
-    $jwt = $user->authenticate();
+    $jwt = $user->authenticate(false, ['expire' => time() + 300]);
 
     $escape_js = [Escape::class, 'js'];
 
