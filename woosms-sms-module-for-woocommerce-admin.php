@@ -33,7 +33,7 @@ add_action('admin_menu', function (): void
     {
 	    Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
 
-	    Woosms_Print_widget();
+	    Woosms_Print_admin();
         $di = Factory::get();
         $url = $di->getByClass(IO\Url::class);
         $logo = $url->get('/images/white-label/bulkgate/logo/short.svg');
@@ -155,7 +155,19 @@ add_action(
 
         if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
 		{
-			add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn () => print("TODO SEND MESSAGE FORM"), 'shop_order', 'side', 'high');
+			add_meta_box('bulkgate_send_message', 'BulkGate SMS', function (): void
+			{
+                Woosms_Print_widget("widget/message/send", fn() => <<<JS
+				    function(widget) {
+				        widget.options.SendMessageProps = {
+				            message: "Muj injectnuty message",
+				            recipients: [{first_name: "John", last_name: "Doe", phone_mobile: 12345678}]
+				        };
+				    }
+				JS
+				);
+                print("<gate-send-message></gate-send-message>");
+            }, 'shop_order', 'side', 'high');
             /*add_meta_box(
                 'send_sms', 'BulkGate', function ($post) {
                     ?><div id="woo-sms" style="margin:0; zoom: 0.85">
@@ -173,8 +185,32 @@ add_action(
 );
 
 
+function Woosms_Print_widget(string $endpoint, callable $configuration): void
+{
+    $di = Factory::get();
 
-function Woosms_Print_widget(): void
+    $url = $di->getByClass(IO\Url::class);
+    $user = $di->getByClass(User\Sign::class);
+    $jwt = $user->authenticate();
+
+    $init_fn_name = 'init_' . str_replace("/", "_", $endpoint);
+    $init_fn_content = $configuration($jwt);
+
+    wp_print_inline_script_tag(<<<JS
+	    // this configuration function is called from bootstrap
+	    function $init_fn_name(widget) {
+	        ($init_fn_content)(widget); //invoke javascript function
+	    }
+	JS
+);
+    wp_print_script_tag([
+        'src' => Escape::url($url->get("$endpoint/$jwt?config=" . $init_fn_name)),
+        'async' => true,
+    ]);
+}
+
+
+function Woosms_Print_admin(): void
 {
 	$di = Factory::get();
 
@@ -215,141 +251,143 @@ function Woosms_Print_widget(): void
 	];
 
     $url = $di->getByClass(IO\Url::class);
+
     $user = $di->getByClass(User\Sign::class);
     $jwt = $user->authenticate(false, ['expire' => time() + 300]);
 
+
     $escape_js = [Escape::class, 'js'];
 
-    wp_print_inline_script_tag(
-        <<<JS
-            function initWidget_ecommerce_module(widget) {
-                function getHeaders(token) {
-                    return function () {
-                        return {
-                            Authorization: "Bearer " + token
-                        }
-                    }
+    Woosms_Print_widget("widget/eshop/load", fn(string $jwt) => <<<JS
+    function(widget) {
+        function getHeaders(token) {
+            return function () {
+                return {
+                    Authorization: "Bearer " + token
                 }
-                widget.merge({
-                    layout: {
-                        server: {
-                            application: {$escape_js($application)},
-                            application_settings: {$escape_js($plugin_settings)}
-                        },
-                        // static (dictionary) for frontend form
-                        scope: {
-                            application_settings: {
-                                dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
-                                synchronization: {all: "synchronization_all", message: "synchronization_message", off: "synchronization_off"},
-                                address_preference: {delivery: "address_preference_delivery", invoice: "address_preference_invoice"},
-                            }
-                        }
-                    }
-                });
-                widget.authenticator = {
-                    getHeaders: getHeaders({$escape_js($jwt)}),
-                    setToken: (token) => {
-                        widget.authenticator.getHeaders = getHeaders(token);
-                    },
-                    authenticate: async () => {
-                        let response = await fetch(ajaxurl, {
-                            method: "POST",
-                            headers: {
-                                'Content-Type': "application/x-www-form-urlencoded"
-                            },
-                            body: "action=authenticate",
-                        });
-                        let {token, redirect} = await response.json();
-                        
-                        if (redirect){
-                            return {redirect};
-                        }
-                        if (token) {
-                            widget.authenticator.getHeaders = getHeaders(token);
-                        }
-                        
-                        return {};
-                    }
-                };
-                widget.events.onComputeHostLayout = (compute) => {
-                    let hostAppBar = document.getElementById("wpadminbar");
-                    let hostNavBar = document.getElementById("adminmenuback");
-                    let hostRootWrap = document.getElementById("bulkgate-plugin");
-                    
-                    compute({appBar: hostAppBar, navBar: hostNavBar});
-                    
-                    if (hostRootWrap.parentElement.id === "wpbody-content") { // woosms-module page, otherwise eg. send-sms widget
-                        let style = getComputedStyle(document.getElementById("wpcontent"));
-                        hostRootWrap.style.setProperty("--bulkgate-plugin-body-indent", style.getPropertyValue("padding-left"));
-                    }
-                };
-                
-                widget.options.theme = {
-                    components: {
-                        BulkGateSignInView: {
-                            defaultProps: {
-                                showLanguagePanel: false,
-                                showPermanentLogin: false,
-                                logo: "images/white-label/bulkgate/logo/logo-title.svg",
-                                logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
-                                background: "images/products/backgrounds/ws.svg"
-                            }
-                        },
-                        BulkGateSignUpView: {
-                            defaultProps: {
-                                showLanguagePanel: false,
-                                logo: "images/white-label/bulkgate/logo/logo-title.svg",
-                                logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
-                                background: "images/products/backgrounds/ws.svg"
-                            }
-                        }
-                    }
-                };
-                widget.options.layout = {
-                    appBar: {
-                        showLogOut: false,
-                        logoUrl: "images/products/bg.svg",
-                        logoStyle: {
-                            height: "40px",
-                            width: "100px",
-                        }
-                    }
-                };
-                widget.options.proxy = function(reducerName, requestData) {
-                    let proxyData = {$escape_js($proxy)};
-                    let {url, params} = proxyData[requestData.actionType] || {};
-
-                    if (url) {
-                        requestData.contentType = "application/x-www-form-urlencoded";
-                        requestData.url = url;
-                        requestData.data = {__bulkgate: requestData.data, ...params};
-                        return true;
-                    }
-                    
-                    try {
-                        // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions).
-                        let baseUrl = new URL({$escape_js($url->get())}); // bulkgate's app url
-                        url = new URL(requestData.url, baseUrl);
-                        requestData.url = url.toString();
-                        return true;
-                    } catch {}
-                };
-                
-                // loading management
-                function handleViewRender(ev) {
-                    const loading = document.querySelector("#bulkgate-plugin #loading");
-                    loading.style.display = "none";
-                    
-                    //remove handler after hide loader
-                    window.removeEventListener("gate-view-render", handleViewRender);
-                }
-                
-                window.addEventListener("gate-view-render", handleViewRender);
             }
-    JS);
+        }
+        
+        widget.authenticator = {
+            getHeaders: getHeaders({$escape_js($jwt)}),
+            setToken: (token) => {
+                widget.authenticator.getHeaders = getHeaders(token);
+            },
+            authenticate: async () => {
+                let response = await fetch(ajaxurl, {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': "application/x-www-form-urlencoded"
+                    },
+                    body: "action=authenticate",
+                });
+                let {token, redirect} = await response.json();
+                
+                if (redirect){
+                    return {redirect};
+                }
+                if (token) {
+                    widget.authenticator.getHeaders = getHeaders(token);
+                }
+                
+                return {};
+            }
+        };
 
-    wp_print_script_tag([
-        'src' => Escape::url($url->get("widget/eshop/load/$jwt?config=initWidget_ecommerce_module")),
-        'async' => true,
-    ]);
+        widget.merge({
+            layout: {
+                server: {
+                    application: {$escape_js($application)},
+                    application_settings: {$escape_js($plugin_settings)}
+                },
+                // static (dictionary) for frontend form
+                scope: {
+                    application_settings: {
+                        dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
+                        synchronization: {all: "synchronization_all", message: "synchronization_message", off: "synchronization_off"},
+                        address_preference: {delivery: "address_preference_delivery", invoice: "address_preference_invoice"},
+                    }
+                }
+            }
+        });
+        
+        widget.events.onComputeHostLayout = (compute) => {
+            let hostAppBar = document.getElementById("wpadminbar");
+            let hostNavBar = document.getElementById("adminmenuback");
+            let hostRootWrap = document.getElementById("bulkgate-plugin");
+            
+            compute({appBar: hostAppBar, navBar: hostNavBar});
+            
+            if (hostRootWrap.parentElement.id === "wpbody-content") { // woosms-module page, otherwise eg. send-sms widget
+                let style = getComputedStyle(document.getElementById("wpcontent"));
+                hostRootWrap.style.setProperty("--bulkgate-plugin-body-indent", style.getPropertyValue("padding-left"));
+            }
+        };
+        
+        widget.options.theme = {
+            components: {
+                BulkGateSignInView: {
+                    defaultProps: {
+                        showLanguagePanel: false,
+                        showPermanentLogin: false,
+                        logo: "images/white-label/bulkgate/logo/logo-title.svg",
+                        logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
+                        background: "images/products/backgrounds/ws.svg"
+                    }
+                },
+                BulkGateSignUpView: {
+                    defaultProps: {
+                        showLanguagePanel: false,
+                        logo: "images/white-label/bulkgate/logo/logo-title.svg",
+                        logo_dark: "images/white-label/bulkgate/logo/logo-white.svg",
+                        background: "images/products/backgrounds/ws.svg"
+                    }
+                }
+            }
+        };
+        
+        widget.options.layout = {
+            appBar: {
+                showLogOut: false,
+                logoUrl: "images/products/bg.svg",
+                logoStyle: {
+                    height: "40px",
+                    width: "100px",
+                }
+            }
+        };
+        
+        widget.options.proxy = function(reducerName, requestData) {
+            let proxyData = {$escape_js($proxy)};
+            let {url, params} = proxyData[requestData.actionType] || {};
+        
+            if (url) {
+                requestData.contentType = "application/x-www-form-urlencoded";
+                requestData.url = url;
+                requestData.data = {__bulkgate: requestData.data, ...params};
+                return true;
+            }
+            
+            try {
+                // relative -> absolute url conversion. In modules context, relative urls are not suitable. This covers routing (soft redirects change route) and signals (actions).
+                let baseUrl = new URL({$escape_js($url->get())}); // bulkgate's app url
+                url = new URL(requestData.url, baseUrl);
+                requestData.url = url.toString();
+                return true;
+            } catch {}
+        };
+        
+        // loading management
+        function handleViewRender(ev) {
+            const loading = document.querySelector("#bulkgate-plugin #loading");
+            loading.style.display = "none";
+            
+            //remove handler after hide loader
+            window.removeEventListener("gate-view-render", handleViewRender);
+        }
+        
+        window.addEventListener("gate-view-render", handleViewRender);
+    }
+JS
+    );
 }
