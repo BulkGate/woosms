@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Template;
  */
 
 use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
-use BulkGate\{Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm};
+use BulkGate\{Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
 
 class Basic
 {
@@ -44,7 +44,7 @@ class Basic
 		];
 
 		$plugin_settings = [
-			'dispatcher' => $settings->load('main:dispatcher') ?? 'cron',
+			'dispatcher' => $settings->load('main:dispatcher') ?? 'asset',
 			'synchronization' => $settings->load('main:synchronization') ?? 'all',
 			'language' => $settings->load('main:language') ?? 'en',
 			'language_mutation' => $settings->load('main:language_mutation') ?? false,
@@ -206,140 +206,15 @@ class Basic
 		?>
 
         <style>
-            @keyframes logo {
-                0% {
-                    filter: grayscale(1) opacity(.2);
-                    transform: scale(.6);
-                }
-                25% {
-                    filter: none;
-                    transform: scale(.65);
-                }
-                70% {
-                    transform: none;
-                }
-            }
-
-            @keyframes heading {
-                0% {
-                    opacity: .1;
-                }
-                50% {
-                    opacity: .8;
-                }
-                100% {
-                    opacity: 1;
-                }
-            }
-
-            @keyframes progress {
-                100% {
-                    opacity: 1
-                }
-            }
-
-            @keyframes progress-processing {
-                0% {
-                    transform: translateX(-300px)
-                }
-                5% {
-                    transform: translateX(-240px)
-                }
-                15% {
-                    transform: translateX(-30px)
-                }
-                25% {
-                    transform: translateX(-30px)
-                }
-                30% {
-                    transform: translateX(-20px)
-                }
-                45% {
-                    transform: translateX(-20px)
-                }
-                50% {
-                    transform: translateX(-15px)
-                }
-                65% {
-                    transform: translateX(-15px)
-                }
-                70% {
-                    transform: translateX(-10px)
-                }
-                95% {
-                    transform: translateX(-10px)
-                }
-                100% {
-                    transform: translateX(-5px)
-                }
-            }
-
-            #bulkgate-plugin {
-                position: relative;
-                z-index: 0;
-                margin-left: calc(var(--bulkgate-plugin-body-indent, 0) * -1);
-            }
-
-            #bulkgate-plugin #loading {
-                position: fixed;
-                contain: layout;
-                left: 0;
-                top: 0;
-                right: 0;
-                bottom: 0;
-                background: #fff;
-                z-index: 2999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-            }
-
-            #bulkgate-plugin #loading img {
-                width: 160px;
-                animation: logo 1.5s .3s both;
-                margin: 24px 0;
-            }
-
-            #bulkgate-plugin #loading h3 {
-                font-size: 32px;
-                color: #606469;
-                animation: heading .5s .675s both;
-            }
-
-            #bulkgate-plugin #progress {
-                animation: progress .5s 2.5s 1 both;
-                height: 4px;
-                width: 100%;
-                opacity: 0;
-                background: #ddd;
-                position: relative;
-                overflow: hidden;
-            }
-
-            #bulkgate-plugin #progress:before {
-                animation: progress-processing 20s 3s linear both;
-                background-color: var(--secondary);
-                content: '';
-                display: block;
-                height: 100%;
-                position: absolute;
-                transform: translateX(-300px);
-                width: 100%;
-            }
-
-            gate-ecommerce-plugin {
-                box-sizing: border-box; /* realne se tyka pouze web-componenty */
-            }
+            <?php echo Logo::CssLoader; ?>
         </style>
 
 		<div id="bulkgate-plugin" style="--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;">
             <gate-ecommerce-plugin data-theme='{"palette": {"mode": "light"}}'></gate-ecommerce-plugin>
 			<div id="loading">
 				<div>
-					<img src="<?php Escape::htmlAttr($logo) ?>" />
+					<img src="<?php echo Escape::htmlAttr($logo); ?>" alt="BulkGate" />
 					<div id="progress"></div>
-					<!--h3>BulkGate <span style="color: var(--secondary);">SMS</span> plugin</h3-->
 				</div>
 			</div>
 		</div>

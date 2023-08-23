@@ -52,7 +52,7 @@ class Init
 		{
 			if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
 			{
-				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn (WP_Post $post) => SendMessage::print(Factory::get(), new WC_Order($post->ID), ['message' => 'test']), 'shop_order', 'side', 'high');
+				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn (WP_Post $post) => SendMessage::print(Factory::get(), new WC_Order($post->ID), []), 'shop_order', 'side', 'high');
 			}
 		});
 	}
