@@ -19,3 +19,14 @@ function apply_filters(string $hook_name, $value, ...$args): bool
 {
 	return $hook_name === 'run_bulkgate_hook_test';
 }
+
+
+function wc_get_order_statuses(): array
+{
+	return [
+		'wc-pending'    => 'Pending payment',
+		'wc-processing' => 'Processing',
+		'wc-on-hold'    => 'On hold',
+		'wc-completed'  => 'Completed',
+	];
+}

@@ -7,8 +7,8 @@ namespace BulkGate\WooSms\Templates;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Plugin\{Debug\Logger, Debug\Requirements, Eshop, Settings\Settings, User\Sign, Utils\JsonResponse};
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, Debug\Page, DI\Factory, Utils\Logo, Utils\Meta};
+use WP_Post, WC_Order;
+use BulkGate\{Plugin\Debug\Logger, Plugin\Debug\Requirements, Plugin\Eshop, Plugin\Settings\Settings, Plugin\Strict, Plugin\User\Sign, Plugin\Utils\JsonResponse, WooSms\Ajax\Authenticate, WooSms\Ajax\PluginSettingsChange, WooSms\Debug\Page, WooSms\DI\Factory, WooSms\Utils\Logo, WooSms\Utils\Meta};
 
 class Init
 {

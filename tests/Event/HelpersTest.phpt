@@ -60,6 +60,22 @@ class HelpersTest extends TestCase
 
 		Assert::true(true);
 	}
+
+
+	public function testResolveOrderStatus(): void
+	{
+		$status = 'wc-processing';
+		Assert::same('Processing', Helpers::resolveOrderStatus($status));
+		Assert::same('processing', $status);
+
+		$status = 'processing';
+		Assert::same('Processing', Helpers::resolveOrderStatus($status));
+		Assert::same('processing', $status);
+
+		$status = 'wc-completed';
+		Assert::same('Completed', Helpers::resolveOrderStatus($status));
+		Assert::same('completed', $status);
+	}
 }
 
 (new HelpersTest())->run();

@@ -64,8 +64,7 @@ class SendMessage
             'async' => true,
         ]);
         ?>
-
-        <gate-send-message></gate-send-message>
+        <gate-send-message data-theme='{"palette": {"mode": "light"}}'></gate-send-message>
 
         <?php
     }
