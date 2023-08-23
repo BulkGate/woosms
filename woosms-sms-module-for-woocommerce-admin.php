@@ -122,9 +122,7 @@ add_action('admin_menu', function (): void
                 }
             </style>
             <div id="bulkgate-plugin" style="--primary: #955a89; --secondary: #0094F0; --content: #f1f1f1;">
-                <gate-ecommerce-plugin>
-                    
-                </gate-ecommerce-plugin>
+                <gate-ecommerce-plugin data-theme='{"palette": {"mode": "light"}}'></gate-ecommerce-plugin>
                 <div id="loading">
                     <div>
                         <img src="$logo" />
@@ -166,7 +164,7 @@ add_action(
 				    }
 				JS
 				);
-                print("<gate-send-message></gate-send-message>");
+                print('<gate-send-message data-theme=\'{"palette": {"mode": "light"}}\'></gate-send-message>');
             }, 'shop_order', 'side', 'high');
             /*add_meta_box(
                 'send_sms', 'BulkGate', function ($post) {
