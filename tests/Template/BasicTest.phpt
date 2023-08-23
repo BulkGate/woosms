@@ -10,7 +10,7 @@ namespace BulkGate\WooSms\Template\Test;
 use Mockery;
 use Tester\{Assert, Expect, TestCase};
 use BulkGate\{Plugin\DI\Container, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\User\Sign, WooSms\Template\Basic};
-use function file_put_contents, file_get_contents, ob_get_contents, ob_start, trim;
+use function file_put_contents, file_get_contents, ob_get_contents, ob_start, trim, str_replace;
 
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/.mock-basic.php';
@@ -52,7 +52,7 @@ class BasicTest extends TestCase
 		ob_start();
 		Basic::print($container);
 
-		$content = trim(ob_get_contents());
+		$content = trim(str_replace(["\r", "\n"], ["\n"], ob_get_contents()));
 
 		self::Generate && file_put_contents(__DIR__ . '/basic.html', $content);
 
