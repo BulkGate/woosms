@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BulkGate\WooSms\Templates;
+namespace BulkGate\WooSms\Template;
 
 /**
  * @author Lukáš Piják 2023 TOPefekt s.r.o.
@@ -15,6 +15,9 @@ class SendMessage
 {
     use Strict;
 
+	/**
+	 * @param array<string, mixed> $props
+	 */
 	public static function print(Container $di, ?WC_Order $order, array $props = []): void
     {
         $escape_js = [Escape::class, 'js'];
@@ -64,6 +67,7 @@ class SendMessage
             'async' => true,
         ]);
         ?>
+
         <gate-send-message data-theme='{"palette": {"mode": "light"}}'></gate-send-message>
 
         <?php

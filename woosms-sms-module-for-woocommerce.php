@@ -16,7 +16,7 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\{WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect, WooSms\Templates\Init};
+use BulkGate\{WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect, WooSms\Template\Init};
 
 if (!defined('ABSPATH')) {
     exit;

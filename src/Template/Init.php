@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace BulkGate\WooSms\Templates;
+namespace BulkGate\WooSms\Template;
 
 /**
  * @author Lukáš Piják 2023 TOPefekt s.r.o.

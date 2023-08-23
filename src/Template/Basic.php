@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace BulkGate\WooSms\Templates;
+namespace BulkGate\WooSms\Template;
 
 /**
  * @author Lukáš Piják 2023 TOPefekt s.r.o.
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape};
 use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
+use BulkGate\{Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm};
 
 class Basic
 {
