@@ -16,7 +16,7 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\{WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect};
+use BulkGate\{WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect, WooSms\Templates\Init};
 
 if (!defined('ABSPATH')) {
     exit;
@@ -63,9 +63,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 	/**
 	 * Load Back office for BulkGate SMS plugin
 	 */
-	if (is_admin()) {
-		include __DIR__ . '/woosms-sms-module-for-woocommerce-admin.php';
-	}
+	is_admin() && Init::init();
 
     /**
      * Register install scripts

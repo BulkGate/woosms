@@ -8,12 +8,11 @@ namespace BulkGate\WooSms\Event;
  */
 
 use BulkGate\{Plugin\DI\MissingServiceException, Plugin\Event\Dispatcher, Plugin\Strict, WooSms\DI\Factory};
-use function apply_filters, has_filter;
+use function apply_filters, has_filter, str_replace;
 
 class Helpers
 {
 	use Strict;
-
 
 	public static function dispatch(string $name, callable $callback): callable
 	{
@@ -37,5 +36,16 @@ class Helpers
 				}
 			}
 		};
+	}
+
+
+	public static function resolveOrderStatus(string &$status): string
+	{
+		static $statuses;
+		$statuses ??= wc_get_order_statuses();
+
+		$status = str_replace('wc-', '', $status);
+
+		return $statuses["wc-$status"] ?? $status;
 	}
 }
