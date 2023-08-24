@@ -28,13 +28,22 @@ class Init
 
 			add_menu_page('bulkgate', 'BulkGate SMS', 'manage_options', 'bulkgate', function (): void
 			{
-				Factory::get()->getByClass(Eshop\EshopSynchronizer::class)->run();
+				$di = Factory::get();
+				$di->getByClass(Eshop\EshopSynchronizer::class)->run();
 
-				Basic::print(Factory::get());
+				Basic::print($di);
 			}, Logo::Menu, 58);
 
 			add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
 			add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
+		});
+
+		add_action('add_meta_boxes', function (string $post_type): void
+		{
+			if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
+			{
+				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn (WP_Post $post) => SendMessage::print(Factory::get(), new WC_Order($post->ID), []), 'shop_order', 'side', 'high');
+			}
 		});
 
 		add_action('wp_ajax_authenticate', fn () => Factory::get()->getByClass(Authenticate::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
@@ -47,13 +56,5 @@ class Init
 
 		add_action('wp_ajax_logout_module', fn () => JsonResponse::send(Factory::get()->getByClass(Sign::class)->out(admin_url('admin.php?page=bulkgate#/sign/in'))));
 		add_action('wp_ajax_save_module_settings', fn () => JsonResponse::send(Factory::get()->getByClass(PluginSettingsChange::class)->run($_POST['__bulkgate'] ?? [])));
-
-		add_action('add_meta_boxes', function (string $post_type): void
-		{
-			if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
-			{
-				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn (WP_Post $post) => SendMessage::print(Factory::get(), new WC_Order($post->ID), []), 'shop_order', 'side', 'high');
-			}
-		});
 	}
 }

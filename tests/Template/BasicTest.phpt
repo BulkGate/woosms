@@ -67,6 +67,8 @@ class BasicTest extends TestCase
 			'src' => '|https://www.example.com/widget/message/send/jwt.token.451?config=init_widget_message_send|',
 			'async' => true,
 		], $GLOBALS['script'][1]);
+
+		Mockery::close();
 	}
 }
 

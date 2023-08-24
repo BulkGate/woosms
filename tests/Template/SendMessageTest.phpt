@@ -61,6 +61,8 @@ class SendMessageTest extends TestCase
 				'async' => true,
 			],
 		], $GLOBALS['script']);
+
+		Mockery::close();
 	}
 }
 
