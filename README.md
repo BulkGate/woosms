@@ -3,7 +3,7 @@
 ![CI tests status](https://github.com/bulkgate/woosms/actions/workflows/php.yml/badge.svg)
 
 # BulkGate SMS Plugin for WooCommerce
-- Tags: sms, viber, send sms, sms notifications, order notification, order alert, bulk sms, viber campaign, viber for business, viber business, viber notifications, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, viber notifikace, oznámení objednávky, oznámení o objednávce, notifikace objednávky, viber oznámení, viber kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin, marketing campaigns, 2-way SMS, two way SMS, two way communication, viber notification woocommerce, viber notifications, two-way
+- Tags: sms, viber, rcs, rbm, whatsapp, send sms, sms notifications, order notification, order alert, bulk sms, viber campaign, viber for business, viber business, viber notifications, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, viber notifikace, oznámení objednávky, oznámení o objednávce, notifikace objednávky, viber oznámení, viber kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin, marketing campaigns, 2-way SMS, two way SMS, two way communication, viber notification woocommerce, viber notifications, two-way
 - Requires at least: 5.7
 - Tested up to: 6.3
 - Stable tag: 3.0.0
@@ -167,12 +167,14 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * Complete plugin rework - new generation
 * New asynchronous no blocking message sender (Asset / Cron / WP Cron / Direct)
 * New design
+* New Send Message form in Order Detail
 * Marketing Opt-in
 * New AddressBook synchronization
 * Support for order custom fields ('extra_' prefix)
 * Support for custom order id sequence
 * Preparation for more complex automation
 * New Order page send message form
+* New Debug page
 * Order change/create notes
 * And more new features
 

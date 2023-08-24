@@ -28,30 +28,38 @@ class SendMessage
 
 			$address = $order->get_address($preference === 'delivery' ? 'shipping' : 'billing');
 
-			$extra = [];
+            if (empty($address['phone'] ?? null))
+            {
+                $address = $order->get_address($preference === 'delivery' ? 'billing' : 'shipping');
+            }
 
-			foreach ($order->get_meta_data() as $meta) {
-				['key' => $key, 'value' => $value] = $meta->get_data();
+            if (!empty($address['phone'] ?? null))
+            {
+	            $extra = [];
 
-				$extra["extra_$key"] = $value;
-			}
+	            foreach ($order->get_meta_data() as $meta) {
+		            ['key' => $key, 'value' => $value] = $meta->get_data();
 
-			$status = $order->get_status();
+		            $extra["extra_$key"] = $value;
+	            }
 
-			$props['recipients'][] = array_filter(array_merge([
-				'first_name' => $address['first_name'],
-				'last_name' => $address['last_name'],
-				'company' => $address['company'],
-				'street1' => Helpers::joinStreet('address_1', 'address_2', $address, []),
-				'city' => $address['city'],
-				'zip' => $address['postcode'],
-				'country' => $address['country'],
-				'phone_mobile' => $address['phone'],
-				'phone_number_iso' => Strings::lower($address['country']),
-				'email' => $order->get_billing_email(),
-				'order_status' => EventHelpers::resolveOrderStatus($status),
-			], $extra), fn($item) => !empty($item));
-		}
+	            $status = $order->get_status();
+
+	            $props['recipients'][] = array_filter(array_merge([
+		            'first_name' => $address['first_name'],
+		            'last_name' => $address['last_name'],
+		            'company' => $address['company'],
+		            'street1' => Helpers::joinStreet('address_1', 'address_2', $address, []),
+		            'city' => $address['city'],
+		            'zip' => $address['postcode'],
+		            'country' => $address['country'],
+		            'phone_mobile' => $address['phone'],
+		            'phone_number_iso' => Strings::lower($address['country']),
+		            'email' => $order->get_billing_email(),
+		            'order_status' => EventHelpers::resolveOrderStatus($status),
+	            ], $extra), fn($item) => !empty($item));
+            }
+        }
 
 		wp_print_inline_script_tag(<<<JS
 			function init_widget_message_send(widget) { widget.options.SendMessageProps = {$escape_js((object)$props)}; }
