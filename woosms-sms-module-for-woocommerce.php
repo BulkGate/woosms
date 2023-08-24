@@ -44,7 +44,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 		'gate_url' => defined('BulkGateDebugUrl') ? BulkGateDebugUrl : 'https://portal.bulkgate.com',
 		'language' => substr(get_locale(), 0, 2) ?: 'en',
 		'country' => function_exists('wc_get_base_location') ? wc_get_base_location()['country'] ?? null : null,
-		'name' => html_entity_decode(get_option('blogname', 'WooSMS Store'), ENT_QUOTES),
+		'name' => html_entity_decode(get_option('blogname', 'BulkGate Plugin Store'), ENT_QUOTES),
 		'url' => get_site_url(),
 		'plugin_data' => get_plugin_data(__FILE__),
 		'api_version' => '1.0',
