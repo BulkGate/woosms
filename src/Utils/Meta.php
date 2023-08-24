@@ -56,7 +56,7 @@ class Meta
 		{
 			array_unshift($links, '<a href="' . Escape::url(admin_url('tools.php?page=bulkgate-debug')) . '">Debug</a>');
 
-			if (!Factory::get()->getByClass(Settings::class)->load('static:application_token') ?? null)
+			if (Factory::get()->getByClass(Settings::class)->load('static:application_token') === null)
 			{
 				array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/sign/in')) . '">Log In</a>');
 			}
