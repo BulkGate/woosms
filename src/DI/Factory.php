@@ -9,23 +9,37 @@ namespace BulkGate\WooSms\DI;
 
 use wpdb;
 use Tracy\Debugger;
-use BulkGate\Plugin\{Debug\Logger, Debug\Repository\LoggerSettings, Debug\Requirements, DI\FactoryStatic, DI\InvalidStateException, Event, Eshop, Exception, IO, Localization, Settings, Strict, DI\Container, DI\Factory as DIFactory, User};
-use BulkGate\WooSms\{Ajax\Authenticate,
-	Ajax\PluginSettingsChange,
-	Database\ConnectionWordpress,
-	Eshop\ConfigurationWordpress,
-	Eshop\LanguageWordpress,
-	Eshop\MultiStoreWordpress,
-	Eshop\OrderStatusWordpress,
-	Eshop\ReturnStatusWordpress,
-	Event\Loader\Customer,
-	Event\Loader\Extension,
-	Event\Loader\Order,
-	Event\Loader\OrderStatus,
-	Event\Loader\Post,
-	Event\Loader\Product,
-	Event\Loader\Shop};
-use function extension_loaded, is_int;
+use BulkGate\{Plugin\Debug\Logger,
+	Plugin\Debug\Repository\LoggerSettings,
+	Plugin\Debug\Requirements,
+	Plugin\DI\FactoryStatic,
+	Plugin\DI\InvalidStateException,
+	Plugin\Event,
+	Plugin\Eshop,
+	Plugin\Exception,
+	Plugin\IO,
+	Plugin\Localization,
+	Plugin\Settings,
+	Plugin\Strict,
+	Plugin\DI\Container,
+	Plugin\DI\Factory as DIFactory,
+	Plugin\User,
+	WooSms\Ajax\Authenticate,
+	WooSms\Ajax\PluginSettingsChange,
+	WooSms\Database\ConnectionWordpress,
+	WooSms\Eshop\ConfigurationWordpress,
+	WooSms\Eshop\LanguageWordpress,
+	WooSms\Eshop\MultiStoreWordpress,
+	WooSms\Eshop\OrderStatusWordpress,
+	WooSms\Eshop\ReturnStatusWordpress,
+	WooSms\Event\Loader\Customer,
+	WooSms\Event\Loader\Extension,
+	WooSms\Event\Loader\Order,
+	WooSms\Event\Loader\OrderStatus,
+	WooSms\Event\Loader\Post,
+	WooSms\Event\Loader\Product,
+	WooSms\Event\Loader\Shop};
+use function extension_loaded, is_int, class_exists;
 
 class Factory implements DIFactory
 {
@@ -40,7 +54,7 @@ class Factory implements DIFactory
 	{
 		$container = new Container($parameters['mode'] ?? 'strict');
 
-		if ($parameters['debug'] ?? false)
+		if (($parameters['debug'] ?? false) && class_exists(Debugger::class))
 		{
 			Debugger::$strictMode = true;
 			Debugger::$maxDepth = 10;
