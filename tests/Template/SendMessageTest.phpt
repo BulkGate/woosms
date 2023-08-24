@@ -28,7 +28,8 @@ class SendMessageTest extends TestCase
 		$container = Mockery::mock(Container::class);
 		$container->shouldReceive('getByClass')->with(Settings::class)->once()->andReturn($settings = Mockery::mock(Settings::class));
 		$settings->shouldReceive('load')->with('main:address_preference')->once()->andReturn('delivery');
-		$order->shouldReceive('get_address')->with('shipping')->once()->andReturn([
+		$order->shouldReceive('get_address')->with('shipping')->once()->andReturn([]);
+		$order->shouldReceive('get_address')->with('billing')->once()->andReturn([
 			'first_name' => 'John',
 			'last_name' => 'Doe',
 			'company' => 'ACME',
