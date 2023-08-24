@@ -154,10 +154,10 @@ class Basic
 				widget.options.layout = {
 				    appBar: {
 				        showLogOut: false,
-				        logoUrl: "images/products/bg.svg",
+				        logoUrl: "images/white-label/bulkgate/logo/logo-title.svg",
 				        logoStyle: {
-				            height: "40px",
-				            width: "100px",
+				            height: "28px",
+				            width: "192px",
 				        }
 				    }
 				};
