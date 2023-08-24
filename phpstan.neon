@@ -1,0 +1,13 @@
+parameters:
+	level: 8
+	paths:
+		- ./
+	scanDirectories:
+		- ../woocommerce
+	excludePaths:
+		analyse:
+			- vendor/
+	ignoreErrors:
+		-
+			message: '#BulkGate\\Plugin\\DI\\Container does not accept.+#'
+			path: src/DI/Factory.php

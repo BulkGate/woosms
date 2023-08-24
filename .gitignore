@@ -1,0 +1,7 @@
+debug.php
+.idea
+vendor
+composer.lock
+coverage.html
+tests/**/output/*.actual
+tests/**/output/*.expected

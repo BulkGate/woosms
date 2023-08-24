@@ -1,0 +1,42 @@
+version: '3.3'
+
+services:
+  wordpress:
+    image: wordpress:beta-6.1
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "80:80"
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: test
+      WORDPRESS_DB_PASSWORD: test
+      WORDPRESS_DB_NAME: wordpress
+      BULKGATE_DEBUG_HOST: https://portal.bulkgate.com
+      BULKGATE_DEV_MODE: 0
+    volumes:
+      - ./:/var/www/html/wp-content/plugins/woosms-sms-module-for-woocommerce
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+  adminer:
+    image: adminer
+    restart: always
+    environment:
+      ADMINER_DESIGN: "nette"
+      ADMINER_DEFAULT_SERVER: "db"
+    ports:
+      - "8080:8080"
+
+volumes:
+  db:
