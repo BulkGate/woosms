@@ -34,7 +34,7 @@ class CronTest extends TestCase
 		Assert::same([
 			'init' => ['interval' => 60, 'display' => 'test'],
 			'bulkgate_send_interval' => ['interval' => 60, 'display' => '~BulkGate Sending Interval~'],
-			'bulkgate_synchronize_interval' => ['interval' => 300, 'display' => '~BulkGate Synchronize Interval~'],
+			'bulkgate_synchronize_interval' => ['interval' => 3_600, 'display' => '~BulkGate Synchronize Interval~'],
 		], $callbacks['filter_cron_schedules'](['init' => ['interval' => 60, 'display' => 'test']]));
 
 		// Init
