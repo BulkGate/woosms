@@ -52,7 +52,7 @@ class BasicTest extends TestCase
 		ob_start();
 		Basic::print($container);
 
-		$content = trim(str_replace(["\r", "\n"], [''], ob_get_contents()));
+		$content = ob_get_contents();
 
 		self::Generate && file_put_contents(__DIR__ . '/basic.html', $content);
 
