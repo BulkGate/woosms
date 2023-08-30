@@ -29,7 +29,7 @@ class Cron
 			];
 
 			$schedules[self::IntervalSynchronization] ??= [
-				'interval' => 300,
+				'interval' => 3_600,
 				'display' => __('BulkGate Synchronize Interval')
 			];
 
