@@ -24,6 +24,7 @@ use BulkGate\{Plugin\Debug\Logger,
 	Plugin\IO\ConnectionFactory,
 	Plugin\IO\Url,
 	Plugin\Localization\Formatter,
+	Plugin\Localization\Language,
 	Plugin\Localization\TranslatorSettings,
 	Plugin\Settings\Repository\SettingsDatabase,
 	Plugin\Settings\Repository\SynchronizationDatabase,
@@ -111,6 +112,7 @@ class FactoryTest extends TestCase
 		Assert::type(IO::class, Factory::get()->getService('io.connection'));
 		Assert::type(Url::class, Factory::get()->getService('io.url'));
 
+		Assert::type(Language::class, Factory::get()->getService('localization.language'));
 		Assert::type(TranslatorSettings::class, Factory::get()->getService('localization.translator'));
 		Assert::type(Formatter::class, Factory::get()->getService('localization.formatter'));
 
@@ -120,7 +122,7 @@ class FactoryTest extends TestCase
 
 		Assert::type(Sign::class, Factory::get()->getService('user.sign'));
 
-		Assert::count(34, Factory::get());
+		Assert::count(35, Factory::get());
 	}
 }
 

@@ -136,6 +136,7 @@ class Factory implements DIFactory
 		$container['io.url'] = ['factory' => IO\Url::class, 'parameters' => ['url' => $parameters['gate_url'] ?? 'https://portal.bulkgate.com']];
 
 		// Localization
+		$container['localization.language'] = ['factory' => Localization\LanguageSettings::class, 'parameters' => ['iso' => $parameters['language']]];
 		$container['localization.translator'] = Localization\TranslatorSettings::class;
 		$container['localization.formatter'] = extension_loaded('intl') ? ['factory' => Localization\FormatterIntl::class, 'factory_method' => fn () => new Localization\FormatterIntl($parameters['language'], $parameters['country'] ?? null)] : Localization\FormatterBasic::class;
 
