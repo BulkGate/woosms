@@ -173,6 +173,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * New Order page send message form
 * New Debug page
 * Order change/create notes
+* Language "From system" feature
 * And more new features
 
 = 2.1.0 =
