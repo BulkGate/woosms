@@ -7,7 +7,7 @@ namespace BulkGate\WooSms\Ajax;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\Plugin\{Settings\Synchronizer, Strict, Settings\Settings as SettingsPlugin};
+use BulkGate\Plugin\{Settings\Helpers, Settings\Synchronizer, Strict, Settings\Settings as SettingsPlugin};
 use function is_scalar, site_url, sanitize_text_field;
 
 class PluginSettingsChange
@@ -65,7 +65,9 @@ class PluginSettingsChange
 	{
 		if (isset($unsafe_data[$key]) && is_scalar($unsafe_data[$key]))
 		{
-			$this->settings->set("main:$key", $output[$key] = sanitize_text_field((string) $unsafe_data[$key]), ['type' => $type]);
+			$value = Helpers::deserializeValue(sanitize_text_field((string) $unsafe_data[$key]), $type);
+
+			$this->settings->set("main:$key", $output[$key] = $value, ['type' => $type]);
 		}
 	}
 }

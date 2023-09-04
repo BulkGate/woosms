@@ -5,12 +5,14 @@
  * @link https://www.bulkgate.com/
  */
 
+use function str_replace;
+
 /**
  * @param scalar $s
  */
 function sanitize_text_field($s): string
 {
-	return "$$s$";
+	return str_replace(["\\", "$", "@"], '', $s);
 }
 
 
