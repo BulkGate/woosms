@@ -5,8 +5,6 @@
  * @link https://www.bulkgate.com/
  */
 
-use function str_replace;
-
 /**
  * @param scalar $s
  */
