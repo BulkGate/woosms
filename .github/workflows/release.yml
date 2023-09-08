@@ -15,13 +15,22 @@ jobs:
       - name: Install packages
         run: composer install --prefer-dist --no-progress --no-suggest --no-dev
 
-      - name: Create plugin archive
-        run: tar -czf /tmp/plugin.tar.gz assets src vendor .compatibility.php LICENSE readme.txt $(ls woosms-*)
+      - name: Create plugin directory
+        run: mkdir -p /tmp/woosms-sms-module-for-woocommerce
 
-      - name: Archive contents
-        run: tar -tf /tmp/plugin.tar.gz
+      - name: Copy plugin files
+        run: cp -r assets src vendor .compatibility.php LICENSE readme.txt woosms-* /tmp/woosms-sms-module-for-woocommerce
 
-      - name: Add archive to release
-        run: gh release upload ${{github.ref_name}} /tmp/plugin.tar.gz
+      - name: Create plugin zip
+        run: cd /tmp && zip -r woosms-sms-module-for-woocommerce.zip woosms-sms-module-for-woocommerce
+
+#      - name: Create plugin archive
+#        run: tar -czf /tmp/plugin.tar.gz assets src vendor .compatibility.php LICENSE readme.txt $(ls woosms-*)
+
+#     - name: Archive contents
+#        run: tar -tf /tmp/plugin.tar.gz
+
+#      - name: Add archive to release
+#        run: gh release upload ${{github.ref_name}} /tmp/plugin.tar.gz
 
   #todo: publish to wordpress SVN
