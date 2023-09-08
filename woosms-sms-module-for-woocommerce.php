@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+
 /**
  * Plugin Name: BulkGate SMS Plugin for WooCommerce
  * Plugin URI: https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/
@@ -19,7 +20,7 @@
 use BulkGate\{WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect, WooSms\Template\Init};
 
 if (!defined('ABSPATH')) {
-    exit;
+	exit;
 }
 
 define('BULKGATE_PLUGIN_DIR', basename(__DIR__));
@@ -31,29 +32,35 @@ require_once ABSPATH . 'wp-admin/includes/plugin.php';
  */
 if (is_plugin_active('woocommerce/woocommerce.php')) {
 
-    require_once __DIR__ . '/vendor/autoload.php';
+	require_once __DIR__ . '/vendor/autoload.php';
 
 	!file_exists(__DIR__ . '/debug.php') ?: include_once __DIR__ . '/debug.php';
+
+	function BulkgateContainerSetup(): void
+	{
+		Factory::setup(fn () => [
+			'db' => $GLOBALS['wpdb'],
+			'debug' => defined('BulkGateDebug') ? BulkGateDebug : WP_DEBUG,
+			'gate_url' => defined('BulkGateDebugUrl') ? BulkGateDebugUrl : 'https://portal.bulkgate.com',
+			'language' => substr(get_locale(), 0, 2) ?: 'en',
+			'country' => function_exists('wc_get_base_location') ? wc_get_base_location()['country'] ?? null : null,
+			'name' => html_entity_decode(get_option('blogname', 'BulkGate Plugin Store'), ENT_QUOTES),
+			'url' => get_site_url(),
+			'plugin_data' => get_plugin_data(__FILE__),
+			'api_version' => '1.0',
+			'logger_limit' => 100
+		]);
+	}
+
 
 	/**
 	 * Init BulkGate DI container
 	 */
-	add_action('init', fn () => Factory::setup(fn () => [
-		'db' => $GLOBALS['wpdb'],
-		'debug' => defined('BulkGateDebug') ? BulkGateDebug : WP_DEBUG,
-		'gate_url' => defined('BulkGateDebugUrl') ? BulkGateDebugUrl : 'https://portal.bulkgate.com',
-		'language' => substr(get_locale(), 0, 2) ?: 'en',
-		'country' => function_exists('wc_get_base_location') ? wc_get_base_location()['country'] ?? null : null,
-		'name' => html_entity_decode(get_option('blogname', 'BulkGate Plugin Store'), ENT_QUOTES),
-		'url' => get_site_url(),
-		'plugin_data' => get_plugin_data(__FILE__),
-		'api_version' => '1.0',
-		'logger_limit' => 100
-	]));
+	add_action('init', 'BulkgateContainerSetup');
 
-    /**
-     * Init plugin
-     */
+	/**
+	 * Init plugin
+	 */
 	Hook::init();
 	Cron::init();
 	Redirect::init();
@@ -65,10 +72,13 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 	 */
 	is_admin() && Init::init();
 
-    /**
-     * Register install scripts
-     */
-    register_activation_hook(__FILE__, fn () => Factory::get()->getByClass(Settings::class)->install());
+	/**
+	 * Register install scripts
+	 */
+	register_activation_hook(__FILE__, function (): void {
+		BulkgateContainerSetup();
+		Factory::get()->getByClass(Settings::class)->install();
+	});
 
 
 	/**
@@ -78,8 +88,8 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 
 } else {
 
-    /**
-     * WooCommerce is not installed
-     */
-    deactivate_plugins(plugin_basename(__FILE__));
+	/**
+	 * WooCommerce is not installed
+	 */
+	deactivate_plugins(plugin_basename(__FILE__));
 }
