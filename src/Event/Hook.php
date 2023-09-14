@@ -51,10 +51,10 @@ class Hook
 		), 100, 3);
 
 
-		add_action('woocommerce_created_customer', Helpers::dispatch('customer_new', fn (Dispatcher $dispatcher, int $customer_id, array $data, string $password_generated) =>
+		add_action('woocommerce_created_customer', Helpers::dispatch('customer_new', fn (Dispatcher $dispatcher, int $customer_id, array $data, /*string|bool*/ $password_generated) =>
 			$dispatcher->dispatch('customer', 'new', new Variables([
 				'customer_id' => $customer_id,
-				'password' => $password_generated,
+				'password' => (string) $password_generated,
 			]))
 		), 100, 3);
 
