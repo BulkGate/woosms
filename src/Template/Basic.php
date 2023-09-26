@@ -94,6 +94,9 @@ class Basic
 				
 				widget.merge({
 				    layout: {
+				        links: {
+				            homepage: "/homepage"
+				        },
 				        server: {
 				            application: {$escape_js($application)},
 				            application_settings: {$escape_js($plugin_settings)}
