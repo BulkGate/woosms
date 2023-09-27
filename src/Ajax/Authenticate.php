@@ -8,6 +8,7 @@ namespace BulkGate\WooSms\Ajax;
  */
 
 use BulkGate\Plugin\{Strict, Settings\Settings, User\Sign, Utils\JsonResponse};
+use function time;
 
 class Authenticate
 {
@@ -32,7 +33,7 @@ class Authenticate
 		JsonResponse::send(
 			$this->settings->load('static:application_token') === null ?
 			['redirect' => $invalid_redirect] :
-			['token' => $this->sign->authenticate()]
+			['token' => $this->sign->authenticate(false, ['expire' => time() + 300])]
 		);
 	}
 }
