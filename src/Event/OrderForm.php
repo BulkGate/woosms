@@ -85,11 +85,8 @@ class OrderForm
 					'input_class' => ['woocommerce-form__input woocommerce-form__input-checkbox input-checkbox'],
 					'required' => false,
 					'default' => $settings->load('main:marketing_message_opt_in_default') ?? false,
-					'label' => $url ?
-						'<a href="' . Escape::htmlAttr($url) . '" target="_blank">' .
-							Escape::html($text) .
-						'</a>' :
-						Escape::html($text),
+					'description' => $url ? '<br><a href="' . Escape::htmlAttr($url) . '" target="_blank">' . Escape::html($url) . '</a>' : '',
+					'label' => Escape::html($text),
 				]);
 			}
 		});
