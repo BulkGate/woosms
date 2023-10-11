@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Ajax;
  */
 
 use BulkGate\Plugin\{Settings\Helpers, Settings\Synchronizer, Strict, Settings\Settings as SettingsPlugin};
-use function is_scalar, site_url, sanitize_text_field;
+use function preg_match, is_scalar, site_url, sanitize_text_field;
 
 class PluginSettingsChange
 {
@@ -34,6 +34,11 @@ class PluginSettingsChange
 		$output = [];
 
 		$actual_language = $this->settings->load('main:language');
+
+		if (isset($unsafe_post_data['marketing_message_opt_in_url']) && is_scalar($unsafe_post_data['marketing_message_opt_in_url']))
+		{
+			$unsafe_post_data['marketing_message_opt_in_url'] = self::formatUrl((string) $unsafe_post_data['marketing_message_opt_in_url']);
+		}
 
 		$this->change('dispatcher', $unsafe_post_data, $output);
 		$this->change('synchronization', $unsafe_post_data, $output);
@@ -69,5 +74,11 @@ class PluginSettingsChange
 
 			$this->settings->set("main:$key", $output[$key] = $value, ['type' => $type]);
 		}
+	}
+
+
+	private static function formatUrl(string $url): string
+	{
+		return ((int) preg_match('~^[A-Za-z]+?://~', $url)) !== 0 ? $url : "https://$url";
 	}
 }

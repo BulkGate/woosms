@@ -33,7 +33,7 @@ class PluginSettingsChangeTest extends TestCase
 		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_enabled', true, ['type' => 'bool'])->once();
 		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_label', 'xxx', ['type' => 'string'])->once();
 		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_default', true, ['type' => 'bool'])->once();
-		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_url', 'xxx', ['type' => 'string'])->once();
+		$settings->shouldReceive('set')->with('main:marketing_message_opt_in_url', 'https://xxx', ['type' => 'string'])->once();
 		$synchronize->shouldReceive('synchronize')->with(true)->once();
 
 		Assert::same([
@@ -50,7 +50,7 @@ class PluginSettingsChangeTest extends TestCase
 								'marketing_message_opt_in_enabled' => true,
 								'marketing_message_opt_in_label' => 'xxx',
 								'marketing_message_opt_in_default' => true,
-								'marketing_message_opt_in_url' => 'xxx',
+								'marketing_message_opt_in_url' => 'https://xxx',
 							],
 						],
 					],

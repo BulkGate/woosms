@@ -45,6 +45,7 @@ class HookTest extends TestCase
 		}))->once();
 		$callbacks['action_woocommerce_order_status_changed'](451, 'processing', 'complete', $order);
 
+		$order->shouldReceive('get_id')->withNoArgs()->once()->andReturn(451);
 		$order->shouldReceive('add_order_note')->with('📲 BulkGate: New Order')->once();
 		$dispatcher->shouldReceive('dispatch')->with('order', 'new', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'order_id' => 451,
@@ -53,7 +54,7 @@ class HookTest extends TestCase
 			$callback();
 			return true;
 		}))->once();
-		$callbacks['action_woocommerce_checkout_order_processed'](451, [], $order);
+		$callbacks['action_woocommerce_checkout_order_created']($order);
 
 		$dispatcher->shouldReceive('dispatch')->with('customer', 'new', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'customer_id' => 789,
