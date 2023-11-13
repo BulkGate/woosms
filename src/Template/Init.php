@@ -39,9 +39,9 @@ class Init
 
 		add_action('add_meta_boxes', function (string $post_type): void
 		{
-			if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
+			if (in_array($post_type, ['shop_order', 'woocommerce_page_wc-orders'], true) && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
 			{
-				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn ($post) => SendMessage::print(Factory::get(), wc_get_order($post->get_id()), []), 'shop_order', 'side', 'high');
+				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn ($post) => SendMessage::print(Factory::get(), wc_get_order($post->get_id()), []), $post_type, 'side', 'high');
 			}
 		});
 

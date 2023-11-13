@@ -9,6 +9,7 @@ namespace BulkGate\WooSms\Template;
 
 use WC_Order;
 use BulkGate\{Plugin\DI\Container, Plugin\Event\Helpers, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Strict, Plugin\User\Sign, Plugin\Utils\Strings, WooSms\Event\Helpers as EventHelpers, WooSms\Utils\Escape};
+use WC_Order_Refund;
 use function array_filter, array_merge;
 
 class SendMessage
@@ -16,13 +17,14 @@ class SendMessage
 	use Strict;
 
 	/**
+     * @param WC_Order|WC_Order_Refund|bool|null $order
 	 * @param array<string, mixed> $props
 	 */
-	public static function print(Container $di, ?WC_Order $order, array $props = []): void
+	public static function print(Container $di, $order, array $props = []): void
 	{
 		$escape_js = [Escape::class, 'js'];
 
-		if ($order !== null)
+		if ($order instanceof WC_Order)
         {
 			$preference = $di->getByClass(Settings::class)->load('main:address_preference') ?? 'delivery';
 
