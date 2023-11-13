@@ -7,9 +7,8 @@ namespace BulkGate\WooSms\Template;
  * @link https://www.bulkgate.com/
  */
 
-use WC_Order;
+use WC_Order, WC_Order_Refund;
 use BulkGate\{Plugin\DI\Container, Plugin\Event\Helpers, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Strict, Plugin\User\Sign, Plugin\Utils\Strings, WooSms\Event\Helpers as EventHelpers, WooSms\Utils\Escape};
-use WC_Order_Refund;
 use function array_filter, array_merge;
 
 class SendMessage
