@@ -17,7 +17,7 @@
  * @link     https://www.bulkgate.com/
  */
 
-use BulkGate\{WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect, WooSms\Template\Init};
+use BulkGate\{Plugin\Event\Dispatcher, WooSms\Event\OrderForm, WooSms\DI\Factory, WooSms\Event\AssetDispatcher, WooSms\Event\Cron, WooSms\Event\Hook, Plugin\Settings\Settings, WooSms\Event\Redirect, WooSms\Template\Init};
 
 if (!defined('ABSPATH')) {
 	exit;
@@ -48,6 +48,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 			'url' => get_site_url(),
 			'plugin_data' => get_plugin_data(__FILE__),
 			'api_version' => '1.0',
+			'dispatcher' => Dispatcher::Asset,
 			'logger_limit' => 100
 		]);
 	}

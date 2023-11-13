@@ -39,7 +39,7 @@ use BulkGate\{Plugin\Debug\Logger,
 	WooSms\Event\Loader\Post,
 	WooSms\Event\Loader\Product,
 	WooSms\Event\Loader\Shop};
-use function extension_loaded, is_int, class_exists;
+use function extension_loaded, is_int, class_exists, in_array;
 
 class Factory implements DIFactory
 {
@@ -121,6 +121,11 @@ class Factory implements DIFactory
 			$container->getByClass(Extension::class),
 		])];
 		$container['event.dispatcher'] = Event\Dispatcher::class;
+
+		if (in_array($parameters['dispatcher'] ?? null, [Event\Dispatcher::Asset, Event\Dispatcher::Cron, Event\Dispatcher::Direct], true))
+		{
+			Event\Dispatcher::$default_dispatcher = $parameters['dispatcher'];
+		}
 
 		// IO
 		$container['io.connection.factory'] = ['factory' => IO\ConnectionFactory::class, 'factory_method' => function () use ($container): IO\ConnectionFactory

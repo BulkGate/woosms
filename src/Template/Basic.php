@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Template;
  */
 
 use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
-use BulkGate\{Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
+use BulkGate\{Plugin\Event\Dispatcher, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
 
 class Basic
 {
@@ -44,7 +44,7 @@ class Basic
 		];
 
 		$plugin_settings = [
-			'dispatcher' => $settings->load('main:dispatcher') ?? 'asset',
+			'dispatcher' => $settings->load('main:dispatcher') ?? Dispatcher::$default_dispatcher,
 			'synchronization' => $settings->load('main:synchronization') ?? 'all',
 			'language' => $settings->load('main:language') ?? 'en',
 			'language_mutation' => $settings->load('main:language_mutation') ?? false,
