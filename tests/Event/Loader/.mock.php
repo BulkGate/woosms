@@ -60,6 +60,12 @@ function sanitize_text_field(string $s): string
 }
 
 
+function wc_get_order(int $id): WC_Order
+{
+	return new WC_Order();
+}
+
+
 class WC_Product
 {
 	public function get_stock_quantity(): int

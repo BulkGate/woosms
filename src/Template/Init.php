@@ -7,7 +7,6 @@ namespace BulkGate\WooSms\Template;
  * @link https://www.bulkgate.com/
  */
 
-use WP_Post, WC_Order;
 use BulkGate\{Plugin\Debug\Logger, Plugin\Debug\Requirements, Plugin\Eshop, Plugin\Settings\Settings, Plugin\Strict, Plugin\User\Sign, Plugin\Utils\JsonResponse, WooSms\Ajax\Authenticate, WooSms\Ajax\PluginSettingsChange, WooSms\Debug\Page, WooSms\DI\Factory, WooSms\Utils\Logo, WooSms\Utils\Meta};
 
 class Init
@@ -42,7 +41,7 @@ class Init
 		{
 			if ($post_type === 'shop_order' && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
 			{
-				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn (WP_Post $post) => SendMessage::print(Factory::get(), new WC_Order($post->ID), []), 'shop_order', 'side', 'high');
+				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn ($post) => SendMessage::print(Factory::get(), wc_get_order($post->get_id()), []), 'shop_order', 'side', 'high');
 			}
 		});
 

@@ -8,13 +8,12 @@ namespace BulkGate\WooSms\Template\Test;
  */
 
 use Mockery;
-use WC_Meta, WC_Order;
+use WC_Order;
 use Tester\{Assert, TestCase};
 use BulkGate\{Plugin\Debug\Logger,
 	Plugin\Debug\Requirements,
 	Plugin\DI\Container,
 	Plugin\Eshop\EshopSynchronizer,
-	Plugin\IO\Url,
 	Plugin\Settings\Settings,
 	Plugin\User\Sign,
 	Plugin\Utils\JsonResponse,
@@ -27,7 +26,6 @@ use BulkGate\{Plugin\Debug\Logger,
 	WooSms\Template\SendMessage,
 	WooSms\Utils\Meta};
 use WP_Post;
-use function ob_get_contents, ob_start, trim;
 
 require_once __DIR__ . '/../bootstrap.php';
 require_once __DIR__ . '/.mock-init.php';
@@ -42,7 +40,7 @@ class InitTest extends TestCase
 		Init::init();
 
 		$post = Mockery::mock(WP_Post::class);
-		$post->ID = 451;
+		$post->shouldReceive('get_id')->withNoArgs()->once()->andReturn(451);
 		$debug = Mockery::mock('overload:' . Page::class);
 		$basic = Mockery::mock('overload:' . Basic::class);
 		$send_message = Mockery::mock('overload:' . SendMessage::class);

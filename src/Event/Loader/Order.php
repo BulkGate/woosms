@@ -33,7 +33,7 @@ class Order implements DataLoader
 			return;
 		}
 
-		$order = isset($parameters['order']) && $parameters['order'] instanceof WC_Order ? $parameters['order'] : new WC_Order((int) $variables['order_id']);
+		$order = isset($parameters['order']) && $parameters['order'] instanceof WC_Order ? $parameters['order'] : wc_get_order((int) $variables['order_id']);
 
 		$variables['lang_id'] = $this->language->get((int) $variables['order_id']);
 

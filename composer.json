@@ -4,7 +4,7 @@
   "minimum-stability": "RC",
   "require": {
     "php": ">= 7.4",
-    "bulkgate/plugin": "dev-master"
+    "bulkgate/plugin": "^1.0"
   },
   "require-dev": {
     "tracy/tracy": "^2.9",

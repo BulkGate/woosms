@@ -6,12 +6,6 @@
  * @link https://www.bulkgate.com/
  */
 
-class WP_Post
-{
-	public int $ID;
-}
-
-
 class WC_Order
 {
 }
@@ -72,4 +66,9 @@ function admin_url(string $path): string
 function sanitize_text_field(string $text): string
 {
 	return "$$text$";
+}
+
+function wc_get_order(int $id): WC_Order
+{
+	return new WC_Order();
 }
