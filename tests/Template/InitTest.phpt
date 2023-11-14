@@ -40,7 +40,8 @@ class InitTest extends TestCase
 		Init::init();
 
 		$post = Mockery::mock(WP_Post::class);
-		$post->shouldReceive('get_id')->withNoArgs()->once()->andReturn(451);
+		$post->ID = 451;
+		//$post->shouldReceive('get_id')->withNoArgs()->once()->andReturn(451);
 		$debug = Mockery::mock('overload:' . Page::class);
 		$basic = Mockery::mock('overload:' . Basic::class);
 		$send_message = Mockery::mock('overload:' . SendMessage::class);
