@@ -8,6 +8,7 @@ namespace BulkGate\WooSms\Template;
  */
 
 use BulkGate\{Plugin\Debug\Logger, Plugin\Debug\Requirements, Plugin\Eshop, Plugin\Settings\Settings, Plugin\Strict, Plugin\User\Sign, Plugin\Utils\JsonResponse, WooSms\Ajax\Authenticate, WooSms\Ajax\PluginSettingsChange, WooSms\Debug\Page, WooSms\DI\Factory, WooSms\Utils\Logo, WooSms\Utils\Meta};
+use function method_exists, in_array;
 
 class Init
 {
@@ -41,7 +42,7 @@ class Init
 		{
 			if (in_array($post_type, ['shop_order', 'woocommerce_page_wc-orders'], true) && Factory::get()->getByClass(Settings::class)->load('static:application_token'))
 			{
-				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn ($post) => SendMessage::print(Factory::get(), wc_get_order($post->get_id()), []), $post_type, 'side', 'high');
+				add_meta_box('bulkgate_send_message', 'BulkGate SMS', fn ($post) => SendMessage::print(Factory::get(), wc_get_order(method_exists($post, 'get_id') ? $post->get_id() : $post->ID), []), $post_type, 'side', 'high');
 			}
 		});
 
