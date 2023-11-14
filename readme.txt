@@ -160,6 +160,9 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 == Changelog ==
 
+= 3.0.2 =
+* Fix asset cron init bug
+
 = 3.0.1 =
 * Bug fix https://wordpress.org/support/topic/after-update-i-cannot-view-order/
 

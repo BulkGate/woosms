@@ -22,7 +22,7 @@ class AssetDispatcher
 	{
 		add_action( 'init', function (): void
 		{
-			if (Factory::get()->getByClass(Settings::class)->load('main:dispatcher') === Dispatcher::Asset)
+			if ((Factory::get()->getByClass(Settings::class)->load('main:dispatcher') ?? Dispatcher::$default_dispatcher) === Dispatcher::Asset)
 			{
 				add_filter('script_loader_tag', fn (string $tag, string $handle, string $src): string => $handle === self::Handle ? wp_get_script_tag(['src' => $src, 'id' => "$handle-js", 'async' => true]) : $tag, 10, 3);
 				wp_enqueue_script(self::Handle, '/?' . http_build_query([self::QueryVar => Dispatcher::Asset]), [], null);
@@ -42,7 +42,7 @@ class AssetDispatcher
 
 				$settings = $di->getByClass(Settings::class);
 
-				if ($settings->load('main:dispatcher') === Dispatcher::Asset)
+				if (($settings->load('main:dispatcher') ?? Dispatcher::$default_dispatcher) === Dispatcher::Asset)
 				{
 					$count = $di->getByClass(Asynchronous::class)->run(max(5, (int) ($settings->load('main:cron-limit') ?? 10)));
 
