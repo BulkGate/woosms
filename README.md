@@ -1,4 +1,4 @@
-<img src="https://portal.bulkgate.com//images/white-label/bulkgate/logo/logo-title.svg" width="200" />
+<img src="https://portal.bulkgate.com//images/white-label/bulkgate/logo/logo-title.svg" width="200" />1
 
 ![CI tests status](https://github.com/bulkgate/woosms/actions/workflows/php.yml/badge.svg)
 
