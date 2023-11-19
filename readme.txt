@@ -78,26 +78,26 @@ BulkGate is <a href="https://www.bulkgate.com/en/pricing/whatsapp/" target="_bla
 
 = BulkGate Plugin Features =
 
-**Customer & Admin SMS and Viber notifications**
+**Customer & Admin notifications**
 
-* Inform customers about the different stages of their order via Viber and <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"> SMS notifications.</a> 
+* Inform customers about the different stages of their order (via Viber, WhatsApp, RBM, and <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications">SMS notifications.</a> 
 * Create your own notification templates.
 * Notify your customers in their native language with multilingual templates.
-* Receive notifications whenever a new order is placed, canceled, a product is out of stock, or another event occurs.
+* Receive notifications whenever a new order is placed, or canceled, a product is out of stock, or another event occurs.
 * Activate one or more admins for each notification template.
 * <a href="https://www.bulkgate.com/en/integrations/woocommerce-sms-plugin-features/" target="_blank" title="WooCommerce SMS plugin features"> See more features.</a> 
  
 
-**Bulk SMS & Viber campaigns**
+**Bulk marketing/promotional campaigns**
 
-* Promote your products and services via targeted and personalized <a href=" https://www.bulkgate.com/en/solutions/bulk-sms/" target="_blank" title="bulk SMS"> bulk SMS</a>  and Viber campaigns
+* Promote your products and services via targeted and personalized <a href=" https://www.bulkgate.com/en/solutions/bulk-sms/" target="_blank" title="bulk SMS"> bulk SMS</a>  Viber, RBM and WhatsApp campaigns
 * Shorten your links with our URL shortener. Save characters to create a better message and get more valuable statistics
 * Use different sender ID types to send your campaigns
 * DND (Do not Disturb) solution for India and other countries (NDNC registry)
 * <a href="https://www.bulkgate.com/en/integrations/woocommerce-sms-plugin-features/" target="_blank" title="WooCommerce SMS plugin features"> See more features.</a>
 
 **Two-way messaging**
-Communicate directly with customers via <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="two-way SMS"> 2-way SMS</a> or Viber and get their reactions or answer their questions.
+Communicate directly with customers via <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="two-way SMS"> 2-way SMS</a> or Viber, WhatsApp, RBM and get their reactions or answer their questions.
 
 **Statistics and records**
 
@@ -107,12 +107,12 @@ Communicate directly with customers via <a href="https://www.bulkgate.com/en/sol
 
 **API & Custom Hooks**
 
-* Use Simple API to add functions you need to your WooCommerce store
+* Use Simple API or Advanced API to add functions you need to your WooCommerce store
 * Use custom hooks to add your own admin/customer notification to your WooCommerce SMS plugin
 
-**New feature – Mobile Connect (Android only)**
+**Mobile Connect (Android only)**
 
-Install our Android app and connect your WooCommerce eshop with your mobile phone. Take advantage of the cheap (or free) messages from your carrier's mobile plan to send SMS messages via the BulkGate SMS plugin for WooCommerce. <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect"> Find out more info.</a>
+Install our Android app and connect your WooCommerce e-shop with your mobile phone. Take advantage of the cheap (or free) messages from your carrier's mobile plan to send SMS messages via the BulkGate SMS plugin for WooCommerce. <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect"> Find out more info.</a>
 
 = POWERED BY BULKGATE =
 This SMS plugin for WooCommerce has been developed by the <a href="https://www.bulkgate.com/en/" target="_blank" title="Multichannel platform"> BulkGate multichannel platform.</a> It has all the functions and intuitive design that you can find in the BulkGate Portal.
@@ -195,7 +195,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 = 3.0.0 =
 * Complete plugin rework - new generation
-* New asynchronous no blocking message sender (Asset / Cron / WP Cron / Direct)
+* New asynchronous no-blocking message sender (Asset / Cron / WP Cron / Direct)
 * New design
 * New Send Message form in Order Detail
 * Marketing Opt-in
@@ -247,7 +247,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * WPML plugin support https://wpml.org/ #2
 
 = 2.0.23 =
-* Widget Api update
+* Widget API update
 
 = 2.0.22 =
 * Multisite proxy_link bug fix
@@ -257,10 +257,10 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 = 2.0.20 =
 * Order status campaign filter
-* Admin page ajax url bug fix
+* Admin page Ajax URL bug fix
 
 = 2.0.19 =
-* Ajax Cross origin proxy link scheme bug
+* Ajax Cross-origin proxy link scheme bug
 
 = 2.0.18 =
 * Customer SMS & Admin SMS bug fix from 2.0.17
@@ -293,7 +293,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * Campaign recipients from store & variables load bug fix
 
 = 2.0.10 =
-* Sms Campaign filter fix
+* SMS campaign filter fix
 * Extensions support
 
 = 2.0.9 =
@@ -304,13 +304,13 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * Sender type admin/customer SMS fix
 
 = 2.0.7 =
-* Default languages mutation (Simple usage)
+* Default language mutation (Simple usage)
 * Bug fix
 
 = 2.0.6 =
 * Priority of retrieving variables in hooks
 * Menu position changed
-* Added send SMS customized action - do_action('woosms_send_sms','777777777', 'Hello <var>', array('var' => 'John'), array('unicode' => true, 'flash' => false));
+* Added send SMS customized action - do_action('woosms_send_sms','777777777', 'Hello <var>', array('var' => 'John'), array('unicode => true, 'flash' => false));
 * bug fix
 
 = 2.0.5 =
