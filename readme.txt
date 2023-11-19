@@ -64,9 +64,17 @@ This WooCommerce SMS plugin is for free. You only pay for the messages you send.
 You only pay for the messages you send. Take a look at our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS price list"> price list</a> to see how much SMS costs in your country and whether two-way messaging and different sender types are supported.
 
 **Viber business messages**
-The minimum monthly spend required by Viber is €100, or €150 in some countries. Business messages sent above this are charged according to the actual spending rate.
+The minimum monthly spend required by Viber is €100, or €150 in some countries. Business messages sent above are charged according to the actual spending rate.
 
 Take advantage of great <a href="https://www.bulkgate.com/en/pricing/viber" target="_blank" title="Viber price list"> prices</a> with the official Viber partner BulkGate. 
+
+**RCS Business Messaging (RBM)**
+We currently provide RBM services within <a href="https://www.bulkgate.com/en/pricing/rcs/de/germany/" target="_blank" title="RBM price list for Germany">Germany</a>, <a href="https://www.bulkgate.com/en/pricing/rcs/cz/czechia/" target="_blank" title="RBM price list for Czechia">the Czech Republic</a> and <a href="https://www.bulkgate.com/en/pricing/rcs/sk/slovakia/" target="_blank" title="RBM price list for Slovakia">Slovakia</a>. Gradually we will extend the RBM offer to operators in other countries.
+
+**WhatsApp Business Messages**
+BulkGate is only an intermediary for WhatsApp messages. Whatsapp Business messages are charged according to the actual spending rate set by Meta Inc.
+
+
 
 = BulkGate Plugin Features =
 
