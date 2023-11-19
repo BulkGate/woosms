@@ -72,7 +72,7 @@ Take advantage of great <a href="https://www.bulkgate.com/en/pricing/viber" targ
 We currently provide RBM services within <a href="https://www.bulkgate.com/en/pricing/rcs/de/germany/" target="_blank" title="RBM price list for Germany">Germany</a>, <a href="https://www.bulkgate.com/en/pricing/rcs/cz/czechia/" target="_blank" title="RBM price list for Czechia">the Czech Republic</a> and <a href="https://www.bulkgate.com/en/pricing/rcs/sk/slovakia/" target="_blank" title="RBM price list for Slovakia">Slovakia</a>. Gradually we will extend the RBM offer to operators in other countries.
 
 **WhatsApp Business Messages**
-BulkGate is only an intermediary for WhatsApp messages. Whatsapp Business messages are charged according to the actual spending rate set by Meta Inc.
+BulkGate is <a href="https://www.bulkgate.com/en/pricing/whatsapp/" target="_blank" title="WhatsApp BulkGate price list">only an intermediary</a> for WhatsApp messages. Whatsapp Business messages are charged according to the <a href="https://help.bulkgate.com/docs/en/whatsapp-business-conversation-pricing.html#rates" target="_blank" title="WhatsApp Meta Inc. price list">actual spending rate</a> set by Meta Inc.
 
 
 
