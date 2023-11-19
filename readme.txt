@@ -47,6 +47,14 @@ Create a verified Viber business account with BulkGate and use Viber business me
 *	You can interact with users in real-time and respond to their questions and comments.
 *	RBM is an interesting option for businesses to leverage modern technology to improve customer experience and increase sales.
 
+**Why should you choose WhatsApp Business Messages?**
+
+*	One of the most popular and used messaging apps in the world (over 2 billion people) available in cca 180 countries.
+*	Outbound announcements (notifications), two-step authentication, reminders, status updates, and marketing campaigns are just some of the messages you can send
+*	Flexible and effective channel for tailored offers and individual customer service. 
+*	You can send personal account credentials, order updates, and provide assistance in a safe, one-on-one chat.
+* All WhatsApp chats are encrypted, secure enough to send sensitive information such as OTP
+*	Offers a wide range of formats and interactive content for business messaging
 
 
 = Plugin Pricing =
