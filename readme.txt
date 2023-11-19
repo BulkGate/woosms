@@ -14,11 +14,13 @@ SMS and Viber plugin for WooCommerce. Order status notifications, personalized B
 == Description ==
 
 
-**Send SMS, Viber Business, RCS Business Messaging and WhatsApp Business messages from your e-shop using BulkGate plugin for WooCommerce (former WooSMS plugin)**
+**Send SMS, Viber Business, RCS Business Messaging, and WhatsApp Business messages from your e-shop using the BulkGate plugin for WooCommerce (former WooSMS plugin)**
 
-* Order status notifications for customers and admins
-* Personalized and targeted bulk SMS and Viber campaigns 
+* Order status notifications for customers and admins, support for order custom fields (‘extra_’ prefix), and id sequence
+*	Personalized and targeted bulk marketing campaigns via SMS, RCS, Viber Business, and WhatsApp Business with Opt-in
+* BulkWords AI assistant powered by ChatGPT (create, enhance, translate, or shorten your campaign messages for better performance and reach)
 * Two-way messaging with customers
+* Address book synchronization 
 * Admin alerts (e.g. stock status and others)
 
 Send SMS and Viber messages to over 200 countries and regions via <a href="https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/" target="_blank" title="BulkGate SMS plugin for WooCommerce">BulkGate SMS plugin for WooCommerce</a> and create new opportunities for your business.
@@ -27,16 +29,25 @@ https://youtu.be/j1rrqWUcQlg
 
 = Viber for Business with the official Viber partner = 
 **Take advantage of more personal and cost-effective communication.**
-Create a verified Viber business account with BulkGate and start using Viber business messages alone or together with SMS when communicating with customers. 
+Create a verified Viber business account with BulkGate and use Viber business messages alone or with SMS when communicating with customers. 
 
 **Why use Viber business messages in your store?**
 
 * Viber messaging costs are approximately 50% lower than SMS costs.
 * 1 300 000 000+ users worldwide communicate via Viber.
-* Viber business messages give you the freedom to type up to 1000 characters, attach images, files, emojis, buttons, and links.
+* Viber business messages allow you to type up to 1000 characters, and attach images, files, emojis, buttons, and links.
 * You do not pay for undelivered Viber messages.
 * You can automatically resend undelivered Viber messages via SMS to ensure your customer sees the message.
 * <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for Business">Read more and ask for your business account</a>
+
+**Why use RCS Business Messaging (RBM)?**
+
+* Allows you to create personalized interactions with users with a much richer and more interactive experience than traditional SMS.
+* You can provide useful information such as order alerts, payment reminders, product news, and more up to 1000 characters. 
+*	You can interact with users in real-time and respond to their questions and comments.
+*	RBM is an interesting option for businesses to leverage modern technology to improve customer experience and increase sales.
+
+
 
 = Plugin Pricing =
 This WooCommerce SMS plugin is for free. You only pay for the messages you send.
