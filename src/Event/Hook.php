@@ -44,10 +44,19 @@ class Hook
 		}), 100, 4);
 
 
+		add_action('woocommerce_checkout_order_processed', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, int $order_id, $posted_data, WC_Order $order) =>
+			$dispatcher->dispatch('order', 'new', new Variables([
+				'order_id' => $order_id,
+			]), ['order' => $order], fn () => $order->add_order_note('📲 BulkGate: New Order processed')),
+			fn (int $order_id) => $order_id
+		), 100, 3);
+
+
 		add_action('woocommerce_checkout_order_created', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, WC_Order $order) =>
 			$dispatcher->dispatch('order', 'new', new Variables([
 				'order_id' => $order->get_id(),
-			]), ['order' => $order], fn () => $order->add_order_note('📲 BulkGate: New Order'))
+			]), ['order' => $order], fn () => $order->add_order_note('📲 BulkGate: New Order created')),
+			fn (WC_Order $order) => $order->get_id()
 		), 100, 3);
 
 
@@ -56,6 +65,14 @@ class Hook
 				'customer_id' => $customer_id,
 				'password' => (string) $password_generated,
 			]))
+		), 100, 3);
+
+
+		add_action('woocommerce_after_resend_order_email', Helpers::dispatch('order_new', fn (Dispatcher $dispatcher, WC_Order $order) =>
+			$dispatcher->dispatch('order', 'new', new Variables([
+				'order_id' => $order->get_id(),
+			]), ['order' => $order], fn () => $order->add_order_note('📲 BulkGate: New Order email')),
+			fn (WC_Order $order) => $order->get_id()
 		), 100, 3);
 
 

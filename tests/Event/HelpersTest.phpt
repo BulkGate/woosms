@@ -25,10 +25,14 @@ class HelpersTest extends TestCase
 
 		$factory = Mockery::mock('overload:' . Factory::class);
 		$factory->shouldReceive('get')->withNoArgs()->once()->andReturn($container = Mockery::mock(Container::class));
-		$container->shouldReceive('getByClass')->with(Dispatcher::class)->once()->andReturn($dispatcher = Mockery::mock(Dispatcher::class));
+		$container->shouldReceive('getByClass')->with(Dispatcher::class)->twice()->andReturn($dispatcher = Mockery::mock(Dispatcher::class));
 		$dispatcher->shouldReceive('dispatch')->with( 'x', 'y', $variables)->once();
+		$dispatcher->shouldNotReceive('dispatch')->with( 'x', 'y', $variables);
+		$dispatcher->shouldReceive('dispatch')->with( 'y', 'a', $variables)->once();
 
-		Helpers::dispatch('test', fn (Dispatcher $dispatcher, string $x, string $y) => $dispatcher->dispatch($x, $y, $variables))('x', 'y');
+		Helpers::dispatch('test', fn (Dispatcher $dispatcher, string $x, string $y) => $dispatcher->dispatch($x, $y, $variables), fn (string $v): string => $v)('x', 'y');
+		Helpers::dispatch('test', fn (Dispatcher $dispatcher, string $x, string $y) => $dispatcher->dispatch($x, $y, $variables), fn (string $v): string => $v)('x', 'z');
+		Helpers::dispatch('test', fn (Dispatcher $dispatcher, string $x, string $y) => $dispatcher->dispatch($x, $y, $variables), fn (string $v): string => $v)('y', 'a');
 
 		Assert::true(true);
 

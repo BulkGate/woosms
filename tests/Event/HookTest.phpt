@@ -26,11 +26,11 @@ class HookTest extends TestCase
 
 		$factory = Mockery::mock('overload:' . Factory::class);
 		$factory->shouldReceive('get')->withNoArgs()->once()->andReturn($container = Mockery::mock(Container::class));
-		$container->shouldReceive('getByClass')->with(Dispatcher::class)->times(7)->andReturn($dispatcher = Mockery::mock(Dispatcher::class));
+		$container->shouldReceive('getByClass')->with(Dispatcher::class)->times(8)->andReturn($dispatcher = Mockery::mock(Dispatcher::class));
 
 		$callbacks = $GLOBALS['hook_callback'];
 
-		Assert::count(9, $callbacks);
+		Assert::count(10, $callbacks);
 
 		$order = Mockery::mock(WC_Order::class);
 		$order->shouldReceive('add_order_note')->with('📲 BulkGate: processing ➡️ complete')->once();
@@ -46,15 +46,21 @@ class HookTest extends TestCase
 		$callbacks['action_woocommerce_order_status_changed'](451, 'processing', 'complete', $order);
 
 		$order->shouldReceive('get_id')->withNoArgs()->once()->andReturn(451);
-		$order->shouldReceive('add_order_note')->with('📲 BulkGate: New Order')->once();
-		$dispatcher->shouldReceive('dispatch')->with('order', 'new', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
-			'order_id' => 451,
-		]), Mockery::type('array'), Mockery::on(function (callable $callback): bool
+		$order->shouldReceive('add_order_note')->with('📲 BulkGate: New Order processed')->once();
+		$dispatcher->shouldReceive('dispatch')->with('order', 'new', Mockery::type(Variables::class), Mockery::type('array'), Mockery::on(function (callable $callback): bool
 		{
 			$callback();
 			return true;
-		}))->once();
+		}))->twice();
+		$callbacks['action_woocommerce_checkout_order_processed'](451, [], $order);
+
 		$callbacks['action_woocommerce_checkout_order_created']($order);
+
+		$o = Mockery::mock(WC_Order::class);
+		$o->shouldReceive('get_id')->withNoArgs()->twice()->andReturn(452);
+		$o->shouldReceive('add_order_note')->with('📲 BulkGate: New Order created')->once();
+
+		$callbacks['action_woocommerce_checkout_order_created']($o);
 
 		$dispatcher->shouldReceive('dispatch')->with('customer', 'new', Mockery::on(fn (Variables $variables): bool => $variables->toArray() === [
 			'customer_id' => 789,
@@ -103,6 +109,12 @@ class HookTest extends TestCase
 		])->twice();
 		$callbacks['action_bulkgate_send_sms']('420777777777', 'test <abc>', ['abc' => 'test'], ['unicode' => true, 'country' => 'cz', 'senderValue' => 'BulkGate', 'senderType' => 'gText']);
 		$callbacks['action_woosms_send_sms']('420777777777', 'test <abc>', ['abc' => 'test'], ['unicode' => true, 'country' => 'cz', 'senderValue' => 'BulkGate', 'senderType' => 'gText']);
+	}
+
+
+	public function tearDown(): void
+	{
+		$GLOBALS['hook_callback'] = [];
 
 		Mockery::close();
 	}

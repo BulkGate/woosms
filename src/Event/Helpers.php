@@ -14,13 +14,27 @@ class Helpers
 {
 	use Strict;
 
-	public static function dispatch(string $name, callable $callback): callable
+	/**
+	 * @var array<string, string|int>
+	 */
+	private static array $last_used_hook = [];
+
+	public static function dispatch(string $name, callable $callback, ?callable $key_evaluator = null): callable
 	{
-		return function (...$parameters) use ($name, $callback): void
+		return function (...$parameters) use ($name, $callback, $key_evaluator): void
 		{
 			$run_hook = true;
 
-			if (has_filter("run_bulkgate_hook_$name"))
+			if ($key_evaluator !== null)
+			{
+				$key = $key_evaluator(...$parameters);
+
+				$run_hook = (self::$last_used_hook[$name] ?? null) !== $key;
+
+				self::$last_used_hook[$name] = $key;
+			}
+
+			if ($run_hook && has_filter("run_bulkgate_hook_$name"))
 			{
 				$run_hook = apply_filters("run_bulkgate_hook_$name", ...$parameters);
 			}
