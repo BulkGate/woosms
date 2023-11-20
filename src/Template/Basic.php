@@ -7,7 +7,7 @@ namespace BulkGate\WooSms\Template;
  * @link https://www.bulkgate.com/
  */
 
-use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
+use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag, wp_create_nonce;
 use BulkGate\{Plugin\Event\Dispatcher, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
 
 class Basic

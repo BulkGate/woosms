@@ -28,6 +28,11 @@ function wp_print_script_tag(array $attributes): void
 	$GLOBALS['script'][] = $attributes;
 }
 
+function wp_create_nonce(): string
+{
+    return "nonce123";
+}
+
 
 function esc_url(string $url, ?string $protocols = null, string $_context = 'display'): string
 {
