@@ -310,7 +310,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 = 2.0.6 =
 * Priority of retrieving variables in hooks
 * Menu position changed
-* Added send SMS customized action - do_action('woosms_send_sms','777777777', 'Hello <var>', array('var' => 'John'), array('unicode => true, 'flash' => false));
+* Added send SMS customized action - do_action('woosms_send_sms','777777777', 'Hello <var>', array('var' => 'John'), array('unicode' => true, 'flash' => false));
 * bug fix
 
 = 2.0.5 =
