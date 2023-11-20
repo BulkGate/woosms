@@ -21,19 +21,20 @@ class Basic
 		$escape_js = [Escape::class, 'js'];
 
 		$ajax_url = admin_url('/admin-ajax.php', is_ssl() ? 'https' : 'http');
+        $csfr_token = wp_create_nonce();
 
 		$proxy = [
 			'PROXY_LOG_IN' => [
 				'url' => $ajax_url,
-				'params' => ['action' => 'login']
+				'params' => ['action' => 'login', 'security' => $csfr_token]
 			],
 			'PROXY_LOG_OUT' => [
 				'url' => $ajax_url,
-				'params' => ['action' => 'logout_module']
+				'params' => ['action' => 'logout_module', 'security' => $csfr_token]
 			],
 			'PROXY_SAVE_MODULE_SETTINGS' => [
 				'url' => $ajax_url,
-				'params' => ['action' => 'save_module_settings']
+				'params' => ['action' => 'save_module_settings', 'security' => $csfr_token]
 			]
 		];
 
@@ -77,7 +78,7 @@ class Basic
 				            headers: {
 				                'Content-Type': "application/x-www-form-urlencoded"
 				            },
-				            body: "action=authenticate",
+				            body: {$escape_js("action=authenticate&security=$csfr_token")},
 				        });
 				        let {token, redirect} = await response.json();
 				
