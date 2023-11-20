@@ -8,7 +8,7 @@ namespace BulkGate\WooSms\Template;
  */
 
 use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
-use BulkGate\{Plugin\Event\Dispatcher, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
+use BulkGate\{Plugin\Event\Dispatcher, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Event\Helpers, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
 
 class Basic
 {
@@ -26,15 +26,15 @@ class Basic
 		$proxy = [
 			'PROXY_LOG_IN' => [
 				'url' => $ajax_url,
-				'params' => ['action' => 'login', 'security' => $csfr_token]
+				'params' => ['action' => 'login', Helpers::CrossSiteRequestForgerySecurityParameter => $csfr_token]
 			],
 			'PROXY_LOG_OUT' => [
 				'url' => $ajax_url,
-				'params' => ['action' => 'logout_module', 'security' => $csfr_token]
+				'params' => ['action' => 'logout_module', Helpers::CrossSiteRequestForgerySecurityParameter => $csfr_token]
 			],
 			'PROXY_SAVE_MODULE_SETTINGS' => [
 				'url' => $ajax_url,
-				'params' => ['action' => 'save_module_settings', 'security' => $csfr_token]
+				'params' => ['action' => 'save_module_settings', Helpers::CrossSiteRequestForgerySecurityParameter => $csfr_token]
 			]
 		];
 
@@ -78,7 +78,7 @@ class Basic
 				            headers: {
 				                'Content-Type': "application/x-www-form-urlencoded"
 				            },
-				            body: {$escape_js("action=authenticate&security=$csfr_token")},
+				            body: {$escape_js('action=authenticate&' . Helpers::CrossSiteRequestForgerySecurityParameter . "=$csfr_token")},
 				        });
 				        let {token, redirect} = await response.json();
 				

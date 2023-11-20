@@ -30,3 +30,20 @@ function wc_get_order_statuses(): array
 		'wc-completed'  => 'Completed',
 	];
 }
+
+function current_user_can($capability, ...$args): bool
+{
+	return $capability === 'manage_options';
+}
+
+
+function wp_verify_nonce($capability, ...$args): bool
+{
+	return $capability === 'nonce_token';
+}
+
+
+function wp_die(): void
+{
+	throw new Exception('wp_die() called');
+}

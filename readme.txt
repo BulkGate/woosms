@@ -2,7 +2,7 @@
 Tags: sms, viber, rcs, rbm, whatsapp, send sms, sms notifications, order notification, order alert, bulk sms, viber campaign, viber for business, viber business, viber notifications, woocommerce, woocommerce sms, sms woocommerce, sms order, customer notification, notify admin, sms campaign, sms plugin, sms module, eshop, ecommerce, sms marketing, target marketing, woocommerce store, custom hooks, sms api, sms gateway, sms alerts, alerts, notifications, order status, stav objednávky, notifikace, upozornění, sms brána, sms kampaň, viber notifikace, oznámení objednávky, oznámení o objednávce, notifikace objednávky, viber oznámení, viber kampaň, sms objednávka, informační sms, sms notifikace, hromadná sms, sms upozornění, poslat sms, woocommerce sms notifications, woocommerce sms notifikace, affiliate program, woocommerce order sms notifications, woocommerce sms notification plugin, marketing campaigns, 2-way SMS, two way SMS, two way communication, viber notification woocommerce, viber notifications, two-way
 Requires at least: 5.7
 Tested up to: 6.4
-Stable tag: 3.0.0
+Stable tag: 3.0.3
 Requires PHP: 7.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -159,6 +159,9 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 
 == Changelog ==
+
+= 3.0.3 =
+* Broken Access Control vulnerability fix
 
 = 3.0.2 =
 * Fix asset cron init bug

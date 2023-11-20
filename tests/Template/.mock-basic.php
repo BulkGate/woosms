@@ -45,3 +45,8 @@ function esc_attr(string $attr): string
 {
 	return "?_{$attr}_?";
 }
+
+function wp_create_nonce(): string
+{
+	return 'nonce_token';
+}

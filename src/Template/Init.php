@@ -7,7 +7,8 @@ namespace BulkGate\WooSms\Template;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Plugin\Debug\Logger, Plugin\Debug\Requirements, Plugin\Eshop, Plugin\Settings\Settings, Plugin\Strict, Plugin\User\Sign, Plugin\Utils\JsonResponse, WooSms\Ajax\Authenticate, WooSms\Ajax\PluginSettingsChange, WooSms\Debug\Page, WooSms\DI\Factory, WooSms\Utils\Logo, WooSms\Utils\Meta, WooSms\Utils\Authorization};
+use BulkGate\Plugin\{Debug\Logger, Debug\Requirements, Eshop, Settings\Settings, Strict, User\Sign, Utils\JsonResponse};
+use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, Debug\Page, DI\Factory, Event\Helpers, Utils\Logo, Utils\Meta};
 use function method_exists, in_array;
 
 class Init
@@ -46,15 +47,27 @@ class Init
 			}
 		});
 
-		add_action('wp_ajax_authenticate', fn () => Authorization::check($_POST['security'] ?? null) && Factory::get()->getByClass(Authenticate::class)->run(admin_url('admin.php?page=bulkgate#/sign/in')));
+		add_action('wp_ajax_authenticate', function (): void
+		{
+			Helpers::checkAccess($_POST[Helpers::CrossSiteRequestForgerySecurityParameter] ?? null) && Factory::get()->getByClass(Authenticate::class)->run(admin_url('admin.php?page=bulkgate#/sign/in'));
+		});
 
-		add_action('wp_ajax_login', fn () => Authorization::check($_POST['security'] ?? null) && JsonResponse::send(Factory::get()->getByClass(Sign::class)->in(
-            sanitize_text_field((string) ($_POST['__bulkgate']['email'] ?? '')),
-            sanitize_text_field((string) ($_POST['__bulkgate']['password'] ?? '')),
-            admin_url('admin.php?page=bulkgate#/dashboard')
-        )));
+		add_action('wp_ajax_login', function (): void
+		{
+			Helpers::checkAccess($_POST[Helpers::CrossSiteRequestForgerySecurityParameter] ?? null) && JsonResponse::send(Factory::get()->getByClass(Sign::class)->in(
+				sanitize_text_field((string)($_POST['__bulkgate']['email'] ?? '')),
+				sanitize_text_field((string)($_POST['__bulkgate']['password'] ?? '')),
+				admin_url('admin.php?page=bulkgate#/dashboard')
+			));
+		});
 
-		add_action('wp_ajax_logout_module', fn () => Authorization::check($_POST['security'] ?? null) && JsonResponse::send(Factory::get()->getByClass(Sign::class)->out(admin_url('admin.php?page=bulkgate#/sign/in'))));
-		add_action('wp_ajax_save_module_settings', fn () => Authorization::check($_POST['security'] ?? null) && JsonResponse::send(Factory::get()->getByClass(PluginSettingsChange::class)->run($_POST['__bulkgate'] ?? [])));
+		add_action('wp_ajax_logout_module', function (): void
+		{
+			Helpers::checkAccess($_POST[Helpers::CrossSiteRequestForgerySecurityParameter] ?? null) && JsonResponse::send(Factory::get()->getByClass(Sign::class)->out(admin_url('admin.php?page=bulkgate#/sign/in')));
+		});
+		add_action('wp_ajax_save_module_settings', function (): void
+		{
+			Helpers::checkAccess($_POST[Helpers::CrossSiteRequestForgerySecurityParameter] ?? null) && JsonResponse::send(Factory::get()->getByClass(PluginSettingsChange::class)->run($_POST['__bulkgate'] ?? []));
+		});
 	}
 }
