@@ -67,10 +67,12 @@ class OrderFormTest extends TestCase
 
 		// ADD ASSET
 		$container->shouldReceive('getByClass')->with(Settings::class)->once()->andReturn($settings = Mockery::mock(Settings::class));
-		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_enabled')->once()->andReturnNull();
+		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_enabled')->once()->andReturnTrue();
 		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_label')->once()->andReturnNull();
 		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_default')->once()->andReturnNull();
 		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_url')->once()->andReturnNull();
+
+		Assert::false(OrderForm::DefaultEnabled);
 
 		$callbacks = $GLOBALS['order_form_callback'];
 		$callbacks['action_woocommerce_review_order_before_submit']();
