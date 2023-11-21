@@ -7,7 +7,7 @@ namespace BulkGate\WooSms\Event\Test;
  * @link https://www.bulkgate.com/
  */
 
-use Mockery;
+use Mockery, Exception;
 use Tester\{Assert, TestCase};
 use BulkGate\{Plugin\DI\Container, Plugin\DI\MissingServiceException, Plugin\Event\Dispatcher, WooSms\DI\Factory, WooSms\Event\Helpers, Plugin\Event\Variables};
 
@@ -75,6 +75,14 @@ class HelpersTest extends TestCase
 		$status = 'wc-completed';
 		Assert::same('Completed', Helpers::resolveOrderStatus($status));
 		Assert::same('completed', $status);
+	}
+
+
+	public function testCheckAccess(): void
+	{
+		Assert::exception(fn () => Helpers::checkAccess(null), Exception::class);
+		Assert::exception(fn () => Helpers::checkAccess('xxx'), Exception::class);
+		Assert::true(Helpers::checkAccess('nonce_token'));
 	}
 }
 

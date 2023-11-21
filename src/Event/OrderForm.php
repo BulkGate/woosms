@@ -14,7 +14,7 @@ class OrderForm
 {
 	use Strict;
 
-	public const DefaultEnabled = true;
+	public const DefaultEnabled = false;
 
 	private const Consent = [
 		'en' => 'I consent to receiving marketing communications via SMS, Viber, RCS, WhatsApp, and other similar channels.',

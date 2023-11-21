@@ -8,11 +8,13 @@ namespace BulkGate\WooSms\Event;
  */
 
 use BulkGate\{Plugin\DI\MissingServiceException, Plugin\Event\Dispatcher, Plugin\Strict, WooSms\DI\Factory};
-use function apply_filters, has_filter, str_replace;
+use function apply_filters, has_filter, str_replace, current_user_can, wp_die, wp_verify_nonce;
 
 class Helpers
 {
 	use Strict;
+
+	public const CrossSiteRequestForgerySecurityParameter = 'security';
 
 	public static function dispatch(string $name, callable $callback): callable
 	{
@@ -47,5 +49,16 @@ class Helpers
 		$status = str_replace('wc-', '', $status);
 
 		return $statuses["wc-$status"] ?? $status;
+	}
+
+
+	public static function checkAccess(?string $nonce): bool
+	{
+		if (!current_user_can('manage_options') || wp_verify_nonce($nonce ?? '') === false)
+		{
+			wp_die('', 403);
+		}
+
+		return true;
 	}
 }

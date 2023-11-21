@@ -68,7 +68,20 @@ function sanitize_text_field(string $text): string
 	return "$$text$";
 }
 
+
 function wc_get_order(int $id): WC_Order
 {
 	return new WC_Order();
+}
+
+
+function current_user_can($capability, ...$args): bool
+{
+	return $capability === 'manage_options';
+}
+
+
+function wp_verify_nonce($capability, ...$args): bool
+{
+	return true;
 }
