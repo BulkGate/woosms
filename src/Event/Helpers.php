@@ -57,6 +57,8 @@ class Helpers
 		if (!current_user_can('manage_options') || wp_verify_nonce($nonce ?? '') === false)
 		{
 			wp_die('', 403);
+            
+            return false;
 		}
 
 		return true;
