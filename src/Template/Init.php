@@ -8,7 +8,14 @@ namespace BulkGate\WooSms\Template;
  */
 
 use BulkGate\Plugin\{Debug\Logger, Debug\Requirements, Eshop, Settings\Settings, Strict, User\Sign, Utils\JsonResponse};
-use BulkGate\WooSms\{Ajax\Authenticate, Ajax\PluginSettingsChange, Debug\Page, DI\Factory, Event\Helpers, Utils\Logo, Utils\Meta};
+use BulkGate\WooSms\{Ajax\Authenticate,
+    Ajax\PluginSettingsChange,
+    Debug\Page,
+    DI\Factory,
+    Event\Helpers,
+    Utils\Escape,
+    Utils\Logo,
+    Utils\Meta};
 use function method_exists, in_array;
 
 class Init
@@ -38,6 +45,19 @@ class Init
 			add_filter('plugin_action_links', [Meta::class, 'settingsLink'], 10, 2);
 			add_filter('plugin_row_meta', [Meta::class, 'links'], 10, 2);
 		});
+
+        add_action('admin_notices', function() {
+            $allowed_sites = ['plugins', 'shop_order', 'tools_page_bulkgate-debug'];
+            $screen = get_current_screen();
+            $show_notice = in_array($screen->id, $allowed_sites);
+            $is_logged_in = Factory::get()->getByClass(Settings::class)->load('static:application_token') !== null;
+
+            if ($show_notice && !$is_logged_in)
+            {
+                $url = Escape::url(admin_url('admin.php?page=bulkgate#/sign/in'));
+                echo Meta::notice("<strong>BulkGate SMS:</strong> You must be logged in to get the plugin working.", ['severity' => 'error', 'button' => "<a href='$url' class='button' style='margin-left: 4px;'>Log in</a>"]);
+            }
+        });
 
 		add_action('add_meta_boxes', function (string $post_type): void
 		{

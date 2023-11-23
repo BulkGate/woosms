@@ -60,7 +60,38 @@ class Meta
 			{
 				array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/sign/in')) . '">Log In</a>');
 			}
+            else
+            {
+                array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/dashboard')) . '">Settings</a>');
+            }
 		}
 		return $links;
 	}
+
+    public static function notice(string $message, array $attributes = [])
+    {
+        $severity = $attributes['severity'] ?? 'info';
+        $button = $attributes['button'] ?? null;
+        $color = ['info' => "secondary-color", 'warning' => 'orange-color', 'error' => 'red-color'][$severity] ?? null;
+        $icon = $severity === 'info' ? 'info' : 'warning';
+
+        if ($button)
+        {
+            $button = "<p>$button</p>";
+        }
+
+        return <<<HTML
+<div class="notice notice-$severity is-dismissible" style="display: flex; padding-left: 0; padding-top: 0; padding-bottom: 0;">
+    <div style="position: relative; padding: 12px; color: var(--$color);">
+        <div style="background: currentColor; position: absolute; opacity: .18; left: 0; top: 0; right: 0; bottom: 0;"></div>
+        <span class="dashicons dashicons-$icon"></span>
+    </div>
+    <div style="flex-grow: 1; padding-left: 12px;">
+        <p>$message</p>
+        $button
+    </div>
+</div>
+HTML;
+
+    }
 }
