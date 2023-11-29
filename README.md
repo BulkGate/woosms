@@ -162,6 +162,9 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 
 ## Changelog
+**3.0.4**
+* Order Payment Hook fix transaction_id type hint
+
 **3.0.3**
 * Broken Access Control vulnerability fix
 * OptIn Checkbox set default to off

@@ -59,10 +59,10 @@ class Hook
 		), 100, 3);
 
 
-		add_action('woocommerce_payment_complete', Helpers::dispatch('order_payment', fn (Dispatcher $dispatcher, int $order_id, string $transaction_id) =>
+		add_action('woocommerce_payment_complete', Helpers::dispatch('order_payment', fn (Dispatcher $dispatcher, int $order_id, /*string|int*/ $transaction_id) =>
 			$dispatcher->dispatch('order', 'payment', new Variables([
 				'order_id' => $order_id,
-				'order_payment_transaction_id' => $transaction_id
+				'order_payment_transaction_id' => (string) $transaction_id
 			]))
 		), 100, 2);
 
