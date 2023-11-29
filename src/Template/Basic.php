@@ -133,7 +133,7 @@ class Basic
 				    }
 				};
 				
-				widget.options.theme = {
+				widget.setOptionsChunk({theme: {
 				    components: {
 				        BulkGateSignInView: {
 				            defaultProps: {
@@ -153,9 +153,9 @@ class Basic
 				            }
 				        }
 				    }
-				};
+				}});
 				
-				widget.options.layout = {
+				widget.setOptionsChunk({layout: {
 				    appBar: {
 				        showLogOut: false,
 				        logoUrl: "images/white-label/bulkgate/logo/logo-title.svg",
@@ -164,7 +164,7 @@ class Basic
 				            width: "192px",
 				        }
 				    }
-				};
+				}});
 				
 				widget.options.proxy = function (reducerName, requestData) {
 				    let proxyData = {$escape_js($proxy)};
