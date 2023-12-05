@@ -44,6 +44,7 @@ class Basic
 			'last_sync' => date('c', $di->getByClass(Synchronizer::class)->getLastSync()),
 		];
 
+        //todo: kazdy vyskyt "$settings->load('xxx') ?? DEFAULT" bych odstranil a zadefinoval defaultni hodnotu viz.: https://github.com/BulkGate/plugin/issues/3
 		$plugin_settings = [
 			'dispatcher' => $settings->load('main:dispatcher') ?? Dispatcher::$default_dispatcher,
 			'synchronization' => $settings->load('main:synchronization') ?? 'all',
