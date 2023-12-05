@@ -9,6 +9,7 @@ namespace BulkGate\WooSms\Template;
 
 use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
 use BulkGate\{
+    Plugin\Eshop\Language,
 	Plugin\Event\Dispatcher,
 	Plugin\IO\Url,
 	Plugin\Settings\Settings,
@@ -19,8 +20,7 @@ use BulkGate\{
 	WooSms\Event\Helpers,
 	WooSms\Utils\Escape,
 	WooSms\Event\OrderForm,
-	WooSms\Utils\Logo
-};
+	WooSms\Utils\Logo};
 
 class Basic
 {
@@ -120,7 +120,7 @@ class Basic
 				                synchronization: "all",            
 				            },
 				            application_settings_disabled: {
-				                language_mutation: false, //"wpml plugin must be activated to enable this option"    
+				                language_mutation: {$escape_js(!$di->getByClass(Language::class)->hasMultiLanguageSupport())}, //"wpml plugin must be activated to enable this option"    
 				            },
 				            // static (dictionary) for frontend form
 				            application_settings: {
