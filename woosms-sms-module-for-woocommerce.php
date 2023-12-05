@@ -53,6 +53,11 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 		]);
 	}
 
+	function BulkGateUninstallPlugin()
+	{
+		Factory::get()->getByClass(Settings::class)->uninstall();
+	}
+
 
 	/**
 	 * Init BulkGate DI container
@@ -85,7 +90,7 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 	/**
 	 * Register uninstall scripts
 	 */
-	register_deactivation_hook(__FILE__, fn () => Factory::get()->getByClass(Settings::class)->uninstall());
+	register_uninstall_hook(__FILE__, 'BulkGateUninstallPlugin');
 
 } else {
 
