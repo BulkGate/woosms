@@ -8,7 +8,19 @@ namespace BulkGate\WooSms\Template;
  */
 
 use function time, date, admin_url, is_ssl, wp_print_inline_script_tag, wp_print_script_tag;
-use BulkGate\{Plugin\Event\Dispatcher, Plugin\IO\Url, Plugin\Settings\Settings, Plugin\Settings\Synchronizer, Plugin\Strict, Plugin\DI\Container, Plugin\User\Sign, WooSms\Event\Helpers, WooSms\Utils\Escape, WooSms\Event\OrderForm, WooSms\Utils\Logo};
+use BulkGate\{
+	Plugin\Event\Dispatcher,
+	Plugin\IO\Url,
+	Plugin\Settings\Settings,
+	Plugin\Settings\Synchronizer,
+	Plugin\Strict,
+	Plugin\DI\Container,
+	Plugin\User\Sign,
+	WooSms\Event\Helpers,
+	WooSms\Utils\Escape,
+	WooSms\Event\OrderForm,
+	WooSms\Utils\Logo
+};
 
 class Basic
 {
@@ -101,21 +113,21 @@ class Basic
 				        server: {
 				            application: {$escape_js($application)},
 				            application_settings: {$escape_js($plugin_settings)}
-				        },
-				        // static (dictionary) for frontend form
+				        },				       
 				        scope: {
+				            application_settings_recommended: {
+				                dispatcher: "asset",
+				                synchronization: "all",            
+				            },
+				            application_settings_disabled: {
+				                language_mutation: false, //"wpml plugin must be activated to enable this option"    
+				            },
+				            // static (dictionary) for frontend form
 				            application_settings: {
-				                dispatcher: {cron: "dispatcher_cron", asset: "dispatcher_asset", direct: "dispatcher_direct"},
-				                synchronization: {
-				                    all: "synchronization_all",
-				                    message: "synchronization_message",
-				                    off: "synchronization_off"
-				                },
-				                address_preference: {
-				                    delivery: "address_preference_delivery",
-				                    invoice: "address_preference_invoice"
-				                },
-				            }
+				                dispatcher: {asset: "dispatcher_asset", cron: "dispatcher_cron", direct: "dispatcher_direct"},
+				                synchronization: {all: "synchronization_all", message: "synchronization_message",off: "synchronization_off"},			              
+				                address_preference: {delivery: "address_preference_delivery", invoice: "address_preference_invoice"},
+				            },
 				        }
 				    }
 				});
