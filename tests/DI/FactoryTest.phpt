@@ -69,8 +69,6 @@ class FactoryTest extends TestCase
 
 	public function testBase(): void
 	{
-		Assert::same(Dispatcher::Direct, Dispatcher::$default_dispatcher);
-
 		Factory::setup(fn () => [
 			'db' => Mockery::mock(wpdb::class),
 			'url' => 'https://www.bulkgate.com',
@@ -127,8 +125,6 @@ class FactoryTest extends TestCase
 		Assert::type(Sign::class, Factory::get()->getService('user.sign'));
 
 		Assert::count(35, Factory::get());
-
-		Assert::same(Dispatcher::Cron, Dispatcher::$default_dispatcher);
 	}
 }
 

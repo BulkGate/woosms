@@ -36,8 +36,7 @@ class LanguageWordpress implements Language
 
 	public function get(?int $id = null): string
 	{
-		if ($this->hasMultiLanguageSupport() &&	defined('ICL_LANGUAGE_CODE')
-		)
+		if ($this->hasMultiLanguageSupport() &&	defined('ICL_LANGUAGE_CODE'))
 		{
 			return $id === null ? ICL_LANGUAGE_CODE : ((string) get_post_meta($id, 'wpml_language', true) ?: ICL_LANGUAGE_CODE);
 		}

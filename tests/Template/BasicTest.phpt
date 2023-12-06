@@ -44,7 +44,7 @@ class BasicTest extends TestCase
 		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_enabled')->once()->andReturnFalse();
 		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_label')->once()->andReturn('label');
 		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_default')->once()->andReturnFalse();
-		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_url')->once()->andReturnNull();
+		$settings->shouldReceive('load')->with('main:marketing_message_opt_in_url')->once()->andReturn('');
 		$url->shouldReceive('get')->withNoArgs()->once()->andReturn('https://www.example.com/');
 		$url->shouldReceive('get')->with('widget/eshop/load/jwt.token.451?config=init_widget_eshop_load')->once()->andReturn('https://www.example.com/widget/message/send/jwt.token.451?config=init_widget_message_send');
 		$url->shouldReceive('get')->with('/images/white-label/bulkgate/logo/short.svg')->once()->andReturn('https://www.example.com/images/white-label/bulkgate/logo/short.svg');
