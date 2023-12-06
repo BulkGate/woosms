@@ -38,7 +38,8 @@ use BulkGate\{Plugin\Debug\Logger,
 	WooSms\Event\Loader\OrderStatus,
 	WooSms\Event\Loader\Post,
 	WooSms\Event\Loader\Product,
-	WooSms\Event\Loader\Shop};
+	WooSms\Event\Loader\Shop,
+	WooSms\Event\OrderForm};
 use function extension_loaded, is_int, class_exists, in_array;
 
 class Factory implements DIFactory
@@ -122,11 +123,6 @@ class Factory implements DIFactory
 		])];
 		$container['event.dispatcher'] = Event\Dispatcher::class;
 
-		if (in_array($parameters['dispatcher'] ?? null, [Event\Dispatcher::Asset, Event\Dispatcher::Cron, Event\Dispatcher::Direct], true))
-		{
-			Event\Dispatcher::$default_dispatcher = $parameters['dispatcher'];
-		}
-
 		// IO
 		$container['io.connection.factory'] = ['factory' => IO\ConnectionFactory::class, 'factory_method' => function () use ($container): IO\ConnectionFactory
 		{
@@ -147,7 +143,24 @@ class Factory implements DIFactory
 
 		// Settings
 		$container['settings.repository.database'] = Settings\Repository\SettingsDatabase::class;
-		$container['settings.settings'] = Settings\Settings::class;
+		$container['settings.settings'] = ['factory' => Settings\Settings::class, 'factory_method' => function () use ($container, $parameters): Settings\Settings
+		{
+			$service = new Settings\Settings($container->getByClass( Settings\Repository\Settings::class));
+			$service->setDefaultSettings([
+				'main:dispatcher' => in_array($parameters['dispatcher'] ?? null, [Event\Dispatcher::Asset, Event\Dispatcher::Cron, Event\Dispatcher::Direct], true) ? $parameters['dispatcher'] : Event\Dispatcher::Direct,
+				'main:synchronization' => 'all',
+				'main:language' => 'auto',
+				'main:language_mutation' => false,
+				'main:delete_db' => false,
+				'main:address_preference' => 'delivery',
+				'main:marketing_message_opt_in_enabled' => OrderForm::DefaultEnabled,
+				'main:marketing_message_opt_in_label' => '',
+				'main:marketing_message_opt_in_default' => false,
+				'main:marketing_message_opt_in_url' => '',
+				'main:marketing_message_opt_in_url_label' => '',
+			]);
+			return $service;
+		}];
 		$container['settings.repository.synchronizer'] = Settings\Repository\SynchronizationDatabase::class;
 		$container['settings.synchronizer'] = Settings\Synchronizer::class;
 

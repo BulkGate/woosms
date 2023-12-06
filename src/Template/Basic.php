@@ -44,18 +44,17 @@ class Basic
 			'last_sync' => date('c', $di->getByClass(Synchronizer::class)->getLastSync()),
 		];
 
-        //todo: kazdy vyskyt "$settings->load('xxx') ?? DEFAULT" bych odstranil a zadefinoval defaultni hodnotu viz.: https://github.com/BulkGate/plugin/issues/3
 		$plugin_settings = [
-			'dispatcher' => $settings->load('main:dispatcher') ?? Dispatcher::$default_dispatcher,
-			'synchronization' => $settings->load('main:synchronization') ?? 'all',
-			'language' => $settings->load('main:language') ?? 'en',
-			'language_mutation' => $settings->load('main:language_mutation') ?? false,
-			'delete_db' => $settings->load('main:delete_db') ?? false,
-			'address_preference' => $settings->load('main:address_preference') ?? 'delivery',
-			'marketing_message_opt_in_enabled' => $settings->load('main:marketing_message_opt_in_enabled') ?? OrderForm::DefaultEnabled,
-			'marketing_message_opt_in_label' => $settings->load('main:marketing_message_opt_in_label') ?? '',
-			'marketing_message_opt_in_default' => $settings->load('main:marketing_message_opt_in_default') ?? false,
-			'marketing_message_opt_in_url' => $settings->load('main:marketing_message_opt_in_url') ?? '',
+			'dispatcher' => $settings->load('main:dispatcher'),
+			'synchronization' => $settings->load('main:synchronization'),
+			'language' => $settings->load('main:language'),
+			'language_mutation' => $settings->load('main:language_mutation'),
+			'delete_db' => $settings->load('main:delete_db'),
+			'address_preference' => $settings->load('main:address_preference'),
+			'marketing_message_opt_in_enabled' => $settings->load('main:marketing_message_opt_in_enabled'),
+			'marketing_message_opt_in_label' => $settings->load('main:marketing_message_opt_in_label'),
+			'marketing_message_opt_in_default' => $settings->load('main:marketing_message_opt_in_default'),
+			'marketing_message_opt_in_url' => $settings->load('main:marketing_message_opt_in_url'),
 		];
 
 		wp_print_inline_script_tag(<<<JS
