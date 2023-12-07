@@ -1,0 +1,64 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2023-12-07 13:05+0100\n"
+"PO-Revision-Date: 2023-12-07 13:05+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: cs_CZ\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: \"__\"\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: src/Event/Cron.php:28
+msgid "BulkGate Sending Interval"
+msgstr ""
+
+#: src/Event/Cron.php:33
+msgid "BulkGate Synchronize Interval"
+msgstr ""
+
+#: src/Template/Init.php:58
+msgid "Log inx"
+msgstr ""
+
+#: src/Utils/Meta.php:33
+msgid "Help Desk"
+msgstr ""
+
+#: src/Utils/Meta.php:34
+msgid "Price List"
+msgstr "Ceník"
+
+#: src/Utils/Meta.php:35
+msgid "YouTube Channel"
+msgstr "Kanál YouTube"
+
+#: src/Utils/Meta.php:36
+msgid "Contact us"
+msgstr "Kontaktujte nás"
+
+#: src/Utils/Meta.php:39
+msgid "Terms of Service"
+msgstr "Podmínky služby"
+
+#: src/Utils/Meta.php:40
+msgid "Privacy Policy"
+msgstr "Zásady ochrany osobních údajů"
+
+#: src/Utils/Meta.php:57
+msgid "Debug"
+msgstr "Režim ladění"
+
+#: src/Utils/Meta.php:61
+msgid "Log In"
+msgstr ""
+
+#: src/Utils/Meta.php:65
+msgid "Settings"
+msgstr "Nastavení"
