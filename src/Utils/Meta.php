@@ -30,14 +30,14 @@ class Meta
 		}
 
 		return array_merge($links, [
-			'help_desk' => '<a href="https://help.bulkgate.com/en/" aria-label="' . Escape::html(__('Help Desk','woosms-sms-module-for-woocommerce')) . '">' . Escape::html(__('Help Desk','woosms-sms-module-for-woocommerce')) . '</a>',
-			'price_list' => '<a href="https://www.bulkgate.com/en/pricing/" aria-label="' . Escape::html(__('Price List','woosms-sms-module-for-woocommerce')) . '">' . Escape::html(__('Price List','woosms-sms-module-for-woocommerce')) . '</a>',
-			'youtube_channel' => '<a href="https://www.youtube.com/channel/UCGD7ndC4z2NfuWUrS-DGELg" aria-label="' . Escape::html(__('YouTube Channel','woosms-sms-module-for-woocommerce')) . '">' . Escape::html(__('YouTube Channel','woosms-sms-module-for-woocommerce')) . '</a>',
-			'contact_us' => '<a href="https://www.bulkgate.com/en/contact-us/" aria-label="' . Escape::html(__('Contact us','woosms-sms-module-for-woocommerce')) . '">' . Escape::html(__('Contact us','woosms-sms-module-for-woocommerce')) . '</a>',
+			'help_desk' => '<a href="https://help.bulkgate.com/en/" aria-label="' . esc_attr__('Help Desk','woosms-sms-module-for-woocommerce') . '">' . esc_html__('Help Desk','woosms-sms-module-for-woocommerce') . '</a>',
+			'price_list' => '<a href="https://www.bulkgate.com/en/pricing/" aria-label="' . esc_attr__('Price List','woosms-sms-module-for-woocommerce') . '">' . esc_html__('Price List','woosms-sms-module-for-woocommerce') . '</a>',
+			'youtube_channel' => '<a href="https://www.youtube.com/channel/UCGD7ndC4z2NfuWUrS-DGELg" aria-label="' . esc_attr__('YouTube Channel','woosms-sms-module-for-woocommerce') . '">' . esc_html__('YouTube Channel','woosms-sms-module-for-woocommerce') . '</a>',
+			'contact_us' => '<a href="https://www.bulkgate.com/en/contact-us/" aria-label="' . esc_attr__('Contact us','woosms-sms-module-for-woocommerce') . '">' . esc_html__('Contact us','woosms-sms-module-for-woocommerce') . '</a>',
 			'api' => '<a href="https://www.bulkgate.com/en/developers/sms-api/" aria-label="API">API</a>',
 			'github' => '<a href="https://github.com/bulkgate/woosms" aria-label="GitHub">GitHub</a>',
-			'terms_of_service' => '<a href="https://portal.bulkgate.com/page/terms-and-conditions" aria-label="' . Escape::html(__('Terms of Service', 'woosms-sms-module-for-woocommerce')) . '">' . Escape::html(__('Terms of Service','woosms-sms-module-for-woocommerce')) . '</a>',
-			'privacy_policy' => '<a href="https://portal.bulkgate.com/page/privacy-policy" aria-label="' . Escape::html(__('Privacy Policy','woosms-sms-module-for-woocommerce')) . '">' . Escape::html(__('Privacy Policy','woosms-sms-module-for-woocommerce')) . '</a>',
+			'terms_of_service' => '<a href="https://portal.bulkgate.com/page/terms-and-conditions" aria-label="' . esc_attr__('Terms of Service', 'woosms-sms-module-for-woocommerce') . '">' . esc_html__('Terms of Service','woosms-sms-module-for-woocommerce') . '</a>',
+			'privacy_policy' => '<a href="https://portal.bulkgate.com/page/privacy-policy" aria-label="' . esc_attr__('Privacy Policy','woosms-sms-module-for-woocommerce') . '">' . esc_html__('Privacy Policy','woosms-sms-module-for-woocommerce') . '</a>',
 		]);
 	}
 
@@ -54,15 +54,15 @@ class Meta
 		 */
 		if (basename(dirname($file)) === BULKGATE_PLUGIN_DIR)
 		{
-			array_unshift($links, '<a href="' . Escape::url(admin_url('tools.php?page=bulkgate-debug')) . '">' . Escape::html(__('Debug','woosms-sms-module-for-woocommerce')) . '</a>');
+			array_unshift($links, '<a href="' . Escape::url(admin_url('tools.php?page=bulkgate-debug')) . '">' . esc_html__('Debug','woosms-sms-module-for-woocommerce') . '</a>');
 
 			if (Factory::get()->getByClass(Settings::class)->load('static:application_token') === null)
 			{
-				array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/sign/in')) . '">' . Escape::html(__('Log In','woosms-sms-module-for-woocommerce')) . '</a>');
+				array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/sign/in')) . '">' . esc_html__('Log In','woosms-sms-module-for-woocommerce') . '</a>');
 			}
             else
             {
-                array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/dashboard')) . '">' . Escape::html(__('Settings','woosms-sms-module-for-woocommerce')) . '</a>');
+                array_unshift($links, '<a href="' . Escape::url(admin_url('admin.php?page=bulkgate#/dashboard')) . '">' . esc_html__('Settings','woosms-sms-module-for-woocommerce') . '</a>');
             }
 		}
 		return $links;

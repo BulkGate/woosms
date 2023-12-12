@@ -9,6 +9,8 @@
  * Author URI: https://www.bulkgate.com/
  * Requires at least: 5.7
  * PHP version 7.4
+ * Text Domain: woosms-sms-module-for-woocommerce
+ * Domain Path: /languages
  *
  * @category BulkGate plugin for WooCommerce
  * @package  BulkGate
