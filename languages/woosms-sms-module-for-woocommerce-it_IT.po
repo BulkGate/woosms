@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-12-13 15:51+0100\n"
-"PO-Revision-Date: 2023-12-13 16:50+0100\n"
+"PO-Revision-Date: 2023-12-13 17:07+0100\n"
 "Last-Translator: Jakub Andrysek <andrysek@topefekt.com>\n"
 "Language-Team: \n"
-"Language: cs_CZ\n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
@@ -17,78 +17,72 @@ msgstr ""
 
 #: Plugin description - woosms-sms-module-for-woocommerce.php:6
 msgid "Notify your customers about order status via SMS notifications."
-msgstr "Informujte své zákazníky o stavu objednávky prostřednictvím SMS oznámení."
+msgstr "Avvisa i tuoi clienti dello stato dell'ordine tramite notifiche SMS."
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
-msgstr "Režim ladění služby BulkGate"
+msgstr "Debug di BulkGate"
 
 #: src/Debug/Page.php:22
-msgid ""
-"This page serves as a comprehensive tool for users to monitor, analyze, and "
-"troubleshoot the plugin, including tracking errors in the log. It also provides "
-"essential information and troubleshooting capabilities."
-msgstr ""
-"Tato stránka slouží uživatelům jako komplexní nástroj pro sledování, analýzu a "
-"řešení problémů pluginu, včetně sledování chyb v protokolu. Poskytuje také "
-"základní informace a možnosti řešení problémů."
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Questa pagina funge da strumento completo per gli utenti per monitorare, analizzare e risolvere i problemi del plugin, inclusa la tracciatura degli errori nel log. Fornisce inoltre informazioni essenziali e capacità di risoluzione dei problemi."
 
 #: src/Debug/Page.php:26
 msgid "Requirements test"
-msgstr "Test požadavků"
+msgstr "Test dei requisiti"
 
 #: src/Debug/Page.php:73
 msgid "Error log"
-msgstr "Protokol chyb"
+msgstr "Log degli errori"
 
 #: src/Event/Cron.php:28
 msgid "BulkGate Sending Interval"
-msgstr "Interval odesílání služby BulkGate"
+msgstr "Intervallo di invio di BulkGate"
 
 #: src/Event/Cron.php:33
 msgid "BulkGate Synchronize Interval"
-msgstr "Interval synchronizace služby BulkGate"
+msgstr "Intervallo di sincronizzazione di BulkGate"
 
 #: src/Template/Init.php:58
 msgid "You must be logged in to get the plugin working."
-msgstr "Aby plugin fungoval, musíte být přihlášeni."
+msgstr "Devi essere loggato per far funzionare il plugin."
 
 #: src/Template/Init.php:58
 msgid "Log in"
-msgstr "Přihlásit se"
+msgstr "Accedi"
 
 #: src/Utils/Meta.php:33
 msgid "Help Desk"
-msgstr "Nápověda"
+msgstr "Servizio di assistenza"
 
 #: src/Utils/Meta.php:34
 msgid "Price List"
-msgstr "Ceník"
+msgstr "Listino prezzi"
 
 #: src/Utils/Meta.php:35
 msgid "YouTube Channel"
-msgstr "Kanál YouTube"
+msgstr "Canale YouTube"
 
 #: src/Utils/Meta.php:36
 msgid "Contact us"
-msgstr "Kontaktujte nás"
+msgstr "Contattaci"
 
 #: src/Utils/Meta.php:39
 msgid "Terms of Service"
-msgstr "Podmínky služby"
+msgstr "Termini di servizio"
 
 #: src/Utils/Meta.php:40
 msgid "Privacy Policy"
-msgstr "Zásady ochrany osobních údajů"
+msgstr "Informativa sulla privacy"
 
 #: src/Utils/Meta.php:57
 msgid "Debug"
-msgstr "Režim ladění"
+msgstr "Debug"
 
 #: src/Utils/Meta.php:61
 msgid "Log In"
-msgstr "Přihlásit se"
+msgstr "Accedi"
 
 #: src/Utils/Meta.php:65
 msgid "Settings"
-msgstr "Nastavení"
+msgstr "Impostazioni"
