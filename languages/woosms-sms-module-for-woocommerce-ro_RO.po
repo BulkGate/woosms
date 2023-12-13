@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-12-13 13:42+0100\n"
-"PO-Revision-Date: 2023-12-13 13:46+0100\n"
+"POT-Creation-Date: 2023-12-13 13:43+0100\n"
+"PO-Revision-Date: 2023-12-13 13:47+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
-"Language: de_DE\n"
+"Language: ro_RO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n>=2 && n<=4 ? 1 : 2);\n"
 "X-Generator: Poedit 3.4.1\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
@@ -17,7 +17,7 @@ msgstr ""
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
-msgstr "Debug von BulkGate"
+msgstr "Depanare BulkGate"
 
 #: src/Debug/Page.php:22
 msgid ""
@@ -25,67 +25,67 @@ msgid ""
 "troubleshoot the plugin, including tracking errors in the log. It also "
 "provides essential information and troubleshooting capabilities."
 msgstr ""
-"Diese Seite dient als umfassendes Werkzeug für Benutzer, um das Plugin zu "
-"überwachen, zu analysieren und zu debuggen, einschließlich der Verfolgung "
-"von Fehlern im Protokoll. Es bietet auch grundlegende Informationen und "
-"Fehlerbehebungsmöglichkeiten."
+"Această pagină servește ca un instrument cuprinzător pentru utilizatori "
+"pentru a monitoriza, analiza și remedia plugin-ul, inclusiv urmărirea "
+"erorilor în jurnal. De asemenea, furnizează informații esențiale și "
+"capacități de depanare."
 
 #: src/Debug/Page.php:26
 msgid "Requirements test"
-msgstr "Anforderungstest"
+msgstr "Test cerințe"
 
 #: src/Debug/Page.php:73
 msgid "Error log"
-msgstr "Fehlerprotokoll"
+msgstr "Jurnal de erori"
 
 #: src/Event/Cron.php:28
 msgid "BulkGate Sending Interval"
-msgstr "Sendeintervall von BulkGate"
+msgstr "Interval trimitere BulkGate"
 
 #: src/Event/Cron.php:33
 msgid "BulkGate Synchronize Interval"
-msgstr "Synchronisierungsintervall von BulkGate"
+msgstr "Interval sincronizare BulkGate"
 
 #: src/Template/Init.php:58
 msgid "You must be logged in to get the plugin working."
-msgstr "Sie müssen angemeldet sein, um das Plugin zu verwenden."
+msgstr "Trebuie să vă autentificați pentru a folosi modulul."
 
 #: src/Template/Init.php:58
 msgid "Log in"
-msgstr "Einloggen"
+msgstr "Autentificare"
 
 #: src/Utils/Meta.php:33
 msgid "Help Desk"
-msgstr "Hilfezentrum"
+msgstr "Serviciu de asistență"
 
 #: src/Utils/Meta.php:34
 msgid "Price List"
-msgstr "Preisliste"
+msgstr "Listă de prețuri"
 
 #: src/Utils/Meta.php:35
 msgid "YouTube Channel"
-msgstr "YouTube-Kanal"
+msgstr "Canal YouTube"
 
 #: src/Utils/Meta.php:36
 msgid "Contact us"
-msgstr "Kontaktiere uns"
+msgstr "Contactați-ne"
 
 #: src/Utils/Meta.php:39
 msgid "Terms of Service"
-msgstr "Nutzungsbedingungen"
+msgstr "Termeni de serviciu"
 
 #: src/Utils/Meta.php:40
 msgid "Privacy Policy"
-msgstr "Datenschutzrichtlinie"
+msgstr "Politica de confidențialitate"
 
 #: src/Utils/Meta.php:57
 msgid "Debug"
-msgstr "Debuggen"
+msgstr "Depanare"
 
 #: src/Utils/Meta.php:61
 msgid "Log In"
-msgstr "Anmelden"
+msgstr "Autentificare"
 
 #: src/Utils/Meta.php:65
 msgid "Settings"
-msgstr "Einstellungen"
+msgstr "Setări"
