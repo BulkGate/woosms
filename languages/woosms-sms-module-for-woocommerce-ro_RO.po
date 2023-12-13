@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-12-13 16:04+0100\n"
-"PO-Revision-Date: 2023-12-13 16:04+0100\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2023-12-13 17:21+0100\n"
+"Last-Translator: Jakub Andrysek <andrysek@topefekt.com>\n"
 "Language-Team: \n"
 "Language: ro_RO\n"
 "MIME-Version: 1.0\n"
@@ -14,6 +14,10 @@ msgstr ""
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
+
+#: Plugin description - woosms-sms-module-for-woocommerce.php:6
+msgid "Notify your customers about order status via SMS notifications."
+msgstr "Anunțați-vă clienții despre starea comenzii prin notificări SMS."
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
