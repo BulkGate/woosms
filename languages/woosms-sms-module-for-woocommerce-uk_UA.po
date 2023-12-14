@@ -2,10 +2,10 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-12-13 15:51+0100\n"
-"PO-Revision-Date: 2023-12-14 10:56+0100\n"
+"PO-Revision-Date: 2023-12-14 11:01+0100\n"
 "Last-Translator: Jakub Andrysek <andrysek@topefekt.com>\n"
 "Language-Team: \n"
-"Language: pl_PL\n"
+"Language: uk_UA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -17,76 +17,76 @@ msgstr ""
 
 #: Plugin name
 msgid "BulkGate SMS Plugin for WooCommerce"
-msgstr "BulkGate Wtyczka SMS dla WooCommerce"
+msgstr "BulkGate Плагін SMS для WooCommerce"
 
 #: Plugin description
 msgid "Notify your customers about order status via SMS notifications."
-msgstr "Powiadamiaj klientów o statusie zamówienia za pomocą powiadomień SMS."
+msgstr "Повідомляйте своїх клієнтів про статус замовлення за допомогою SMS-повідомлень."
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
-msgstr "Debugowanie BulkGate"
+msgstr "Налагодження BulkGate"
 
 #: src/Debug/Page.php:22
 msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
-msgstr "Ta strona pełni funkcję kompleksowego narzędzia do monitorowania, analizy i rozwiązywania problemów z wtyczką, w tym śledzenia błędów w dzienniku. Zapewnia również podstawowe informacje i możliwości rozwiązywania problemów."
+msgstr "Ця сторінка служить як комплексний інструмент для користувачів для моніторингу, аналізу та усунення проблем з плагіном, включаючи відстеження помилок у журналі. Вона також надає основну інформацію та можливості усунення неполадок."
 
 #: src/Debug/Page.php:26
 msgid "Requirements test"
-msgstr "Test wymagań"
+msgstr "Тест вимог"
 
 #: src/Debug/Page.php:73
 msgid "Error log"
-msgstr "Dziennik błędów"
+msgstr "Журнал помилок"
 
 #: src/Event/Cron.php:28
 msgid "BulkGate Sending Interval"
-msgstr "Interwał wysyłania BulkGate"
+msgstr "Інтервал відправлення BulkGate"
 
 #: src/Event/Cron.php:33
 msgid "BulkGate Synchronize Interval"
-msgstr "Interwał synchronizacji BulkGate"
+msgstr "Інтервал синхронізації BulkGate"
 
 #: src/Template/Init.php:58
 msgid "You must be logged in to get the plugin working."
-msgstr "Aby wtyczka działała, musisz być zalogowany."
+msgstr "Для роботи плагіна ви повинні бути увійшли в систему."
 
 #: src/Template/Init.php:58
 msgid "Log in"
-msgstr "Zaloguj się"
+msgstr "Увійти"
 
 #: src/Utils/Meta.php:33
 msgid "Help Desk"
-msgstr "Centrum Pomocy"
+msgstr "Служба підтримки"
 
 #: src/Utils/Meta.php:34
 msgid "Price List"
-msgstr "Cennik"
+msgstr "Ціновий лист"
 
 #: src/Utils/Meta.php:35
 msgid "YouTube Channel"
-msgstr "Kanał YouTube"
+msgstr "Канал YouTube"
 
 #: src/Utils/Meta.php:36
 msgid "Contact us"
-msgstr "Skontaktuj się z nami"
+msgstr "Зв'яжіться з нами"
 
 #: src/Utils/Meta.php:39
 msgid "Terms of Service"
-msgstr "Warunki świadczenia usług"
+msgstr "Умови надання послуг"
 
 #: src/Utils/Meta.php:40
 msgid "Privacy Policy"
-msgstr "Polityka prywatności"
+msgstr "Політика конфіденційності"
 
 #: src/Utils/Meta.php:57
 msgid "Debug"
-msgstr "Debugowanie"
+msgstr "Налагодження"
 
 #: src/Utils/Meta.php:61
 msgid "Log In"
-msgstr "Zaloguj się"
+msgstr "Увійти"
 
 #: src/Utils/Meta.php:65
 msgid "Settings"
-msgstr "Ustawienia"
+msgstr "Налаштування"
