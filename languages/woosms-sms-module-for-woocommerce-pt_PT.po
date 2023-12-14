@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-12-13 16:03+0100\n"
-"PO-Revision-Date: 2023-12-13 17:22+0100\n"
+"POT-Creation-Date: 2023-12-14 09:35+0100\n"
+"PO-Revision-Date: 2023-12-14 09:35+0100\n"
 "Last-Translator: Jakub Andrysek <andrysek@topefekt.com>\n"
 "Language-Team: \n"
 "Language: pt_PT\n"
@@ -15,11 +15,14 @@ msgstr ""
 "X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Plugin description - woosms-sms-module-for-woocommerce.php:6
+#: Plugin name
+msgid "BulkGate SMS Plugin for WooCommerce"
+msgstr "BulkGate SMS Plugin para WooCommerce"
+
+#: Plugin description
 msgid "Notify your customers about order status via SMS notifications."
-msgstr ""
-"Notifique os seus clientes sobre o estado da encomenda através de "
-"notificações por SMS."
+msgstr "Notifique os seus clientes sobre o estado da encomenda através de notificações por SMS."
+
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
@@ -95,3 +98,8 @@ msgstr "Iniciar sessão"
 #: src/Utils/Meta.php:65
 msgid "Settings"
 msgstr "Configurações"
+
+#~ msgid "Notify your customers about order status via SMS notifications."
+#~ msgstr ""
+#~ "Notifique os seus clientes sobre o estado da encomenda através de "
+#~ "notificações por SMS."
