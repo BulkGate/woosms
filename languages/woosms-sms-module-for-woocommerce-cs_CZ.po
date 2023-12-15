@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2023-12-13 15:51+0100\n"
-"PO-Revision-Date: 2023-12-14 09:39+0100\n"
+"PO-Revision-Date: 2023-12-15 08:50+0100\n"
 "Last-Translator: Jakub Andrysek <andrysek@topefekt.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -21,7 +21,7 @@ msgstr "BulkGate SMS Plugin pro WooCommerce"
 
 #: Plugin description
 msgid "Notify your customers about order status via SMS notifications."
-msgstr "Informujte své zákazníky o stavu objednávky prostřednictvím SMS oznámení."
+msgstr "Informujte vaše zákazníky o stavu jejich objednávky prostřednictvím SMS oznámení."
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
