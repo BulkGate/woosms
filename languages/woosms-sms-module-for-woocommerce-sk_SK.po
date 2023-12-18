@@ -98,8 +98,3 @@ msgstr "Prihlásiť sa"
 #: src/Utils/Meta.php:65
 msgid "Settings"
 msgstr "Nastavenia"
-
-#~ msgid "Notify your customers about order status via SMS notifications."
-#~ msgstr ""
-#~ "Upozornite svojich zákazníkov na stav objednávky prostredníctvom SMS "
-#~ "notifikácií."

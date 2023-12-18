@@ -98,8 +98,3 @@ msgstr "Iniciar sessão"
 #: src/Utils/Meta.php:65
 msgid "Settings"
 msgstr "Configurações"
-
-#~ msgid "Notify your customers about order status via SMS notifications."
-#~ msgstr ""
-#~ "Notifique os seus clientes sobre o estado da encomenda através de "
-#~ "notificações por SMS."

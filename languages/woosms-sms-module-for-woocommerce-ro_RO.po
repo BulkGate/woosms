@@ -98,6 +98,3 @@ msgstr "Autentificare"
 #: src/Utils/Meta.php:65
 msgid "Settings"
 msgstr "Setări"
-
-#~ msgid "Notify your customers about order status via SMS notifications."
-#~ msgstr "Anunțați-vă clienții despre starea comenzii prin notificări SMS."

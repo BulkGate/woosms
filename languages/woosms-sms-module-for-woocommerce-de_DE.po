@@ -98,8 +98,3 @@ msgstr "Anmelden"
 #: src/Utils/Meta.php:65
 msgid "Settings"
 msgstr "Einstellungen"
-
-#~ msgid "Notify your customers about order status via SMS notifications."
-#~ msgstr ""
-#~ "Benachrichtigen Sie Ihre Kunden über den Bestellstatus per SMS-"
-#~ "Benachrichtigung."

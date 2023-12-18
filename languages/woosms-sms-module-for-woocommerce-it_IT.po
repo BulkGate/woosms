@@ -98,7 +98,3 @@ msgstr "Accedi"
 #: src/Utils/Meta.php:65
 msgid "Settings"
 msgstr "Impostazioni"
-
-#~ msgid "Notify your customers about order status via SMS notifications."
-#~ msgstr ""
-#~ "Avvisa i tuoi clienti dello stato dell'ordine tramite notifiche SMS."
