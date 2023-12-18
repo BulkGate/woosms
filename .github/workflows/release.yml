@@ -18,10 +18,9 @@ jobs:
       - name: Install gettext
         run: apt update && apt install -y gettext
 
-      - name: Compile .MO files from .PO files
+      - name: Compile .MO files
         run: |
-          cd /languages
-          for file in *.po; do
+          for file in languages/*.po; do
           msgfmt -o "${file%.po}.mo" "$file"
           done
 
@@ -29,13 +28,11 @@ jobs:
         run: mkdir -p /tmp/woosms-sms-module-for-woocommerce
 
       - name: Copy plugin files
-        run: cp -r assets src vendor .compatibility.php LICENSE readme.txt woosms-* /tmp/woosms-sms-module-for-woocommerce
-
-      - name: Copy .MO files
-        run: mkdir /tmp/woosms-sms-module-for-woocommerce/languages && cp languages/*.mo /tmp/woosms-sms-module-for-woocommerce/languages
+        run: cp -r --parents assets languages/*.mo src vendor .compatibility.php LICENSE readme.txt woosms-* /tmp/woosms-sms-module-for-woocommerce
 
       - name: Create plugin zip
-        run: cd /tmp && zip -r woosms-sms-module-for-woocommerce.zip woosms-sms-module-for-woocommerce
+        run: zip -r woosms-sms-module-for-woocommerce.zip woosms-sms-module-for-woocommerce
+        working-directory: /tmp
 
       - name: Add archive to release
         run: gh release upload ${{github.ref_name}} /tmp/woosms-sms-module-for-woocommerce.zip
