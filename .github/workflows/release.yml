@@ -16,7 +16,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest --no-dev
 
       - name: Install gettext
-        run: sudo apt update && apt install -y gettext
+        run: sudo apt update && sudo apt install -y gettext
 
       - name: Compile .MO files
         run: |
