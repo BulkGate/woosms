@@ -15,11 +15,24 @@ jobs:
       - name: Install packages
         run: composer install --prefer-dist --no-progress --no-suggest --no-dev
 
+      - name: Install gettext
+        run: apt update && apt install -y gettext
+
+      - name: Compile .MO files from .PO files
+        run: |
+          cd /languages
+          for file in *.po; do
+          msgfmt -o "${file%.po}.mo" "$file"
+          done
+
       - name: Create plugin directory
         run: mkdir -p /tmp/woosms-sms-module-for-woocommerce
 
       - name: Copy plugin files
         run: cp -r assets src vendor .compatibility.php LICENSE readme.txt woosms-* /tmp/woosms-sms-module-for-woocommerce
+
+      - name: Copy .MO files
+        run: mkdir /tmp/woosms-sms-module-for-woocommerce/languages && cp languages/*.mo /tmp/woosms-sms-module-for-woocommerce/languages
 
       - name: Create plugin zip
         run: cd /tmp && zip -r woosms-sms-module-for-woocommerce.zip woosms-sms-module-for-woocommerce
