@@ -14,11 +14,13 @@ SMS and Viber plugin for WooCommerce. Order status notifications, personalized B
 == Description ==
 
 
-**Send SMS and VIBER messages from your e-shop using BulkGate plugin for WooCommerce (former WooSMS plugin)**
+**Send SMS, Viber Business, RCS Business Messaging, and WhatsApp Business messages from your e-shop using the BulkGate plugin for WooCommerce (former WooSMS plugin)**
 
-* Order status notifications for customers and admins
-* Personalized and targeted bulk SMS and Viber campaigns 
+* Order status notifications for customers and admins, support for order custom fields (‘extra_’ prefix), and id sequence
+*	Personalized and targeted bulk marketing campaigns via SMS, RCS, Viber Business, and WhatsApp Business with Opt-in
+* BulkWords AI assistant powered by ChatGPT (create, enhance, translate, or shorten your campaign messages for better performance and reach)
 * Two-way messaging with customers
+* Address book synchronization 
 * Admin alerts (e.g. stock status and others)
 
 Send SMS and Viber messages to over 200 countries and regions via <a href="https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/" target="_blank" title="BulkGate SMS plugin for WooCommerce">BulkGate SMS plugin for WooCommerce</a> and create new opportunities for your business.
@@ -27,16 +29,33 @@ https://youtu.be/j1rrqWUcQlg
 
 = Viber for Business with the official Viber partner = 
 **Take advantage of more personal and cost-effective communication.**
-Create a verified Viber business account with BulkGate and start using Viber business messages alone or together with SMS when communicating with customers. 
+Create a verified Viber business account with BulkGate and use Viber business messages alone or with SMS when communicating with customers. 
 
 **Why use Viber business messages in your store?**
 
 * Viber messaging costs are approximately 50% lower than SMS costs.
 * 1 300 000 000+ users worldwide communicate via Viber.
-* Viber business messages give you the freedom to type up to 1000 characters, attach images, files, emojis, buttons, and links.
+* Viber business messages allow you to type up to 1000 characters, and attach images, files, emojis, buttons, and links.
 * You do not pay for undelivered Viber messages.
 * You can automatically resend undelivered Viber messages via SMS to ensure your customer sees the message.
 * <a href="https://www.bulkgate.com/en/solutions/viber-for-business/" target="_blank" title="Viber for Business">Read more and ask for your business account</a>
+
+**Why use RCS Business Messaging (RBM)?**
+
+* Allows you to create personalized interactions with users with a much richer and more interactive experience than traditional SMS.
+* You can provide useful information such as order alerts, payment reminders, product news, and more up to 1000 characters. 
+*	You can interact with users in real-time and respond to their questions and comments.
+*	RBM is an interesting option for businesses to leverage modern technology to improve customer experience and increase sales.
+
+**Why should you choose WhatsApp Business Messages?**
+
+*	One of the most popular and used messaging apps in the world (over 2 billion people) available in cca 180 countries.
+*	Outbound announcements (notifications), two-step authentication, reminders, status updates, and marketing campaigns are just some of the messages you can send
+*	Flexible and effective channel for tailored offers and individual customer service. 
+*	You can send personal account credentials, order updates, and provide assistance in a safe, one-on-one chat.
+* All WhatsApp chats are encrypted, secure enough to send sensitive information such as OTP
+*	Offers a wide range of formats and interactive content for business messaging
+
 
 = Plugin Pricing =
 This WooCommerce SMS plugin is for free. You only pay for the messages you send.
@@ -45,32 +64,40 @@ This WooCommerce SMS plugin is for free. You only pay for the messages you send.
 You only pay for the messages you send. Take a look at our <a href="https://www.bulkgate.com/en/pricing/sms/" target="_blank" title="SMS price list"> price list</a> to see how much SMS costs in your country and whether two-way messaging and different sender types are supported.
 
 **Viber business messages**
-The minimum monthly spend required by Viber is €100, or €150 in some countries. Business messages sent above this are charged according to the actual spending rate.
+The minimum monthly spend required by Viber is €100, or €150 in some countries. Business messages sent above are charged according to the actual spending rate.
 
 Take advantage of great <a href="https://www.bulkgate.com/en/pricing/viber" target="_blank" title="Viber price list"> prices</a> with the official Viber partner BulkGate. 
 
+**RCS Business Messaging (RBM)**
+We currently provide RBM services within <a href="https://www.bulkgate.com/en/pricing/rcs/de/germany/" target="_blank" title="RBM price list for Germany">Germany</a>, <a href="https://www.bulkgate.com/en/pricing/rcs/cz/czechia/" target="_blank" title="RBM price list for Czechia">the Czech Republic</a> and <a href="https://www.bulkgate.com/en/pricing/rcs/sk/slovakia/" target="_blank" title="RBM price list for Slovakia">Slovakia</a>. Gradually we will extend the RBM offer to operators in other countries.
+
+**WhatsApp Business Messages**
+BulkGate is <a href="https://www.bulkgate.com/en/pricing/whatsapp/" target="_blank" title="WhatsApp BulkGate price list">only an intermediary</a> for WhatsApp messages. Whatsapp Business messages are charged according to the <a href="https://help.bulkgate.com/docs/en/whatsapp-business-conversation-pricing.html#rates" target="_blank" title="WhatsApp Meta Inc. price list">actual spending rate</a> set by Meta Inc.
+
+
+
 = BulkGate Plugin Features =
 
-**Customer & Admin SMS and Viber notifications**
+**Customer & Admin notifications**
 
-* Inform customers about the different stages of their order via Viber and <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications"> SMS notifications.</a> 
+* Inform customers about the different stages of their order (via Viber, WhatsApp, RBM, and <a href="https://www.bulkgate.com/en/solutions/sms-notifications/" target="_blank" title="SMS notifications">SMS notifications.</a> 
 * Create your own notification templates.
 * Notify your customers in their native language with multilingual templates.
-* Receive notifications whenever a new order is placed, canceled, a product is out of stock, or another event occurs.
+* Receive notifications whenever a new order is placed, or canceled, a product is out of stock, or another event occurs.
 * Activate one or more admins for each notification template.
 * <a href="https://www.bulkgate.com/en/integrations/woocommerce-sms-plugin-features/" target="_blank" title="WooCommerce SMS plugin features"> See more features.</a> 
  
 
-**Bulk SMS & Viber campaigns**
+**Bulk marketing/promotional campaigns**
 
-* Promote your products and services via targeted and personalized <a href=" https://www.bulkgate.com/en/solutions/bulk-sms/" target="_blank" title="bulk SMS"> bulk SMS</a>  and Viber campaigns
+* Promote your products and services via targeted and personalized <a href=" https://www.bulkgate.com/en/solutions/bulk-sms/" target="_blank" title="bulk SMS"> bulk SMS</a>  Viber, RBM and WhatsApp campaigns
 * Shorten your links with our URL shortener. Save characters to create a better message and get more valuable statistics
 * Use different sender ID types to send your campaigns
 * DND (Do not Disturb) solution for India and other countries (NDNC registry)
 * <a href="https://www.bulkgate.com/en/integrations/woocommerce-sms-plugin-features/" target="_blank" title="WooCommerce SMS plugin features"> See more features.</a>
 
 **Two-way messaging**
-Communicate directly with customers via <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="two-way SMS"> 2-way SMS</a> or Viber and get their reactions or answer their questions.
+Communicate directly with customers via <a href="https://www.bulkgate.com/en/solutions/two-way-sms/" target="_blank" title="two-way SMS"> 2-way SMS</a> or Viber, WhatsApp, RBM and get their reactions or answer their questions.
 
 **Statistics and records**
 
@@ -80,12 +107,12 @@ Communicate directly with customers via <a href="https://www.bulkgate.com/en/sol
 
 **API & Custom Hooks**
 
-* Use Simple API to add functions you need to your WooCommerce store
+* Use Simple API or Advanced API to add functions you need to your WooCommerce store
 * Use custom hooks to add your own admin/customer notification to your WooCommerce SMS plugin
 
-**New feature – Mobile Connect (Android only)**
+**Mobile Connect (Android only)**
 
-Install our Android app and connect your WooCommerce eshop with your mobile phone. Take advantage of the cheap (or free) messages from your carrier's mobile plan to send SMS messages via the BulkGate SMS plugin for WooCommerce. <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect"> Find out more info.</a>
+Install our Android app and connect your WooCommerce e-shop with your mobile phone. Take advantage of the cheap (or free) messages from your carrier's mobile plan to send SMS messages via the BulkGate SMS plugin for WooCommerce. <a href="https://www.bulkgate.com/en/solutions/mobile-connect/" target="_blank" title="Mobile Connect"> Find out more info.</a>
 
 = POWERED BY BULKGATE =
 This SMS plugin for WooCommerce has been developed by the <a href="https://www.bulkgate.com/en/" target="_blank" title="Multichannel platform"> BulkGate multichannel platform.</a> It has all the functions and intuitive design that you can find in the BulkGate Portal.
@@ -179,7 +206,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 = 3.0.0 =
 * Complete plugin rework - new generation
-* New asynchronous no blocking message sender (Asset / Cron / WP Cron / Direct)
+* New asynchronous no-blocking message sender (Asset / Cron / WP Cron / Direct)
 * New design
 * New Send Message form in Order Detail
 * Marketing Opt-in
@@ -231,7 +258,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * WPML plugin support https://wpml.org/ #2
 
 = 2.0.23 =
-* Widget Api update
+* Widget API update
 
 = 2.0.22 =
 * Multisite proxy_link bug fix
@@ -241,10 +268,10 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 = 2.0.20 =
 * Order status campaign filter
-* Admin page ajax url bug fix
+* Admin page Ajax URL bug fix
 
 = 2.0.19 =
-* Ajax Cross origin proxy link scheme bug
+* Ajax Cross-origin proxy link scheme bug
 
 = 2.0.18 =
 * Customer SMS & Admin SMS bug fix from 2.0.17
@@ -277,7 +304,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * Campaign recipients from store & variables load bug fix
 
 = 2.0.10 =
-* Sms Campaign filter fix
+* SMS campaign filter fix
 * Extensions support
 
 = 2.0.9 =
@@ -288,7 +315,7 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 * Sender type admin/customer SMS fix
 
 = 2.0.7 =
-* Default languages mutation (Simple usage)
+* Default language mutation (Simple usage)
 * Bug fix
 
 = 2.0.6 =
