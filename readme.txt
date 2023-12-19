@@ -186,6 +186,9 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 
 == Changelog ==
+= 3.0.6 =
+* Fix bug - ConnectionCurl missing
+
 = 3.0.5 =
 * cURL implementation
 * BulkGate/plugins 1.0.1
