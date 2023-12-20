@@ -19,10 +19,7 @@ jobs:
         run: sudo apt update && sudo apt install -y gettext
 
       - name: Compile .MO files
-        run: |
-          for file in languages/*.po; do
-          msgfmt -o "${file%.po}.mo" "$file"
-          done
+        run: composer run translates:compile
 
       - name: Create plugin directory
         run: mkdir -p /tmp/woosms-sms-module-for-woocommerce
