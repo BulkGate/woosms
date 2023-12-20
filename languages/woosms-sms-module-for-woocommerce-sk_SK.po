@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-12-14 09:35+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 16:55+0000\n"
 "PO-Revision-Date: 2023-12-14 09:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,29 +16,21 @@ msgstr ""
 "X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Plugin name
+#: languages/CustomTranslations.php:7
 msgid "BulkGate SMS Plugin for WooCommerce"
 msgstr "BulkGate SMS Plugin pre WooCommerce"
 
-#: Plugin description
+#: languages/CustomTranslations.php:8
 msgid "Notify your customers about order status via SMS notifications."
 msgstr "Upozornite svojich zákazníkov na stav objednávky prostredníctvom SMS notifikácií."
-
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
 msgstr "Ladenie BulkGate"
 
 #: src/Debug/Page.php:22
-msgid ""
-"This page serves as a comprehensive tool for users to monitor, analyze, and "
-"troubleshoot the plugin, including tracking errors in the log. It also "
-"provides essential information and troubleshooting capabilities."
-msgstr ""
-"Táto stránka slúži ako komplexný nástroj pre užívateľov na monitorovanie, "
-"analýzu a odstraňovanie problémov s pluginom, vrátane sledovania chýb v "
-"protokole. Poskytuje tiež základné informácie a možnosti odstraňovania "
-"problémov."
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Táto stránka slúži ako komplexný nástroj pre užívateľov na monitorovanie, analýzu a odstraňovanie problémov s pluginom, vrátane sledovania chýb v protokole. Poskytuje tiež základné informácie a možnosti odstraňovania problémov."
 
 #: src/Debug/Page.php:26
 msgid "Requirements test"

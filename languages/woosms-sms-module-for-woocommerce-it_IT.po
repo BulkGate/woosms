@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-12-14 09:35+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 16:55+0000\n"
 "PO-Revision-Date: 2023-12-14 09:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -15,29 +16,21 @@ msgstr ""
 "X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Plugin name
+#: languages/CustomTranslations.php:7
 msgid "BulkGate SMS Plugin for WooCommerce"
 msgstr "Plugin SMS BulkGate per WooCommerce"
 
-#: Plugin description
+#: languages/CustomTranslations.php:8
 msgid "Notify your customers about order status via SMS notifications."
 msgstr "Informate i vostri clienti sullo stato degli ordini tramite notifiche via SMS."
-
 
 #: src/Debug/Page.php:21
 msgid "BulkGate Debug"
 msgstr "Debug di BulkGate"
 
 #: src/Debug/Page.php:22
-msgid ""
-"This page serves as a comprehensive tool for users to monitor, analyze, and "
-"troubleshoot the plugin, including tracking errors in the log. It also "
-"provides essential information and troubleshooting capabilities."
-msgstr ""
-"Questa pagina funge da strumento completo per gli utenti per monitorare, "
-"analizzare e risolvere i problemi del plugin, inclusa la tracciatura degli "
-"errori nel log. Fornisce inoltre informazioni essenziali e capacità di "
-"risoluzione dei problemi."
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Questa pagina funge da strumento completo per gli utenti per monitorare, analizzare e risolvere i problemi del plugin, inclusa la tracciatura degli errori nel log. Fornisce inoltre informazioni essenziali e capacità di risoluzione dei problemi."
 
 #: src/Debug/Page.php:26
 msgid "Requirements test"
