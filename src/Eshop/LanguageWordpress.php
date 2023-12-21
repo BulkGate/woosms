@@ -16,7 +16,7 @@ class LanguageWordpress implements Language
 	{
 		$output = [];
 
-		if (is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php'))
+		if ($this->hasMultiLanguageSupport())
 		{
 			$languages = apply_filters('wpml_active_languages', null, 'orderby=id&order=desc');
 
@@ -36,10 +36,7 @@ class LanguageWordpress implements Language
 
 	public function get(?int $id = null): string
 	{
-		if (
-			(is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php')) &&
-			defined('ICL_LANGUAGE_CODE')
-		)
+		if ($this->hasMultiLanguageSupport() && defined('ICL_LANGUAGE_CODE'))
 		{
 			return $id === null ? ICL_LANGUAGE_CODE : ((string) get_post_meta($id, 'wpml_language', true) ?: ICL_LANGUAGE_CODE);
 		}
@@ -47,5 +44,11 @@ class LanguageWordpress implements Language
 		{
 			return get_locale();
 		}
+	}
+
+
+	public function hasMultiLanguageSupport(): bool
+	{
+		return is_plugin_active('sitepress-multilingual-cms-master/sitepress.php') || is_plugin_active('sitepress-multilingual-cms/sitepress.php');
 	}
 }
