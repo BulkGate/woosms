@@ -1,5 +1,7 @@
 # Proces vytváření překladů
 
+Podle potřeby můžete kombinovat oba způsoby vytváření překladů.  
+
 Zdroje:
 
 - https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/
@@ -10,14 +12,14 @@ Zdroje:
 1. **Získání překladů** - Obalte všechny fráze, které chcete přeložit do některé z následujících překladových funkcí: `__()`, `esc_html__()`, `esc_attr__()`, `_e()`, `esc_html_e()`, `esc_attr_e()` [viz dokumentace](https://developer.wordpress.org/plugins/internationalization/how-to-internationalize-your-plugin/#localization-functions). Načtěte ze zdrojového kódu fráze pomocí příkazu: `composer run translates:extract`, který uloží vyextrahované fráze do šablony `template.pot` v adresáři `/languages` do pole `msgid ""`. Pole `msgstring ""` zůstane prázdné. Tento POT soubor (soubor s příponou `.pot`; Portable Object Template) se předá překladateli na překlad nebo se v našem případě přeloží pomocí ChatGPT do daného jazyka (zkopírujeme obsah souboru a necháme ChatGPT, aby naplnil pole `msgstr ""` překlady pro námi zvolený jazyk. Soubor uložíme jako PO soubor (soubor s příponou `.po`; Portable Object) do adresáře `/languages`. Tento PO soubor musí mít název pluginu a kód jazyka pro danou lokalizaci (např.: `woosms-sms-module-for-woocommerce-cs.po` nebo `woosms-sms-module-for-woocommerce-cs_CZ.po` pro češtinu) [viz dokumentace](https://developer.wordpress.org/plugins/internationalization/localization/#using-localizations).
 2. **Aktualizace překladů** - Pokud potřebujeme přidat do pluginu nové fráze, provedeme krok číslo 1. Pak pomocí příkazu `composer run translates:update` vložíme nové fráze z aktualizovaného POT souboru do existujících PO souborů. Ty jsou samozřejmě nepřeložené a je potřeba je přeložit.
 3. **Kompilace překladů** - Aby mohli být překlady v pluginu použity musí se PO soubory zkompilovat do MO souborů (soubory s příponou `.mo`; Machine Objects). To provedeme příkazem `composer run translates:compile`. Ten je vytvoří v adresáři `/languages`. Tyto soubory v gitu netrackujeme, slouží k testování překladů v lokálním prostředí. 
-4. **Vložení nového jazyka** - Pokud chcete vytvořit překlad do nového jazyka zkopírujte kterýkoli již existující `.po` soubor, změňte jeho název (kód země), údaje v hlavičce (`Language:` a `Plural forms:`) a nahraďte všechna pole `msgstring` novými překlady. Nebo použijte soubor `template.pot` a postupujte jako v případě `.po` souboru (nicméně v tomto souboru nejsou vyplněny některé údaje v hlavičce jako je například `X-Poedit-KeywordsList:` pokud by jste chtěli překlady upravovat v Poeditu.
+4. **Vložení nového jazyka** - Nejjednodušší způsob jak vytvořit překlad do nového jazyka je zkopírovat kterýkoli, pro jiný jazyk vytvořený `.po` soubor, změnit jeho název - kód země (první část názvu `woosms-sms-module-for-woocommerce` je povinná), údaje v hlavičce (`Language:` a `Plural forms:`) a nahraďit všechna pole `msgstring` novými překlady. Nebo použijte šablonu `template.pot` a spusťte příkaz `msginit --locale=fr_CA --input=languages/template.pot --output=languages/woosms-sms-module-for-woocommerce-fr_CA.po`, který inicializuje metainformace v hlavičce hodnotami z uživatelského prostředí (např.: do hlavičky automaticky doplní hodnotu `Plural forms:`, ale je třeba upravit `Content-type:` charset=UTF-8)
 
 ## Překlad pomocí programu Poedit - manuální překlad
 ### Vložení nového jazyka
 1. Otevřete nástroj Poedit (zdarma ke stažení na adrese https://poedit.net/download).
-2. `Soubor->Nový` (CTRL + N)
+2. `Soubor->Nový` (`CTRL + N`)
 3. Vyberte jazyk překladu ze seznamu pro vybranou zemi (např.: kanadská francouzština) a potvrďte - `OK`.
-4. Uložte soubor (CTRL + S) - zobrazí se dialogové okno `Uložit jako`. Vložte textový název domény s kódem jazyka a země (např.: `woosms-sms-module-for-woocommerce-fr_CA.po`). Vyberte adresář v rámci vašeho projektu, kam má být soubor uložen (`/languages`)
+4. Uložte soubor (`CTRL + S`) - zobrazí se dialogové okno `Uložit jako`. Vložte textový název domény s kódem jazyka a země (např.: `woosms-sms-module-for-woocommerce-fr_CA.po`). Vyberte adresář v rámci vašeho projektu, kam má být soubor uložen (`/languages`)
 5. Uložte
 6. V PhpStormu přejděte do adresáře s překlady (`/languages`) a zkopírujte obsah libovolného již přeloženého `.po` souboru i s hlavičkou.
 7. Přejděte do ChatGPT a vložte
