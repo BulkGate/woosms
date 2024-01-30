@@ -22,7 +22,11 @@
   "scripts": {
     "tester": "tester -C tests --colors=1",
     "coverage": "tester -C --coverage=coverage.html --coverage-src=src --stop-on-fail",
-    "phpstan": "phpstan analyse -c phpstan.neon --memory-limit=1G"
+    "phpstan": "phpstan analyse -c phpstan.neon --memory-limit=1G",
+    "translates:extract": "git ls-files \"*.php\" | xgettext --language=PHP --keyword=esc_html__ --keyword=esc_html_e --keyword=esc_attr__ --keyword=esc_attr_e --keyword=__ --keyword=_e --no-wrap --from-code=UTF-8 --output=languages/template.pot -f -",
+    "translates:update": "git ls-files -z \"languages/*.po\" | xargs -0 -I {} msgmerge --no-wrap -o {} {} languages/template.pot",
+    "translates:compile": "for file in languages/*.po; do msgfmt -o \"${file%.po}.mo\" \"$file\"; done",
+    "translates": ["@translates:extract", "@translates:update", "@translates:compile"]
   },
   "config": {
     "allow-plugins": {

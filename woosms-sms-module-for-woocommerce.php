@@ -4,11 +4,13 @@
  * Plugin Name: BulkGate SMS Plugin for WooCommerce
  * Plugin URI: https://www.bulkgate.com/en/integrations/sms-plugin-for-woocommerce/
  * Description: Notify your customers about order status via SMS notifications.
- * Version: 3.0.3
+ * Version: 3.0.5
  * Author: BulkGate
  * Author URI: https://www.bulkgate.com/
  * Requires at least: 5.7
  * PHP version 7.4
+ * Text Domain: woosms-sms-module-for-woocommerce
+ * Domain Path: /languages
  *
  * @category BulkGate plugin for WooCommerce
  * @package  BulkGate

@@ -15,14 +15,21 @@ jobs:
       - name: Install packages
         run: composer install --prefer-dist --no-progress --no-suggest --no-dev
 
+      - name: Install gettext
+        run: sudo apt update && sudo apt install -y gettext
+
+      - name: Compile .MO files
+        run: composer run translates:compile
+
       - name: Create plugin directory
         run: mkdir -p /tmp/woosms-sms-module-for-woocommerce
 
       - name: Copy plugin files
-        run: cp -r assets src vendor .compatibility.php LICENSE readme.txt woosms-* /tmp/woosms-sms-module-for-woocommerce
+        run: cp -r --parents assets languages/*.mo src vendor .compatibility.php LICENSE readme.txt woosms-* /tmp/woosms-sms-module-for-woocommerce
 
       - name: Create plugin zip
-        run: cd /tmp && zip -r woosms-sms-module-for-woocommerce.zip woosms-sms-module-for-woocommerce
+        run: zip -r woosms-sms-module-for-woocommerce.zip woosms-sms-module-for-woocommerce
+        working-directory: /tmp
 
       - name: Add archive to release
         run: gh release upload ${{github.ref_name}} /tmp/woosms-sms-module-for-woocommerce.zip

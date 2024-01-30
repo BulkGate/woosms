@@ -55,7 +55,7 @@ class Init
             if ($show_notice && !$is_logged_in)
             {
                 $url = Escape::url(admin_url('admin.php?page=bulkgate#/sign/in'));
-                echo Meta::notice("<strong>BulkGate SMS:</strong> You must be logged in to get the plugin working.", ['severity' => 'error', 'button' => "<a href='$url' class='button' style='margin-left: 4px;'>Log in</a>"]);
+                echo Meta::notice("<strong>" . esc_html('BulkGate SMS:') . "</strong> " . esc_html__('You must be logged in to get the plugin working.','woosms-sms-module-for-woocommerce'), ['severity' => 'error', 'button' => "<a href='$url' class='button' style='margin-left: 4px;'>" . esc_html__('Log in') ."</a>"]);
             }
         });
 
