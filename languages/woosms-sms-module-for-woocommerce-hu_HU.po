@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 16:55+0000\n"
+"PO-Revision-Date: 2023-12-14 10:37+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: hu_HU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: languages/CustomTranslations.php:7
+msgid "BulkGate SMS Plugin for WooCommerce"
+msgstr "BulkGate SMS bővítmény a WooCommerce-hez"
+
+#: languages/CustomTranslations.php:8
+msgid "Notify your customers about order status via SMS notifications."
+msgstr "Értesítse vásárlóit a rendelés állapotáról SMS-értesítéseken keresztül."
+
+#: src/Debug/Page.php:21
+msgid "BulkGate Debug"
+msgstr "BulkGate hibakeresés"
+
+#: src/Debug/Page.php:22
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Ez az oldal egy átfogó eszközként szolgál a felhasználóknak a bővítmény figyeléséhez, elemzéséhez és hibaelhárításához, beleértve a naplóban található hibák követését is. Alapvető információkat és hibaelhárítási lehetőségeket is biztosít."
+
+#: src/Debug/Page.php:26
+msgid "Requirements test"
+msgstr "Követelmények tesztje"
+
+#: src/Debug/Page.php:73
+msgid "Error log"
+msgstr "Hiba napló"
+
+#: src/Event/Cron.php:28
+msgid "BulkGate Sending Interval"
+msgstr "BulkGate küldési időköz"
+
+#: src/Event/Cron.php:33
+msgid "BulkGate Synchronize Interval"
+msgstr "BulkGate szinkronizációs időköz"
+
+#: src/Template/Init.php:58
+msgid "You must be logged in to get the plugin working."
+msgstr "Be kell jelentkeznie a bővítmény használatához."
+
+#: src/Template/Init.php:58
+msgid "Log in"
+msgstr "Bejelentkezés"
+
+#: src/Utils/Meta.php:33
+msgid "Help Desk"
+msgstr "Segítségkérés"
+
+#: src/Utils/Meta.php:34
+msgid "Price List"
+msgstr "Árlista"
+
+#: src/Utils/Meta.php:35
+msgid "YouTube Channel"
+msgstr "YouTube-csatorna"
+
+#: src/Utils/Meta.php:36
+msgid "Contact us"
+msgstr "Kapcsolatfelvétel"
+
+#: src/Utils/Meta.php:39
+msgid "Terms of Service"
+msgstr "Szolgáltatási feltételek"
+
+#: src/Utils/Meta.php:40
+msgid "Privacy Policy"
+msgstr "Adatvédelmi irányelvek"
+
+#: src/Utils/Meta.php:57
+msgid "Debug"
+msgstr "Hibakeresés"
+
+#: src/Utils/Meta.php:61
+msgid "Log In"
+msgstr "Bejelentkezés"
+
+#: src/Utils/Meta.php:65
+msgid "Settings"
+msgstr "Beállítások"
