@@ -45,7 +45,7 @@ class Order implements DataLoader
 		$variables['order_currency'] = $order->get_currency();
 		$variables['order_payment'] = $order->get_payment_method_title();
 		$variables['order_total_paid'] = (string) $order->get_total();
-		$variables['order_total_formatted'] = $this->formatter->format('price', $variables['order_total_paid'], $variables['order_currency']);
+		$variables['order_total_locale'] = $this->formatter->format('price', $variables['order_total_paid'], $variables['order_currency']);
 
 		$date = $order->get_date_created();
 

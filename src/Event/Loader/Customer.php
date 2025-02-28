@@ -35,7 +35,7 @@ class Customer implements DataLoader
 			$variables['customer_firstname'] = Helpers::address('first_name', $shipping, $billing);
 			$variables['customer_lastname'] = Helpers::address('last_name', $shipping, $billing);
 			$variables['customer_company'] = Helpers::address('company', $shipping, $billing);
-			$variables['customer_street'] = Helpers::joinStreet('address_1', 'address_2', $shipping, $billing);
+			$variables['customer_address'] = Helpers::joinStreet('address_1', 'address_2', $shipping, $billing);
 			$variables['customer_city'] = Helpers::address('city', $shipping, $billing);
 			$variables['customer_state'] = Helpers::address('state', $shipping, $billing);
 			$variables['customer_postcode'] = Helpers::address('postcode', $shipping, $billing);
@@ -47,7 +47,7 @@ class Customer implements DataLoader
 			$variables['customer_invoice_firstname'] = Helpers::address('first_name', $billing, $shipping);
 			$variables['customer_invoice_lastname'] = Helpers::address('last_name', $billing, $shipping);
 			$variables['customer_invoice_company'] = Helpers::address('company', $billing, $shipping);
-			$variables['customer_invoice_street'] = Helpers::joinStreet('address_1', 'address_2', $billing, $shipping);
+			$variables['customer_invoice_address'] = Helpers::joinStreet('address_1', 'address_2', $billing, $shipping);
 			$variables['customer_invoice_city'] = Helpers::address('city', $billing, $shipping);
 			$variables['customer_invoice_state'] = Helpers::address('state', $billing, $shipping);
 			$variables['customer_invoice_postcode'] = Helpers::address('postcode', $billing, $shipping);
