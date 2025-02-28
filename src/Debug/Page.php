@@ -19,8 +19,7 @@ class Page
 		echo '
 		<div style="max-width: 1000px; margin: 50px auto;">
 		<h1><img src="' . Escape::htmlAttr(Logo::Menu) . '" alt="" width="25"/>&nbsp;BulkGate Debug</h1>
-		<p>This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities.</p
-		>';
+		<p>This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities.</p>';
 
 		echo '
 		<h2>Requirements test</h2>

@@ -12,6 +12,7 @@ use BulkGate\WooSms\DI\Factory;
 use BulkGate\Plugin\{DI\MissingServiceException, Event\Hook as HookDispatcher, Strict, Event\Dispatcher, Event\Variables};
 use function add_action, apply_filters, has_filter;
 
+/** @see https://woocommerce.github.io/code-reference/hooks/hooks.html */
 class Hook
 {
 	use Strict;
