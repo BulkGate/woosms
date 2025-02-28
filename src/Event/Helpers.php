@@ -7,7 +7,11 @@ namespace BulkGate\WooSms\Event;
  * @link https://www.bulkgate.com/
  */
 
-use BulkGate\{Plugin\DI\MissingServiceException, Plugin\Event\Dispatcher, Plugin\Strict, WooSms\DI\Factory};
+use BulkGate\{Plugin\Debug\Logger,
+	Plugin\DI\MissingServiceException,
+	Plugin\Event\Dispatcher,
+	Plugin\Strict,
+	WooSms\DI\Factory};
 use function apply_filters, has_filter, str_replace, current_user_can, wp_die, wp_verify_nonce;
 
 class Helpers
@@ -21,10 +25,16 @@ class Helpers
 		return function (...$parameters) use ($name, $callback): void
 		{
 			$run_hook = true;
+			$filter = "run_bulkgate_hook_$name";
 
-			if (has_filter("run_bulkgate_hook_$name"))
+			if (has_filter($filter))
 			{
-				$run_hook = apply_filters("run_bulkgate_hook_$name", ...$parameters);
+				$run_hook = apply_filters($filter, ...$parameters);
+
+				if ($run_hook === false)
+				{
+					Factory::get()->getByClass(Logger::class)->log("Hook filter: '$filter' stop execution of '$name'", 'warning');
+				}
 			}
 
 			if ($run_hook)
