@@ -49,7 +49,8 @@ if (is_plugin_active('woocommerce/woocommerce.php')) {
 			'plugin_data' => get_plugin_data(__FILE__),
 			'api_version' => '1.0',
 			'dispatcher' => Dispatcher::Asset,
-			'logger_limit' => 100
+			'logger_limit' => 100,
+			'platform_version' => WP_VERSION,
 		]);
 	}
 

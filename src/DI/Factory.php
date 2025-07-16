@@ -87,7 +87,7 @@ class Factory implements DIFactory
 			$service->setup(is_int($parameters['logger_limit'] ?? null) ? $parameters['logger_limit'] : 100);
 			return $service;
 		}];
-		$container['debug.logger'] = Logger::class;
+		$container['debug.logger'] = ['factory' => Logger::class, 'parameters' => ['platform_version' => $parameters['platform_version'] ?? '0.0.0', 'module_version' => $parameters['plugin_data']['Version'] ?? '0.0.0']];
 		$container['debug.requirements'] = Requirements::class;
 
 		// Eshop
