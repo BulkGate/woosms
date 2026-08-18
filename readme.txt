@@ -1,7 +1,7 @@
 === BulkGate SMS Plugin for WooCommerce ===
 Tags: sms, sms notifications, order notification, customer notification
 Requires at least: 5.7
-Tested up to: 6.8
+Tested up to: 7.0
 Stable tag: trunk
 Requires PHP: 7.4
 License: GPLv3
@@ -186,6 +186,10 @@ Yes. The SMS plugin for WooCommerce communicates with our BulkGate <a href="http
 
 
 == Changelog ==
+= 3.0.7 =
+* Fix - undefined constant WP_VERSION on PHP 8+
+* WordPress 7.0 compatibility
+
 = 3.0.6 =
 * Fix bug - ConnectionCurl missing
 
