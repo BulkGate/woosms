@@ -63,8 +63,10 @@ class SendMessage
         }
 
 		wp_print_inline_script_tag(<<<JS
-			function init_widget_message_send(widget) { widget.options.SendMessageProps = {$escape_js((object)$props)}; }
-		JS);
+            function init_widget_message_send(widget) {
+                widget.setOptionsChunk({props: {$escape_js((object)$props)}});
+            }
+        JS);
 
 		$jwt = $di->getByClass(Sign::class)->authenticate();
 
