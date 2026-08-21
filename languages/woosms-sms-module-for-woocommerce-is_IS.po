@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 16:55+0000\n"
+"PO-Revision-Date: 2023-12-15 10:39+0100\n"
+"Last-Translator: Jakub Andrysek <andrysek@topefekt.com>\n"
+"Language-Team: \n"
+"Language: is\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: languages/CustomTranslations.php:7
+msgid "BulkGate SMS Plugin for WooCommerce"
+msgstr "BulkGate SMS Viðbótin fyrir WooCommerce"
+
+#: languages/CustomTranslations.php:8
+msgid "Notify your customers about order status via SMS notifications."
+msgstr "Tilkynni viðskiptavinum þínum um stöðu pöntunar með SMS tilkynningum."
+
+#: src/Debug/Page.php:21
+msgid "BulkGate Debug"
+msgstr "BulkGate Vegna villugreining"
+
+#: src/Debug/Page.php:22
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Þessi síða er umfangsmikið tól fyrir notendur til að fylgjast með, greina og leysa vandamál með viðbótina, þar á meðal að rekja villa í dagbókinni. Hún veitir einnig nauðsynlegar upplýsingar og getu til að leysa vandamál."
+
+#: src/Debug/Page.php:26
+msgid "Requirements test"
+msgstr "Kröfurpróf"
+
+#: src/Debug/Page.php:73
+msgid "Error log"
+msgstr "Villudagbók"
+
+#: src/Event/Cron.php:28
+msgid "BulkGate Sending Interval"
+msgstr "BulkGate Senda Bil"
+
+#: src/Event/Cron.php:33
+msgid "BulkGate Synchronize Interval"
+msgstr "BulkGate Samhæfa Bil"
+
+#: src/Template/Init.php:58
+msgid "You must be logged in to get the plugin working."
+msgstr "Þú verður að skrá þig inn til að nota viðbótina."
+
+#: src/Template/Init.php:58
+msgid "Log in"
+msgstr "Skrá inn"
+
+#: src/Utils/Meta.php:33
+msgid "Help Desk"
+msgstr "Hjálparborð"
+
+#: src/Utils/Meta.php:34
+msgid "Price List"
+msgstr "Verðskrá"
+
+#: src/Utils/Meta.php:35
+msgid "YouTube Channel"
+msgstr "YouTube Kanal"
+
+#: src/Utils/Meta.php:36
+msgid "Contact us"
+msgstr "Hafðu samband"
+
+#: src/Utils/Meta.php:39
+msgid "Terms of Service"
+msgstr "Þjónustuskilmálar"
+
+#: src/Utils/Meta.php:40
+msgid "Privacy Policy"
+msgstr "Persónuverndarstefna"
+
+#: src/Utils/Meta.php:57
+msgid "Debug"
+msgstr "Villaugreining"
+
+#: src/Utils/Meta.php:61
+msgid "Log In"
+msgstr "Skrá inn"
+
+#: src/Utils/Meta.php:65
+msgid "Settings"
+msgstr "Stillingar"

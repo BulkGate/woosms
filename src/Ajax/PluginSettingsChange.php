@@ -58,7 +58,7 @@ class PluginSettingsChange
 			return ['data' => ['redirect' => site_url('/?bulkgate-redirect=dashboard')]];
 		}
 
-		return ['data' => ['layout' => ['server' => ['application_settings' => $output]]]];
+		return ['data' => ['layout' => ['server' => ['application_settings' => $output]]], 'success' => ['saved']];
 	}
 
 

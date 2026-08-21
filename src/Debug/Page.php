@@ -18,12 +18,12 @@ class Page
 	{
 		echo '
 		<div style="max-width: 1000px; margin: 50px auto;">
-		<h1><img src="' . Escape::htmlAttr(Logo::Menu) . '" alt="" width="25"/>&nbsp;BulkGate Debug</h1>
-		<p>This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities.</p
+		<h1><img src="' . Escape::htmlAttr(Logo::Menu) . '" alt="" width="25"/>&nbsp;' . esc_html__('BulkGate Debug','woosms-sms-module-for-woocommerce') . '</h1>
+		<p>' . esc_html__('This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities.','woosms-sms-module-for-woocommerce') . '</p
 		>';
 
 		echo '
-		<h2>Requirements test</h2>
+		<h2>' . esc_html__('Requirements test','woosms-sms-module-for-woocommerce') . '</h2>
 		<table id="bulkgate-requirements-table" class="widefat striped">
 			<tbody>
 				<tr>
@@ -70,7 +70,7 @@ class Page
 
 		$list = $logger->getList();
 
-		echo '<h2>Error log</h2>';
+		echo '<h2>'. esc_html__('Error log','woosms-sms-module-for-woocommerce')  . '</h2>';
 
 		if ($list !== [])
 		{

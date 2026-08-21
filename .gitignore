@@ -5,3 +5,4 @@ composer.lock
 coverage.html
 tests/**/output/*.actual
 tests/**/output/*.expected
+languages/*.mo

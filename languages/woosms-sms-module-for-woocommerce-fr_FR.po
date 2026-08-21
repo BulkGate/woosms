@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 16:55+0000\n"
+"PO-Revision-Date: 2023-12-14 10:03+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fr_FR\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: languages/CustomTranslations.php:7
+msgid "BulkGate SMS Plugin for WooCommerce"
+msgstr "Plugin SMS BulkGate pour WooCommerce"
+
+#: languages/CustomTranslations.php:8
+msgid "Notify your customers about order status via SMS notifications."
+msgstr "Informez vos clients de l'état de leur commande via des notifications SMS."
+
+#: src/Debug/Page.php:21
+msgid "BulkGate Debug"
+msgstr "Débogage BulkGate"
+
+#: src/Debug/Page.php:22
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Cette page sert d'outil complet pour que les utilisateurs puissent surveiller, analyser et résoudre les problèmes du plugin, y compris le suivi des erreurs dans le journal. Elle fournit également des informations essentielles et des capacités de dépannage."
+
+#: src/Debug/Page.php:26
+msgid "Requirements test"
+msgstr "Test des exigences"
+
+#: src/Debug/Page.php:73
+msgid "Error log"
+msgstr "Journal des erreurs"
+
+#: src/Event/Cron.php:28
+msgid "BulkGate Sending Interval"
+msgstr "Intervalle d'envoi de BulkGate"
+
+#: src/Event/Cron.php:33
+msgid "BulkGate Synchronize Interval"
+msgstr "Intervalle de synchronisation de BulkGate"
+
+#: src/Template/Init.php:58
+msgid "You must be logged in to get the plugin working."
+msgstr "Vous devez être connecté pour que le plugin fonctionne."
+
+#: src/Template/Init.php:58
+msgid "Log in"
+msgstr "Se connecter"
+
+#: src/Utils/Meta.php:33
+msgid "Help Desk"
+msgstr "Service d'assistance"
+
+#: src/Utils/Meta.php:34
+msgid "Price List"
+msgstr "Liste des prix"
+
+#: src/Utils/Meta.php:35
+msgid "YouTube Channel"
+msgstr "Chaîne YouTube"
+
+#: src/Utils/Meta.php:36
+msgid "Contact us"
+msgstr "Contactez-nous"
+
+#: src/Utils/Meta.php:39
+msgid "Terms of Service"
+msgstr "Conditions d'utilisation"
+
+#: src/Utils/Meta.php:40
+msgid "Privacy Policy"
+msgstr "Politique de confidentialité"
+
+#: src/Utils/Meta.php:57
+msgid "Debug"
+msgstr "Débogage"
+
+#: src/Utils/Meta.php:61
+msgid "Log In"
+msgstr "Se connecter"
+
+#: src/Utils/Meta.php:65
+msgid "Settings"
+msgstr "Paramètres"

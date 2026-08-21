@@ -1,0 +1,93 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-20 16:55+0000\n"
+"PO-Revision-Date: 2023-12-14 12:11+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: bg_BG\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;esc_html__;esc_attr__;_e;esc_html_e;esc_attr_e\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: languages/CustomTranslations.php:7
+msgid "BulkGate SMS Plugin for WooCommerce"
+msgstr "BulkGate SMS Плъгин за WooCommerce"
+
+#: languages/CustomTranslations.php:8
+msgid "Notify your customers about order status via SMS notifications."
+msgstr "Уведомявайте клиентите си за статуса на поръчката чрез SMS уведомления."
+
+#: src/Debug/Page.php:21
+msgid "BulkGate Debug"
+msgstr "Отстраняване на грешки BulkGate"
+
+#: src/Debug/Page.php:22
+msgid "This page serves as a comprehensive tool for users to monitor, analyze, and troubleshoot the plugin, including tracking errors in the log. It also provides essential information and troubleshooting capabilities."
+msgstr "Тази страница служи като комплексен инструмент за потребителите за наблюдение, анализ и отстраняване на проблеми с плъгина, включително проследяване на грешки в дневника. Тя предоставя също важна информация и възможности за отстраняване на неизправности."
+
+#: src/Debug/Page.php:26
+msgid "Requirements test"
+msgstr "Тест на изискванията"
+
+#: src/Debug/Page.php:73
+msgid "Error log"
+msgstr "Дневник на грешките"
+
+#: src/Event/Cron.php:28
+msgid "BulkGate Sending Interval"
+msgstr "Интервал за изпращане на BulkGate"
+
+#: src/Event/Cron.php:33
+msgid "BulkGate Synchronize Interval"
+msgstr "Интервал за синхронизация на BulkGate"
+
+#: src/Template/Init.php:58
+msgid "You must be logged in to get the plugin working."
+msgstr "Трябва да сте влезли в системата, за да използвате плъгина."
+
+#: src/Template/Init.php:58
+msgid "Log in"
+msgstr "Вход"
+
+#: src/Utils/Meta.php:33
+msgid "Help Desk"
+msgstr "Център за помощ"
+
+#: src/Utils/Meta.php:34
+msgid "Price List"
+msgstr "Ценова листа"
+
+#: src/Utils/Meta.php:35
+msgid "YouTube Channel"
+msgstr "Канал в YouTube"
+
+#: src/Utils/Meta.php:36
+msgid "Contact us"
+msgstr "Свържете се с нас"
+
+#: src/Utils/Meta.php:39
+msgid "Terms of Service"
+msgstr "Условия за ползване"
+
+#: src/Utils/Meta.php:40
+msgid "Privacy Policy"
+msgstr "Политика за поверителност"
+
+#: src/Utils/Meta.php:57
+msgid "Debug"
+msgstr "Отстраняване на грешки"
+
+#: src/Utils/Meta.php:61
+msgid "Log In"
+msgstr "Вход"
+
+#: src/Utils/Meta.php:65
+msgid "Settings"
+msgstr "Настройки"

@@ -25,12 +25,12 @@ class Cron
 		{
 			$schedules[self::IntervalSending] ??= [
 				'interval' => 60,
-				'display' => __('BulkGate Sending Interval')
+				'display' => esc_html__('BulkGate Sending Interval','woosms-sms-module-for-woocommerce')
 			];
 
 			$schedules[self::IntervalSynchronization] ??= [
 				'interval' => 3_600,
-				'display' => __('BulkGate Synchronize Interval')
+				'display' => esc_html__('BulkGate Synchronize Interval','woosms-sms-module-for-woocommerce')
 			];
 
 			return $schedules;
